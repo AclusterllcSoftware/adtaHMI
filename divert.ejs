@@ -1,0 +1,393 @@
+<%- include('header', {currentMenu: '', pageTitle: 'Divert'}); %>
+    <style type="text/css">
+        #svg-holder {
+            text-align: center;
+        }
+        #svg-holder svg {
+            height: 500px;
+            width: 500px;
+        }
+        #mod-sort-title {
+            font-weight: 500;
+            margin: 0;
+            padding-bottom: 0;
+        }
+    </style>
+    <div class="row m-0 mt-3">
+        <div class="col-lg-2 pt-4 pb-0 pl-2 pr-2">
+            <br><br><br><br><br>
+            <button style="border-radius: 4px" id="mod-sort-1" class="btn btn-block btn-primary btn-sm action-button mb-1" data-device-number="1">Lift-1</button>
+            <button style="border-radius: 4px" id="mod-sort-2" class="btn btn-block btn-primary btn-sm action-button mb-1" data-device-number="2">Lift-2</button>
+            <button style="border-radius: 4px" id="mod-sort-3" class="btn btn-block btn-primary btn-sm action-button mb-1" data-device-number="3">Lift-3</button>
+        </div>
+        <div class="col-lg-8 pt-0 pb-0" id="svg-holder">
+            <h3 id="mod-sort-title"></h3>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 300">
+                <defs>
+                    <style>
+                        .cls-1,.cls-4{fill:none;}
+                        .cls-2{fill:#fff;}
+                        .cls-3{clip-path:url(#clip-path);}
+                        .cls-4{stroke:#000;stroke-miterlimit:10;}
+                        .cls-5{clip-path:url(#clip-path-2);}
+                        .cls-6{fill:#808184;}
+                        .cls-7{fill:#bbbdbf;}
+                        .cls-8{fill:#58595b;}
+                        .cls-9{fill:#6d6e70;}
+                        .cls-10{fill:#a6a8ab;}
+                        .cls-11{fill:#d0d2d3;}
+                        .cls-12{fill:url(#linear-gradient);}
+                        .cls-13{fill:#929497;}
+                        .cls-14{fill:url(#linear-gradient-2);}
+                        .cls-15{fill:url(#linear-gradient-3);}
+                        .cls-16{fill:url(#linear-gradient-4);}
+                        .cls-17{fill:url(#linear-gradient-5);}
+                        .cls-18{fill:url(#linear-gradient-6);}
+                        .cls-19{fill:#f1f1f2;}
+                    </style>
+                    <clipPath id="clip-path">
+                        <circle class="cls-1" cx="222.904" cy="262.158" r="6"/>
+                    </clipPath>
+                    <clipPath id="clip-path-2">
+                        <circle class="cls-1" cx="222.904" cy="280.814" r="6"/>
+                    </clipPath>
+                    <linearGradient id="linear-gradient" x1="57.813" y1="65.972" x2="75.656" y2="69.12" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#b27044"/>
+                        <stop offset="0.482" stop-color="#db874d"/>
+                        <stop offset="1" stop-color="#995e36"/>
+                    </linearGradient>
+                    <linearGradient id="linear-gradient-2" x1="91.811" y1="67.201" x2="109.035" y2="68.87" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-3" x1="126.185" y1="23.389" x2="143.497" y2="24.019" gradientTransform="matrix(1, 0.024, -0.024, 1, -0.712, 41.068)" xlink:href="#linear-gradient"/>
+                        <linearGradient id="linear-gradient-4" x1="223.091" y1="69.272" x2="240.719" y2="66.04" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#b27044"/>
+                        <stop offset="0.543" stop-color="#db874d"/>
+                        <stop offset="1" stop-color="#995e36"/>
+                    </linearGradient>
+                    <linearGradient id="linear-gradient-5" x1="189.974" y1="69.018" x2="208.072" y2="67.017" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#b27044"/>
+                        <stop offset="0.517" stop-color="#db874d"/>
+                        <stop offset="1" stop-color="#995e36"/>
+                    </linearGradient>
+                    <linearGradient id="linear-gradient-6" x1="156.699" y1="68.38" x2="174.989" y2="67.609" gradientUnits="userSpaceOnUse">
+                        <stop offset="0.008" stop-color="#b27044"/>
+                        <stop offset="0.482" stop-color="#db874d"/>
+                        <stop offset="1" stop-color="#995e36"/>
+                    </linearGradient>
+                </defs>
+                <title>Divert</title>
+                <g id="Layer_2" data-name="Layer 2">
+                    <g id="Layer_1" data-name="Layer 1">
+                        <circle id="divert-up" class="cls-2" cx="222.904" cy="262.158" r="5.75"/>
+                        <path d="M222.9,256.658a5.5,5.5,0,1,1-5.5,5.5,5.506,5.506,0,0,1,5.5-5.5m0-.5a6,6,0,1,0,6,6,6,6,0,0,0-6-6Z"/>
+                        <g class="cls-3">
+                            <line class="cls-4" x1="209.461" y1="271.707" x2="230.799" y2="250.369"/>
+                            <line class="cls-4" x1="211.41" y1="273.657" x2="232.748" y2="252.319"/>
+                            <line class="cls-4" x1="213.36" y1="275.606" x2="234.698" y2="254.268"/>
+                        </g>
+                        <circle id="divert-down" class="cls-2" cx="222.904" cy="280.814" r="5.75"/>
+                        <path d="M222.9,275.314a5.5,5.5,0,1,1-5.5,5.5,5.506,5.506,0,0,1,5.5-5.5m0-.5a6,6,0,1,0,6,6,6,6,0,0,0-6-6Z"/>
+                        <g class="cls-5">
+                            <line class="cls-4" x1="209.461" y1="290.363" x2="230.799" y2="269.025"/>
+                            <line class="cls-4" x1="211.41" y1="292.312" x2="232.748" y2="270.974"/>
+                            <line class="cls-4" x1="213.36" y1="294.262" x2="234.698" y2="272.924"/>
+                        </g>
+                    </g>
+                </g>
+                <g id="Layer_4" data-name="Layer 4">
+                    <polygon class="cls-6" points="238.268 151.888 60.976 151.888 59.434 142.192 239.81 142.192 238.268 151.888"/>
+                    <polygon class="cls-7" points="239.867 142.192 59.491 142.192 64.632 132.497 234.725 132.497 239.867 142.192"/>
+                    <path class="cls-6" d="M149.622,243.4H53.564l1.028,4.88c.645,1.936,2.025,3.372,3.887,3.372H240.727c1.877,0,3.266-1.436,3.916-3.372l1.036-4.88Z"/>
+                    <path class="cls-8" d="M89.355,240.7h15.123a0,0,0,0,1,0,0v19.979a7.562,7.562,0,0,1-7.562,7.562h0a7.562,7.562,0,0,1-7.562-7.562V240.7A0,0,0,0,1,89.355,240.7Z" transform="translate(-16.429 6.881) rotate(-3.749)"/>
+                    <polygon class="cls-8" points="89.228 260.634 90.134 265.187 105.081 263.837 105.515 259.567 89.228 260.634"/>
+                    <path class="cls-9" d="M88.66,239.249h16.335a0,0,0,0,1,0,0v16.733a8.168,8.168,0,0,1-8.168,8.168h0a8.168,8.168,0,0,1-8.168-8.168V239.249A0,0,0,0,1,88.66,239.249Z" transform="translate(-16.249 6.869) rotate(-3.749)"/>
+                    <ellipse class="cls-10" cx="97.402" cy="254.79" rx="7.471" ry="4.86"/>
+                    <polygon class="cls-10" points="88.94 237.764 89.906 254.79 104.897 254.79 105.863 237.764 88.94 237.764"/>
+                    <ellipse class="cls-11" cx="97.402" cy="237.764" rx="8.461" ry="5.505"/>
+                    <path class="cls-10" d="M98.752,190.044a12.405,12.405,0,0,1-2.848,0Z"/>
+                    <path class="cls-8" d="M202.327,240.7h0a7.562,7.562,0,0,1,7.562,7.562v19.979a0,0,0,0,1,0,0H194.765a0,0,0,0,1,0,0V248.26A7.562,7.562,0,0,1,202.327,240.7Z" transform="translate(387.584 521.621) rotate(-176.251)"/>
+                    <polygon class="cls-8" points="210.016 260.633 209.11 265.186 194.163 263.836 193.729 259.566 210.016 260.633"/>
+                    <path class="cls-9" d="M202.417,239.248h0a8.168,8.168,0,0,1,8.168,8.168v16.733a0,0,0,0,1,0,0H194.249a0,0,0,0,1,0,0V247.415A8.168,8.168,0,0,1,202.417,239.248Z" transform="translate(387.944 516.091) rotate(-176.251)"/>
+                    <ellipse class="cls-10" cx="201.842" cy="254.789" rx="7.471" ry="4.86"/>
+                    <polygon class="cls-10" points="210.303 237.763 209.338 254.789 194.346 254.789 193.381 237.763 210.303 237.763"/>
+                    <ellipse class="cls-11" cx="201.842" cy="237.763" rx="8.461" ry="5.505"/>
+                    <path class="cls-9" d="M281.154,231.215,251.518,83.321a3.631,3.631,0,0,0-2.871-2.851h-6.569l9.741,130.983-102.254,0h0l-102.141,0L57.166,80.471H50.6a3.631,3.631,0,0,0-2.871,2.851L18.09,231.216H281.154Z"/>
+                    <path class="cls-8" d="M149.565,231.215H18.09l5.8,34a3.632,3.632,0,0,0,3.58,3.021h.347a3.631,3.631,0,0,0,3.355-2.244l8.393-20.3a3.628,3.628,0,0,1,3.353-2.243l106.76-.037h0l106.646.037a3.628,3.628,0,0,1,3.353,2.243l8.392,20.3a3.633,3.633,0,0,0,3.356,2.244h.347a3.632,3.632,0,0,0,3.58-3.021l5.8-34Z"/>
+                    <path class="cls-10" d="M200.491,190.043a12.414,12.414,0,0,0,2.849,0Z"/>
+                    <path class="cls-6" d="M145.088,57.846l-3.38-37.826a3.314,3.314,0,0,0-3.283-2.859h-5.372A3.316,3.316,0,0,0,129.74,20.6l-.351,37.042a1.152,1.152,0,0,1-1.151,1.2H116.726a1.152,1.152,0,0,1-1.141-.994L111.343,20.02a3.315,3.315,0,0,0-3.284-2.859h-5.371A3.316,3.316,0,0,0,99.375,20.6l.512,37.042a1.152,1.152,0,0,1-1.152,1.2H87.377a1.152,1.152,0,0,1-1.141-.994L80.547,19.94a3.316,3.316,0,0,0-3.284-2.86H71.892a3.315,3.315,0,0,0-3.313,3.442l1.847,37.122a1.152,1.152,0,0,1-1.151,1.2H66.709a1.152,1.152,0,0,0-1.148,1.245L68.209,96.4a1.151,1.151,0,0,0,1.144,1.059l80.326.3V58.84h-3.45A1.152,1.152,0,0,1,145.088,57.846Z"/>
+                    <path class="cls-6" d="M154.156,57.845l3.379-37.826a3.315,3.315,0,0,1,3.284-2.859h5.371A3.314,3.314,0,0,1,169.5,20.6l.351,37.042a1.152,1.152,0,0,0,1.152,1.2h11.512a1.152,1.152,0,0,0,1.141-.994L187.9,20.019a3.314,3.314,0,0,1,3.283-2.859h5.372a3.316,3.316,0,0,1,3.313,3.441l-.512,37.042a1.152,1.152,0,0,0,1.151,1.2h11.359a1.152,1.152,0,0,0,1.141-.994L218.7,19.939a3.316,3.316,0,0,1,3.284-2.86h5.371a3.317,3.317,0,0,1,3.313,3.442l-1.847,37.122a1.152,1.152,0,0,0,1.151,1.2h2.566a1.152,1.152,0,0,1,1.148,1.245L231.035,96.4a1.153,1.153,0,0,1-1.144,1.06l-80.326.3V58.839h3.45A1.152,1.152,0,0,0,154.156,57.845Z"/>
+                    <path class="cls-7" d="M228.743,70.04H70.614c-4.236,0-7.514,3.432-6.993,7.32l3.81,28.392a6.881,6.881,0,0,0,6.993,5.715H224.933a6.881,6.881,0,0,0,6.993-5.715l3.81-28.392C236.258,73.472,232.979,70.04,228.743,70.04Zm-139.2,10.8-1.235,20.224a3.723,3.723,0,0,1-3.832,3.35H82.046a3.722,3.722,0,0,1-3.832-3.35L76.979,80.842a3.684,3.684,0,0,1,3.832-3.751h4.9A3.684,3.684,0,0,1,89.546,80.842Zm15.143,23.574h-4.9a3.684,3.684,0,0,1-3.832-3.751L97.19,80.441a3.723,3.723,0,0,1,3.832-3.35h2.433a3.723,3.723,0,0,1,3.832,3.35l1.235,20.224A3.684,3.684,0,0,1,104.689,104.416ZM127.5,80.842l-1.235,20.224a3.722,3.722,0,0,1-3.832,3.35H120a3.722,3.722,0,0,1-3.832-3.35l-1.235-20.224a3.684,3.684,0,0,1,3.833-3.751h4.9A3.684,3.684,0,0,1,127.5,80.842Zm15.144,23.574h-4.9a3.684,3.684,0,0,1-3.833-3.751l1.235-20.224a3.724,3.724,0,0,1,3.832-3.35h2.433a3.724,3.724,0,0,1,3.833,3.35l1.234,20.224A3.684,3.684,0,0,1,142.642,104.416ZM165.45,80.842l-1.234,20.224a3.724,3.724,0,0,1-3.833,3.35H157.95a3.723,3.723,0,0,1-3.832-3.35l-1.234-20.224a3.683,3.683,0,0,1,3.832-3.751h4.9A3.684,3.684,0,0,1,165.45,80.842Zm15.144,23.574h-4.9a3.683,3.683,0,0,1-3.832-3.751l1.234-20.224a3.724,3.724,0,0,1,3.832-3.35h2.433a3.724,3.724,0,0,1,3.833,3.35l1.234,20.224A3.684,3.684,0,0,1,180.594,104.416ZM203.4,80.842l-1.234,20.224a3.723,3.723,0,0,1-3.832,3.35H195.9a3.723,3.723,0,0,1-3.832-3.35l-1.234-20.224a3.683,3.683,0,0,1,3.832-3.751h4.9A3.684,3.684,0,0,1,203.4,80.842Zm15.144,23.574h-4.9a3.684,3.684,0,0,1-3.832-3.751l1.234-20.224a3.724,3.724,0,0,1,3.832-3.35h2.434a3.724,3.724,0,0,1,3.832,3.35l1.234,20.224A3.684,3.684,0,0,1,218.546,104.416Z"/>
+                    <path class="cls-12" d="M58.136,119.92h0a9.733,9.733,0,0,0,11.371-8.127l13.34-85.987a9.192,9.192,0,0,0-7.384-10.612h0a9.19,9.19,0,0,0-10.412,7.667l-15.073,85.7A9.6,9.6,0,0,0,58.136,119.92Z"/>
+                    <ellipse class="cls-7" cx="59.434" cy="112.621" rx="9.618" ry="7.469"/>
+                    <path class="cls-13" d="M65.277,114.094c-.307-2.3-2.806-4.086-5.843-4.086s-5.537,1.79-5.844,4.086h-.032l-1.543,6.956,11.752-.245,1.543-6.711Z"/>
+                    <ellipse class="cls-7" cx="57.891" cy="121.05" rx="5.876" ry="4.563"/>
+                    <path class="cls-14" d="M94.025,120.8h0a9.733,9.733,0,0,0,11.371-8.126L113.4,25.806a9.192,9.192,0,0,0-7.384-10.612h0a9.19,9.19,0,0,0-10.412,7.667l-9.74,86.582A9.6,9.6,0,0,0,94.025,120.8Z"/>
+                    <ellipse class="cls-7" cx="95.673" cy="113.282" rx="9.618" ry="7.469"/>
+                    <path class="cls-13" d="M101.516,114.755c-.307-2.3-2.806-4.086-5.843-4.086s-5.537,1.79-5.844,4.086H89.8l-1.029,6.956,11.753-.245,1.028-6.711Z"/>
+                    <ellipse class="cls-7" cx="94.644" cy="121.711" rx="5.876" ry="4.563"/>
+                    <path class="cls-15" d="M129.342,120.712h0a9.744,9.744,0,0,0,11.575-7.851l3.472-86.81a9.192,9.192,0,0,0-7.126-10.787h0a9.192,9.192,0,0,0-10.594,7.415l-5.2,86.483C121.032,116.12,123.889,119.727,129.342,120.712Z"/>
+                    <ellipse class="cls-7" cx="131.085" cy="113.211" rx="9.618" ry="7.469"/>
+                    <path class="cls-13" d="M136.928,114.685c-.307-2.3-2.806-4.086-5.843-4.086s-5.537,1.79-5.844,4.086h-.032l-.515,6.956,11.752-.245.515-6.711Z"/>
+                    <ellipse class="cls-7" cx="130.57" cy="121.641" rx="5.876" ry="4.563"/>
+                    <path class="cls-16" d="M241.108,119.919h0a9.733,9.733,0,0,1-11.371-8.127L216.4,25.805a9.191,9.191,0,0,1,7.384-10.612h0a9.19,9.19,0,0,1,10.412,7.667l15.072,85.7A9.6,9.6,0,0,1,241.108,119.919Z"/>
+                    <ellipse class="cls-7" cx="239.81" cy="112.62" rx="9.618" ry="7.469"/>
+                    <path class="cls-13" d="M233.966,114.093c.308-2.3,2.806-4.086,5.844-4.086s5.536,1.79,5.844,4.086h.032l1.543,6.956-11.752-.245-1.543-6.711Z"/>
+                    <ellipse class="cls-7" cx="241.353" cy="121.049" rx="5.876" ry="4.563"/>
+                    <path class="cls-17" d="M205.219,120.8h0a9.733,9.733,0,0,1-11.371-8.126l-8.007-86.869a9.191,9.191,0,0,1,7.384-10.612h0a9.19,9.19,0,0,1,10.412,7.667l9.74,86.582A9.6,9.6,0,0,1,205.219,120.8Z"/>
+                    <ellipse class="cls-7" cx="203.571" cy="113.281" rx="9.618" ry="7.469"/>
+                    <path class="cls-13" d="M197.727,114.754c.308-2.3,2.806-4.086,5.844-4.086s5.536,1.79,5.844,4.086h.032l1.028,6.956-11.752-.245-1.028-6.711Z"/>
+                    <ellipse class="cls-7" cx="204.599" cy="121.71" rx="5.876" ry="4.563"/>
+                    <path class="cls-18" d="M169.9,120.711h0a9.745,9.745,0,0,1-11.575-7.851l-3.471-86.81a9.191,9.191,0,0,1,7.126-10.787h0a9.193,9.193,0,0,1,10.594,7.415l5.2,86.483C178.211,116.119,175.355,119.727,169.9,120.711Z"/>
+                    <ellipse class="cls-7" cx="168.159" cy="113.21" rx="9.618" ry="7.469"/>
+                    <path class="cls-13" d="M162.316,114.684c.307-2.3,2.806-4.086,5.843-4.086s5.537,1.79,5.844,4.086h.032l.514,6.956L162.8,121.4l-.514-6.711Z"/>
+                    <ellipse class="cls-7" cx="168.673" cy="121.64" rx="5.876" ry="4.563"/>
+                    <path class="cls-6" d="M252.529,169.021a1.373,1.373,0,0,0-1.369-1.484H248.1a1.374,1.374,0,0,1-1.373-1.427l2.2-44.269a3.954,3.954,0,0,0-3.951-4.1h-6.405a5.306,5.306,0,0,0-4.167,4.292l-6.733,44.86a1.368,1.368,0,0,1-1.161.649H212.967a1.374,1.374,0,0,1-1.373-1.427l.61-42.947a3.954,3.954,0,0,0-3.951-4.1h-6.4a5.306,5.306,0,0,0-4.167,4.292l-5.021,43.559a1.37,1.37,0,0,1-1.147.628H177.784a1.374,1.374,0,0,1-1.373-1.427l-.419-42.947a3.954,3.954,0,0,0-3.951-4.1h-6.405a3.951,3.951,0,0,0-3.9,3.314,3.9,3.9,0,0,0-.269.978l-4,43.573a1.372,1.372,0,0,1-1.139.614l-6.764,0v0h-6.65a1.368,1.368,0,0,1-1.139-.614l-4-43.572a5.314,5.314,0,0,0-4.167-4.292H127.2a3.954,3.954,0,0,0-3.951,4.105l-.419,42.947a1.373,1.373,0,0,1-1.373,1.426H107.731a1.368,1.368,0,0,1-1.147-.627l-5.021-43.559a3.9,3.9,0,0,0-.269-.978,3.951,3.951,0,0,0-3.9-3.314H90.991a3.954,3.954,0,0,0-3.951,4.105l.61,42.947a1.374,1.374,0,0,1-1.373,1.426H72.731a1.37,1.37,0,0,1-1.162-.648l-6.732-44.86a3.9,3.9,0,0,0-.269-.978,3.951,3.951,0,0,0-3.9-3.314H54.265a3.954,3.954,0,0,0-3.951,4.1l2.2,44.27a1.374,1.374,0,0,1-1.373,1.426h-3.06a1.374,1.374,0,0,0-1.369,1.485l3.157,43.311a1.362,1.362,0,0,0,.235.656l.016.225a1.375,1.375,0,0,0,1.365,1.264l98.191.363v0l98.077-.362a1.374,1.374,0,0,0,1.364-1.264l.017-.225a1.351,1.351,0,0,0,.234-.656Z"/>
+                    <polygon class="cls-10" points="149.622 221.688 149.622 227.375 46.368 227.375 48.497 211.328 52.81 211.328 149.622 211.328 149.622 221.688"/>
+                    <polygon class="cls-7" points="149.622 211.328 149.622 221.688 51.432 221.688 52.81 211.328 53.566 205.641 149.622 205.641 149.622 211.328"/>
+                    <polygon class="cls-13" points="53.564 205.639 48.496 211.326 46.366 227.375 51.434 221.688 53.564 205.639"/>
+                    <polygon class="cls-10" points="113.126 214.065 112.613 217.393 81.527 217.393 81.033 214.208 113.126 214.065"/>
+                    <ellipse class="cls-10" cx="97.069" cy="216.492" rx="15.6" ry="10.484"/>
+                    <ellipse class="cls-11" cx="97.069" cy="213.094" rx="16.121" ry="10.834"/>
+                    <ellipse class="cls-10" cx="72.582" cy="217.109" rx="4.456" ry="2.899" transform="translate(-5.981 2.092) rotate(-1.586)"/>
+                    <polygon class="cls-10" points="67.542 214.134 68.124 217.232 77.04 216.985 77.445 213.897 67.542 214.134"/>
+                    <ellipse class="cls-11" cx="72.488" cy="213.719" rx="4.974" ry="3.236" transform="translate(-5.888 2.088) rotate(-1.586)"/>
+                    <ellipse class="cls-13" cx="72.53" cy="213.35" rx="2.482" ry="1.615"/>
+                    <polygon class="cls-13" points="69.018 204.312 70.046 213.35 75.014 213.35 75.014 204.312 69.018 204.312"/>
+                    <ellipse class="cls-13" cx="72.016" cy="204.312" rx="2.998" ry="1.95"/>
+                    <ellipse class="cls-10" cx="96.951" cy="212.693" rx="9.086" ry="5.911"/>
+                    <polygon class="cls-10" points="87.314 197.415 87.829 212.693 106.073 212.693 106.588 197.415 87.314 197.415"/>
+                    <ellipse class="cls-11" cx="96.951" cy="197.415" rx="9.637" ry="6.269"/>
+                    <ellipse class="cls-10" cx="72.016" cy="201.63" rx="6.807" ry="4.428"/>
+                    <polygon class="cls-10" points="64.713 195.897 65.228 201.63 78.804 201.63 79.319 195.897 64.713 195.897"/>
+                    <ellipse class="cls-11" cx="72.016" cy="195.897" rx="7.303" ry="4.751"/>
+                    <path class="cls-10" d="M88.015,179.631l-.251,1.683a2.232,2.232,0,0,1-1.9,1.882l-20.493,2.882a2.232,2.232,0,0,0-1.921,2.211l1.028,5.092a2.325,2.325,0,0,0,2.232,2.232l19.473.514a2.186,2.186,0,0,1,1.583.645,11.58,11.58,0,0,0,8.453,3.641c5.725,0,9.851-2.807,9.851-6.269l.514-14.185a2.232,2.232,0,0,0-2.232-2.232H90.223A2.233,2.233,0,0,0,88.015,179.631Z"/>
+                    <path class="cls-11" d="M88.015,172.249l-.251,1.683a2.231,2.231,0,0,1-1.9,1.882L65.374,178.7a2.232,2.232,0,0,0-1.921,2.211v6.12a2.232,2.232,0,0,0,2.232,2.232H85.672a2.187,2.187,0,0,1,1.583.645c1.794,1.869,5.136,3.127,8.967,3.127,5.725,0,10.365-2.807,10.365-6.269V172.577a2.232,2.232,0,0,0-2.232-2.232H90.223A2.233,2.233,0,0,0,88.015,172.249Z"/>
+                    <ellipse class="cls-10" cx="96.5" cy="185.563" rx="5.956" ry="3.875"/>
+                    <ellipse class="cls-19" cx="96.5" cy="184.944" rx="5.956" ry="3.875"/>
+                    <polygon class="cls-10" points="149.565 221.687 149.565 227.374 252.876 227.374 250.746 211.327 246.43 211.327 149.565 211.327 149.565 221.687"/>
+                    <polygon class="cls-7" points="149.565 211.327 149.565 221.687 247.809 221.687 246.43 211.327 245.674 205.64 149.565 205.64 149.565 211.327"/>
+                    <polygon class="cls-13" points="245.679 205.638 250.748 211.325 252.878 227.374 247.809 221.687 245.679 205.638"/>
+                    <polygon class="cls-10" points="186.118 214.064 186.631 217.393 217.717 217.393 218.211 214.207 186.118 214.064"/>
+                    <ellipse class="cls-10" cx="202.174" cy="216.491" rx="15.6" ry="10.484"/>
+                    <ellipse class="cls-11" cx="202.174" cy="213.093" rx="16.121" ry="10.834"/>
+                    <ellipse class="cls-10" cx="226.662" cy="217.108" rx="2.899" ry="4.456" transform="translate(3.364 437.674) rotate(-88.414)"/>
+                    <polygon class="cls-10" points="231.702 214.134 231.12 217.231 222.204 216.984 221.799 213.896 231.702 214.134"/>
+                    <ellipse class="cls-11" cx="226.756" cy="213.718" rx="3.236" ry="4.974" transform="translate(6.843 434.472) rotate(-88.414)"/>
+                    <ellipse class="cls-13" cx="226.714" cy="213.349" rx="2.482" ry="1.615"/>
+                    <polygon class="cls-13" points="230.226 204.311 229.197 213.349 224.23 213.349 224.23 204.311 230.226 204.311"/>
+                    <ellipse class="cls-13" cx="227.228" cy="204.311" rx="2.998" ry="1.95"/>
+                    <ellipse class="cls-10" cx="202.293" cy="212.693" rx="9.086" ry="5.911"/>
+                    <polygon class="cls-10" points="211.929 197.415 211.415 212.693 193.17 212.693 192.656 197.415 211.929 197.415"/>
+                    <ellipse class="cls-11" cx="202.293" cy="197.415" rx="9.637" ry="6.269"/>
+                    <ellipse class="cls-10" cx="227.228" cy="201.629" rx="6.807" ry="4.428"/>
+                    <polygon class="cls-10" points="234.53 195.896 234.016 201.629 220.439 201.629 219.925 195.896 234.53 195.896"/>
+                    <ellipse class="cls-11" cx="227.228" cy="195.896" rx="7.303" ry="4.751"/>
+                    <path class="cls-10" d="M211.229,179.63l.25,1.683a2.233,2.233,0,0,0,1.9,1.882l20.494,2.882a2.233,2.233,0,0,1,1.921,2.211l-1.028,5.092a2.325,2.325,0,0,1-2.233,2.232l-19.472.514a2.184,2.184,0,0,0-1.583.645,11.58,11.58,0,0,1-8.453,3.641c-5.725,0-9.851-2.807-9.851-6.269l-.515-14.185a2.233,2.233,0,0,1,2.233-2.232h14.132A2.233,2.233,0,0,1,211.229,179.63Z"/>
+                    <path class="cls-11" d="M211.229,172.248l.25,1.683a2.233,2.233,0,0,0,1.9,1.882L233.87,178.7a2.232,2.232,0,0,1,1.921,2.21v6.12a2.232,2.232,0,0,1-2.232,2.232H213.572a2.186,2.186,0,0,0-1.583.645c-1.794,1.869-5.136,3.127-8.967,3.127-5.725,0-10.366-2.807-10.366-6.269V172.577a2.233,2.233,0,0,1,2.233-2.233h14.132A2.233,2.233,0,0,1,211.229,172.248Z"/>
+                    <ellipse class="cls-10" cx="202.744" cy="185.562" rx="5.956" ry="3.875"/>
+                    <ellipse class="cls-19" cx="202.744" cy="184.943" rx="5.956" ry="3.875"/>
+                </g>
+            </svg>
+        </div>
+        <div class="col-lg-2 pt-4 pb-0 pl-2 pr-2 text-left">
+            <br><br><br>
+            <button class="btn btn-block btn-primary operation-buttons mb-2" data-operation="0" data-device="0" id="open-hook-a" style="border-radius: 4px">Up</button>
+            <button class="btn btn-block btn-primary operation-buttons mb-2" data-operation="1" data-device="0" id="close-hook-a" style="border-radius: 4px">Down</button>
+            <button class="btn btn-block btn-primary operation-buttons mb-2" data-operation="2" data-device="0" id="reboot-hook-a" style="border-radius: 4px">Rotate Left</button>
+            <button class="btn btn-block btn-primary operation-buttons mb-2" data-operation="3" data-device="0" id="reboot-hook-a" style="border-radius: 4px">Rotate Right</button>
+            <button class="btn btn-block btn-primary operation-buttons mb-2" data-operation="4" data-device="0" id="reboot-hook-a" style="border-radius: 4px">Stop Roller</button>
+        </div>
+    </div>
+    <div class="row m-0">
+        <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-4">
+            <table class="table table-sm table-bordered" id="details_active_alarms_table">
+                <thead>
+                <tr>
+                    <th width="20%">Timestamp</th>
+                    <th width="10%">Duration</th>
+                    <th width="10%">Class</th>
+                    <th width="10%">Location</th>
+                    <th width="20%">Description</th>
+                    <th width="20%">Variable Name</th>
+                </tr>
+                </thead>
+                <tbody id="active_alarm_tbody">
+                    <tr>
+                        <td colspan="6">No active alarm to display</td>
+                    </tr>
+                </tbody>
+            </table>
+			<div class="row" id="marquee1">
+				<div class="col-lg-12">
+					<ul id="alarm-ticker"></ul>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+<%- include('footer', {currentMenu: 'settings'}); %>
+<script src="js/jquery-bootstrap.js"></script>
+<script src="js/nav.js"></script>
+<script>
+    let machine_mode = 9;
+    var device_type = 2;
+    var sorter_number = 1;
+    var device_number = 1;
+    var local_ip_address = getIPAddress();
+    let alarm_class_to_names = {"0" : "Error", "1" : "Warning", "2" : "Message"};
+    async function loadSettingsValues() {
+        let settings_values = await ipcRenderer.invoke('getStoreValue');
+    
+        //console.log(settings_values);
+    
+        for (let key in settings_values) {
+            let value = settings_values[key];
+            let related_input_id = "#" + key;
+            if(key === 'detailed_active_alarm') {
+                if(value == "active") {
+                    jQuery(related_input_id).prop( "checked", true );
+                } else {
+                    jQuery(related_input_id).prop( "checked", false );
+                }
+            } else {
+                if(value != "not_set") {
+                    jQuery(related_input_id).val(value)
+                }
+            }
+            //console.log(key, value);
+        }
+    
+        if(maintenance_ip_list[selected_machine]!== 'undefined' && maintenance_ip_list[selected_machine] === local_ip_address) {
+            jQuery("#manual_mode_button").show();
+        }
+    }
+    
+    function loadDeviceSorterNumbers() {
+        const urlParams = new URLSearchParams(window.location.search);
+        device_type = parseInt(urlParams.get('device_type'));
+        sorter_number = parseInt(urlParams.get('sorter_number'));
+        device_number = parseInt(urlParams.get('device_number'));
+        
+        var mod_sort_title = "Lift " + sorter_number;
+        jQuery("#mod-sort-title").text(mod_sort_title);
+        var related_action_btn_id = "#mod-sort-" + sorter_number;
+        jQuery(related_action_btn_id).attr("disabled", "disabled");
+
+        jQuery(".operation-buttons").each(function(i, e) {
+            jQuery(this).data("device", sorter_number);
+        });
+    }
+    
+    jQuery(document).ready(function() {
+        loadSettingsValues();
+        loadDeviceSorterNumbers();
+        jQuery("#ip_list_dropdown").change(function() {
+            selected_machine = jQuery(this).val();
+    
+            if(selected_machine !== "") {
+                let selected_machine_name = machine_list[selected_machine];
+                jQuery("#display_machine_name").text(selected_machine_name);
+    
+                setInterval(() => {
+                    ipcRenderer.send("get:mod_sort", selected_machine, device_type, sorter_number);
+                }, 1000);
+    
+            } else {
+                selected_machine = 0;
+                jQuery("#display_machine_name").text("Select a machine");
+            }
+    
+            ipcRenderer.send("get:mod_sort", selected_machine, device_type, sorter_number);
+        });
+    
+        jQuery(".action-button").click(function(){
+            var device_number = jQuery(this).data("device-number");
+            ipcRenderer.send("change:modsort", 2, device_number, 1);
+        });
+
+        jQuery("#sorter-changer").change(function(){
+            var changed_sorter = jQuery(this).val();
+            ipcRenderer.send("change:modsort", 2, changed_sorter, 1);
+        });
+
+        jQuery(".operation-buttons").click(function() {
+            let operation = jQuery(this).data('operation');
+            let device = jQuery(this).data('device');
+            console.log("Device: " + device + " + Command: " + operation);
+            ipcRenderer.send("get:device_command", selected_machine, device, operation);
+        });
+    });
+    
+    ipcRenderer.on("render:mod_sort", function(e, mod_sort_result) {
+        machine_mode = mod_sort_result['mode'];
+        //console.log(machine_mode);
+        if(machine_mode !== 1) {
+            jQuery(".operation-buttons").each(function (i, e) {
+                if(!jQuery(this).is(":disabled")) {
+                    jQuery(this).prop("disabled", true);
+                }
+            });
+        } else {
+            jQuery(".operation-buttons").each(function (i, e) {
+                if(jQuery(this).is(":disabled")) {
+                    jQuery(this).prop("disabled", false);
+                }
+            });
+        }
+
+        changeMachineNameBg(machine_mode);
+        //console.log(mod_sort_result);
+        let input_colors = {"0" : "#fff", "1" : "#f00"};
+        let inputs_result = mod_sort_result['inputs'];
+        for (let k in inputs_result) {
+            let related_input_id = "#divert-up";
+    
+            if(k.includes("Up")) {
+                related_input_id = "#divert-up";
+            } else if(k.includes("Down")) {
+                related_input_id = "#divert-down";
+            }
+    
+            let related_input_status = inputs_result[k];
+            
+            if(jQuery(related_input_id).length > 0) {
+                let related_input_color = input_colors[related_input_status];
+                jQuery(related_input_id).css("fill", related_input_color);
+            }
+        }
+
+        let alarms_result = mod_sort_result['alarms'];
+        jQuery("#active_alarm_tbody").empty();
+        if(!jQuery.isEmptyObject(alarms_result)) {
+            for (let k in alarms_result) {
+                let related_alarm_gui_id = k;
+                let related_alarm_info = alarms_result[k];
+                
+                let alarm_type = related_alarm_info['alarm_type'], 
+                alarm_description = related_alarm_info['description'], 
+                alarm_class = related_alarm_info['alarm_class'], 
+                alarm_location = related_alarm_info['location'], 
+                variable_name = related_alarm_info['variable_name'], 
+                timestamp = related_alarm_info['timestamp'],
+                duration = related_alarm_info['duration'];
+
+                timestamp = timeConverter(timestamp);
+                
+                let tr_html = '<tr>' + 
+                    '<td>' + timestamp + '</td>'+
+                    '<td>' + secondsToDhms(duration) + '</td>'+
+                    '<td>' + alarm_class_to_names[alarm_class] + '</td>'+
+                    '<td>' + alarm_location + '</td>'+
+                    '<td>' + alarm_description + '</td>'+
+                    '<td>' + variable_name + '</td>'+
+                    '</tr>';
+
+                jQuery("#active_alarm_tbody").append(tr_html);
+            }
+        } else {
+            let tr_html = '<tr><td colspan="6">No active alarm to display</td></tr>';
+            jQuery("#active_alarm_tbody").append(tr_html);
+        }
+    });
+</script>
+</body>
+</html>

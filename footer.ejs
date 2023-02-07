@@ -1,0 +1,9 @@
+<footer class="text-left">
+    <% if (currentMenu === 'statistics' || currentMenu === 'statistics-packages' || currentMenu === 'statistics-graphs'|| currentMenu === 'statistics-package-to-sort') { %>
+        <div class="main-area flex-grow-1">
+            <a class="btn btn-outline-primary statistics_btn <%= (currentMenu === 'statistics-graphs') ? 'active' : '' %>" href="#" data-link="sorted-code-graphs">SortedCode</a>
+            <a class="btn btn-outline-primary statistics_btn <%= (currentMenu === 'statistics-packages') ? 'active' : '' %>" href="#" data-link="packages-list">Packages</a>
+            <a class="btn btn-outline-primary statistics_btn <%= (currentMenu === 'statistics-package-to-sort') ? 'active' : '' %>" href="#" data-link="statistics-package-to-sort">Package to sort </a>
+        </div>
+    <% } %>
+</footer>

@@ -1,0 +1,214 @@
+<%- include('header', {currentMenu: 'alarms', pageTitle: 'Alarms'}); %>
+    <div class="row m-0 mt-2">
+        <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
+            <h2>Alarms</h2>
+            <table class="table table-sm table-bordered" id="alarm_table">
+                <thead>
+                <tr>
+                    <th width="20%">Timestamp</th>
+                    <th width="10%">Duration</th>
+                    <th width="10%">Class</th>
+                    <th width="10%">Location</th>
+                    <th width="20%">Description</th>
+                    <th width="20%">Variable Name</th>
+                </tr>
+                </thead>
+                <tbody id="active_alarm_tbody">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Duration</th>
+                        <th>Class</th>
+                        <th>Location</th>
+                        <th>Description</th>
+                        <th>Variable Name</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<%- include('footer', {currentMenu: 'alarms'}); %>
+<script src="js/jquery-bootstrap.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/datatables/datatables.js"></script>
+<script src="js/jszip.min.js"></script>
+<script src="js/daterangepicker/moment.min.js"></script>
+<script src="js/daterangepicker/daterangepicker.js"></script>
+<script>
+let alarm_class_to_names = {"0" : "Error", "1" : "Warning", "2" : "Message"};
+let data_table;
+let machine_mode = 9;
+
+jQuery(document).ready(function() {
+    
+    jQuery("#ip_list_dropdown").change(function() {
+        selected_machine = jQuery(this).val();
+
+        if(selected_machine !== "") {
+            let selected_machine_name = machine_list[selected_machine];
+            jQuery("#display_machine_name").text(selected_machine_name);            
+        } else {
+            jQuery("#display_machine_name").text("Select a machine");
+            selected_machine = 0;            
+        }
+
+        ipcRenderer.send("get:views", selected_machine, "alarms_list");
+    });
+
+    data_table = jQuery('#alarm_table').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+        {
+            extend: 'csv',
+            fieldSeparator: ";",
+            text: 'Export'
+        }],
+        "columns": [
+            null,
+            { "orderable": false },
+            null,
+            null,
+            { "orderable": false },
+            { "orderable": false },
+        ],
+        "order": [],
+        initComplete: function () {
+            this.api().columns().every(function () {
+                var column = this;
+                
+                if (column.index() === 2 || column.index() === 3) {
+                    let select_txt = "";
+                    let select_id = "";
+                    if(column.index() === 2) {
+                        select_txt = "Select class";
+                        select_id = "class_filter";
+                    } else {
+                        select_txt = "Select location";
+                        select_id = "location_filter";
+                    }
+
+                    //$(column.header()).append("<br>")
+                    var select = jQuery('<select class="form-control form-control-sm d-inline-block" id="'+ select_id +'"><option value="">'+ select_txt +'</option></select>').appendTo( $(column.footer()).empty() ).on('change', function () {
+                        var val = jQuery.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+        
+                        column.search(val ? '^' + val + '$' : '', true, false).draw();
+                    });
+                } else if (column.index() === 0) {
+                    //$(column.header()).append("<br>")
+                    var select = jQuery('<input type="text" id="daterange" class="form-control form-control-sm d-inline-block">').appendTo( $(column.footer()).empty() );
+                }
+        
+            });
+        }
+    });
+
+    jQuery("#daterange").daterangepicker({
+        drops: "up"
+    }, function(start, end, label) {
+        //console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        minDateFilter = new Date(start).getTime();
+        maxDateFilter = new Date(end).getTime();
+        //console.log("A new date selection was made: " + minDateFilter + ' to ' + maxDateFilter);
+        data_table.draw();
+    });
+});
+
+// Date range filter
+minDateFilter = "";
+maxDateFilter = "";
+
+$.fn.dataTableExt.afnFiltering.push(
+    function(oSettings, aData, iDataIndex) {
+        if (typeof aData._date == 'undefined') {
+            aData._date = new Date(aData[0]).getTime();
+        }
+
+        if (minDateFilter && !isNaN(minDateFilter)) {
+            if (aData._date < minDateFilter) {
+                return false;
+            }
+        }
+
+        if (maxDateFilter && !isNaN(maxDateFilter)) {
+            if (aData._date > maxDateFilter) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+);
+
+ipcRenderer.on("render:alarms_list", function(e, alarms_list_result) {
+    //console.log(alarms_list_result);
+    machine_mode = alarms_list_result['mode'];
+    changeMachineNameBg(machine_mode);
+    //console.log("Mode: ", machine_mode);
+    jQuery("#active_alarm_tbody").empty();
+
+    let alarms_result = alarms_list_result['alarms'];
+    for (let k in alarms_result) {
+        let related_alarm_gui_id = k;
+        let related_alarm_info = alarms_result[k];
+        
+        let alarm_type = related_alarm_info['alarm_type'], 
+        alarm_description = related_alarm_info['description'], 
+        alarm_class = related_alarm_info['alarm_class'], 
+        alarm_location = related_alarm_info['location'], 
+	    variable_name = related_alarm_info['variable_name'], 
+        timestamp = related_alarm_info['timestamp'],
+        duration = related_alarm_info['duration'];
+        
+        timestamp = timeConverter(timestamp);
+        // let tr_html = '<tr>' + 
+        //     '<td>' + timestamp + '</td>'+
+        //     '<td>Some minutes</td>'+
+        //     '<td>' + alarm_class_to_names[alarm_class] + '</td>'+
+        //     '<td>' + alarm_location + '</td>'+
+        //     '<td>' + alarm_description + '</td>'+
+        //     '<td>' + variable_name + '</td>'+
+        //     '</tr>';
+
+        data_table.row.add( [
+            timestamp,
+            secondsToDhms(duration),
+            alarm_class_to_names[alarm_class],
+            alarm_location,
+            alarm_description,
+            variable_name
+        ] ).draw( false );
+
+        //jQuery("#active_alarm_tbody").append(tr_html);
+    }
+
+    data_table.columns().every(function () {
+        var column = this;
+        
+        if (column.index() === 2 || column.index() === 3) {
+            let select_txt = "";
+            let select_id = "";
+            if(column.index() === 2) {
+                select_txt = "Select class";
+                select_id = "#class_filter";
+            } else {
+                select_txt = "Select location";
+                select_id = "#location_filter";
+            }
+            
+            let select = $(select_id);
+            column.data().unique().sort().each(function (d, j) {
+                //console.log(d);
+                select.append('<option value="' + d + '">' + d + '</option>')
+            });
+        }
+    });
+
+    //data_table.draw();
+});
+</script>
+</body>
+</html>

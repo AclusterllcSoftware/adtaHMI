@@ -1,0 +1,22 @@
+{
+  "name": "adta",
+  "version": "1.0.0",
+  "description": "HMI for ADTA project",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Shaiful Islam",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.5.0",
+    "crypto-js": "^4.0.0",
+    "ejs-electron": "^2.0.3",
+    "electron": "^9.4.4",
+    "electron-store": "^6.0.0",
+    "highcharts": "^8.1.2",
+    "jquery": "^3.5.1",
+    "jsdom": "^16.2.2",
+    "popper.js": "^1.16.1"
+  }
+}

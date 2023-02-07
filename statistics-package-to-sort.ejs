@@ -1,0 +1,114 @@
+<%- include('header', {currentMenu: 'statistics-package-to-sort', pageTitle: 'Package To Sort'}); %>
+<a id="top-to-button"></a>
+<div class="row m-0 mt-2">
+    <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
+        <h2 id="head-loader">Package To Sort</h2>
+    </div>
+</div>
+<div class="row m-0 mt-2">
+        <div class="col-md-4 pr-0">
+            <input type="text" id="carton_id" class="form-control"  placeholder="Carton Id">
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary" id="btn_search">Search</button>
+        </div>
+</div>
+
+<div class="row m-0 mt-2">
+    <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
+        <table class="table table-sm table-bordered" id="alarm_table">
+            <thead>
+            <tr>
+                <th style="width: 50%">Carton Id</th>
+                <th style="width: 25%">Dest1</th>
+                <th style="width: 25%">Dest2</th>
+            </tr>
+            </thead>
+            <tbody id="statistics-package-to-sort-tbody">
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>Carton Id</th>
+                <th>Dest1</th>
+                <th>Dest2</th>
+            </tfoot>
+        </table>
+    </div>
+</div>
+</div>
+<%- include('footer', {currentMenu: 'statistics-package-to-sort'}); %>
+<script src="js/jquery-bootstrap.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/datatables/datatables.js"></script>
+<script src="js/jszip.min.js"></script>
+<script src="js/daterangepicker/moment.min.js"></script>
+<script src="js/datepicker/bootstrap-datepicker.min.js"></script>
+<script>
+
+    jQuery(document).ready(function() {
+
+        let top_to_btn = $('#top-to-button');
+        $(window).scroll(function() {
+            if ($(window).scrollTop() > 300) {
+                $('#top-to-button').addClass('show');
+            } else {
+                $('#top-to-button').removeClass('show');
+            }
+        });
+        top_to_btn.on('click', function(e) {
+            e.preventDefault();
+            $('html, body').animate({scrollTop:0}, '300');
+        });
+
+        jQuery("#ip_list_dropdown").change(function() {
+            selected_machine = jQuery(this).val();
+
+            if(selected_machine !== "") {
+                let selected_machine_name = machine_list[selected_machine];
+                jQuery("#display_machine_name").text(selected_machine_name);
+                changeMachineNameBg(0);
+            } else {
+                jQuery("#display_machine_name").text("Select a machine");
+                selected_machine = 0;
+            }
+
+        });
+        jQuery("#btn_search").click(function() {
+            let cartonId=$('#carton_id').val();
+            ipcRenderer.send("get:filtered_package_to_sort_list", selected_machine, cartonId);
+            jQuery("#head-loader").html('Package To Sort <img src="./resources/loading.gif">');
+        });
+        data_table = jQuery('#alarm_table').DataTable({
+            dom: 'Bifrtp',
+            "paging":false,
+            buttons: [
+                {
+                    extend: 'csv',
+                    fieldSeparator: ";",
+                    text: 'Export'
+                },
+            ],
+            "columns": [
+                null,
+                null,
+                null,
+            ],
+            "order": [],
+        });
+    });
+
+    ipcRenderer.on("render:statistics-package-to-sort", function(e, ingramProducts) {
+        jQuery("#head-loader").html('Package To Sort');
+        //console.log(ingramProducts);
+        data_table.clear().draw( false );
+        for (let index in ingramProducts) {
+            data_table.row.add( [
+                ingramProducts[index]['carton_id'],
+                ingramProducts[index]['dest1'],
+                ingramProducts[index]['dest2']
+            ] ).draw( false );
+        }
+    });
+</script>
+</body>
+</html>

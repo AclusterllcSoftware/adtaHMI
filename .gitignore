@@ -1,0 +1,14 @@
+# Dependency directories
+adta-win32-x64*
+node_modules
+build
+logs/
+index.exe
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

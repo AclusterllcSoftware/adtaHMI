@@ -1,0 +1,503 @@
+<%- include('header', {currentMenu: '', pageTitle: 'ModSort'}); %>
+    <style type="text/css">
+        #svg-holder {
+            text-align: center;
+        }
+        #svg-holder svg {
+            height: 500px;
+            width: 500px;
+        }
+        #mod-sort-title {
+            font-weight: 500;
+            margin: 0;
+            padding-bottom: 0;
+        }
+    </style>
+    <div class="row m-0 mt-3">
+        <div class="col-lg-2 pt-4 pb-0 pl-2 pr-2">
+            <br><br><br>
+            <button id="mod-sort-1" style="border-radius: 4px" class="btn btn-block btn-primary action-button mb-2" data-sorter-number="1">ModSort 1</button>
+            <button id="mod-sort-2" style="border-radius: 4px" class="btn btn-block btn-primary action-button mb-2" data-sorter-number="2">ModSort 2</button>
+            <button id="mod-sort-3" style="border-radius: 4px" class="btn btn-block btn-primary action-button mb-2" data-sorter-number="3">ModSort 3</button>
+            <button id="mod-sort-4" style="border-radius: 4px" class="btn btn-block btn-primary action-button mb-2" data-sorter-number="4">ModSort 4</button>
+        </div>
+        <div class="col-lg-8 pt-0 pb-0" id="svg-holder">
+            <h3 id="mod-sort-title"></h3>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 300">
+                <defs>
+                    <style>
+                        .cls-1,.cls-4{fill:none;}
+                        .cls-2{fill:#fff;}
+                        .cls-3{clip-path:url(#clip-path);}
+                        .cls-4{stroke:#000;stroke-miterlimit:10;}
+                        .cls-5{clip-path:url(#clip-path-2);}
+                        .cls-6{clip-path:url(#clip-path-3);}
+                        .cls-7{fill:#e6e7e8;}
+                        .cls-8{fill:#bababa;}
+                        .cls-9{fill:#d0d2d3;}
+                        .cls-10{fill:#58595b;}
+                        .cls-11{fill:#bbbdbf;}
+                        .cls-12{fill:url(#linear-gradient);}
+                        .cls-13{fill:url(#linear-gradient-2);}
+                        .cls-14{fill:url(#linear-gradient-3);}
+                        .cls-15{fill:url(#linear-gradient-4);}
+                        .cls-16{fill:url(#linear-gradient-5);}
+                        .cls-17{fill:url(#linear-gradient-6);}
+                        .cls-18{fill:url(#linear-gradient-7);}
+                        .cls-19{fill:url(#linear-gradient-8);}
+                        .cls-20{fill:url(#linear-gradient-9);}
+                        .cls-21{fill:url(#linear-gradient-10);}
+                        .cls-22{fill:url(#linear-gradient-11);}
+                        .cls-23{fill:url(#linear-gradient-12);}
+                        .cls-24{fill:url(#linear-gradient-13);}
+                        .cls-25{fill:url(#linear-gradient-14);}
+                        .cls-26{fill:url(#linear-gradient-15);}
+                        .cls-27{fill:url(#linear-gradient-16);}
+                        .cls-28{fill:url(#linear-gradient-17);}
+                        .cls-29{fill:url(#linear-gradient-18);}
+                        .cls-30{fill:url(#linear-gradient-19);}
+                        .cls-31{fill:url(#linear-gradient-20);}
+                        .cls-32{fill:url(#linear-gradient-21);}
+                        .cls-33{fill:url(#linear-gradient-22);}
+                        .cls-34{fill:url(#linear-gradient-23);}
+                        .cls-35{fill:url(#linear-gradient-24);}
+                        .cls-36{fill:url(#linear-gradient-25);}
+                        .cls-37{fill:url(#linear-gradient-26);}
+                        .cls-38{fill:url(#linear-gradient-27);}
+                        .cls-39{fill:url(#linear-gradient-28);}
+                        .cls-40{fill:url(#linear-gradient-29);}
+                        .cls-41{fill:url(#linear-gradient-30);}
+                        .cls-42{fill:url(#linear-gradient-31);}
+                        .cls-43{fill:url(#linear-gradient-32);}
+                        .cls-44{fill:url(#linear-gradient-33);}
+                        .cls-45{fill:url(#linear-gradient-34);}
+                        .cls-46{fill:url(#linear-gradient-35);}
+                        .cls-47{fill:url(#linear-gradient-36);}
+                        .cls-48{fill:url(#linear-gradient-37);}
+                        .cls-49{fill:url(#linear-gradient-38);}
+                        .cls-50{fill:url(#linear-gradient-39);}
+                        .cls-51{fill:url(#linear-gradient-40);}
+                        .cls-52{fill:url(#linear-gradient-41);}
+                        .cls-53{fill:url(#linear-gradient-42);}
+                        .cls-54{fill:url(#linear-gradient-43);}
+                        .cls-55{fill:url(#linear-gradient-44);}
+                        .cls-56{fill:url(#linear-gradient-45);}
+                        .cls-57{fill:url(#linear-gradient-46);}
+                        .cls-58{fill:url(#linear-gradient-47);}
+                        .cls-59{fill:url(#linear-gradient-48);}
+                        .cls-60{fill:#d1d206;}
+                        .cls-61{fill:url(#linear-gradient-49);}
+                        .cls-62{fill:#938d12;}
+                        .cls-63{fill:#afa0a8;}
+                        .cls-64{fill:#8b0203;}
+                        .cls-65{fill:#600606;}
+                        .cls-66{fill:url(#linear-gradient-50);}
+                        .cls-67{fill:#d3c626;}
+                    </style>
+                    <clipPath id="clip-path">
+                        <circle class="cls-1" cx="248.837" cy="259.039" r="6"/>
+                    </clipPath>
+                    <clipPath id="clip-path-2">
+                        <circle class="cls-1" cx="55.759" cy="255.935" r="6"/>
+                    </clipPath>
+                    <clipPath id="clip-path-3">
+                        <circle class="cls-1" cx="53.157" cy="71.592" r="6"/>
+                    </clipPath>
+                    <linearGradient id="linear-gradient" x1="53.157" y1="129.631" x2="58.361" y2="129.631" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#f16522"/>
+                        <stop offset="1" stop-color="#7f3417"/>
+                    </linearGradient>
+                    <linearGradient id="linear-gradient-2" x1="53.157" y1="101.9" x2="58.361" y2="101.9" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-3" x1="53.157" y1="157.229" x2="58.361" y2="157.229" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-4" x1="59.702" y1="101.9" x2="64.907" y2="101.9" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-5" x1="59.702" y1="157.229" x2="64.907" y2="157.229" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-6" x1="59.702" y1="129.631" x2="64.907" y2="129.631" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-7" x1="53.157" y1="196.859" x2="58.361" y2="196.859" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-8" x1="53.157" y1="169.127" x2="58.361" y2="169.127" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-9" x1="53.157" y1="224.456" x2="58.361" y2="224.456" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-10" x1="59.702" y1="169.127" x2="64.907" y2="169.127" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-11" x1="59.702" y1="224.456" x2="64.907" y2="224.456" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-12" x1="59.702" y1="196.859" x2="64.907" y2="196.859" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-13" x1="2655.431" y1="519.952" x2="2660.636" y2="519.952" gradientTransform="translate(-2474.299 -450.961)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-14" x1="2655.431" y1="492.22" x2="2660.636" y2="492.22" gradientTransform="translate(-2446.567 -423.23)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-15" x1="2655.431" y1="547.549" x2="2660.636" y2="547.549" gradientTransform="translate(-2501.897 -478.559)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-16" x1="2661.977" y1="492.22" x2="2667.181" y2="492.22" gradientTransform="translate(-2453.113 -416.684)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-17" x1="2661.977" y1="547.549" x2="2667.181" y2="547.549" gradientTransform="translate(-2508.443 -472.014)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-18" x1="2661.977" y1="519.952" x2="2667.181" y2="519.952" gradientTransform="translate(-2480.845 -444.416)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-19" x1="2655.431" y1="587.179" x2="2660.636" y2="587.179" gradientTransform="translate(-2541.526 -518.189)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-20" x1="2655.431" y1="559.447" x2="2660.636" y2="559.447" gradientTransform="translate(-2513.794 -490.457)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-21" x1="2655.431" y1="614.777" x2="2660.636" y2="614.777" gradientTransform="translate(-2569.124 -545.786)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-22" x1="2661.977" y1="559.447" x2="2667.181" y2="559.447" gradientTransform="translate(-2520.34 -483.911)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-23" x1="2661.977" y1="614.777" x2="2667.181" y2="614.777" gradientTransform="translate(-2575.67 -539.241)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-24" x1="2661.977" y1="587.179" x2="2667.181" y2="587.179" gradientTransform="translate(-2548.072 -511.643)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-25" x1="2668.482" y1="519.952" x2="2673.687" y2="519.952" gradientTransform="translate(-2487.35 -437.91)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-26" x1="2668.482" y1="492.22" x2="2673.687" y2="492.22" gradientTransform="translate(-2459.618 -410.179)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-27" x1="2668.482" y1="547.549" x2="2673.687" y2="547.549" gradientTransform="translate(-2514.948 -465.508)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-28" x1="2675.028" y1="492.22" x2="2680.232" y2="492.22" gradientTransform="translate(-2466.164 -403.633)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-29" x1="2675.028" y1="547.549" x2="2680.232" y2="547.549" gradientTransform="translate(-2521.494 -458.962)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-30" x1="2675.028" y1="519.952" x2="2680.232" y2="519.952" gradientTransform="translate(-2493.896 -431.365)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-31" x1="2668.482" y1="587.179" x2="2673.687" y2="587.179" gradientTransform="translate(-2554.577 -505.137)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-32" x1="2668.482" y1="559.447" x2="2673.687" y2="559.447" gradientTransform="translate(-2526.845 -477.406)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-33" x1="2668.482" y1="614.777" x2="2673.687" y2="614.777" gradientTransform="translate(-2582.175 -532.735)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-34" x1="2675.028" y1="559.447" x2="2680.232" y2="559.447" gradientTransform="translate(-2533.391 -470.86)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-35" x1="2675.028" y1="614.777" x2="2680.232" y2="614.777" gradientTransform="translate(-2588.721 -526.19)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-36" x1="2675.028" y1="587.179" x2="2680.232" y2="587.179" gradientTransform="translate(-2561.123 -498.592)" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-37" x1="235.55" y1="129.631" x2="240.754" y2="129.631" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-38" x1="235.55" y1="101.9" x2="240.754" y2="101.9" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-39" x1="235.55" y1="157.229" x2="240.754" y2="157.229" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-40" x1="242.095" y1="101.9" x2="247.3" y2="101.9" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-41" x1="242.095" y1="157.229" x2="247.3" y2="157.229" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-42" x1="242.095" y1="129.631" x2="247.3" y2="129.631" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-43" x1="235.55" y1="196.859" x2="240.754" y2="196.859" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-44" x1="235.55" y1="169.127" x2="240.754" y2="169.127" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-45" x1="235.55" y1="224.456" x2="240.754" y2="224.456" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-46" x1="242.095" y1="169.127" x2="247.3" y2="169.127" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-47" x1="242.095" y1="224.456" x2="247.3" y2="224.456" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-48" x1="242.095" y1="196.859" x2="247.3" y2="196.859" xlink:href="#linear-gradient"/>
+                    <linearGradient id="linear-gradient-49" x1="269.123" y1="264.169" x2="280.229" y2="264.169" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stop-color="#aaa617"/>
+                    <stop offset="0.184" stop-color="#cec623"/>
+                    <stop offset="0.378" stop-color="#ede12d"/>
+                    <stop offset="0.486" stop-color="#f9ec31"/>
+                    <stop offset="0.547" stop-color="#e7dc2b"/>
+                    <stop offset="0.655" stop-color="#ccc422"/>
+                    <stop offset="0.765" stop-color="#b9b31c"/>
+                    <stop offset="0.879" stop-color="#aea918"/>
+                    <stop offset="1" stop-color="#aaa617"/>
+                    </linearGradient>
+                    <linearGradient id="linear-gradient-50" x1="268.926" y1="-2101.402" x2="280.032" y2="-2101.402" gradientTransform="matrix(1, 0, 0, -1, 0, -2037)" xlink:href="#linear-gradient-49"/>
+                    </defs>
+                    <title>ModSort</title>
+                    <g id="Layer_2" data-name="Layer 2">
+                    <g id="Layer_1" data-name="Layer 1">
+                    <circle id="exit-switch" class="cls-2" cx="248.838" cy="259.039" r="5.75"/>
+                    <path d="M248.838,253.539a5.5,5.5,0,1,1-5.5,5.5,5.506,5.506,0,0,1,5.5-5.5m0-.5a6,6,0,1,0,6,6,6,6,0,0,0-6-6Z"/>
+                    <g class="cls-3">
+                    <line class="cls-4" x1="235.394" y1="268.588" x2="256.732" y2="247.25"/>
+                    <line class="cls-4" x1="237.344" y1="270.537" x2="258.682" y2="249.199"/>
+                    <line class="cls-4" x1="239.293" y1="272.487" x2="260.631" y2="251.149"/>
+                    </g>
+                    <circle id="entry-switch" class="cls-2" cx="55.758" cy="255.936" r="5.75"/>
+                    <path d="M55.759,250.435a5.5,5.5,0,1,1-5.5,5.5,5.506,5.506,0,0,1,5.5-5.5m0-.5a6,6,0,1,0,6,6,6,6,0,0,0-6-6Z"/>
+                    <g class="cls-5">
+                    <line class="cls-4" x1="42.315" y1="265.484" x2="63.653" y2="244.146"/>
+                    <line class="cls-4" x1="44.265" y1="267.434" x2="65.603" y2="246.096"/>
+                    <line class="cls-4" x1="46.214" y1="269.383" x2="67.552" y2="248.045"/>
+                    </g>
+                    <circle id="confirm-switch" class="cls-2" cx="53.157" cy="71.593" r="5.75"/>
+                    <path d="M53.156,66.092a5.5,5.5,0,1,1-5.5,5.5,5.506,5.506,0,0,1,5.5-5.5m0-.5a6,6,0,1,0,6,6,6,6,0,0,0-6-6Z"/>
+                    <g class="cls-6">
+                    <line class="cls-4" x1="39.713" y1="81.142" x2="61.051" y2="59.804"/>
+                    <line class="cls-4" x1="41.663" y1="83.091" x2="63.001" y2="61.753"/>
+                    <line class="cls-4" x1="43.612" y1="85.041" x2="64.95" y2="63.703"/>
+                    </g>
+                    </g>
+                    </g>
+                    <g id="Layer_4" data-name="Layer 4">
+                    <path class="cls-7" d="M79.708,79.789V70.977a2.055,2.055,0,0,1,2.054-2.054h.476a2.055,2.055,0,0,1,2.055,2.054V92.344A2.055,2.055,0,0,1,82.238,94.4h-64.6V81.843H77.654A2.055,2.055,0,0,0,79.708,79.789Z"/>
+                    <path class="cls-7" d="M220.1,79.789V70.977a2.055,2.055,0,0,0-2.054-2.054h-.477a2.055,2.055,0,0,0-2.054,2.054V92.344a2.055,2.055,0,0,0,2.054,2.054h64.6V81.843H222.149A2.054,2.054,0,0,1,220.1,79.789Z"/>
+                    <rect class="cls-7" x="17.638" y="230.204" width="264.723" height="16.686"/>
+                    <path class="cls-8" d="M79.594,97.574h140.6a10.449,10.449,0,0,1,10.449,10.449V217.069a10.452,10.452,0,0,1-10.452,10.452H79.594a10.449,10.449,0,0,1-10.449-10.449V108.023A10.449,10.449,0,0,1,79.594,97.574Z"/>
+                    <path class="cls-9" d="M262.238,97.574h20.124a0,0,0,0,1,0,0V227.521a0,0,0,0,1,0,0H262.238a10.029,10.029,0,0,1-10.029-10.029V107.6A10.029,10.029,0,0,1,262.238,97.574Z"/>
+                    <path class="cls-9" d="M17.638,97.574H38.3a10.135,10.135,0,0,1,10.135,10.135V217.386A10.135,10.135,0,0,1,38.3,227.521H17.638a0,0,0,0,1,0,0V97.574A0,0,0,0,1,17.638,97.574Z"/>
+                    <rect class="cls-9" x="132.268" y="-24.603" width="35.947" height="147.725" transform="translate(199.501 -100.982) rotate(90)"/>
+                    <path class="cls-10" d="M71.262,31.286h.974a0,0,0,0,1,0,0V67.233a0,0,0,0,1,0,0h-.974a7.027,7.027,0,0,1-7.027-7.027V38.312A7.027,7.027,0,0,1,71.262,31.286Z"/>
+                    <path class="cls-10" d="M227.549,31.286h.971a7.029,7.029,0,0,1,7.029,7.029V60.2a7.029,7.029,0,0,1-7.029,7.029h-.971a0,0,0,0,1,0,0V31.286A0,0,0,0,1,227.549,31.286Z"/>
+                    <rect class="cls-11" x="54.34" y="99.371" width="2.838" height="60.52" rx="1.419"/>
+                    <rect class="cls-11" x="60.885" y="99.371" width="2.838" height="60.52" rx="1.419"/>
+                    <rect class="cls-11" x="54.34" y="167.054" width="2.838" height="60.52" rx="1.419"/>
+                    <rect class="cls-11" x="60.885" y="167.054" width="2.838" height="60.52" rx="1.419"/>
+                    <rect class="cls-12" x="53.157" y="104.093" width="5.204" height="51.078" rx="2.007"/>
+                    <path class="cls-13" d="M54.289,100.766h2.939a1.133,1.133,0,0,1,1.133,1.133v0a1.134,1.134,0,0,1-1.134,1.134H54.289a1.133,1.133,0,0,1-1.133-1.133v0a1.133,1.133,0,0,1,1.133-1.133Z"/>
+                    <rect class="cls-14" x="53.157" y="156.096" width="5.204" height="2.267" rx="1.133"/>
+                    <rect class="cls-15" x="59.702" y="100.766" width="5.204" height="2.267" rx="1.133"/>
+                    <rect class="cls-16" x="59.702" y="156.096" width="5.204" height="2.267" rx="1.133"/>
+                    <rect class="cls-17" x="59.702" y="104.093" width="5.204" height="51.078" rx="2.007"/>
+                    <rect class="cls-18" x="53.157" y="171.32" width="5.204" height="51.078" rx="2.007"/>
+                    <rect class="cls-19" x="53.157" y="167.993" width="5.204" height="2.267" rx="1.133"/>
+                    <rect class="cls-20" x="53.157" y="223.323" width="5.204" height="2.267" rx="1.133"/>
+                    <rect class="cls-21" x="59.702" y="167.993" width="5.204" height="2.267" rx="1.133"/>
+                    <rect class="cls-22" x="59.702" y="223.323" width="5.204" height="2.267" rx="1.133"/>
+                    <rect class="cls-23" x="59.702" y="171.32" width="5.204" height="51.078" rx="2.007"/>
+                    <rect class="cls-10" x="53.157" y="160.643" width="11.75" height="5.66" rx="2.83"/>
+                    <rect class="cls-11" x="182.315" y="38.73" width="2.838" height="60.52" rx="1.419" transform="translate(252.725 -114.744) rotate(90)"/>
+                    <rect class="cls-11" x="182.315" y="45.276" width="2.838" height="60.52" rx="1.419" transform="translate(259.27 -108.198) rotate(90)"/>
+                    <rect class="cls-11" x="114.632" y="38.73" width="2.838" height="60.52" rx="1.419" transform="translate(185.041 -47.061) rotate(90)"/>
+                    <rect class="cls-11" x="114.632" y="45.276" width="2.838" height="60.52" rx="1.419" transform="translate(191.587 -40.515) rotate(90)"/>
+                    <rect class="cls-24" x="181.132" y="43.452" width="5.204" height="51.078" rx="2.007" transform="translate(252.725 -114.744) rotate(90)"/>
+                    <path class="cls-25" d="M210,67.857h2.939a1.133,1.133,0,0,1,1.133,1.133v0a1.134,1.134,0,0,1-1.134,1.134H210a1.133,1.133,0,0,1-1.133-1.133v0A1.133,1.133,0,0,1,210,67.857Z" transform="translate(280.456 -142.476) rotate(90)"/>
+                    <rect class="cls-26" x="153.534" y="67.857" width="5.204" height="2.267" rx="1.133" transform="translate(225.127 -87.146) rotate(90)"/>
+                    <rect class="cls-27" x="208.864" y="74.403" width="5.204" height="2.267" rx="1.133" transform="translate(287.002 -135.93) rotate(90)"/>
+                    <rect class="cls-28" x="153.534" y="74.403" width="5.204" height="2.267" rx="1.133" transform="translate(231.672 -80.601) rotate(90)"/>
+                    <rect class="cls-29" x="181.132" y="49.997" width="5.204" height="51.078" rx="2.007" transform="translate(259.27 -108.198) rotate(90)"/>
+                    <rect class="cls-30" x="113.905" y="43.452" width="5.204" height="51.078" rx="2.007" transform="translate(185.497 -47.517) rotate(90)"/>
+                    <rect class="cls-31" x="141.637" y="67.857" width="5.204" height="2.267" rx="1.133" transform="translate(213.229 -75.249) rotate(90)"/>
+                    <rect class="cls-32" x="86.307" y="67.857" width="5.204" height="2.267" rx="1.133" transform="translate(157.9 -19.919) rotate(90)"/>
+                    <rect class="cls-33" x="141.637" y="74.403" width="5.204" height="2.267" rx="1.133" transform="translate(219.775 -68.703) rotate(90)"/>
+                    <rect class="cls-34" x="86.307" y="74.403" width="5.204" height="2.267" rx="1.133" transform="translate(164.445 -13.374) rotate(90)"/>
+                    <rect class="cls-35" x="113.905" y="49.997" width="5.204" height="51.078" rx="2.007" transform="translate(192.043 -40.971) rotate(90)"/>
+                    <rect class="cls-10" x="144.018" y="69.433" width="11.75" height="5.66" rx="2.83" transform="translate(222.156 -77.63) rotate(90)"/>
+                    <rect class="cls-11" x="182.315" y="51.781" width="2.838" height="60.52" rx="1.419" transform="translate(265.776 -101.693) rotate(90)"/>
+                    <rect class="cls-11" x="182.315" y="58.327" width="2.838" height="60.52" rx="1.419" transform="translate(272.321 -95.147) rotate(90)"/>
+                    <rect class="cls-11" x="114.632" y="51.781" width="2.838" height="60.52" rx="1.419" transform="translate(198.092 -34.01) rotate(90)"/>
+                    <rect class="cls-11" x="114.632" y="58.327" width="2.838" height="60.52" rx="1.419" transform="translate(204.638 -27.464) rotate(90)"/>
+                    <rect class="cls-36" x="181.132" y="56.503" width="5.204" height="51.078" rx="2.007" transform="translate(265.776 -101.693) rotate(90)"/>
+                    <path class="cls-37" d="M210,80.908h2.939a1.133,1.133,0,0,1,1.133,1.133v0a1.134,1.134,0,0,1-1.134,1.134H210a1.133,1.133,0,0,1-1.133-1.133v0A1.133,1.133,0,0,1,210,80.908Z" transform="translate(293.507 -129.425) rotate(90)"/>
+                    <rect class="cls-38" x="153.534" y="80.908" width="5.204" height="2.267" rx="1.133" transform="translate(238.178 -74.095) rotate(90)"/>
+                    <rect class="cls-39" x="208.864" y="87.454" width="5.204" height="2.267" rx="1.133" transform="translate(300.053 -122.879) rotate(90)"/>
+                    <rect class="cls-40" x="153.534" y="87.454" width="5.204" height="2.267" rx="1.133" transform="translate(244.724 -67.55) rotate(90)"/>
+                    <rect class="cls-41" x="181.132" y="63.048" width="5.204" height="51.078" rx="2.007" transform="translate(272.321 -95.147) rotate(90)"/>
+                    <rect class="cls-42" x="113.905" y="56.503" width="5.204" height="51.078" rx="2.007" transform="translate(198.549 -34.466) rotate(90)"/>
+                    <rect class="cls-43" x="141.637" y="80.908" width="5.204" height="2.267" rx="1.133" transform="translate(226.28 -62.198) rotate(90)"/>
+                    <rect class="cls-44" x="86.307" y="80.908" width="5.204" height="2.267" rx="1.133" transform="translate(170.951 -6.868) rotate(90)"/>
+                    <rect class="cls-45" x="141.637" y="87.454" width="5.204" height="2.267" rx="1.133" transform="translate(232.826 -55.652) rotate(90)"/>
+                    <rect class="cls-46" x="86.307" y="87.454" width="5.204" height="2.267" rx="1.133" transform="translate(177.496 -0.322) rotate(90)"/>
+                    <rect class="cls-47" x="113.905" y="63.048" width="5.204" height="51.078" rx="2.007" transform="translate(205.094 -27.92) rotate(90)"/>
+                    <rect class="cls-10" x="144.018" y="82.484" width="11.75" height="5.66" rx="2.83" transform="translate(235.207 -64.579) rotate(90)"/>
+                    <rect class="cls-11" x="236.733" y="99.371" width="2.838" height="60.52" rx="1.419"/>
+                    <rect class="cls-11" x="243.278" y="99.371" width="2.838" height="60.52" rx="1.419"/>
+                    <rect class="cls-11" x="236.733" y="167.054" width="2.838" height="60.52" rx="1.419"/>
+                    <rect class="cls-11" x="243.278" y="167.054" width="2.838" height="60.52" rx="1.419"/>
+                    <rect class="cls-48" x="235.55" y="104.093" width="5.204" height="51.078" rx="2.007"/>
+                    <path class="cls-49" d="M236.682,100.766h2.939a1.133,1.133,0,0,1,1.133,1.133v0a1.134,1.134,0,0,1-1.134,1.134h-2.937a1.133,1.133,0,0,1-1.133-1.133v0A1.133,1.133,0,0,1,236.682,100.766Z"/>
+                    <rect class="cls-50" x="235.55" y="156.096" width="5.204" height="2.267" rx="1.133"/>
+                    <rect class="cls-51" x="242.095" y="100.766" width="5.204" height="2.267" rx="1.133"/>
+                    <rect class="cls-52" x="242.095" y="156.096" width="5.204" height="2.267" rx="1.133"/>
+                    <rect class="cls-53" x="242.095" y="104.093" width="5.204" height="51.078" rx="2.007"/>
+                    <rect class="cls-54" x="235.55" y="171.32" width="5.204" height="51.078" rx="2.007"/>
+                    <rect class="cls-55" x="235.55" y="167.993" width="5.204" height="2.267" rx="1.133"/>
+                    <rect class="cls-56" x="235.55" y="223.323" width="5.204" height="2.267" rx="1.133"/>
+                    <rect class="cls-57" x="242.095" y="167.993" width="5.204" height="2.267" rx="1.133"/>
+                    <rect class="cls-58" x="242.095" y="223.323" width="5.204" height="2.267" rx="1.133"/>
+                    <rect class="cls-59" x="242.095" y="171.32" width="5.204" height="51.078" rx="2.007"/>
+                    <rect class="cls-10" x="235.55" y="160.643" width="11.75" height="5.66" rx="2.83"/>
+                    <path class="cls-10" d="M248.312,87.168h33.852a0,0,0,0,1,0,0V94.4a0,0,0,0,1,0,0H248.312a3.615,3.615,0,0,1-3.615-3.615v0A3.615,3.615,0,0,1,248.312,87.168Z"/>
+                    <path class="cls-10" d="M21.253,87.168H55.105a0,0,0,0,1,0,0V94.4a0,0,0,0,1,0,0H21.253a3.615,3.615,0,0,1-3.615-3.615v0A3.615,3.615,0,0,1,21.253,87.168Z" transform="translate(72.744 181.566) rotate(-180)"/>
+                    <path class="cls-10" d="M21.253,230.2H55.105a0,0,0,0,1,0,0v7.23a0,0,0,0,1,0,0H21.253a3.615,3.615,0,0,1-3.615-3.615v0A3.615,3.615,0,0,1,21.253,230.2Z" transform="translate(72.744 467.637) rotate(180)"/>
+                    <path class="cls-10" d="M248.509,230.2h33.852a0,0,0,0,1,0,0v7.23a0,0,0,0,1,0,0H248.509a3.615,3.615,0,0,1-3.615-3.615v0a3.615,3.615,0,0,1,3.615-3.615Z"/>
+                    <path class="cls-9" d="M266.99,246.911h15.372a0,0,0,0,1,0,0v12.656a4.567,4.567,0,0,1-4.567,4.567h-6.238a4.567,4.567,0,0,1-4.567-4.567V246.911A0,0,0,0,1,266.99,246.911Z"/>
+                    <ellipse class="cls-60" cx="274.676" cy="259.624" rx="5.11" ry="3.058"/>
+                    <path class="cls-61" d="M279.786,259.624h-10.22l-.443,6.074c0,1.666,2.486,3.016,5.553,3.016s5.553-1.35,5.553-3.016Z"/>
+                    <ellipse class="cls-62" cx="274.682" cy="259.624" rx="5.11" ry="3.058"/>
+                    <ellipse class="cls-63" cx="274.676" cy="258.698" rx="1.317" ry="0.875"/>
+                    <ellipse class="cls-63" cx="274.676" cy="260.55" rx="1.317" ry="0.875"/>
+                    <rect class="cls-63" x="273.359" y="258.698" width="2.635" height="1.852"/>
+                    <ellipse class="cls-64" cx="274.676" cy="260.741" rx="2.562" ry="1.702"/>
+                    <ellipse class="cls-64" cx="274.676" cy="264.342" rx="2.562" ry="1.702"/>
+                    <rect class="cls-64" x="272.114" y="260.741" width="5.125" height="3.601"/>
+                    <ellipse class="cls-65" cx="274.676" cy="264.674" rx="3.36" ry="2.232"/>
+                    <path class="cls-9" d="M271.36,64.438h6.235a4.57,4.57,0,0,1,4.57,4.57V81.66a0,0,0,0,1,0,0H266.793a0,0,0,0,1,0,0V69A4.567,4.567,0,0,1,271.36,64.438Z"/>
+                    <ellipse class="cls-60" cx="274.479" cy="68.948" rx="5.11" ry="3.058"/>
+                    <path class="cls-66" d="M279.589,68.948H269.368l-.442-6.074c0-1.666,2.486-3.017,5.553-3.017s5.553,1.351,5.553,3.017Z"/>
+                    <ellipse class="cls-67" cx="274.485" cy="68.948" rx="5.11" ry="3.058"/>
+                    <ellipse class="cls-63" cx="274.479" cy="69.873" rx="1.317" ry="0.875"/>
+                    <ellipse class="cls-63" cx="274.479" cy="68.022" rx="1.317" ry="0.875"/>
+                    <rect class="cls-63" x="273.161" y="68.022" width="2.635" height="1.852"/>
+                    <ellipse class="cls-64" cx="274.479" cy="67.831" rx="2.562" ry="1.702"/>
+                    <ellipse class="cls-64" cx="274.479" cy="64.229" rx="2.562" ry="1.702"/>
+                    <rect class="cls-64" x="271.916" y="64.229" width="5.125" height="3.601"/>
+                    <ellipse class="cls-65" cx="274.479" cy="63.897" rx="3.36" ry="2.232"/>
+                </g>
+            </svg>
+        </div>
+        <div class="col-lg-2 pt-4 pb-0 pl-2 pr-2 text-left">
+            <br><br><br>
+            <button class="btn btn-block btn-primary operation-buttons mb-2" data-operation="0" data-device="0" id="open-hook-a" style="border-radius: 4px">Straight Off</button>
+            <button class="btn btn-block btn-primary operation-buttons mb-2" data-operation="1" data-device="0" id="close-hook-a" style="border-radius: 4px">Straight On</button>
+            <button class="btn btn-block btn-primary operation-buttons mb-2" data-operation="2" data-device="0" id="reboot-hook-a" style="border-radius: 4px">Left Off</button>
+            <button class="btn btn-block btn-primary operation-buttons mb-2" data-operation="3" data-device="0" id="reboot-hook-a" style="border-radius: 4px">Left On</button>
+        </div>
+    </div>
+    <div class="row m-0">
+        <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-4">
+            <table class="table table-sm table-bordered" id="details_active_alarms_table">
+                <thead>
+                <tr>
+                    <th width="20%">Timestamp</th>
+                    <th width="10%">Duration</th>
+                    <th width="10%">Class</th>
+                    <th width="10%">Location</th>
+                    <th width="20%">Description</th>
+                    <th width="20%">Variable Name</th>
+                </tr>
+                </thead>
+                <tbody id="active_alarm_tbody">
+                    <tr>
+                        <td colspan="6">No active alarm to display</td>
+                    </tr>
+                </tbody>
+            </table>
+			<div class="row" id="marquee1">
+				<div class="col-lg-12">
+					<ul id="alarm-ticker"></ul>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+<%- include('footer', {currentMenu: 'settings'}); %>
+<script src="js/jquery-bootstrap.js"></script>
+<script src="js/nav.js"></script>
+<script>
+let machine_mode = 9;
+var device_type = 1;
+var sorter_number = 1;
+var local_ip_address = getIPAddress();
+let alarm_class_to_names = {"0" : "Error", "1" : "Warning", "2" : "Message"};
+async function loadSettingsValues() {
+    let settings_values = await ipcRenderer.invoke('getStoreValue');
+
+    //console.log(settings_values);
+
+    for (let key in settings_values) {
+        let value = settings_values[key];
+        let related_input_id = "#" + key;
+        if(key === 'detailed_active_alarm') {
+            if(value == "active") {
+                jQuery(related_input_id).prop( "checked", true );
+            } else {
+                jQuery(related_input_id).prop( "checked", false );
+            }
+        } else {
+            if(value != "not_set") {
+                jQuery(related_input_id).val(value)
+            }
+        }
+        //console.log(key, value);
+    }
+
+    if(maintenance_ip_list[selected_machine]!== 'undefined' && maintenance_ip_list[selected_machine] === local_ip_address) {
+        jQuery("#manual_mode_button").show();
+    }
+}
+
+function loadDeviceSorterNumbers() {
+    const urlParams = new URLSearchParams(window.location.search);
+    device_type = urlParams.get('device_type');
+    sorter_number = urlParams.get('sorter_number');
+    var related_action_btn_id = "#mod-sort-" + sorter_number;
+    jQuery(related_action_btn_id).attr("disabled", "disabled");
+
+    jQuery("#mod-sort-title").text("ModSort " + sorter_number);
+
+    jQuery(".operation-buttons").each(function(i, e) {
+        jQuery(this).data("device", sorter_number);
+    });
+}
+
+jQuery(document).ready(function() {
+    loadSettingsValues();
+    loadDeviceSorterNumbers();
+    jQuery("#ip_list_dropdown").change(function() {
+        selected_machine = jQuery(this).val();
+
+        if(selected_machine !== "") {
+            let selected_machine_name = machine_list[selected_machine];
+            jQuery("#display_machine_name").text(selected_machine_name);
+
+            setInterval(() => {
+                ipcRenderer.send("get:mod_sort", selected_machine, device_type, sorter_number);
+            }, 1000);
+
+        } else {
+            selected_machine = 0;
+            jQuery("#display_machine_name").text("Select a machine");
+        }
+
+        ipcRenderer.send("get:mod_sort", selected_machine, device_type, sorter_number);
+    });
+
+    jQuery(".action-button").click(function(){
+		var sorter_number = jQuery(this).data("sorter-number");
+		//console.log(device_type + " ==> " + sorter_number);
+		ipcRenderer.send("change:modsort", 1, sorter_number, 1);
+	});
+
+    jQuery(".operation-buttons").click(function() {
+        let operation = jQuery(this).data('operation');
+        let device = jQuery(this).data('device');
+        console.log("Device: " + device + " + Command: " + operation);
+        ipcRenderer.send("get:device_command", selected_machine, device, operation);
+    });
+});
+
+ipcRenderer.on("render:mod_sort", function(e, mod_sort_result) {
+    machine_mode = mod_sort_result['mode'];
+    //console.log(machine_mode);
+    if(machine_mode !== 1) {
+        jQuery(".operation-buttons").each(function (i, e) {
+            if(!jQuery(this).is(":disabled")) {
+                jQuery(this).prop("disabled", true);
+            }
+        });
+    } else {
+        jQuery(".operation-buttons").each(function (i, e) {
+            if(jQuery(this).is(":disabled")) {
+                jQuery(this).prop("disabled", false);
+            }
+        });
+    }
+    changeMachineNameBg(machine_mode);
+    //console.log(mod_sort_result);
+    let input_colors = {"0" : "#fff", "1" : "#f00"};
+    let inputs_result = mod_sort_result['inputs'];
+    for (let k in inputs_result) {
+        let related_input_id = "#entry-switch";
+
+        let related_switch_name = k;
+        if(sorter_number == 2) {
+            if(related_switch_name.includes("Modsort1")) {
+                related_switch_name = "Modsort2 Entry Pe";
+            }
+        }
+        
+        if(related_switch_name.includes("Exit")) {
+            related_input_id = "#exit-switch";
+        } else if(related_switch_name.includes("Confirm")) {
+            related_input_id = "#confirm-switch";
+        }
+
+        let related_input_status = inputs_result[k];
+        
+        if(jQuery(related_input_id).length > 0) {
+            let related_input_color = input_colors[related_input_status];
+            jQuery(related_input_id).css("fill", related_input_color);
+        }
+    }
+
+    let alarms_result = mod_sort_result['alarms'];
+    jQuery("#active_alarm_tbody").empty();
+    if(!jQuery.isEmptyObject(alarms_result)) {
+        for (let k in alarms_result) {
+            let related_alarm_gui_id = k;
+            let related_alarm_info = alarms_result[k];
+            
+            let alarm_type = related_alarm_info['alarm_type'], 
+            alarm_description = related_alarm_info['description'], 
+            alarm_class = related_alarm_info['alarm_class'], 
+            alarm_location = related_alarm_info['location'], 
+            variable_name = related_alarm_info['variable_name'], 
+            timestamp = related_alarm_info['timestamp'],
+            duration = related_alarm_info['duration'];
+
+            timestamp = timeConverter(timestamp);
+            
+            let tr_html = '<tr>' + 
+                '<td>' + timestamp + '</td>'+
+                '<td>' + secondsToDhms(duration) + '</td>'+
+                '<td>' + alarm_class_to_names[alarm_class] + '</td>'+
+                '<td>' + alarm_location + '</td>'+
+                '<td>' + alarm_description + '</td>'+
+                '<td>' + variable_name + '</td>'+
+                '</tr>';
+
+            jQuery("#active_alarm_tbody").append(tr_html);
+        }
+    } else {
+        let tr_html = '<tr><td colspan="6">No active alarm to display</td></tr>';
+        jQuery("#active_alarm_tbody").append(tr_html);
+    }
+});
+</script>
+</body>
+</html>

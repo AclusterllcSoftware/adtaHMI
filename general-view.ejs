@@ -1,0 +1,366 @@
+<%- include('header', {currentMenu: 'general-view', pageTitle: 'General View'}); %>
+    <div class="row m-0 mt-1">
+        <div class="col-lg-12" style="padding: 0 50px; text-align: center;">
+			<%- include('resources/general-view.svg') %>
+        </div>
+		<div class="col-lg-2"></div>
+    </div>
+    <div class="row m-0">
+        <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-2">
+            <table class="table table-sm table-bordered" id="details_active_alarms_table">
+                <thead>
+                <tr>
+                    <th width="20%">Timestamp</th>
+                    <th width="10%">Duration</th>
+                    <th width="10%">Class</th>
+                    <th width="10%">Location</th>
+                    <th width="20%">Description</th>
+                    <th width="20%">Variable Name</th>
+                </tr>
+                </thead>
+                <tbody id="active_alarm_tbody">
+                    <tr>
+                        <td colspan="6">No active alarm to display</td>
+                    </tr>
+                </tbody>
+            </table>
+			<div class="row" id="marquee1">
+				<div class="col-lg-12">
+					<ul id="alarm-ticker"></ul>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+<%- include('footer', {currentMenu: 'general_view'}); %>
+<script src="js/jquery-bootstrap.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/jquery.newsTicker.js"></script>
+
+<script>
+let machine_mode = 9;
+let current_bin_status_list = {};
+async function loadDetailedActiveAlarmSettingsValue() {
+	detailed_active_alarm_settings_value = await ipcRenderer.invoke('getSingleStoreValue', 'cbp_detailed_active_alarm');
+
+	if(detailed_active_alarm_settings_value === "active") {
+		jQuery("#marquee1").hide();
+		jQuery("#marquee2").hide();
+		jQuery("#details_active_alarms_table").show();
+	} else {
+		jQuery("#details_active_alarms_table").hide();
+		jQuery("#marquee1").show();
+		jQuery("#marquee2").show();
+	}
+	//jQuery("#detailed_active_alarm_h1").text(detailed_active_alarm_settings_value);
+}
+
+function awNotice() {
+	var $active = $('#ticker1 a.active');
+	var $next = $active.next('a');    
+
+	if ($next.length){
+		$next.addClass('active');
+		$active.removeClass('active');
+	} else {
+		$active.removeClass('active');
+		$('#ticker1 a:first-of-type').addClass('active');
+	}
+}
+
+function awNotices(timer){
+    setInterval( "awNotice()", timer);
+}
+
+function awNotice2() {
+	var $active = $('#ticker2 a.active');
+	var $next = $active.next('a');    
+
+	if ($next.length){
+		$next.addClass('active');
+		$active.removeClass('active');
+	} else {
+		$active.removeClass('active');
+		$('#ticker2 a:first-of-type').addClass('active');
+	}
+}
+
+function awNotices2(timer){
+    setInterval( "awNotice2()", timer);
+}
+
+let alarm_class_to_names = {"0" : "Error", "1" : "Warning", "2" : "Message"};
+let detailed_active_alarm_settings_value = "";
+let old_tickers = [], new_tickers = [];
+var local_ip_address = getIPAddress();
+let inducts_current_status = {
+	"induct-1" : 99,
+	"induct-2" : 99,
+	"induct-3" : 99,
+	"induct-4" : 99,
+	"induct-5" : 99,
+	"induct-6" : 99,
+	"induct-7" : 99,
+};
+
+var inducts_gui_to_actual_id = {
+	1: {
+		"id": 7,
+		"name" : "Priority Pak Induct 5"
+	},
+	2: {
+		"id": 6,
+		"name" : "Priority Pak Induct 4"
+	},
+	3: {
+		"id": 5,
+		"name" : "Priority Pak Induct 3"
+	},
+	4: {
+		"id": 4,
+		"name" : "Priority Pak Induct 2"
+	},
+	5: {
+		"id": 3,
+		"name" : "Priority Pak Induct 1"
+	},
+	6: {
+		"id": 2,
+		"name" : "Tfold Induct 2"
+	},
+	7: {
+		"id": 1,
+		"name" : "Tfold Induct 1"
+	},
+};
+
+var alarm_ticker = $('#alarm-ticker').newsTicker({
+	row_height: 100,
+	max_rows: 2,
+	duration: 4000,
+	pauseOnHover: 0
+});
+
+jQuery(document).ready(function() {
+	$('[data-toggle="tooltip"]').tooltip();
+	loadDetailedActiveAlarmSettingsValue();
+	
+    jQuery("#ip_list_dropdown").change(function() {
+        selected_machine = jQuery(this).val();
+
+        if(selected_machine !== "") {
+            let selected_machine_name = machine_list[selected_machine];
+            jQuery("#display_machine_name").text(selected_machine_name);
+
+            setInterval(() => {
+                ipcRenderer.send("get:views", selected_machine, "general_view");
+            }, 1000);
+        } else {
+            jQuery("#display_machine_name").text("Select a machine");
+            selected_machine = 0;
+        }
+
+        ipcRenderer.send("get:views", selected_machine, "general_view");
+    });
+	
+	jQuery('.induct-control-btn').click(function(){ 
+		let clicked_induct_gui_id = jQuery(this).data('induct-gui-id');
+		let clicked_induct_gui_id_selector = "induct-" + clicked_induct_gui_id;
+		let induct_details = inducts_gui_to_actual_id[clicked_induct_gui_id];
+		let induct_actual_id = induct_details.id;
+		let induct_current_status = inducts_current_status[clicked_induct_gui_id_selector];
+		let induct_change_status = (induct_current_status == 0) ? 1 : 0;
+
+		ipcRenderer.send("get:change_induct", selected_machine, induct_change_status, induct_actual_id);
+	});
+
+	jQuery('.navigate-induct').click(function(){
+		var induct_gui_id = jQuery(this).data("induct-no");
+		var induct_details = inducts_gui_to_actual_id[induct_gui_id];
+		var induct_db_id = induct_details.id;
+		ipcRenderer.send("change:induct", induct_db_id);
+	});
+	
+
+	jQuery(".mod-sorter").click(function(){
+		console.log("mod sorter clicked")
+		var device_type = jQuery(this).data("device-type");
+		var sorter_number = jQuery(this).data("sorter-number");
+		console.log(device_type + " ==> " + sorter_number);
+		ipcRenderer.send("change:modsort", device_type, sorter_number, 1);
+	});
+});
+
+ipcRenderer.on("render:general_view", function(e, general_view_result) {
+	console.log(general_view_result)
+    //BinEnabled=2=#27e22b, 
+	//BinPartiallyFull=3=blinking #4d80ff/ now #fff,
+	//BinDisabled with traymissing on=4=#6d6e70,
+	//BinFull=5=#4d80ff, 
+	//Tray missing = 6
+	//peblocked=7=#FFBF00/#FF4500, 
+	//manual_mode=8=#bababa, 
+	//BinDisabled with traymissing off/plain disabled=4=#d0d2d3/lighter gray
+
+	let bin_colors = {
+		"2" : "#27e22b",
+		"3" : "#fff",
+		"5" : "#4d80ff",
+		"4" : "#6d6e70",
+		"7" : "#FFBF00",
+		"1" : "#27e22b",
+		"8" : "#bababa",
+		"6" : "#d0d2d3"
+	};
+    let input_colors = {"0" : "#fff", "1" : "#f00"};
+    let conveyor_colors = { "0" : "#6d6e70",  "1" : "#27e22b", "2" : "#90EE90", "3" : "red"};
+	let induct_colors = { "0" : "black",  "1" : "red", "2" : "green", "3" : "orange"};
+    jQuery("#active_alarm_tbody").empty();
+
+    let bins_result = general_view_result['bins'];
+    let inputs_result = general_view_result['inputs'];
+    let alarms_result = general_view_result['alarms'];
+    let conveyors_result = general_view_result['conveyors'];
+	
+	let inducts_result = general_view_result['inducts'];
+	inducts_current_status = inducts_result;
+	//console.log(inducts_result);
+    
+	let estops_results = general_view_result['estops'];
+    machine_mode = general_view_result['mode'];
+	changeMachineNameBg(machine_mode);
+
+    for (let k in bins_result) {
+        
+        let related_bin_id = "#" + k;
+        let related_bin_status = bins_result[k];
+        
+        if(jQuery(related_bin_id).length > 0) {
+			current_bin_status_list[k] = related_bin_status;
+			let related_bin_color = bin_colors[related_bin_status];
+			jQuery(related_bin_id).removeClass("cls-blink").removeClass("cls-blink2").css("fill", related_bin_color);
+			if(related_bin_status == "3") {
+				jQuery(related_bin_id).addClass("cls-blink");
+			} else if(related_bin_status == "7") {
+				jQuery(related_bin_id).addClass("cls-blink2");
+			}
+        }
+    }
+
+    for (let k in conveyors_result) {
+        let related_conveyor_id = "#" + k;
+        let related_conveyor_status = conveyors_result[k];
+		let related_conveyor_color = conveyor_colors[related_conveyor_status]?conveyor_colors[related_conveyor_status]:conveyor_colors[0];
+		jQuery(related_conveyor_id).css("fill", related_conveyor_color);
+    }
+
+	for (let k in inducts_result) {
+		let related_induct_status = inducts_result[k];
+        let related_induct_class = "#" + k;
+		let related_induct_btn_class = related_induct_class + "-btn";
+		let related_induct_btn_text = jQuery(related_induct_btn_class).text();
+        
+        if(jQuery(related_induct_class).length > 0) {
+			let related_induct_btn_new_text = related_induct_btn_text;
+			let related_induct_btn_add_class = "btn-outline-danger";
+			let related_induct_btn_remove_class = "btn-outline-success";
+			if(related_induct_status == 0) {
+				related_induct_btn_new_text = related_induct_btn_new_text.replace("Disable", "Enable");
+				related_induct_btn_add_class = "btn-outline-success";
+				related_induct_btn_remove_class = "btn-outline-danger";
+			} else {
+				related_induct_btn_new_text = related_induct_btn_new_text.replace("Enable", "Disable");
+			}
+
+			jQuery(related_induct_btn_class).text(related_induct_btn_new_text).addClass(related_induct_btn_add_class).removeClass(related_induct_btn_remove_class);
+			
+			jQuery( related_induct_class ).each(function( index ) {
+				for(var ind = 0; ind < 4; ind++ ) {
+					if(related_induct_status == ind) {
+						jQuery(this).addClass("cls-induct-" + ind);
+					} else {
+						jQuery(this).removeClass("cls-induct-" + ind);
+					}
+				}
+			});
+        }
+    }
+    
+    for (let k in inputs_result) {
+        let related_input_id = "#" + k;
+        let related_input_status = inputs_result[k];
+
+        if(jQuery(related_input_id).length > 0) {
+            let related_input_color = input_colors[related_input_status];
+            jQuery(related_input_id).css("fill", related_input_color);
+        }
+    }
+
+	jQuery(".general-estops" ).each(function( index ) {
+		if(jQuery(this).is(":visible")) jQuery(this).hide();
+	});
+
+	if(!jQuery.isEmptyObject(estops_results)) {
+        //console.log("entered here");
+        for (let k in estops_results) {
+            let related_estop_id = "#" + estops_results[k];
+            let related_estop_gid = "#" + estops_results[k] + "g";
+            if((jQuery(related_estop_gid).length > 0) && (jQuery(related_estop_id).length > 0)) {
+				jQuery(related_estop_gid).show();
+                jQuery(related_estop_id).css("fill", "#ff0");
+            }
+        }
+    }
+
+    if(!jQuery.isEmptyObject(alarms_result)) {
+		new_tickers = [];
+		let alarm_count = 0;
+        for (let k in alarms_result) {
+			alarm_count++;
+            let related_alarm_gui_id = k;
+            let related_alarm_info = alarms_result[k];
+            
+            let alarm_type = related_alarm_info['alarm_type'], 
+            alarm_description = related_alarm_info['description'], 
+            alarm_class = related_alarm_info['alarm_class'], 
+            alarm_location = related_alarm_info['location'], 
+            variable_name = related_alarm_info['variable_name'], 
+            timestamp = related_alarm_info['timestamp'],
+            duration = related_alarm_info['duration'];
+            
+            timestamp = timeConverter(timestamp);
+            
+            let tr_html = '<tr>' + 
+                '<td>' + timestamp + '</td>'+
+                '<td>' + secondsToDhms(duration) + '</td>'+
+                '<td>' + alarm_class_to_names[alarm_class] + '</td>'+
+                '<td>' + alarm_location + '</td>'+
+                '<td>' + alarm_description + '</td>'+
+                '<td>' + variable_name + '</td>'+
+                '</tr>';
+
+            jQuery("#active_alarm_tbody").append(tr_html);
+			new_tickers.push(alarm_description);
+        }
+
+		if(new_tickers.sort().join(',') !== old_tickers.sort().join(',')) {
+			old_tickers = [...new_tickers];
+
+			alarm_ticker.newsTicker('pause');
+            alarm_ticker.newsTicker('remove');
+			var num = new_tickers.length;
+			if(num == 1) alarm_ticker.newsTicker('add', new_tickers[0], "single-ticker")
+			else new_tickers.forEach(elem => alarm_ticker.newsTicker('add', elem, ""));
+			(num > 2) && alarm_ticker.newsTicker('unpause');
+		}
+    } else {
+        let tr_html = '<tr><td colspan="6">No active alarm to display</td></tr>';
+        jQuery("#active_alarm_tbody").append(tr_html);
+		old_tickers = [];
+		alarm_ticker.newsTicker('pause');
+        alarm_ticker.newsTicker('remove');
+    }
+});
+</script>
+</body>
+</html>

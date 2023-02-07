@@ -1,0 +1,50 @@
+<%- include('header', {currentMenu: '', pageTitle: 'Diagonstic'}); %>
+    <div class="row m-0 mt-2">
+        <div class="col-lg-12 text-center" id="iframe-div">            
+        </div>
+    </div>
+</div>
+<%- include('footer', {currentMenu: 'diagonstics'}); %>
+<script src="js/jquery-bootstrap.js"></script>
+<script src="js/nav.js"></script>
+<script>
+async function loadDiagonsticURL() {
+    let diagonstic_url = await ipcRenderer.invoke('getSingleStoreValue', 'cbp_diagonstic_url');
+
+    //console.log(diagonstic_url);
+
+    if(diagonstic_url != "not_set") {
+        let iframe_html = '<iframe src="' + diagonstic_url + '" frameborder="0" allowfullscreen=""></iframe>'
+        jQuery("#iframe-div").html(iframe_html);
+    }
+}
+
+jQuery(document).ready(function() {
+    
+    loadDiagonsticURL();
+
+    jQuery("#ip_list_dropdown").change(function() {
+        selected_machine = jQuery(this).val();
+
+        if(selected_machine !== "") {
+            let selected_machine_name = machine_list[selected_machine];
+            jQuery("#display_machine_name").text(selected_machine_name);
+        } else {
+            jQuery("#display_machine_name").text("Select a machine");
+            selected_machine = 0;
+        }
+
+        ipcRenderer.send("get:views", selected_machine, "diagonstics");
+    });
+
+    
+});
+
+ipcRenderer.on("render:ip_list", function(e, ip_list_html, machine_list_from_server) {
+    jQuery("#ip_list_dropdown").html(ip_list_html);
+    machine_list = machine_list_from_server;
+});
+
+</script>
+</body>
+</html>

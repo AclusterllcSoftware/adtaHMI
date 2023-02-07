@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>ADTA 1.0.0 -- <%= pageTitle %></title>
+    <link rel="stylesheet" href="css/style.css">
+    <% if(currentMenu === 'alarms'|| currentMenu === 'alarms-history' || currentMenu === 'alarms-hit-list' || currentMenu === 'statistics-packages'|| currentMenu === 'statistics-package-to-sort') { %>
+    <link rel="stylesheet" href="js/datatables/datatables.min.css">
+    <link rel="stylesheet" href="js/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="js/datepicker/bootstrap-datepicker.min.css">
+    <% } %>
+    <link rel="stylesheet" href="css/custom.css">
+    
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <div class="main-area flex-grow-1">
+        <div class="row m-0">
+            <div class="col-lg-12 text-right" style="height: 60px;">
+                <!--height has to 36-->
+                <img src="resources/bluecrest-logo.png" height="24" class="mr-1 mt-2 mb-3">
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-lg-5 p-0">
+                <div class="row m-0">
+                    <div class="col-lg-2 pl-0">
+                        <span class="badge badge-pill badge-light" id="display_date">06/12/2020</span>
+                        <span class="badge badge-pill badge-light" id="display_time">11:20:30</span>
+                    </div>
+                    <div class="col-lg-5">
+                        <nav class="navbar navbar-expand-lg navbar-light p-0 m-0">
+                            <div class="collapse navbar-collapse" id="navbarColor03">
+                                <ul class="nav nav-pills w-100">
+                                    <li class="nav-item mr-0 w-100 text-center">
+                                        <a class="nav-link bg-light disabled text-dark font-weight-bold" href="#" id="display_machine_name"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="col-lg-3 text-right">
+                        <span class="badge badge-pill badge-light" style="padding:0;" >
+                            <select id="ip_list_dropdown" style="border:0;background-color: #f8f9fa; font-weight: bold;">
+                                <option>Select machine</option>
+                            </select>
+                        </span>
+                        <span class="badge badge-pill badge-light" id="show-username"></span>
+                    </div>
+                    <div class="col-lg-2 text-center" id="status-circle">
+                        &#11044;
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 p-0">
+                <div class="row m-0">
+                    <div class="col-lg-12 p-0">
+                        <nav class="navbar navbar-expand-lg navbar-light pr-0 mr-0">
+                            <div class="collapse navbar-collapse" id="navbarColor03">
+                                <ul class="nav nav-pills w-100">
+                                    <li class="nav-item">
+                                        <a class="nav-link <%= currentMenu === 'general-view' ? 'active' : 'bg-light' %>" href="#" data-link="general-view">General View</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link <%= currentMenu === 'alarms' ? 'active' : 'bg-light' %>" href="#" data-link="alarms">Alarms</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link <%= currentMenu === 'alarms-history' ? 'active' : 'bg-light' %>" href="#" data-link="alarms-history">Alarms History</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link <%= currentMenu === 'alarms-hit-list' ? 'active' : 'bg-light' %>" href="#" data-link="alarms-hit-list">Alarms Hit List</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link <%= (currentMenu === 'statistics' || currentMenu === 'statistics-packages'|| currentMenu === 'statistics-package-to-sort') ? 'active' : 'bg-light' %>" href="#" data-link="statistics">Statistics</a>
+                                    </li>
+                                    <li class="nav-item mr-0">
+                                        <a class="nav-link <%= currentMenu === 'status' ? 'active' : 'bg-light' %>" href="#" data-link="status">Status</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
