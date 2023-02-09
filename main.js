@@ -231,21 +231,8 @@ function processReceivedJsonObjects(jsonObjects) {
 				let deviceTitlesResult = jsonObj.result;
 				//console.log(deviceTitlesResult);
 				mainWindow.webContents.send("render:device_titles", deviceTitlesResult);
-			} else if(resType == "package_list") {
-				let packageListResult = jsonObj.result;
-				//console.log(deviceTitlesResult);
-				mainWindow.webContents.send("render:package_list", packageListResult);
 			}
-			else if(resType == "statistics-package-to-sort") {
-				let ingramProducts = jsonObj.ingramProducts;
-				//console.log(ingramProducts);
-				mainWindow.webContents.send("render:statistics-package-to-sort", ingramProducts);
-			}
-			else if(resType == "sorted_graphs") {
-				let sortedGraphResult = jsonObj.result;
-				//console.log(deviceTitlesResult);
-				mainWindow.webContents.send("render:sorted_graphs", sortedGraphResult);
-			} else if(resType == "settings") {
+			else if(resType == "settings") {
 				let settingResult = jsonObj.result;
 				//console.log(deviceTitlesResult);
 				mainWindow.webContents.send("render:settings", settingResult);

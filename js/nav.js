@@ -152,8 +152,7 @@ jQuery(document).ready(function() {
         ipcRenderer.send("change:link", link);
         return false;
     });
-
-    jQuery("a.statistics_btn").click( function() {
+    jQuery("a.btn-footer").click( function() {
         let link = jQuery(this).data("link");
         ipcRenderer.send("change:link", link);
         return false;
