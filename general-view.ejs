@@ -41,7 +41,7 @@
 let machine_mode = 9;
 let current_bin_status_list = {};
 async function loadDetailedActiveAlarmSettingsValue() {
-	detailed_active_alarm_settings_value = await ipcRenderer.invoke('getSingleStoreValue', 'cbp_detailed_active_alarm');
+	detailed_active_alarm_settings_value = await ipcRenderer.invoke('getSingleStoreValue', 'adta_detailed_active_alarm');
 
 	if(detailed_active_alarm_settings_value === "active") {
 		jQuery("#marquee1").hide();

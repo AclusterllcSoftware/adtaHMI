@@ -103,9 +103,9 @@ let alreadyConnected = 0;
 let currentConnectedMachine = 0;
 /* const port = 10707;
 const host = "192.168.1.102"; */
-let port = store.get("cbp_server_port", "not_set");
-let host = store.get("cbp_server_address", "not_set");
-let cmAddress = store.get("cbp_cm_address", "not_set");
+let port = store.get("adta_server_port", "not_set");
+let host = store.get("adta_server_address", "not_set");
+let cmAddress = store.get("adta_cm_address", "not_set");
 /* const port = 50555;
 const host = "192.168.0.104"; */
 const timeout = 1000;
@@ -466,20 +466,20 @@ ipcMain.on("page:loaded", function(e) {
 ipcMain.on("settings:saved", function(e, settings_data) {
 	//console.log(settings_data);
 
-	store.set("cbp_server_address", settings_data['ip_address_input']);
+	store.set("adta_server_address", settings_data['ip_address_input']);
 	host = settings_data['ip_address_input'];
 
-	store.set("cbp_server_port", settings_data['port_input']);
+	store.set("adta_server_port", settings_data['port_input']);
 	port = settings_data['port_input'];
 
-	store.set("cbp_cm_address", settings_data['cm_ip_address_input']);
+	store.set("adta_cm_address", settings_data['cm_ip_address_input']);
 	cmAddress = settings_data['cm_ip_address_input'];
 
-	store.set("cbp_diagonstic_url", settings_data['diagonstic_url']);
+	store.set("adta_diagonstic_url", settings_data['diagonstic_url']);
 	if (typeof settings_data['detailed_active_alarm'] !== 'undefined') {
-		store.set("cbp_detailed_active_alarm", settings_data['detailed_active_alarm']);
+		store.set("adta_detailed_active_alarm", settings_data['detailed_active_alarm']);
 	} else {
-		store.set("cbp_detailed_active_alarm", "not_set");
+		store.set("adta_detailed_active_alarm", "not_set");
 	}
 });
 
@@ -504,11 +504,11 @@ ipcMain.on("get:set_user_role", function(e, role, name) {
 });
 
 ipcMain.handle('getStoreValue', (e) => {
-	let server_address = store.get("cbp_server_address", "not_set");
-	let server_port = store.get("cbp_server_port", "not_set");
-	let diagonstic_url = store.get("cbp_diagonstic_url", "not_set");
-	let cm_address = store.get("cbp_cm_address", "not_set");
-	let detailed_active_alarm = store.get("cbp_detailed_active_alarm", "not_set");
+	let server_address = store.get("adta_server_address", "not_set");
+	let server_port = store.get("adta_server_port", "not_set");
+	let diagonstic_url = store.get("adta_diagonstic_url", "not_set");
+	let cm_address = store.get("adta_cm_address", "not_set");
+	let detailed_active_alarm = store.get("adta_detailed_active_alarm", "not_set");
 
 
 	return {"ip_address_input" : server_address, "port_input" : server_port, "diagonstic_url" : diagonstic_url, "cm_ip_address_input" : cm_address, "detailed_active_alarm" : detailed_active_alarm};
