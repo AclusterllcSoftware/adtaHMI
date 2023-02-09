@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 240 500">
+  <defs>
+    <style>
+      .gv-colors1 {
+        fill: #c55a11;
+      }
+
+      .gv-colors2, .gv-colors3 {
+        fill: #fff;
+      }
+
+      .gv-colors3, .gv-colors4, .gv-colors5, .gv-colors6, .gv-colors7 {
+        font-family: ArialMT, Arial;
+        font-size: 12px;
+      }
+
+      .gv-colors5 {
+        fill: #1a1a1a;
+      }
+
+      .gv-colors8 {
+        fill: #27e22b;
+      }
+
+      .gv-colors9 {
+        fill: #f7931e;
+      }
+
+      .gv-colors10 {
+        fill: #3fa9f5;
+      }
+
+      .gv-colors11 {
+        fill: #39b54a;
+      }
+
+      .gv-colors12 {
+        fill: #ffc000;
+      }
+
+      .gv-colors13 {
+        fill: lime;
+      }
+
+      .gv-colors6 {
+        fill: #4d4d4d;
+      }
+
+      .gv-colors14 {
+        fill: #ccc;
+      }
+
+      .gv-colors15 {
+        letter-spacing: -.018em;
+      }
+
+      .gv-colors16 {
+        fill: #f5ea14;
+      }
+
+      .gv-colors7 {
+        fill: #333;
+      }
+
+      .gv-colors17 {
+        fill: #231f20;
+      }
+
+      .gv-colors18 {
+        fill: red;
+      }
+    </style>
+    <symbol id="ESTOP_LOOP_" data-name="ESTOP LOOP​" viewBox="0 0 12 12">
+      <g>
+        <rect class="gv-colors2" x=".479" y=".5" width="11.021" height="11.011"/>
+        <g>
+          <path d="M12,0H0V12H12V0h0ZM.5,11.5V.5H11.5V11.5H.5Z"/>
+          <path d="M6,3c1.654,0,3,1.346,3,3s-1.346,3-3,3-3-1.346-3-3,1.346-3,3-3m0-1C3.791,2,2,3.791,2,6s1.791,4,4,4,4-1.791,4-4-1.791-4-4-4h0Z"/>
+        </g>
+      </g>
+    </symbol>
+    <symbol id="PE2" viewBox="0 0 30 10">
+      <g>
+        <rect class="gv-colors2" x="0" width="30" height="10"/>
+        <polygon class="gv-colors11" points="9 5 1 1 1 9 9 5"/>
+        <rect class="gv-colors11" x="27" y="1" width="2" height="8"/>
+        <rect class="gv-colors14" x="10" y="4" width="2" height="2"/>
+        <rect class="gv-colors14" x="13.5" y="4" width="2" height="2"/>
+        <rect class="gv-colors14" x="17" y="4" width="2" height="2"/>
+        <rect class="gv-colors14" x="20.5" y="4" width="2" height="2"/>
+        <rect class="gv-colors14" x="24" y="4" width="2" height="2"/>
+      </g>
+    </symbol>
+    <symbol id="PLC" viewBox="0 0 14.426 7.257">
+      <g>
+        <rect class="gv-colors2" x=".031" y=".05" width="14.364" height="7.158"/>
+        <path class="gv-colors17" d="M0,0V7.257H14.426V0H0ZM.495,6.762V.495H13.436L.89,6.762H.495Z"/>
+      </g>
+    </symbol>
+    <symbol id="VFD" viewBox="0 0 12 12">
+      <g>
+        <circle class="gv-colors2" cx="6" cy="6" r="5.478"/>
+        <path d="M6,0C2.692,0,0,2.691,0,6s2.692,6,6,6,6-2.692,6-6S9.309,0,6,0ZM.522,6C.522,2.979,2.979,.521,6,.521c1.51,0,2.88,.615,3.872,1.606L2.128,9.872c-.992-.992-1.606-2.361-1.606-3.872Z"/>
+      </g>
+    </symbol>
+  </defs>
+  <g>
+    <rect class="gv-colors2" x="136.115" y="81.811" width="48" height="16"/>
+    <g>
+      <polygon class="gv-colors2" points="139.716 86.648 146.044 89.811 139.716 92.975 139.716 86.648"/>
+      <polygon class="gv-colors9" points="137.715 83.411 137.715 96.212 150.515 89.811 137.715 83.411 137.715 83.411"/>
+    </g>
+    <g>
+      <rect class="gv-colors2" x="179.315" y="83.411" width="3.2" height="12.8"/>
+      <polygon class="gv-colors9" points="182.515 83.411 179.315 83.411 179.315 96.212 182.515 96.212 182.515 83.411 182.515 83.411"/>
+    </g>
+    <rect class="gv-colors14" x="152.115" y="88.211" width="3.2" height="3.2"/>
+    <rect class="gv-colors14" x="157.715" y="88.211" width="3.2" height="3.2"/>
+    <rect class="gv-colors14" x="163.315" y="88.211" width="3.2" height="3.2"/>
+    <rect class="gv-colors14" x="168.915" y="88.211" width="3.2" height="3.2"/>
+    <rect class="gv-colors14" x="174.515" y="88.211" width="3.2" height="3.2"/>
+  </g>
+  <g>
+    <rect class="gv-colors16" x="136.365" y="189.875" width="15.5" height="15.5"/>
+    <path d="M151.615,190.125v15h-15v-15h15m.5-.5h-16v16h16v-16h0Z"/>
+  </g>
+  <g>
+    <path class="gv-colors2" d="M144.115,202.459c-2.665,0-4.833-2.168-4.833-4.833s2.168-4.833,4.833-4.833,4.834,2.168,4.834,4.833-2.169,4.833-4.834,4.833Z"/>
+    <path d="M144.115,193.292c2.389,0,4.333,1.944,4.333,4.333s-1.944,4.333-4.333,4.333-4.333-1.944-4.333-4.333,1.944-4.333,4.333-4.333m0-1c-2.945,0-5.333,2.388-5.333,5.333s2.388,5.333,5.333,5.333,5.333-2.388,5.333-5.333-2.388-5.333-5.333-5.333h0Z"/>
+  </g>
+  <g>
+    <circle class="gv-colors13" cx="144.507" cy="308.19" r="7.304"/>
+    <path d="M144.507,300.19c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
+  </g>
+  <g>
+    <circle class="gv-colors18" cx="144.507" cy="330.732" r="7.304"/>
+    <path d="M144.507,322.733c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
+  </g>
+  <use width="30" height="10" transform="translate(136.115 107.27) scale(1.6)" xlink:href="#PE2"/>
+  <use width="14.426" height="7.257" transform="translate(135.811 389.344) scale(1.386)" xlink:href="#PLC"/>
+  <g>
+    <rect class="gv-colors18" x="135.855" y="409.413" width="19.914" height="9.863"/>
+    <path class="gv-colors17" d="M135.811,409.344v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <use width="12" height="12" transform="translate(136.115 164.758) scale(1.333)" xlink:href="#ESTOP_LOOP_"/>
+  <use width="12" height="12" transform="translate(136.507 277.648) scale(1.333)" xlink:href="#VFD"/>
+  <g>
+    <g>
+      <rect class="gv-colors2" x="17.58" y="83.209" width="77" height="20.194" rx="2.5" ry="2.5"/>
+      <path class="gv-colors8" d="M92.08,84.709c.551,0,1,.448,1,1v15.194c0,.552-.449,1-1,1H20.08c-.551,0-1-.448-1-1v-15.194c0-.552,.449-1,1-1H92.08m0-3H20.08c-2.209,0-4,1.791-4,4v15.194c0,2.209,1.791,4,4,4H92.08c2.209,0,4-1.791,4-4v-15.194c0-2.209-1.791-4-4-4h0Z"/>
+    </g>
+    <text class="gv-colors5" transform="translate(33.66 96.507)"><tspan x="0" y="0">Running</tspan></text>
+  </g>
+  <g>
+    <g>
+      <rect class="gv-colors2" x="17.58" y="116.785" width="77" height="20.193" rx="2.5" ry="2.5"/>
+      <path class="gv-colors14" d="M92.08,118.285c.551,0,1,.448,1,1v15.193c0,.552-.449,1-1,1H20.08c-.551,0-1-.448-1-1v-15.193c0-.552,.449-1,1-1H92.08m0-3H20.08c-2.209,0-4,1.791-4,4v15.193c0,2.209,1.791,4,4,4H92.08c2.209,0,4-1.791,4-4v-15.193c0-2.209-1.791-4-4-4h0Z"/>
+    </g>
+    <text class="gv-colors5" transform="translate(33.89 130.082)"><tspan x="0" y="0">Stopped</tspan></text>
+  </g>
+  <g>
+    <g>
+      <rect class="gv-colors2" x="17.58" y="150.359" width="77" height="20.194" rx="2.5" ry="2.5"/>
+      <path class="gv-colors18" d="M92.08,151.859c.551,0,1,.448,1,1v15.194c0,.552-.449,1-1,1H20.08c-.551,0-1-.448-1-1v-15.194c0-.552,.449-1,1-1H92.08m0-3H20.08c-2.209,0-4,1.791-4,4v15.194c0,2.209,1.791,4,4,4H92.08c2.209,0,4-1.791,4-4v-15.194c0-2.209-1.791-4-4-4h0Z"/>
+    </g>
+    <text class="gv-colors5" transform="translate(36.015 163.657)"><tspan x="0" y="0">Faulted</tspan></text>
+  </g>
+  <g>
+    <g>
+      <rect class="gv-colors2" x="17.58" y="183.935" width="77" height="20.193" rx="2.5" ry="2.5"/>
+      <path class="gv-colors12" d="M92.08,185.435c.551,0,1,.448,1,1v15.194c0,.552-.449,1-1,1H20.08c-.551,0-1-.448-1-1v-15.194c0-.552,.449-1,1-1H92.08m0-3H20.08c-2.209,0-4,1.791-4,4v15.194c0,2.209,1.791,4,4,4H92.08c2.209,0,4-1.791,4-4v-15.194c0-2.209-1.791-4-4-4h0Z"/>
+    </g>
+    <text class="gv-colors5" transform="translate(33.339 197.232)"><tspan x="0" y="0">Jammed</tspan></text>
+  </g>
+  <g>
+    <rect class="gv-colors13" x="17.219" y="278.058" width="80" height="20" rx="4" ry="4"/>
+    <text class="gv-colors7" transform="translate(34.8 291.094)"><tspan x="0" y="0">Running</tspan></text>
+  </g>
+  <g>
+    <rect class="gv-colors12" x="17.219" y="308.333" width="80" height="20" rx="4" ry="4"/>
+    <text class="gv-colors7" transform="translate(34.015 322.545)"><tspan x="0" y="0">75% Full</tspan></text>
+  </g>
+  <g>
+    <rect class="gv-colors10" x="17.219" y="338.607" width="80" height="20" rx="4" ry="4"/>
+    <text class="gv-colors7" transform="translate(47.481 352.837)"><tspan x="0" y="0">Full</tspan></text>
+  </g>
+  <g>
+    <rect class="gv-colors18" x="17.219" y="368.882" width="80" height="20" rx="4" ry="4"/>
+    <text class="gv-colors3" transform="translate(24.471 383.178)"><tspan x="0" y="0">Jam/Faulted</tspan></text>
+  </g>
+  <g>
+    <rect class="gv-colors1" x="17.219" y="399.157" width="80" height="20" rx="4" ry="4"/>
+    <text class="gv-colors3" transform="translate(37.513 413.387)"><tspan x="0" y="0">Manual</tspan></text>
+  </g>
+  <text class="gv-colors4" transform="translate(15.731 69.204)"><tspan x="0" y="0">Conveyor</tspan></text>
+  <text class="gv-colors4" transform="translate(135.812 71.592)"><tspan x="0" y="0">Photoeye</tspan></text>
+  <text class="gv-colors4" transform="translate(136.116 155.259)"><tspan x="0" y="0">Estop</tspan></text>
+  <text class="gv-colors4" transform="translate(135.812 263.691)"><tspan x="0" y="0">Motor</tspan></text>
+  <text class="gv-colors4" transform="translate(135.812 374.255)"><tspan x="0" y="0">Device</tspan></text>
+  <text class="gv-colors4" transform="translate(16.139 263.691)"><tspan x="0" y="0">Hamper</tspan></text>
+  <text class="gv-colors6" transform="translate(162.33 178.091)"><tspan x="0" y="0">Ok</tspan></text>
+  <text class="gv-colors6" transform="translate(191.33 93.408)"><tspan x="0" y="0">O</tspan><tspan class="gv-colors15" x="9.334" y="0">f</tspan><tspan x="12.451" y="0">f</tspan></text>
+  <text class="gv-colors6" transform="translate(191.33 118.935)"><tspan x="0" y="0">On</tspan></text>
+  <text class="gv-colors6" transform="translate(161.982 203.502)"><tspan x="0" y="0">Pressed</tspan></text>
+  <text class="gv-colors6" transform="translate(162.354 289.589)"><tspan x="0" y="0">Stopped</tspan></text>
+  <text class="gv-colors6" transform="translate(161.958 311.533)"><tspan x="0" y="0">Running</tspan></text>
+  <text class="gv-colors6" transform="translate(161.922 335.001)"><tspan x="0" y="0">Faulted</tspan></text>
+  <text class="gv-colors6" transform="translate(162.306 398.877)"><tspan x="0" y="0">Comm Ok</tspan></text>
+  <text class="gv-colors6" transform="translate(162.306 418.877)"><tspan x="0" y="0">Comm Nok</tspan></text>
+</svg>

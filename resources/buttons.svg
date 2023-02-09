@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_buttons" data-name="Layer Buttons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100">
+  <defs>
+    <style>
+      .buttons-font {
+      font-family: Arial-BoldMT, Arial;
+      font-size: 20px;
+      }
+    </style>
+  </defs>
+  <g>
+    <circle fill="lime" cx="50" cy="50" r="40"/>
+    <text class="buttons-font" fill="#1a1a1a" transform="translate(28 55)"><tspan x="0" y="0">Start</tspan></text>
+  </g>
+  <g>
+    <circle fill="red" cx="150" cy="50" r="40"/>
+    <text class="buttons-font" fill="#fff" transform="translate(130 55)"><tspan x="0" y="0">Stop</tspan></text>
+  </g>
+  <g>
+    <circle fill="#ccc" cx="250" cy="50" r="40"/>
+    <text class="buttons-font" fill="#1a1a1a" transform="translate(225 55)"><tspan x="0" y="0">Reset</tspan></text>
+  </g>
+</svg>
