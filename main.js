@@ -200,7 +200,14 @@ function processReceivedJsonObjects(jsonObjects) {
 				}
 				mainWindow.webContents.send("render:ip_list", ipListHtml, machineList, maintenanceIpList);
 
-			} else if(resType == "general_view") {
+			}
+			else if(resType == "getStatistics") {
+				mainWindow.webContents.send("getStatistics", jsonObj);
+			}
+			else if(resType == "getStatisticsHourly") {
+				mainWindow.webContents.send("getStatisticsHourly", jsonObj);
+			}
+			else if(resType == "general_view") {
 				let generalViewResult = jsonObj.result;
 				mainWindow.webContents.send("render-view:general_view", generalViewResult);
 			} else if(resType == "alarms_list") {
@@ -225,10 +232,6 @@ function processReceivedJsonObjects(jsonObjects) {
 			} else if(resType == "induct") {
 				let inductResult = jsonObj.result;
 				mainWindow.webContents.send("render:induct", inductResult);
-			}
-			else if(resType == "statistics") {
-				let statisticsViewResult = jsonObj.result;
-				mainWindow.webContents.send("render:statistics", statisticsViewResult);
 			}
 			else if(resType == "device_status") {
 				let deviceStatusResult = jsonObj.result;
@@ -499,4 +502,18 @@ ipcMain.handle('getStoreValue', (e) => {
 
 ipcMain.handle('getSingleStoreValue', (event, key) => {
 	return store.get(key, "not_set");
+});
+
+///////
+ipcMain.on("getStatistics", function(e,machineId,from_timestamp,to_timestamp) {
+	if(machineId>0){
+		let m = {"req" : 'getStatistics', "machineId" : machineId,'from_timestamp':from_timestamp,'to_timestamp':to_timestamp};
+		sendMessageToServer(JSON.stringify(m));
+	}
+});
+ipcMain.on("getStatisticsHourly", function(e,machineId,from_timestamp,to_timestamp) {
+	if(machineId>0){
+		let m = {"req" : 'getStatisticsHourly', "machineId" : machineId,'from_timestamp':from_timestamp,'to_timestamp':to_timestamp};
+		sendMessageToServer(JSON.stringify(m));
+	}
 });
