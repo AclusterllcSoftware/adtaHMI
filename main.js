@@ -161,6 +161,7 @@ function connectEventHandler() {
 	alreadyConnected = 1;
 	retrying = false;
 	mainWindow.webContents.send("render:server_connected");
+	sendMessageToServer(JSON.stringify({"req" : "basic_info"}));
 	connectionStatus = setInterval(() => {
 		if(currentConnectedMachine != 0) {
 			//console.log("sending device status check message");		
@@ -175,13 +176,17 @@ function connectEventHandler() {
 		sendMessageToServer(JSON.stringify(m));
 	}
 }
-
+let basic_info={};
 function processReceivedJsonObjects(jsonObjects) {
 	jsonObjects.forEach(function(jsonObj) {
 		if(jsonObj.type != undefined) {
 			let resType = jsonObj.type;
-
-			if(resType == "ip_list") {
+			if(resType == "basic_info") {
+				//can split in multiple request if data loss
+				basic_info=jsonObj.basic_info;
+				//console.log(basic_info);
+			}
+			else if(resType == "ip_list") {
 				machineList = {};
 				maintenanceIpList = {};
 				ipList = jsonObj.result;
@@ -197,7 +202,7 @@ function processReceivedJsonObjects(jsonObjects) {
 
 			} else if(resType == "general_view") {
 				let generalViewResult = jsonObj.result;
-				mainWindow.webContents.send("render:general_view", generalViewResult);
+				mainWindow.webContents.send("render-view:general_view", generalViewResult);
 			} else if(resType == "alarms_list") {
 				let alarmsListResult = jsonObj.result;
 				mainWindow.webContents.send("render:alarms_list", alarmsListResult);
@@ -220,10 +225,12 @@ function processReceivedJsonObjects(jsonObjects) {
 			} else if(resType == "induct") {
 				let inductResult = jsonObj.result;
 				mainWindow.webContents.send("render:induct", inductResult);
-			} else if(resType == "statistics") {
+			}
+			else if(resType == "statistics") {
 				let statisticsViewResult = jsonObj.result;
 				mainWindow.webContents.send("render:statistics", statisticsViewResult);
-			} else if(resType == "device_status") {
+			}
+			else if(resType == "device_status") {
 				let deviceStatusResult = jsonObj.result;
 				//console.log(deviceStatusResult);
 				mainWindow.webContents.send("render:device_status", deviceStatusResult);
@@ -298,8 +305,9 @@ function drainEventHandler() {
 }
 
 function errorEventHandler(err) {
-	console.log('error');
-	console.log(err);
+	console.log(new Date().toString(),err.toString());
+	// console.log('error');
+	// console.log(err);
 }
 
 function closeEventHandler () {
@@ -336,10 +344,15 @@ ipcMain.on("connect:server", function(e) {
 
 ipcMain.on("get:views", function(e, machineId, view_name) {
 	currentConnectedMachine = machineId;
-	if((machineId != 0) && (view_name != "diagonstics")) {
-		let m = {"req" : view_name, "id" : machineId};
-		sendMessageToServer(JSON.stringify(m));
+	if(machineId!=0){
+		if(view_name=='statistics'){
+			mainWindow.webContents.send("render:statistics", basic_info);
+		}
 	}
+	// if((machineId != 0) && (view_name != "diagonstics")) {
+	// 	let m = {"req" : view_name, "id" : machineId};
+	// 	sendMessageToServer(JSON.stringify(m));
+	// }
 });
 
 ipcMain.on("get:change_mode", function(e, machineId, mode) {
@@ -388,23 +401,6 @@ ipcMain.on("get:device_command", function(e, machineId, device_id, operation_id)
 	currentConnectedMachine = machineId;
 	if((machineId != 0)) {
 		let m = {"req" : "device_command", "id" : machineId, "device" : device_id, "operation" : operation_id};
-		sendMessageToServer(JSON.stringify(m));
-	}
-});
-
-ipcMain.on("get:filtered_package_list", function(e, machineId, start_timestamp, end_timestamp, filter_sorting_code) {
-	currentConnectedMachine = machineId;
-	if((machineId != 0) && (start_timestamp !== "") && (end_timestamp !== "")) {
-		let m = {"req" : "filtered_package_list", "id" : machineId, "start" : start_timestamp, "end" : end_timestamp, "sc" : filter_sorting_code};
-		sendMessageToServer(JSON.stringify(m));
-	}
-});
-ipcMain.on("get:filtered_package_to_sort_list", function(e, machineId, cartonId) {
-	currentConnectedMachine = machineId;
-	//console.log(machineId+" "+cartonId)
-	//if((machineId != 0) && (cartonId !== "")) {
-	if((machineId != 0) ) {
-		let m = {"req" : "filtered_package_to_sort_list", "id" : machineId, "cartonId" : cartonId};
 		sendMessageToServer(JSON.stringify(m));
 	}
 });
