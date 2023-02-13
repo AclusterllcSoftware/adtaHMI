@@ -3,13 +3,8 @@
         <div class="col-4" style="padding:0 50px;text-align: center;">
 			<%- include('resources/general-view-colors.svg') %>
         </div>
-		<div class="col-8" style="padding:0 50px;text-align: center;">
-			<div>
-				<%- include('resources/general-view.svg') %>
-			</div>
-			<div style="padding: 0 250px">
-				<%- include('resources/buttons.svg') %>
-			</div>
+		<div class="col-8" style="padding:0 10px;text-align: center;">
+			<%- include('resources/general-view.svg') %>
 		</div>
     </div>
     <div class="row m-0">
@@ -45,161 +40,160 @@
 <script src="js/jquery.newsTicker.js"></script>
 
 <script>
-let machine_mode = 9;
-let current_bin_status_list = {};
+// let machine_mode = 9;
+// let current_bin_status_list = {};
+let detailed_active_alarm_settings_value = "";
 async function loadDetailedActiveAlarmSettingsValue() {
 	detailed_active_alarm_settings_value = await ipcRenderer.invoke('getSingleStoreValue', 'adta_detailed_active_alarm');
 
 	if(detailed_active_alarm_settings_value === "active") {
 		jQuery("#marquee1").hide();
-		jQuery("#marquee2").hide();
 		jQuery("#details_active_alarms_table").show();
 	} else {
 		jQuery("#details_active_alarms_table").hide();
 		jQuery("#marquee1").show();
-		jQuery("#marquee2").show();
-	}
-	//jQuery("#detailed_active_alarm_h1").text(detailed_active_alarm_settings_value);
-}
-
-function awNotice() {
-	var $active = $('#ticker1 a.active');
-	var $next = $active.next('a');    
-
-	if ($next.length){
-		$next.addClass('active');
-		$active.removeClass('active');
-	} else {
-		$active.removeClass('active');
-		$('#ticker1 a:first-of-type').addClass('active');
 	}
 }
+//
+// function awNotice() {
+// 	var $active = $('#ticker1 a.active');
+// 	var $next = $active.next('a');
+//
+// 	if ($next.length){
+// 		$next.addClass('active');
+// 		$active.removeClass('active');
+// 	} else {
+// 		$active.removeClass('active');
+// 		$('#ticker1 a:first-of-type').addClass('active');
+// 	}
+// }
+//
+// function awNotices(timer){
+//     setInterval( "awNotice()", timer);
+// }
+//
+// function awNotice2() {
+// 	var $active = $('#ticker2 a.active');
+// 	var $next = $active.next('a');
+//
+// 	if ($next.length){
+// 		$next.addClass('active');
+// 		$active.removeClass('active');
+// 	} else {
+// 		$active.removeClass('active');
+// 		$('#ticker2 a:first-of-type').addClass('active');
+// 	}
+// }
+//
+// function awNotices2(timer){
+//     setInterval( "awNotice2()", timer);
+// }
+//
+// let alarm_class_to_names = {"0" : "Error", "1" : "Warning", "2" : "Message"};
 
-function awNotices(timer){
-    setInterval( "awNotice()", timer);
-}
-
-function awNotice2() {
-	var $active = $('#ticker2 a.active');
-	var $next = $active.next('a');    
-
-	if ($next.length){
-		$next.addClass('active');
-		$active.removeClass('active');
-	} else {
-		$active.removeClass('active');
-		$('#ticker2 a:first-of-type').addClass('active');
-	}
-}
-
-function awNotices2(timer){
-    setInterval( "awNotice2()", timer);
-}
-
-let alarm_class_to_names = {"0" : "Error", "1" : "Warning", "2" : "Message"};
-let detailed_active_alarm_settings_value = "";
-let old_tickers = [], new_tickers = [];
-var local_ip_address = getIPAddress();
-let inducts_current_status = {
-	"induct-1" : 99,
-	"induct-2" : 99,
-	"induct-3" : 99,
-	"induct-4" : 99,
-	"induct-5" : 99,
-	"induct-6" : 99,
-	"induct-7" : 99,
-};
-
-var inducts_gui_to_actual_id = {
-	1: {
-		"id": 7,
-		"name" : "Priority Pak Induct 5"
-	},
-	2: {
-		"id": 6,
-		"name" : "Priority Pak Induct 4"
-	},
-	3: {
-		"id": 5,
-		"name" : "Priority Pak Induct 3"
-	},
-	4: {
-		"id": 4,
-		"name" : "Priority Pak Induct 2"
-	},
-	5: {
-		"id": 3,
-		"name" : "Priority Pak Induct 1"
-	},
-	6: {
-		"id": 2,
-		"name" : "Tfold Induct 2"
-	},
-	7: {
-		"id": 1,
-		"name" : "Tfold Induct 1"
-	},
-};
-
-var alarm_ticker = $('#alarm-ticker').newsTicker({
-	row_height: 100,
-	max_rows: 2,
-	duration: 4000,
-	pauseOnHover: 0
-});
+// let old_tickers = [], new_tickers = [];
+// var local_ip_address = getIPAddress();
+// let inducts_current_status = {
+// 	"induct-1" : 99,
+// 	"induct-2" : 99,
+// 	"induct-3" : 99,
+// 	"induct-4" : 99,
+// 	"induct-5" : 99,
+// 	"induct-6" : 99,
+// 	"induct-7" : 99,
+// };
+//
+// var inducts_gui_to_actual_id = {
+// 	1: {
+// 		"id": 7,
+// 		"name" : "Priority Pak Induct 5"
+// 	},
+// 	2: {
+// 		"id": 6,
+// 		"name" : "Priority Pak Induct 4"
+// 	},
+// 	3: {
+// 		"id": 5,
+// 		"name" : "Priority Pak Induct 3"
+// 	},
+// 	4: {
+// 		"id": 4,
+// 		"name" : "Priority Pak Induct 2"
+// 	},
+// 	5: {
+// 		"id": 3,
+// 		"name" : "Priority Pak Induct 1"
+// 	},
+// 	6: {
+// 		"id": 2,
+// 		"name" : "Tfold Induct 2"
+// 	},
+// 	7: {
+// 		"id": 1,
+// 		"name" : "Tfold Induct 1"
+// 	},
+// };
+//
+// var alarm_ticker = $('#alarm-ticker').newsTicker({
+// 	row_height: 100,
+// 	max_rows: 2,
+// 	duration: 4000,
+// 	pauseOnHover: 0
+// });
 
 jQuery(document).ready(function() {
-	$('[data-toggle="tooltip"]').tooltip();
+	//$('[data-toggle="tooltip"]').tooltip();
 	loadDetailedActiveAlarmSettingsValue();
 	
     jQuery("#ip_list_dropdown").change(function() {
         selected_machine = jQuery(this).val();
-
         if(selected_machine !== "") {
             let selected_machine_name = machine_list[selected_machine];
             jQuery("#display_machine_name").text(selected_machine_name);
-
-            setInterval(() => {
-                ipcRenderer.send("get:views", selected_machine, "general_view");
-            }, 1000);
-        } else {
+        }
+        else {
             jQuery("#display_machine_name").text("Select a machine");
             selected_machine = 0;
         }
-
         ipcRenderer.send("get:views", selected_machine, "general_view");
     });
 	
-	jQuery('.induct-control-btn').click(function(){ 
-		let clicked_induct_gui_id = jQuery(this).data('induct-gui-id');
-		let clicked_induct_gui_id_selector = "induct-" + clicked_induct_gui_id;
-		let induct_details = inducts_gui_to_actual_id[clicked_induct_gui_id];
-		let induct_actual_id = induct_details.id;
-		let induct_current_status = inducts_current_status[clicked_induct_gui_id_selector];
-		let induct_change_status = (induct_current_status == 0) ? 1 : 0;
-
-		ipcRenderer.send("get:change_induct", selected_machine, induct_change_status, induct_actual_id);
-	});
-
-	jQuery('.navigate-induct').click(function(){
-		var induct_gui_id = jQuery(this).data("induct-no");
-		var induct_details = inducts_gui_to_actual_id[induct_gui_id];
-		var induct_db_id = induct_details.id;
-		ipcRenderer.send("change:induct", induct_db_id);
-	});
-	
-
-	jQuery(".mod-sorter").click(function(){
-		console.log("mod sorter clicked")
-		var device_type = jQuery(this).data("device-type");
-		var sorter_number = jQuery(this).data("sorter-number");
-		console.log(device_type + " ==> " + sorter_number);
-		ipcRenderer.send("change:modsort", device_type, sorter_number, 1);
-	});
+	// jQuery('.induct-control-btn').click(function(){
+	// 	let clicked_induct_gui_id = jQuery(this).data('induct-gui-id');
+	// 	let clicked_induct_gui_id_selector = "induct-" + clicked_induct_gui_id;
+	// 	let induct_details = inducts_gui_to_actual_id[clicked_induct_gui_id];
+	// 	let induct_actual_id = induct_details.id;
+	// 	let induct_current_status = inducts_current_status[clicked_induct_gui_id_selector];
+	// 	let induct_change_status = (induct_current_status == 0) ? 1 : 0;
+	//
+	// 	ipcRenderer.send("get:change_induct", selected_machine, induct_change_status, induct_actual_id);
+	// });
+	//
+	// jQuery('.navigate-induct').click(function(){
+	// 	var induct_gui_id = jQuery(this).data("induct-no");
+	// 	var induct_details = inducts_gui_to_actual_id[induct_gui_id];
+	// 	var induct_db_id = induct_details.id;
+	// 	ipcRenderer.send("change:induct", induct_db_id);
+	// });
+	//
+	//
+	// jQuery(".mod-sorter").click(function(){
+	// 	console.log("mod sorter clicked")
+	// 	var device_type = jQuery(this).data("device-type");
+	// 	var sorter_number = jQuery(this).data("sorter-number");
+	// 	console.log(device_type + " ==> " + sorter_number);
+	// 	ipcRenderer.send("change:modsort", device_type, sorter_number, 1);
+	// });
 });
 
-ipcRenderer.on("render:general_view", function(e, general_view_result) {
-	console.log(general_view_result)
+ipcRenderer.on("render:general_view", function(e, data) {
+	console.log("view")
+    setInterval(() => {
+        console.log("reqest getGeneralViewData")
+        ipcRenderer.send("getGeneralViewData", selected_machine);
+    }, 1000);
+	console.log(data)
+	return;
     //BinEnabled=2=#27e22b, 
 	//BinPartiallyFull=3=blinking #4d80ff/ now #fff,
 	//BinDisabled with traymissing on=4=#6d6e70,
@@ -367,6 +361,9 @@ ipcRenderer.on("render:general_view", function(e, general_view_result) {
 		alarm_ticker.newsTicker('pause');
         alarm_ticker.newsTicker('remove');
     }
+});
+ipcRenderer.on("getGeneralViewData", function(e, data) {
+    console.log(data)
 });
 </script>
 </body>

@@ -207,10 +207,11 @@ function processReceivedJsonObjects(jsonObjects) {
 			else if(resType == "getStatisticsHourly") {
 				mainWindow.webContents.send("getStatisticsHourly", jsonObj);
 			}
-			else if(resType == "general_view") {
-				let generalViewResult = jsonObj.result;
-				mainWindow.webContents.send("render-view:general_view", generalViewResult);
-			} else if(resType == "alarms_list") {
+			else if(resType == "getGeneralViewData") {
+				mainWindow.webContents.send("getGeneralViewData", jsonObj);
+			}
+			////////////
+			else if(resType == "alarms_list") {
 				let alarmsListResult = jsonObj.result;
 				mainWindow.webContents.send("render:alarms_list", alarmsListResult);
 			} else if(resType == "alarms_history") {
@@ -338,7 +339,10 @@ client.on('close',   closeEventHandler);
 
 //0 for welcome
 function sendMessageToServer(msg) {
-	client.write(msg);
+	if(alreadyConnected){
+		//send message only when connected
+		client.write(msg);
+	}
 }
 
 ipcMain.on("connect:server", function(e) {
@@ -350,6 +354,9 @@ ipcMain.on("get:views", function(e, machineId, view_name) {
 	if(machineId!=0){
 		if(view_name=='statistics'){
 			mainWindow.webContents.send("render:statistics", basic_info);
+		}
+		else if(view_name=='general_view'){
+			mainWindow.webContents.send("render:general_view", basic_info);
 		}
 	}
 	// if((machineId != 0) && (view_name != "diagonstics")) {
@@ -514,6 +521,12 @@ ipcMain.on("getStatistics", function(e,machineId,from_timestamp,to_timestamp) {
 ipcMain.on("getStatisticsHourly", function(e,machineId,from_timestamp,to_timestamp) {
 	if(machineId>0){
 		let m = {"req" : 'getStatisticsHourly', "machineId" : machineId,'from_timestamp':from_timestamp,'to_timestamp':to_timestamp};
+		sendMessageToServer(JSON.stringify(m));
+	}
+});
+ipcMain.on("getGeneralViewData", function(e,machineId) {
+	if(machineId>0){
+		let m = {"req" : 'getGeneralViewData', "machineId" : machineId};
 		sendMessageToServer(JSON.stringify(m));
 	}
 });
