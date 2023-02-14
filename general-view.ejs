@@ -191,7 +191,8 @@ ipcRenderer.on("render:general_view", function(e, data) {
     setBinLabel(data['binsInfo']);
     $('.bin').on('click',function (){
         let key=$(this).attr('bin-key');
-        console.log(data['binsInfo'][key])
+        //console.log(data['binsInfo'][key])
+        ipcRenderer.send("binDetails", selected_machine,key);
     })
     setInterval(() => {
         ipcRenderer.send("getGeneralViewData", selected_machine);

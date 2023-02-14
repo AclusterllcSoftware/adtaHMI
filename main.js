@@ -530,3 +530,11 @@ ipcMain.on("getGeneralViewData", function(e,machineId) {
 		sendMessageToServer(JSON.stringify(m));
 	}
 });
+ipcMain.on("binDetails", function(e,machineId,key) {
+	if(machineId>0){
+		let linkFile = "binDetails.ejs";
+		mainWindow.loadFile(linkFile, {query: {"key": key, "binInfo": basic_info['binInfo']}});
+		// let m = {"req" : 'getGeneralViewData', "machineId" : machineId};
+		// sendMessageToServer(JSON.stringify(m));
+	}
+});
