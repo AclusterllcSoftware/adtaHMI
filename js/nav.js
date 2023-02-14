@@ -218,3 +218,14 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
         jQuery("#display_machine_name").text("Select a machine");
     }
 });
+
+//--------------
+    function setBinLabel(binsInfo){
+        for(let key in binsInfo){
+            if(binsInfo[key].gui_bin_id>0){
+                $('.bin[gui-bin-id='+binsInfo[key].gui_bin_id+'] .bin-label').text(binsInfo[key].bin_label);
+                $('.bin[gui-bin-id='+binsInfo[key].gui_bin_id+']').attr('bin-key',key);
+            }
+        }
+
+    }

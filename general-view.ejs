@@ -142,7 +142,7 @@ async function loadDetailedActiveAlarmSettingsValue() {
 // });
 
 jQuery(document).ready(function() {
-	//$('[data-toggle="tooltip"]').tooltip();
+	$('[data-toggle="tooltip"]').tooltip();
 	loadDetailedActiveAlarmSettingsValue();
 	
     jQuery("#ip_list_dropdown").change(function() {
@@ -157,6 +157,7 @@ jQuery(document).ready(function() {
         }
         ipcRenderer.send("get:views", selected_machine, "general_view");
     });
+
 	
 	// jQuery('.induct-control-btn').click(function(){
 	// 	let clicked_induct_gui_id = jQuery(this).data('induct-gui-id');
@@ -187,9 +188,12 @@ jQuery(document).ready(function() {
 });
 
 ipcRenderer.on("render:general_view", function(e, data) {
-	console.log("view")
+    setBinLabel(data['binsInfo']);
+    $('.bin').on('click',function (){
+        let key=$(this).attr('bin-key');
+        console.log(data['binsInfo'][key])
+    })
     setInterval(() => {
-        console.log("reqest getGeneralViewData")
         ipcRenderer.send("getGeneralViewData", selected_machine);
     }, 1000);
 	console.log(data)
@@ -363,7 +367,7 @@ ipcRenderer.on("render:general_view", function(e, data) {
     }
 });
 ipcRenderer.on("getGeneralViewData", function(e, data) {
-    console.log(data)
+    //console.log(data)
 });
 </script>
 </body>
