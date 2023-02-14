@@ -189,7 +189,7 @@ jQuery(document).ready(function() {
 
 ipcRenderer.on("render:general_view", function(e, data) {
     setBinLabel(data['binsInfo']);
-    $('.bin').on('click',function (){
+    $('.bin.cursor-pointer').on('click',function (){
         let key=$(this).attr('bin-key');
         //console.log(data['binsInfo'][key])
         ipcRenderer.send("binDetails", selected_machine,key);

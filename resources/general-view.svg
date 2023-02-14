@@ -42,11 +42,11 @@
       }
 
       .cls-9 {
-        fill: #27e22b;
+        fill: #e6e7e8;
       }
 
       .cls-10 {
-        fill: #39b54a;
+        fill: #e6e7e8;
       }
 
       .cls-11 {
@@ -87,60 +87,68 @@
     <rect class="cls-15" x="571.662" y="381.992" width="8.433" height="6.559" rx="2.475" ry="2.475"/>
     <rect class="cls-4" x="130.999" y="396.047" width="34.669" height="45.913" rx="6" ry="6"/>
     <rect class="cls-15" x="26.056" y="329.68" width="51.535" height="23.425" rx="4" ry="4"/>
-    <g class="cursor-pointer bin" gui-bin-id="5" bin-key="0_0">
+    <g class="bin" gui-bin-id="5" bin-key="0_0">
       <rect class="cls-9" x="26.09" width="52.472" height="22.488" rx="4" ry="4"/>
-      <text class="cls-11" transform="translate(36 15) scale(1.074 1)"><tspan class="bin-label" x="0" y="0">?????</tspan></text>
-    </g>
-
-
-    <g>
-      <path class="cls-8" d="M105.141,434.401v-30.795h53.653c1.654,0,3,1.346,3,3v24.795c0,1.654-1.346,3-3,3h-53.653Z"/>
-      <path class="cls-9" d="M158.794,404.606c1.103,0,2,.897,2,2v24.795c0,1.103-.897,2-2,2h-52.653v-28.795h52.653m0-2h-54.653v32.795h54.653c2.209,0,4-1.791,4-4v-24.795c0-2.209-1.791-4-4-4h0Z"/>
-    </g>
-    <g>
-      <rect class="cls-8" x="168.794" y="403.606" width="11.118" height="30.795" rx="3" ry="3"/>
-      <path class="cls-9" d="M176.912,404.606c1.103,0,2,.897,2,2v24.795c0,1.103-.897,2-2,2h-5.118c-1.103,0-2-.897-2-2v-24.795c0-1.103,.897-2,2-2h5.118m0-2h-5.118c-2.209,0-4,1.791-4,4v24.795c0,2.209,1.791,4,4,4h5.118c2.209,0,4-1.791,4-4v-24.795c0-2.209-1.791-4-4-4h0Z"/>
-    </g>
-    <g>
-      <rect class="cls-8" x="186.912" y="403.606" width="11.118" height="30.795" rx="3" ry="3"/>
-      <path class="cls-9" d="M195.03,404.606c1.103,0,2,.897,2,2v24.795c0,1.103-.897,2-2,2h-5.118c-1.103,0-2-.897-2-2v-24.795c0-1.103,.897-2,2-2h5.118m0-2h-5.118c-2.209,0-4,1.791-4,4v24.795c0,2.209,1.791,4,4,4h5.118c2.209,0,4-1.791,4-4v-24.795c0-2.209-1.791-4-4-4h0Z"/>
-    </g>
-    <g>
-      <rect class="cls-8" x="205.03" y="403.606" width="11.118" height="30.795" rx="3" ry="3"/>
-      <path class="cls-9" d="M213.148,404.606c1.103,0,2,.897,2,2v24.795c0,1.103-.897,2-2,2h-5.118c-1.103,0-2-.897-2-2v-24.795c0-1.103,.897-2,2-2h5.118m0-2h-5.118c-2.209,0-4,1.791-4,4v24.795c0,2.209,1.791,4,4,4h5.118c2.209,0,4-1.791,4-4v-24.795c0-2.209-1.791-4-4-4h0Z"/>
-    </g>
-    <g>
-      <rect class="cls-8" x="223.148" y="403.606" width="11.118" height="30.795" rx="3" ry="3"/>
-      <path class="cls-9" d="M231.266,404.606c1.103,0,2,.897,2,2v24.795c0,1.103-.897,2-2,2h-5.118c-1.103,0-2-.897-2-2v-24.795c0-1.103,.897-2,2-2h5.118m0-2h-5.118c-2.209,0-4,1.791-4,4v24.795c0,2.209,1.791,4,4,4h5.118c2.209,0,4-1.791,4-4v-24.795c0-2.209-1.791-4-4-4h0Z"/>
-    </g>
-    <g>
-      <rect class="cls-8" x="37.392" y="28.504" width="29.8" height="44.177" rx="3" ry="3"/>
-      <path class="cls-9" d="M64.192,29.504c1.103,0,2,.897,2,2v38.176c0,1.103-.897,2-2,2h-23.8c-1.103,0-2-.897-2-2V31.504c0-1.103,.897-2,2-2h23.8m0-2h-23.8c-2.209,0-4,1.791-4,4v38.176c0,2.209,1.791,4,4,4h23.8c2.209,0,4-1.791,4-4V31.504c0-2.209-1.791-4-4-4h0Z"/>
-    </g>
-    <g>
-      <path class="cls-8" d="M41.111,364.749V82.681c0-1.654,1.346-3,3-3h16.362c1.654,0,3,1.346,3,3V364.749h-22.362Z"/>
-      <path class="cls-9" d="M60.473,80.68c1.103,0,2,.897,2,2V363.748h-20.362V82.68c0-1.103,.897-2,2-2h16.362m0-2h-16.362c-2.209,0-4,1.791-4,4V365.748h24.362V82.68c0-2.209-1.791-4-4-4h0Z"/>
+      <text class="cls-11" transform="translate(36 15) scale(1.074 1)"><tspan class="bin-label" x="0" y="0"></tspan></text>
     </g>
     <g class="cursor-pointer bin" gui-bin-id="3" bin-key="0_0">
       <rect class="cls-9" x="67.284" y="129.969" width="28.11" height="58.094" rx="4" ry="4"/>
-      <text class="cls-11" transform="translate(85.297 174.68) rotate(-90) scale(1.074 1)"><tspan class="bin-label" x="0" y="0">?????</tspan></text>
+      <text class="cls-11" transform="translate(85.297 174.68) rotate(-90) scale(1.074 1)"><tspan class="bin-label" x="0" y="0"></tspan></text>
     </g>
     <g class="cursor-pointer bin" gui-bin-id="1" bin-key="0_0">
       <rect class="cls-9" x="67.284" y="194.621" width="28.11" height="58.094" rx="4" ry="4"/>
-      <text class="cls-11" transform="translate(85.297 238.227) rotate(-90) scale(1.074 1)"><tspan class="bin-label" x="0" y="0">?????</tspan></text>
+      <text class="cls-11" transform="translate(85.297 238.227) rotate(-90) scale(1.074 1)"><tspan class="bin-label" x="0" y="0"></tspan></text>
     </g>
     <g class="cursor-pointer bin" gui-bin-id="4" bin-key="0_0">
       <rect class="cls-9" x="9.19" y="129.969" width="28.11" height="58.094" rx="4" ry="4"/>
-      <text class="cls-11" transform="translate(27.204 175.119) rotate(-90) scale(1.074 1)"><tspan class="bin-label" x="0" y="0">?????</tspan></text>
+      <text class="cls-11" transform="translate(27.204 175.119) rotate(-90) scale(1.074 1)"><tspan class="bin-label" x="0" y="0"></tspan></text>
     </g>
     <g class="cursor-pointer bin" gui-bin-id="2" bin-key="0_0">
       <rect class="cls-9" x="9.19" y="194.621" width="28.11" height="58.094" rx="4" ry="4"/>
-      <text class="cls-11" transform="translate(27.203 239.357) rotate(-90) scale(1.074 1)"><tspan class="bin-label" x="0" y="0">?????</tspan></text>
+      <text class="cls-11" transform="translate(27.203 239.357) rotate(-90) scale(1.074 1)"><tspan class="bin-label" x="0" y="0"></tspan></text>
     </g>
-    <g>
+
+    <g class="conveyor">
+      <rect class="cls-8" x="37.392" y="28.504" width="29.8" height="44.177" rx="3" ry="3"/>
+      <path class="cls-9" d="M64.192,29.504c1.103,0,2,.897,2,2v38.176c0,1.103-.897,2-2,2h-23.8c-1.103,0-2-.897-2-2V31.504c0-1.103,.897-2,2-2h23.8m0-2h-23.8c-2.209,0-4,1.791-4,4v38.176c0,2.209,1.791,4,4,4h23.8c2.209,0,4-1.791,4-4V31.504c0-2.209-1.791-4-4-4h0Z"/>
+    </g>
+    <g class="conveyor">
+      <path class="cls-8" d="M41.111,364.749V82.681c0-1.654,1.346-3,3-3h16.362c1.654,0,3,1.346,3,3V364.749h-22.362Z"/>
+      <path class="cls-9" d="M60.473,80.68c1.103,0,2,.897,2,2V363.748h-20.362V82.68c0-1.103,.897-2,2-2h16.362m0-2h-16.362c-2.209,0-4,1.791-4,4V365.748h24.362V82.68c0-2.209-1.791-4-4-4h0Z"/>
+    </g>
+    <g class="conveyor">
       <path class="cls-8" d="M98.141,436.97c-35.726-.532-64.689-29.496-65.222-65.222h36.191c.519,15.774,13.256,28.511,29.03,29.03v36.192Z"/>
       <path class="cls-9" d="M68.158,372.748c.992,15.53,13.454,27.991,28.983,28.983v34.216c-34.381-1.041-62.158-28.819-63.199-63.199h34.216m1.936-2H31.912c0,37.13,30.1,67.229,67.229,67.229v-38.183c-16.042,0-29.047-13.005-29.047-29.047h0Z"/>
     </g>
+    <g class="conveyor">
+      <path class="cls-8" d="M105.141,434.401v-30.795h53.653c1.654,0,3,1.346,3,3v24.795c0,1.654-1.346,3-3,3h-53.653Z"/>
+      <path class="cls-9" d="M158.794,404.606c1.103,0,2,.897,2,2v24.795c0,1.103-.897,2-2,2h-52.653v-28.795h52.653m0-2h-54.653v32.795h54.653c2.209,0,4-1.791,4-4v-24.795c0-2.209-1.791-4-4-4h0Z"/>
+    </g>
+    <g class="conveyor">
+      <rect class="cls-8" x="168.794" y="403.606" width="11.118" height="30.795" rx="3" ry="3"/>
+      <path class="cls-9" d="M176.912,404.606c1.103,0,2,.897,2,2v24.795c0,1.103-.897,2-2,2h-5.118c-1.103,0-2-.897-2-2v-24.795c0-1.103,.897-2,2-2h5.118m0-2h-5.118c-2.209,0-4,1.791-4,4v24.795c0,2.209,1.791,4,4,4h5.118c2.209,0,4-1.791,4-4v-24.795c0-2.209-1.791-4-4-4h0Z"/>
+    </g>
+    <g class="conveyor">
+      <rect class="cls-8" x="186.912" y="403.606" width="11.118" height="30.795" rx="3" ry="3"/>
+      <path class="cls-9" d="M195.03,404.606c1.103,0,2,.897,2,2v24.795c0,1.103-.897,2-2,2h-5.118c-1.103,0-2-.897-2-2v-24.795c0-1.103,.897-2,2-2h5.118m0-2h-5.118c-2.209,0-4,1.791-4,4v24.795c0,2.209,1.791,4,4,4h5.118c2.209,0,4-1.791,4-4v-24.795c0-2.209-1.791-4-4-4h0Z"/>
+    </g>
+    <g class="conveyor">
+      <rect class="cls-8" x="205.03" y="403.606" width="11.118" height="30.795" rx="3" ry="3"/>
+      <path class="cls-9" d="M213.148,404.606c1.103,0,2,.897,2,2v24.795c0,1.103-.897,2-2,2h-5.118c-1.103,0-2-.897-2-2v-24.795c0-1.103,.897-2,2-2h5.118m0-2h-5.118c-2.209,0-4,1.791-4,4v24.795c0,2.209,1.791,4,4,4h5.118c2.209,0,4-1.791,4-4v-24.795c0-2.209-1.791-4-4-4h0Z"/>
+    </g>
+    <g class="conveyor">
+      <rect class="cls-8" x="223.148" y="403.606" width="11.118" height="30.795" rx="3" ry="3"/>
+      <path class="cls-9" d="M231.266,404.606c1.103,0,2,.897,2,2v24.795c0,1.103-.897,2-2,2h-5.118c-1.103,0-2-.897-2-2v-24.795c0-1.103,.897-2,2-2h5.118m0-2h-5.118c-2.209,0-4,1.791-4,4v24.795c0,2.209,1.791,4,4,4h5.118c2.209,0,4-1.791,4-4v-24.795c0-2.209-1.791-4-4-4h0Z"/>
+    </g>
+    <g class="conveyor">
+      <rect class="cls-8" x="241.262" y="393.541" width="100.132" height="42.976" rx="3" ry="3"/>
+      <path class="cls-9" d="M338.394,394.541c1.103,0,2,.897,2,2v36.976c0,1.103-.897,2-2,2h-94.132c-1.103,0-2-.897-2-2v-36.976c0-1.103,.897-2,2-2h94.132m0-2h-94.132c-2.209,0-4,1.791-4,4v36.976c0,2.209,1.791,4,4,4h94.132c2.209,0,4-1.791,4-4v-36.976c0-2.209-1.791-4-4-4h0Z"/>
+    </g>
+    <g class="conveyor">
+      <rect class="cls-8" x="348.394" y="388.241" width="219.131" height="53.576" rx="3" ry="3"/>
+      <path class="cls-9" d="M564.524,389.241c1.103,0,2,.897,2,2v47.576c0,1.103-.897,2-2,2h-213.131c-1.103,0-2-.897-2-2v-47.576c0-1.103,.897-2,2-2h213.131m0-2h-213.131c-2.209,0-4,1.791-4,4v47.576c0,2.209,1.791,4,4,4h213.131c2.209,0,4-1.791,4-4v-47.576c0-2.209-1.791-4-4-4h0Z"/>
+    </g>
+
     <g>
       <path class="cls-7" d="M558.302,412.445h33.28c1.159,0,2.1,.941,2.1,2.1v.711h-37.48v-.711c0-1.159,.941-2.1,2.1-2.1Z" transform="translate(161.092 988.792) rotate(-90)"/>
       <rect class="cls-7" x="562.761" y="412.445" width="37.48" height="2.811" transform="translate(167.651 995.351) rotate(-90)"/>
@@ -158,47 +166,28 @@
       <rect class="cls-15" x="116.944" y="451.33" width="36.543" height="9.37" rx="3" ry="3"/>
       <rect class="cls-8" x="161.92" y="452.267" width="2.811" height="15.929" rx="1.061" ry="1.061"/>
     </g>
-    <g>
+    <g class="cls-12">
       <g>
-        <rect class="cls-8" x="241.262" y="393.541" width="100.132" height="42.976" rx="3" ry="3"/>
-        <path class="cls-9" d="M338.394,394.541c1.103,0,2,.897,2,2v36.976c0,1.103-.897,2-2,2h-94.132c-1.103,0-2-.897-2-2v-36.976c0-1.103,.897-2,2-2h94.132m0-2h-94.132c-2.209,0-4,1.791-4,4v36.976c0,2.209,1.791,4,4,4h94.132c2.209,0,4-1.791,4-4v-36.976c0-2.209-1.791-4-4-4h0Z"/>
-      </g>
-      <g class="cls-12">
-        <g>
-          <line class="cls-6" x1="240.261" y1="396.821" x2="342.394" y2="396.821"/>
-          <line class="cls-2" x1="240.261" y1="400.796" x2="342.394" y2="400.796"/>
-          <line class="cls-6" x1="240.261" y1="404.771" x2="342.394" y2="404.771"/>
-          <line class="cls-2" x1="240.261" y1="408.746" x2="342.394" y2="408.746"/>
-          <line class="cls-6" x1="240.261" y1="412.721" x2="342.394" y2="412.721"/>
-          <line class="cls-2" x1="240.261" y1="416.696" x2="342.394" y2="416.696"/>
-          <line class="cls-6" x1="240.261" y1="420.671" x2="342.394" y2="420.671"/>
-          <line class="cls-2" x1="240.261" y1="424.646" x2="342.394" y2="424.646"/>
-          <line class="cls-6" x1="240.261" y1="428.621" x2="342.394" y2="428.621"/>
-          <line class="cls-2" x1="240.261" y1="432.596" x2="342.394" y2="432.596"/>
-        </g>
+        <line class="cls-6" x1="240.261" y1="396.821" x2="342.394" y2="396.821"/>
+        <line class="cls-2" x1="240.261" y1="400.796" x2="342.394" y2="400.796"/>
+        <line class="cls-6" x1="240.261" y1="404.771" x2="342.394" y2="404.771"/>
+        <line class="cls-2" x1="240.261" y1="408.746" x2="342.394" y2="408.746"/>
+        <line class="cls-6" x1="240.261" y1="412.721" x2="342.394" y2="412.721"/>
+        <line class="cls-2" x1="240.261" y1="416.696" x2="342.394" y2="416.696"/>
+        <line class="cls-6" x1="240.261" y1="420.671" x2="342.394" y2="420.671"/>
+        <line class="cls-2" x1="240.261" y1="424.646" x2="342.394" y2="424.646"/>
+        <line class="cls-6" x1="240.261" y1="428.621" x2="342.394" y2="428.621"/>
+        <line class="cls-2" x1="240.261" y1="432.596" x2="342.394" y2="432.596"/>
       </g>
     </g>
     <g>
-      <g>
-        <rect class="cls-8" x="348.394" y="388.241" width="219.131" height="53.576" rx="3" ry="3"/>
-        <path class="cls-9" d="M564.524,389.241c1.103,0,2,.897,2,2v47.576c0,1.103-.897,2-2,2h-213.131c-1.103,0-2-.897-2-2v-47.576c0-1.103,.897-2,2-2h213.131m0-2h-213.131c-2.209,0-4,1.791-4,4v47.576c0,2.209,1.791,4,4,4h213.131c2.209,0,4-1.791,4-4v-47.576c0-2.209-1.791-4-4-4h0Z"/>
-      </g>
       <path class="cls-13" d="M350.039,396.156h215.829v-4.268c0-1.105-.895-2-2-2h-211.829c-1.105,0-2,.895-2,2v4.268Z"/>
       <path class="cls-13" d="M350.039,433.893h215.829v4.268c0,1.105-.895,2-2,2h-211.829c-1.105,0-2-.895-2-2v-4.268Z"/>
     </g>
   </g>
-  <g>
-    <rect class="cls-1" x="17.852" y="361.287" width="58.067" height="14"/>
-    <polygon class="cls-10" points="30.852 368.287 18.852 362.287 18.852 374.287 30.852 368.287"/>
-    <rect class="cls-10" x="71.318" y="362.287" width="3.6" height="12"/>
-    <rect class="cls-14" x="32.712" y="367.087" width="2.4" height="2.4"/>
-    <rect class="cls-14" x="41.264" y="367.087" width="2.4" height="2.4"/>
-    <rect class="cls-14" x="49.815" y="367.087" width="2.4" height="2.4"/>
-    <rect class="cls-14" x="58.367" y="367.087" width="2.4" height="2.4"/>
-    <rect class="cls-14" x="66.918" y="367.087" width="2.4" height="2.4"/>
-  </g>
-  <g>
-    <rect class="cls-1" x="17.852" y="32.118" width="58.067" height="14"/>
+
+  <g class="photoeye" gui-bin-id="1" input-id="0" data-toggle="tooltip" data-html="true" title="">
+
     <polygon class="cls-10" points="30.852 39.118 18.852 33.118 18.852 45.118 30.852 39.118"/>
     <rect class="cls-10" x="71.318" y="33.118" width="3.6" height="12"/>
     <rect class="cls-14" x="32.712" y="37.918" width="2.4" height="2.4"/>
@@ -207,8 +196,16 @@
     <rect class="cls-14" x="58.367" y="37.918" width="2.4" height="2.4"/>
     <rect class="cls-14" x="66.918" y="37.918" width="2.4" height="2.4"/>
   </g>
-  <g>
-    <rect class="cls-1" x="72.586" y="415.896" width="58.067" height="14" transform="translate(-321.277 524.516) rotate(-90)"/>
+  <g class="photoeye" gui-bin-id="2" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-10" points="30.852 368.287 18.852 362.287 18.852 374.287 30.852 368.287"/>
+    <rect class="cls-10" x="71.318" y="362.287" width="3.6" height="12"/>
+    <rect class="cls-14" x="32.712" y="367.087" width="2.4" height="2.4"/>
+    <rect class="cls-14" x="41.264" y="367.087" width="2.4" height="2.4"/>
+    <rect class="cls-14" x="49.815" y="367.087" width="2.4" height="2.4"/>
+    <rect class="cls-14" x="58.367" y="367.087" width="2.4" height="2.4"/>
+    <rect class="cls-14" x="66.918" y="367.087" width="2.4" height="2.4"/>
+  </g>
+  <g class="photoeye" gui-bin-id="3" input-id="0" data-toggle="tooltip" data-html="true" title="">
     <polygon class="cls-10" points="101.62 438.93 95.62 450.93 107.62 450.93 101.62 438.93"/>
     <rect class="cls-10" x="99.82" y="390.663" width="3.6" height="12" transform="translate(-295.043 498.283) rotate(-90)"/>
     <rect class="cls-14" x="100.42" y="434.669" width="2.4" height="2.4" transform="translate(-334.25 537.489) rotate(-90)"/>
@@ -217,8 +214,7 @@
     <rect class="cls-14" x="100.42" y="409.015" width="2.4" height="2.4" transform="translate(-308.595 511.834) rotate(-90)"/>
     <rect class="cls-14" x="100.42" y="400.463" width="2.4" height="2.4" transform="translate(-300.043 503.283) rotate(-90)"/>
   </g>
-  <g>
-    <rect class="cls-1" x="95.843" y="415.896" width="58.067" height="14" transform="translate(-298.02 547.773) rotate(-90)"/>
+  <g class="photoeye" gui-bin-id="4" input-id="0" data-toggle="tooltip" data-html="true" title="">
     <polygon class="cls-10" points="124.877 438.93 118.877 450.93 130.877 450.93 124.877 438.93"/>
     <rect class="cls-10" x="123.077" y="390.663" width="3.6" height="12" transform="translate(-271.786 521.54) rotate(-90)"/>
     <rect class="cls-14" x="123.677" y="434.669" width="2.4" height="2.4" transform="translate(-310.993 560.746) rotate(-90)"/>
@@ -227,8 +223,7 @@
     <rect class="cls-14" x="123.677" y="409.015" width="2.4" height="2.4" transform="translate(-285.338 535.091) rotate(-90)"/>
     <rect class="cls-14" x="123.677" y="400.463" width="2.4" height="2.4" transform="translate(-276.786 526.54) rotate(-90)"/>
   </g>
-  <g>
-    <rect class="cls-1" x="119.3" y="415.896" width="58.067" height="14" transform="translate(-274.563 571.23) rotate(-90)"/>
+  <g class="photoeye" gui-bin-id="5" input-id="0" data-toggle="tooltip" data-html="true" title="">
     <polygon class="cls-10" points="148.334 438.93 142.334 450.93 154.334 450.93 148.334 438.93"/>
     <rect class="cls-10" x="146.534" y="390.663" width="3.6" height="12" transform="translate(-248.329 544.997) rotate(-90)"/>
     <rect class="cls-14" x="147.134" y="434.669" width="2.4" height="2.4" transform="translate(-287.536 584.203) rotate(-90)"/>
@@ -237,8 +232,7 @@
     <rect class="cls-14" x="147.134" y="409.015" width="2.4" height="2.4" transform="translate(-261.881 558.548) rotate(-90)"/>
     <rect class="cls-14" x="147.134" y="400.463" width="2.4" height="2.4" transform="translate(-253.329 549.997) rotate(-90)"/>
   </g>
-  <g>
-    <rect class="cls-1" x="136.236" y="415.896" width="58.067" height="14" transform="translate(-257.627 588.166) rotate(-90)"/>
+  <g class="photoeye" gui-bin-id="6" input-id="0" data-toggle="tooltip" data-html="true" title="">
     <polygon class="cls-10" points="165.269 438.93 159.269 450.93 171.269 450.93 165.269 438.93"/>
     <rect class="cls-10" x="163.469" y="390.663" width="3.6" height="12" transform="translate(-231.394 561.932) rotate(-90)"/>
     <rect class="cls-14" x="164.069" y="434.669" width="2.4" height="2.4" transform="translate(-270.6 601.139) rotate(-90)"/>
@@ -247,8 +241,7 @@
     <rect class="cls-14" x="164.069" y="409.015" width="2.4" height="2.4" transform="translate(-244.945 575.484) rotate(-90)"/>
     <rect class="cls-14" x="164.069" y="400.463" width="2.4" height="2.4" transform="translate(-236.394 566.932) rotate(-90)"/>
   </g>
-  <g>
-    <rect class="cls-1" x="200.186" y="412.316" width="75" height="14" transform="translate(-181.63 657.002) rotate(-90)"/>
+  <g class="photoeye" gui-bin-id="7" input-id="0" data-toggle="tooltip" data-html="true" title="">
     <polygon class="cls-10" points="237.686 443.816 231.686 455.816 243.686 455.816 237.686 443.816"/>
     <rect class="cls-10" x="235.886" y="378.616" width="3.6" height="12" transform="translate(-146.93 622.302) rotate(-90)"/>
     <rect class="cls-14" x="236.486" y="439.416" width="2.4" height="2.4" transform="translate(-202.93 678.302) rotate(-90)"/>
