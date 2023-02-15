@@ -17,6 +17,10 @@
     "highcharts": "^8.1.2",
     "jquery": "^3.5.1",
     "jsdom": "^16.2.2",
+    "moment": "^2.29.4",
     "popper.js": "^1.16.1"
+  },
+  "devDependencies": {
+    "electronmon": "^2.0.2"
   }
 }
