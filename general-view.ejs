@@ -210,9 +210,9 @@ ipcRenderer.on("getGeneralViewData", function(e, data) {
         "8" : "#bababa",
     };
     let machineId=data['machineId'];
-    let binStates=data['binStates'];
-    for(let bin_id in binStates){
-        $('.bin[bin-key='+machineId+'_'+bin_id+'] rect').css('fill',bin_colors[binStates[bin_id]]);
+    let binsStates=data['binsStates'];
+    for(let bin_id in binsStates){
+        $('.bin[bin-key='+machineId+'_'+bin_id+'] rect').css('fill',bin_colors[binsStates[bin_id]]);
     }
 });
 </script>

@@ -210,6 +210,9 @@ function processReceivedJsonObjects(jsonObjects) {
 			else if(resType == "getGeneralViewData") {
 				mainWindow.webContents.send("getGeneralViewData", jsonObj);
 			}
+			else if(resType == "getBinInputsState") {
+				mainWindow.webContents.send("getBinInputsState", jsonObj);
+			}
 			////////////
 			else if(resType == "alarms_list") {
 				let alarmsListResult = jsonObj.result;
@@ -548,5 +551,11 @@ ipcMain.on("render:binDetails", function(e,machineId,key) {
 				mainWindow.webContents.send("render:binDetails", bin_info,bin_inputs);
 			});
 		}
+	}
+});
+ipcMain.on("getBinInputsState", function(e,machineId,sort_manager_id) {
+	if(machineId>0){
+		let m = {"req" : 'getBinInputsState', "machineId" : machineId,'sort_manager_id':sort_manager_id};
+		sendMessageToServer(JSON.stringify(m));
 	}
 });
