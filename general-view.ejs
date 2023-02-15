@@ -199,7 +199,21 @@ ipcRenderer.on("render:general_view", function(e, data) {
     }, 1000);
 });
 ipcRenderer.on("getGeneralViewData", function(e, data) {
-    //console.log(data)
+    let bin_colors = {
+        "1" : "#27e22b",
+        "2" : "#27e22b",
+        "3" : "#fff",
+        "4" : "#6d6e70",
+        "5" : "#4d80ff",
+        "6" : "#d0d2d3",
+        "7" : "#FFBF00",
+        "8" : "#bababa",
+    };
+    let machineId=data['machineId'];
+    let binStates=data['binStates'];
+    for(let bin_id in binStates){
+        $('.bin[bin-key='+machineId+'_'+bin_id+'] rect').css('fill',bin_colors[binStates[bin_id]]);
+    }
 });
 </script>
 </body>
