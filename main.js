@@ -541,7 +541,7 @@ ipcMain.on("render:binDetails", function(e,machineId,key) {
 			let bin_info=basic_info['binsInfo'][key];
 			let bin_inputs={};
 			for(let input_key in basic_info['inputsInfo']){
-				if((basic_info['inputsInfo'][input_key]['device_type']==3)
+				if((basic_info['inputsInfo'][input_key]['device_type']==4)
 					&&(basic_info['inputsInfo'][input_key]['gui_input_id']>0)
 					&& (basic_info['inputsInfo'][input_key]['device_number']==bin_info['sort_manager_id'])){
 					bin_inputs[input_key]=basic_info['inputsInfo'][input_key];

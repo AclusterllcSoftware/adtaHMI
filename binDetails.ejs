@@ -27,6 +27,7 @@
     ipcRenderer.on("render:binDetails", function(e, binInfo,binInputs) {
         //console.log(binInfo)
         //console.log(binInputs)
+        $("#bin_label").text(binInfo['bin_label'])
         for(let input_key in binInputs){
             $('.binDetails[gui-input-id='+binInputs[input_key].gui_input_id+']')
                 .attr('title',binInputs[input_key].description+'<br>'+binInputs[input_key].electrical_name)
@@ -37,11 +38,13 @@
             ipcRenderer.send("getBinInputsState", selected_machine,binInfo['sort_manager_id']);
         }, 1000);
     });
+
     ipcRenderer.on("getBinInputsState", function(e, data) {
         let binInputsStates=data['binInputsStates'];
         for(let input_id in binInputsStates){
-            console.log(input_id,binInputsStates)
-            $('.binDetails[input-id='+input_id+'] .input_state').css('fill',(binInputsStates[input_id]['active_state']==binInputsStates[input_id]['input_state'])?'#27e22b':'#f00');
+            let active_color=$('.binDetails[input-id='+input_id+']').attr('active-color');
+            let inactive_color=$('.binDetails[input-id='+input_id+']').attr('inactive-color');
+            $('.binDetails[input-id='+input_id+'] .input_state').css('fill',(binInputsStates[input_id]['active_state']==binInputsStates[input_id]['input_state'])?active_color:inactive_color);
         }
     });
 </script>
