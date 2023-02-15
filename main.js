@@ -548,11 +548,5 @@ ipcMain.on("render:binDetails", function(e,machineId,key) {
 				mainWindow.webContents.send("render:binDetails", bin_info,bin_inputs);
 			});
 		}
-
-		//{query: {"key": key, "binInfo": basic_info['binInfo']}
-
-
-		// let m = {"req" : 'getGeneralViewData', "machineId" : machineId};
-		// sendMessageToServer(JSON.stringify(m));
 	}
 });
