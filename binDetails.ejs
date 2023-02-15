@@ -22,12 +22,11 @@
                 jQuery("#display_machine_name").text("Select a machine");
                 selected_machine = 0;
             }
-            //ipcRenderer.send("get:views", selected_machine, "general_view");
         });
     });
-ipcRenderer.on("binDetails", function(e, data) {
-    //console.log(data)
-    console.log("i am here");
+ipcRenderer.on("render:binDetails", function(e, binInfo,binInputs) {
+    console.log(binInfo)
+    console.log(binInputs)
 });
 </script>
 </body>

@@ -530,10 +530,28 @@ ipcMain.on("getGeneralViewData", function(e,machineId) {
 		sendMessageToServer(JSON.stringify(m));
 	}
 });
-ipcMain.on("binDetails", function(e,machineId,key) {
+ipcMain.on("render:binDetails", function(e,machineId,key) {
 	if(machineId>0){
-		let linkFile = "binDetails.ejs";
-		mainWindow.loadFile(linkFile, {query: {"key": key, "binInfo": basic_info['binInfo']}});
+
+		if(basic_info['binsInfo'][key]){
+			//console.log(basic_info['binInfo']);
+			let bin_info=basic_info['binsInfo'][key];
+			let bin_inputs={};
+			for(let input_key in basic_info['inputsInfo']){
+				if((basic_info['inputsInfo'][input_key]['device_type']==3)
+					&&(basic_info['inputsInfo'][input_key]['gui_input_id']>0)
+					&& (basic_info['inputsInfo'][input_key]['device_number']==bin_info['sort_manager_id'])){
+					bin_inputs[input_key]=basic_info['inputsInfo'][input_key];
+				}
+			}
+			mainWindow.loadFile('binDetails.ejs').then(function (){
+				mainWindow.webContents.send("render:binDetails", bin_info,bin_inputs);
+			});
+		}
+
+		//{query: {"key": key, "binInfo": basic_info['binInfo']}
+
+
 		// let m = {"req" : 'getGeneralViewData', "machineId" : machineId};
 		// sendMessageToServer(JSON.stringify(m));
 	}
