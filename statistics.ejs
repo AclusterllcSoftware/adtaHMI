@@ -120,12 +120,14 @@
 <%- include('footer', {currentMenu: 'statistics'}); %>
 <script src="js/jquery-bootstrap.js"></script>
 <script src="js/nav.js"></script>
+<script src="js/daterangepicker/moment.min.js"></script>
+<script src="js/datepicker/bootstrap-datepicker.min.js"></script>
 
 <script>
 const Highcharts = require('highcharts/highstock')
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-const moment = require('moment');
+// const moment = require('moment');
 
 let machine_mode = 9;
 let alarm_class_to_names = {"0" : "Error", "1" : "Warning", "2" : "Message"};
@@ -538,7 +540,7 @@ function populateChart(statistics_result){
             y: bcr_read_rate
         });
         let tput_value = 3600/(300/total_read); // Tput = 3600 / (period / number of products)
-        let volume_value = total_read*60/5; // per hour no of products
+        let volume_value = total_read; // per hour no of products
         volume_chart_data.push({
             x:time_slot,
             y:volume_value
