@@ -227,5 +227,12 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
                 $('.bin[gui-bin-id='+binsInfo[key].gui_bin_id+']').attr('bin-key',key);
             }
         }
-
+    }
+    function setPhotoeyeLabel(inputsInfo){
+        for(let key in inputsInfo){
+            let inputInfo=inputsInfo[key];
+            if(inputInfo.gui_input_id>0 && (inputInfo.input_type==0)&& (inputInfo.device_type==0)&& (inputInfo.device_number==0)  ){
+                $('.photoeye[gui-input-id='+inputInfo.gui_input_id+']').attr('input-id',inputInfo.input_id).attr('title',inputInfo.electrical_name+'<br>'+inputInfo.description);
+            }
+        }
     }

@@ -185,69 +185,114 @@
       <path class="cls-13" d="M350.039,433.893h215.829v4.268c0,1.105-.895,2-2,2h-211.829c-1.105,0-2-.895-2-2v-4.268Z"/>
     </g>
   </g>
-
-  <g class="photoeye" gui-bin-id="1" input-id="0" data-toggle="tooltip" data-html="true" title="">
-
-    <polygon class="cls-10" points="30.852 39.118 18.852 33.118 18.852 45.118 30.852 39.118"/>
-    <rect class="cls-10" x="71.318" y="33.118" width="3.6" height="12"/>
-    <rect class="cls-14" x="32.712" y="37.918" width="2.4" height="2.4"/>
-    <rect class="cls-14" x="41.264" y="37.918" width="2.4" height="2.4"/>
-    <rect class="cls-14" x="49.815" y="37.918" width="2.4" height="2.4"/>
-    <rect class="cls-14" x="58.367" y="37.918" width="2.4" height="2.4"/>
-    <rect class="cls-14" x="66.918" y="37.918" width="2.4" height="2.4"/>
+  <g transform="translate(18 22)" class="photoeye" gui-input-id="1" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-10" points="12 6 0 0 0 12 12 6"/>
+    <rect class="cls-14" x="14" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="22" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="30" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="38" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="46" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-10" x="54" y="0" width="3.6" height="12"/>
   </g>
-  <g class="photoeye" gui-bin-id="2" input-id="0" data-toggle="tooltip" data-html="true" title="">
-    <polygon class="cls-10" points="30.852 368.287 18.852 362.287 18.852 374.287 30.852 368.287"/>
-    <rect class="cls-10" x="71.318" y="362.287" width="3.6" height="12"/>
-    <rect class="cls-14" x="32.712" y="367.087" width="2.4" height="2.4"/>
-    <rect class="cls-14" x="41.264" y="367.087" width="2.4" height="2.4"/>
-    <rect class="cls-14" x="49.815" y="367.087" width="2.4" height="2.4"/>
-    <rect class="cls-14" x="58.367" y="367.087" width="2.4" height="2.4"/>
-    <rect class="cls-14" x="66.918" y="367.087" width="2.4" height="2.4"/>
+  <g transform="translate(18 70)" class="photoeye" gui-input-id="2" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-10" points="12 6 0 0 0 12 12 6"/>
+    <rect class="cls-14" x="14" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="22" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="30" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="38" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="46" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-10" x="54" y="0" width="3.6" height="12"/>
   </g>
-  <g class="photoeye" gui-bin-id="3" input-id="0" data-toggle="tooltip" data-html="true" title="">
-    <polygon class="cls-10" points="101.62 438.93 95.62 450.93 107.62 450.93 101.62 438.93"/>
-    <rect class="cls-10" x="99.82" y="390.663" width="3.6" height="12" transform="translate(-295.043 498.283) rotate(-90)"/>
-    <rect class="cls-14" x="100.42" y="434.669" width="2.4" height="2.4" transform="translate(-334.25 537.489) rotate(-90)"/>
-    <rect class="cls-14" x="100.42" y="426.118" width="2.4" height="2.4" transform="translate(-325.698 528.938) rotate(-90)"/>
-    <rect class="cls-14" x="100.42" y="417.566" width="2.4" height="2.4" transform="translate(-317.146 520.386) rotate(-90)"/>
-    <rect class="cls-14" x="100.42" y="409.015" width="2.4" height="2.4" transform="translate(-308.595 511.834) rotate(-90)"/>
-    <rect class="cls-14" x="100.42" y="400.463" width="2.4" height="2.4" transform="translate(-300.043 503.283) rotate(-90)"/>
+  <g transform="translate(18 362)" class="photoeye" gui-input-id="3" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-10" points="12 6 0 0 0 12 12 6"/>
+    <rect class="cls-14" x="14" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="22" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="30" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="38" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="46" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-10" x="54" y="0" width="3.6" height="12"/>
   </g>
-  <g class="photoeye" gui-bin-id="4" input-id="0" data-toggle="tooltip" data-html="true" title="">
-    <polygon class="cls-10" points="124.877 438.93 118.877 450.93 130.877 450.93 124.877 438.93"/>
-    <rect class="cls-10" x="123.077" y="390.663" width="3.6" height="12" transform="translate(-271.786 521.54) rotate(-90)"/>
-    <rect class="cls-14" x="123.677" y="434.669" width="2.4" height="2.4" transform="translate(-310.993 560.746) rotate(-90)"/>
-    <rect class="cls-14" x="123.677" y="426.118" width="2.4" height="2.4" transform="translate(-302.441 552.195) rotate(-90)"/>
-    <rect class="cls-14" x="123.677" y="417.566" width="2.4" height="2.4" transform="translate(-293.889 543.643) rotate(-90)"/>
-    <rect class="cls-14" x="123.677" y="409.015" width="2.4" height="2.4" transform="translate(-285.338 535.091) rotate(-90)"/>
-    <rect class="cls-14" x="123.677" y="400.463" width="2.4" height="2.4" transform="translate(-276.786 526.54) rotate(-90)"/>
+  <g transform="translate(95 452) rotate(270)" class="photoeye" gui-input-id="4" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-10" points="12 6 0 0 0 12 12 6"/>
+    <rect class="cls-14" x="14" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="22" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="30" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="38" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="46" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-10" x="54" y="0" width="3.6" height="12"/>
   </g>
-  <g class="photoeye" gui-bin-id="5" input-id="0" data-toggle="tooltip" data-html="true" title="">
-    <polygon class="cls-10" points="148.334 438.93 142.334 450.93 154.334 450.93 148.334 438.93"/>
-    <rect class="cls-10" x="146.534" y="390.663" width="3.6" height="12" transform="translate(-248.329 544.997) rotate(-90)"/>
-    <rect class="cls-14" x="147.134" y="434.669" width="2.4" height="2.4" transform="translate(-287.536 584.203) rotate(-90)"/>
-    <rect class="cls-14" x="147.134" y="426.118" width="2.4" height="2.4" transform="translate(-278.984 575.652) rotate(-90)"/>
-    <rect class="cls-14" x="147.134" y="417.566" width="2.4" height="2.4" transform="translate(-270.433 567.1) rotate(-90)"/>
-    <rect class="cls-14" x="147.134" y="409.015" width="2.4" height="2.4" transform="translate(-261.881 558.548) rotate(-90)"/>
-    <rect class="cls-14" x="147.134" y="400.463" width="2.4" height="2.4" transform="translate(-253.329 549.997) rotate(-90)"/>
+  <g transform="translate(119 452) rotate(270)" class="photoeye" gui-input-id="5" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-10" points="12 6 0 0 0 12 12 6"/>
+    <rect class="cls-14" x="14" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="22" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="30" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="38" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="46" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-10" x="54" y="0" width="3.6" height="12"/>
   </g>
-  <g class="photoeye" gui-bin-id="6" input-id="0" data-toggle="tooltip" data-html="true" title="">
-    <polygon class="cls-10" points="165.269 438.93 159.269 450.93 171.269 450.93 165.269 438.93"/>
-    <rect class="cls-10" x="163.469" y="390.663" width="3.6" height="12" transform="translate(-231.394 561.932) rotate(-90)"/>
-    <rect class="cls-14" x="164.069" y="434.669" width="2.4" height="2.4" transform="translate(-270.6 601.139) rotate(-90)"/>
-    <rect class="cls-14" x="164.069" y="426.118" width="2.4" height="2.4" transform="translate(-262.049 592.587) rotate(-90)"/>
-    <rect class="cls-14" x="164.069" y="417.566" width="2.4" height="2.4" transform="translate(-253.497 584.035) rotate(-90)"/>
-    <rect class="cls-14" x="164.069" y="409.015" width="2.4" height="2.4" transform="translate(-244.945 575.484) rotate(-90)"/>
-    <rect class="cls-14" x="164.069" y="400.463" width="2.4" height="2.4" transform="translate(-236.394 566.932) rotate(-90)"/>
+  <g transform="translate(139 452) rotate(270)" class="photoeye" gui-input-id="6" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-10" points="12 6 0 0 0 12 12 6"/>
+    <rect class="cls-14" x="14" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="22" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="30" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="38" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="46" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-10" x="54" y="0" width="3.6" height="12"/>
   </g>
-  <g class="photoeye" gui-bin-id="7" input-id="0" data-toggle="tooltip" data-html="true" title="">
-    <polygon class="cls-10" points="237.686 443.816 231.686 455.816 243.686 455.816 237.686 443.816"/>
-    <rect class="cls-10" x="235.886" y="378.616" width="3.6" height="12" transform="translate(-146.93 622.302) rotate(-90)"/>
-    <rect class="cls-14" x="236.486" y="439.416" width="2.4" height="2.4" transform="translate(-202.93 678.302) rotate(-90)"/>
-    <rect class="cls-14" x="236.486" y="426.666" width="2.4" height="2.4" transform="translate(-190.18 665.552) rotate(-90)"/>
-    <rect class="cls-14" x="236.486" y="413.916" width="2.4" height="2.4" transform="translate(-177.43 652.802) rotate(-90)"/>
-    <rect class="cls-14" x="236.486" y="401.166" width="2.4" height="2.4" transform="translate(-164.68 640.052) rotate(-90)"/>
-    <rect class="cls-14" x="236.486" y="388.416" width="2.4" height="2.4" transform="translate(-151.93 627.302) rotate(-90)"/>
+  <g transform="translate(159 452) rotate(270)" class="photoeye" gui-input-id="7" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-10" points="12 6 0 0 0 12 12 6"/>
+    <rect class="cls-14" x="14" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="22" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="30" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="38" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="46" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-10" x="54" y="0" width="3.6" height="12"/>
+  </g>
+  <g transform="translate(177 452) rotate(270)" class="photoeye" gui-input-id="8" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-10" points="12 6 0 0 0 12 12 6"/>
+    <rect class="cls-14" x="14" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="22" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="30" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="38" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="46" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-10" x="54" y="0" width="3.6" height="12"/>
+  </g>
+  <g transform="translate(195 452) rotate(270)" class="photoeye" gui-input-id="9" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-10" points="12 6 0 0 0 12 12 6"/>
+    <rect class="cls-14" x="14" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="22" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="30" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="38" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="46" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-10" x="54" y="0" width="3.6" height="12"/>
+  </g>
+  <g transform="translate(213 452) rotate(270)" class="photoeye" gui-input-id="10" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-10" points="12 6 0 0 0 12 12 6"/>
+    <rect class="cls-14" x="14" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="22" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="30" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="38" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="46" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-10" x="54" y="0" width="3.6" height="12"/>
+  </g>
+  <g transform="translate(231 452) rotate(270)" class="photoeye" gui-input-id="11" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-10" points="12 6 0 0 0 12 12 6"/>
+    <rect class="cls-14" x="14" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="22" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="30" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="38" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="46" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-10" x="54" y="0" width="3.6" height="12"/>
+  </g>
+  <g transform="translate(339 452) rotate(270)" class="photoeye" gui-input-id="12" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-10" points="12 6 0 0 0 12 12 6"/>
+    <rect class="cls-14" x="14" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="22" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="30" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="38" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="46" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="54" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14" x="62" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-10" x="70" y="0" width="3.6" height="12"/>
   </g>
 </svg>
