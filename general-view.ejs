@@ -190,7 +190,8 @@ jQuery(document).ready(function() {
 ipcRenderer.on("render:general_view", function(e, data) {
     setBinLabel(data['binsInfo']);
     setPhotoeyeLabel(data['inputsInfo']);
-    $('[data-toggle="tooltip"]').tooltip();
+    setConveyorLabel(data['conveyorsInfo']);
+
     $('.bin.cursor-pointer').on('click',function (){
         let key=$(this).attr('bin-key');
         //console.log(data['binsInfo'][key])
