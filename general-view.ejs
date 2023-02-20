@@ -157,34 +157,6 @@ jQuery(document).ready(function() {
         }
         ipcRenderer.send("get:views", selected_machine, "general_view");
     });
-
-	
-	// jQuery('.induct-control-btn').click(function(){
-	// 	let clicked_induct_gui_id = jQuery(this).data('induct-gui-id');
-	// 	let clicked_induct_gui_id_selector = "induct-" + clicked_induct_gui_id;
-	// 	let induct_details = inducts_gui_to_actual_id[clicked_induct_gui_id];
-	// 	let induct_actual_id = induct_details.id;
-	// 	let induct_current_status = inducts_current_status[clicked_induct_gui_id_selector];
-	// 	let induct_change_status = (induct_current_status == 0) ? 1 : 0;
-	//
-	// 	ipcRenderer.send("get:change_induct", selected_machine, induct_change_status, induct_actual_id);
-	// });
-	//
-	// jQuery('.navigate-induct').click(function(){
-	// 	var induct_gui_id = jQuery(this).data("induct-no");
-	// 	var induct_details = inducts_gui_to_actual_id[induct_gui_id];
-	// 	var induct_db_id = induct_details.id;
-	// 	ipcRenderer.send("change:induct", induct_db_id);
-	// });
-	//
-	//
-	// jQuery(".mod-sorter").click(function(){
-	// 	console.log("mod sorter clicked")
-	// 	var device_type = jQuery(this).data("device-type");
-	// 	var sorter_number = jQuery(this).data("sorter-number");
-	// 	console.log(device_type + " ==> " + sorter_number);
-	// 	ipcRenderer.send("change:modsort", device_type, sorter_number, 1);
-	// });
 });
 
 ipcRenderer.on("render:general_view", function(e, data) {
@@ -216,6 +188,11 @@ ipcRenderer.on("getGeneralViewData", function(e, data) {
     let binsStates=data['binsStates'];
     for(let bin_id in binsStates){
         $('.bin[bin-key='+machineId+'_'+bin_id+'] rect').css('fill',bin_colors[binsStates[bin_id]]);
+    }
+    let conveyor_colors = { "0" : "#ccc",  "1" : "#27e22b", "2" : "#ffc000", "3" : "red"};
+    let conveyorsStates=data['conveyorsStates'];
+    for(let conveyor_id in conveyorsStates){
+        $('.conveyor[conveyor-id='+conveyor_id+'] .conveyor_border').css('fill',conveyor_colors[conveyorsStates[conveyor_id]]);
     }
 });
 </script>
