@@ -503,7 +503,11 @@ ipcRenderer.on('render:statistics', function(e, basic_info){
     else {
         ipcRenderer.send('getStatistics', selected_machine, start_time, end_time);
     }
-    
+    ipcRenderer.send('getStatisticsCounter', selected_machine, start_time, end_time);
+    ipcRenderer.send('getStatisticsBins', selected_machine, start_time, end_time);
+    ipcRenderer.send('getStatisticsBinsHourly', selected_machine, start_time, end_time);
+    ipcRenderer.send('getStatisticsBinsCounter', selected_machine, start_time, end_time);
+
 });
 
 ipcRenderer.on('getStatisticsHourly', function (e, data_result){
@@ -512,6 +516,18 @@ ipcRenderer.on('getStatisticsHourly', function (e, data_result){
 
 ipcRenderer.on('getStatistics', function (e, data_result){
     populateChart(data_result['statistics']);
+});
+ipcRenderer.on('getStatisticsCounter', function (e, data_result){
+    console.log('counter',data_result['statistics']);
+});
+ipcRenderer.on('getStatisticsBins', function (e, data_result){
+    console.log('getStatisticsBins',data_result['statistics']);
+});
+ipcRenderer.on('getStatisticsBinsHourly', function (e, data_result){
+    console.log('getStatisticsBinsHourly',data_result['statistics']);
+});
+ipcRenderer.on('getStatisticsBinsCounter', function (e, data_result){
+    console.log('getStatisticsBinsCounter',data_result['statistics']);
 });
 
 function populateChart(statistics_result){

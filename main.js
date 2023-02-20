@@ -207,6 +207,18 @@ function processReceivedJsonObjects(jsonObjects) {
 			else if(resType == "getStatisticsHourly") {
 				mainWindow.webContents.send("getStatisticsHourly", jsonObj);
 			}
+			else if(resType == "getStatisticsCounter") {
+				mainWindow.webContents.send("getStatisticsCounter", jsonObj);
+			}
+			else if(resType == "getStatisticsBins") {
+				mainWindow.webContents.send("getStatisticsBins", jsonObj);
+			}
+			else if(resType == "getStatisticsBinsHourly") {
+				mainWindow.webContents.send("getStatisticsBinsHourly", jsonObj);
+			}
+			else if(resType == "getStatisticsBinsCounter") {
+				mainWindow.webContents.send("getStatisticsBinsCounter", jsonObj);
+			}
 			else if(resType == "getGeneralViewData") {
 				mainWindow.webContents.send("getGeneralViewData", jsonObj);
 			}
@@ -524,6 +536,30 @@ ipcMain.on("getStatistics", function(e,machineId,from_timestamp,to_timestamp) {
 ipcMain.on("getStatisticsHourly", function(e,machineId,from_timestamp,to_timestamp) {
 	if(machineId>0){
 		let m = {"req" : 'getStatisticsHourly', "machineId" : machineId,'from_timestamp':from_timestamp,'to_timestamp':to_timestamp};
+		sendMessageToServer(JSON.stringify(m));
+	}
+});
+ipcMain.on("getStatisticsCounter", function(e,machineId,from_timestamp,to_timestamp) {
+	if(machineId>0){
+		let m = {"req" : 'getStatisticsCounter', "machineId" : machineId,'from_timestamp':from_timestamp,'to_timestamp':to_timestamp};
+		sendMessageToServer(JSON.stringify(m));
+	}
+});
+ipcMain.on("getStatisticsBins", function(e,machineId,from_timestamp,to_timestamp) {
+	if(machineId>0){
+		let m = {"req" : 'getStatisticsBins', "machineId" : machineId,'from_timestamp':from_timestamp,'to_timestamp':to_timestamp};
+		sendMessageToServer(JSON.stringify(m));
+	}
+});
+ipcMain.on("getStatisticsBinsHourly", function(e,machineId,from_timestamp,to_timestamp) {
+	if(machineId>0){
+		let m = {"req" : 'getStatisticsBinsHourly', "machineId" : machineId,'from_timestamp':from_timestamp,'to_timestamp':to_timestamp};
+		sendMessageToServer(JSON.stringify(m));
+	}
+});
+ipcMain.on("getStatisticsBinsCounter", function(e,machineId,from_timestamp,to_timestamp) {
+	if(machineId>0){
+		let m = {"req" : 'getStatisticsBinsCounter', "machineId" : machineId,'from_timestamp':from_timestamp,'to_timestamp':to_timestamp};
 		sendMessageToServer(JSON.stringify(m));
 	}
 });
