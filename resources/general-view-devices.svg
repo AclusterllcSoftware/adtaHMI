@@ -276,5 +276,10 @@
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
+  <g transform="translate(245 92)" class="device" gui-device-id="21" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+    <text class="gv-text" transform="translate(-4 -5)"><tspan x="0" y="0">AEG</tspan></text>
+  </g>
 
 </svg>
