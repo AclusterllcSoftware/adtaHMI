@@ -367,11 +367,8 @@ ipcMain.on("connect:server", function(e) {
 ipcMain.on("get:views", function(e, machineId, view_name) {
 	currentConnectedMachine = machineId;
 	if(machineId!=0){
-		if(view_name=='statistics'){
-			mainWindow.webContents.send("render:statistics", basic_info);
-		}
-		else if(view_name=='general_view'){
-			mainWindow.webContents.send("render:general_view", basic_info);
+		if(['statistics','general-view','general-view-devices'].includes(view_name)){
+			mainWindow.webContents.send("render:"+view_name, basic_info);
 		}
 	}
 	// if((machineId != 0) && (view_name != "diagonstics")) {

@@ -77,11 +77,11 @@ jQuery(document).ready(function() {
             jQuery("#display_machine_name").text("Select a machine");
             selected_machine = 0;
         }
-        ipcRenderer.send("get:views", selected_machine, "general_view");
+        ipcRenderer.send("get:views", selected_machine, "general-view");
     });
 });
 
-ipcRenderer.on("render:general_view", function(e, data) {
+ipcRenderer.on("render:general-view", function(e, data) {
     basic_info=data;
     setBinLabel(data['binsInfo']);
     setPhotoeyeLabel(data['inputsInfo']);
