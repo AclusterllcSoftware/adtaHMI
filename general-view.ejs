@@ -115,7 +115,7 @@ ipcRenderer.on("getGeneralViewData", function(e, data) {
     let conveyor_colors = { "0" : "#ccc",  "1" : "#27e22b", "2" : "#ffc000", "3" : "red"};
     let conveyorsStates=data['conveyorsStates'];
     for(let conveyor_id in conveyorsStates){
-        $('.conveyor[conveyor-id='+conveyor_id+'] .conveyor_border').css('fill',conveyor_colors[conveyorsStates[conveyor_id]]);
+        $('.conveyor[conveyor-id='+conveyor_id+'] .status').css('fill',conveyor_colors[conveyorsStates[conveyor_id]]);
     }
     //console.log(basic_info)
 

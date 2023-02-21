@@ -80,7 +80,7 @@
       <path class="cls-11 input_state" d="M367.946,30.339v13.565c0,.77,3.482,1.395,7.777,1.395s7.777-.624,7.777-1.395v-13.565h-15.554Z"/>
       <ellipse class="" cx="375.723" cy="30.339" rx="7.777" ry="1.395"/>
     </g>
-    <g class="binDetails" gui-input-id="108" input-id="0" data-toggle="tooltip" data-html="true" title="" active-color="#4d80ff" inactive-color="#ccc">
+    <g class="binDetails" gui-input-id="108" input-id="0" data-toggle="tooltip" data-html="true" title="" active-color="#00FF00" inactive-color="#ccc">
       <path class="cls-11 input_state" d="M367.946,15.926v13.565c0,.77,3.482,1.395,7.777,1.395s7.777-.624,7.777-1.395V15.926h-15.554Z"/>
       <ellipse class="" cx="375.723" cy="15.926" rx="7.777" ry="1.395"/>
     </g>
