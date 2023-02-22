@@ -1,11 +1,15 @@
 <%- include('header', {currentMenu: 'general-view', pageTitle: 'General View'}); %>
+
+
     <div class="row m-0 mt-1">
         <div class="col-4" style="padding:0 50px;text-align: center;">
 			<%- include('resources/general-view-colors.svg') %>
         </div>
-		<div class="col-8" style="padding:0 10px;text-align: center;">
+		<div class="col-8  position-relative" style="padding:0 10px;text-align: center;">
 			<%- include('resources/general-view.svg') %>
+            <div class="position-absolute" style="right: 100px;top:50px;z-index: 1"><%- include('resources/machine_command_buttons'); %></div>
 		</div>
+
     </div>
     <div class="row m-0">
         <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-2">

@@ -184,3 +184,35 @@ div.dt-buttons {
 .bs-tooltip-top .arrow::before{
     border-top-color: black;
 }
+
+button.button-3d{
+    color: white;
+    border: none;
+    padding: 5px;
+    height: 80px;
+    width: 80px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none !important;
+    font-size: 26px;
+    box-shadow: 0 8px 4px darkslategray;
+    background-color: #27e22b;
+}
+button.button-3d:active {
+    background-color: #4d80ff;
+    box-shadow: 0 0 2px darkslategray;
+    transform: translateY(5px);
+}
+button.button-round{
+    border-radius: 70%;
+}
+button.button-round-start{
+    color: black;
+}
+button.button-round-stop{
+    background-color: red;
+}
+button.button-round-reset{
+    color: black;
+    background-color: #ccc;
+}
