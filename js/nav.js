@@ -219,8 +219,21 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
     }
 });
 
-//--------------
-    function setBinLabel(binsInfo){
+//global functions
+async function loadAndGetDetailedActiveAlarmSettings() {
+    let detailed_active_alarm_settings_value = await ipcRenderer.invoke('getSingleStoreValue', 'adta_detailed_active_alarm');
+
+    if(detailed_active_alarm_settings_value === "active") {
+        jQuery("#active_alarms_ticker_container").hide();
+        jQuery("#active_alarms_details_table").show();
+    }
+    else {
+        jQuery("#active_alarms_details_table").hide();
+        jQuery("#active_alarms_ticker_container").show();
+    }
+}
+    //general view
+    function setBinsLabel(binsInfo){
         for(let key in binsInfo){
             if(binsInfo[key].gui_bin_id>0){
                 $('.bin[gui-bin-id='+binsInfo[key].gui_bin_id+'] .bin-label').text(binsInfo[key].bin_label);
@@ -228,7 +241,22 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
             }
         }
     }
-    function setPhotoeyeLabel(inputsInfo){
+    function setBinsStates(machineId,binsStates,binsInfo){
+        let bin_colors = {
+            "1" : "#27e22b",
+            "2" : "#27e22b",
+            "3" : "#ffc000",
+            "4" : "#cccccc",//#e6e7e8
+            "5" : "#4d80ff",
+            "6" : "#cccccc",//#e6e7e8
+            "7" : "#ff0000",
+            "8" : "#c55a11",
+        };
+        for(let bin_id in binsStates){
+            $('.bin[bin-key='+machineId+'_'+bin_id+'] rect').css('fill',bin_colors[binsStates[bin_id]]);
+        }
+    }
+    function setPhotoeyesLabel(inputsInfo){
         for(let key in inputsInfo){
             let inputInfo=inputsInfo[key];
             if(inputInfo.gui_input_id>0 && (inputInfo.input_type==0)&& (inputInfo.device_type==0)&& (inputInfo.device_number==0) ){
@@ -236,11 +264,32 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
             }
         }
     }
-    function setConveyorLabel(conveyorsInfo){
+    function setPhotoeyesStates(machineId,inputsStates,inputsInfo){
+        //console.log(inputsStates,inputsInfo)
+        let input_colors = {"0" : "#f7931e", "1" : "#39b54a"};
+        for(let key in inputsInfo){
+            let inputInfo=inputsInfo[key];
+            if((inputInfo['input_type']==0)&&(inputInfo['device_type']==0)&&(inputInfo['device_number']==0)&& (inputInfo['gui_input_id']>0)){
+                let state=((inputInfo['active_state']==1)?0:1);
+                if(inputsStates[key]){
+                    state=inputsStates[key]['input_state'];
+                }
+                $('.photoeye[input-id='+inputInfo["input_id"]+'] .status').css('fill',input_colors[state]);
+
+            }
+        }
+    }
+    function setConveyorsLabel(conveyorsInfo){
         for(let key in conveyorsInfo){
             let conveyorInfo=conveyorsInfo[key];
             if(conveyorInfo.gui_conveyor_id){
                 $('.conveyor[gui-conveyor-id='+conveyorInfo.gui_conveyor_id+']').attr('conveyor-id',conveyorInfo.conveyor_id).attr('data-original-title',conveyorInfo.conveyor_name);
             }
+        }
+    }
+    function setConveyorsStates(machineId,conveyorsStates,conveyorsInfo){
+        let conveyor_colors = { "0" : "#ccc",  "1" : "#27e22b", "2" : "#ffc000", "3" : "red"};
+        for(let conveyor_id in conveyorsStates){
+            $('.conveyor[conveyor-id='+conveyor_id+'] .status').css('fill',conveyor_colors[conveyorsStates[conveyor_id]]);
         }
     }
