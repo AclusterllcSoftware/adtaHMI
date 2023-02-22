@@ -151,16 +151,16 @@ ipcRenderer.on("getGeneralViewData", function(e, data) {
             new_tickers.push(alarmInfo['description']);
             //console.log(alarmInfo)
             //console.log(activeAlarm)
-            if(new_tickers.sort().join(',') !== old_tickers.sort().join(',')) {
-                old_tickers = [...new_tickers];
+        }
+        if(new_tickers.sort().join(',') !== old_tickers.sort().join(',')) {
+            old_tickers = [...new_tickers];
 
-                alarm_ticker.newsTicker('pause');
-                alarm_ticker.newsTicker('remove');
-                let num = new_tickers.length;
-                if(num == 1) alarm_ticker.newsTicker('add', new_tickers[0], "single-ticker")
-                else new_tickers.forEach(elem => alarm_ticker.newsTicker('add', elem, ""));
-                (num > 2) && alarm_ticker.newsTicker('unpause');
-            }
+            alarm_ticker.newsTicker('pause');
+            alarm_ticker.newsTicker('remove');
+            let num = new_tickers.length;
+            if(num == 1) alarm_ticker.newsTicker('add', new_tickers[0], "single-ticker")
+            else new_tickers.forEach(elem => alarm_ticker.newsTicker('add', elem, ""));
+            (num > 2) && alarm_ticker.newsTicker('unpause');
         }
     }
     else {
