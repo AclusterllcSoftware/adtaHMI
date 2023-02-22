@@ -220,18 +220,74 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
 });
 
 //global functions
-async function loadAndGetDetailedActiveAlarmSettings() {
-    let detailed_active_alarm_settings_value = await ipcRenderer.invoke('getSingleStoreValue', 'adta_detailed_active_alarm');
+    async function loadAndGetDetailedActiveAlarmSettings() {
+        let detailed_active_alarm_settings_value = await ipcRenderer.invoke('getSingleStoreValue', 'adta_detailed_active_alarm');
 
-    if(detailed_active_alarm_settings_value === "active") {
-        jQuery("#active_alarms_ticker_container").hide();
-        jQuery("#active_alarms_details_table").show();
+        if(detailed_active_alarm_settings_value === "active") {
+            jQuery("#active_alarms_ticker_container").hide();
+            jQuery("#active_alarms_details_table").show();
+        }
+        else {
+            jQuery("#active_alarms_details_table").hide();
+            jQuery("#active_alarms_ticker_container").show();
+        }
     }
-    else {
-        jQuery("#active_alarms_details_table").hide();
-        jQuery("#active_alarms_ticker_container").show();
+    let alarm_ticker = $('#alarm-ticker').newsTicker({
+        row_height: 100,
+        max_rows: 2,
+        duration: 4000,
+        pauseOnHover: 0
+    });
+    let old_tickers = [], new_tickers = [];
+    function setActiveAlarms(machineId,activeAlarms,alarmsInfo){
+        jQuery("#active_alarms_details_tbody").empty();
+        let alarm_class_to_names = {"0" : "Error", "1" : "Warning", "2" : "Message"};
+        if(!jQuery.isEmptyObject(activeAlarms)) {
+            let now_time=moment().unix();
+            new_tickers = [];
+            let alarm_count = 0;
+            for (let index in activeAlarms) {
+                alarm_count++;
+                if(alarm_count>5) break;
+                let activeAlarm = activeAlarms[index];
+                let combo_id=activeAlarm['machine_id']+'_'+activeAlarm['alarm_id']+'_'+activeAlarm['alarm_type'];
+                let alarmInfo=alarmsInfo[combo_id];
+                let date_active_timestamp=activeAlarm['date_active_timestamp'];
+
+                let tr_html = '<tr>' +
+                    '<td>' + timeConverter(date_active_timestamp) + '</td>'+
+                    '<td>' + secondsToDhms(now_time-date_active_timestamp)+ '</td>'+
+                    '<td>' + alarm_class_to_names[alarmInfo['alarm_class']] + '</td>'+
+                    '<td>' + alarmInfo['location'] + '</td>'+
+                    '<td>' + alarmInfo['description'] + '</td>'+
+                    '<td>' + alarmInfo['variable_name'] + '</td>'+
+                    '</tr>';
+
+                jQuery("#active_alarms_details_tbody").append(tr_html);
+                new_tickers.push(alarmInfo['description']);
+                //console.log(alarmInfo)
+                //console.log(activeAlarm)
+            }
+            if(new_tickers.sort().join(',') !== old_tickers.sort().join(',')) {
+                old_tickers = [...new_tickers];
+
+                alarm_ticker.newsTicker('pause');
+                alarm_ticker.newsTicker('remove');
+                let num = new_tickers.length;
+                if(num == 1) alarm_ticker.newsTicker('add', new_tickers[0], "single-ticker")
+                else new_tickers.forEach(elem => alarm_ticker.newsTicker('add', elem, ""));
+                (num > 2) && alarm_ticker.newsTicker('unpause');
+            }
+        }
+        else {
+            let tr_html = '<tr><td colspan="6">No active alarm to display</td></tr>';
+            jQuery("#active_alarms_details_tbody").append(tr_html);
+            old_tickers = [];
+            alarm_ticker.newsTicker('pause');
+            alarm_ticker.newsTicker('remove');
+        }
     }
-}
+
     //general view
     function setBinsLabel(binsInfo){
         for(let key in binsInfo){
@@ -293,3 +349,4 @@ async function loadAndGetDetailedActiveAlarmSettings() {
             $('.conveyor[conveyor-id='+conveyor_id+'] .status').css('fill',conveyor_colors[conveyorsStates[conveyor_id]]);
         }
     }
+
