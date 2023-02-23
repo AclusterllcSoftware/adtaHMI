@@ -197,6 +197,7 @@ ipcRenderer.on("render:device_status", function(e, device_status_result) {
     } else {
         jQuery("#status-circle").css("color", "#32CD32");
     }
+    changeMachineNameBg(device_status_result['mode'])
 });
 
 ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_server, selected_machine_from_server, maintenance_ip_list_from_server, user_name) {

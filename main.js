@@ -370,11 +370,14 @@ ipcMain.on("get:views", function(e, machineId, view_name) {
 		if(['statistics','general-view','general-view-devices','alarms-view'].includes(view_name)){
 			mainWindow.webContents.send("render:"+view_name, basic_info);
 		}
+		else{
+			if((machineId != 0) && (view_name != "diagonstics")) {
+				let m = {"req" : view_name, "id" : machineId};
+				sendMessageToServer(JSON.stringify(m));
+			}
+		}
 	}
-	// if((machineId != 0) && (view_name != "diagonstics")) {
-	// 	let m = {"req" : view_name, "id" : machineId};
-	// 	sendMessageToServer(JSON.stringify(m));
-	// }
+
 });
 
 ipcMain.on("get:change_mode", function(e, machineId, mode) {
