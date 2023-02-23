@@ -222,14 +222,14 @@ function processReceivedJsonObjects(jsonObjects) {
 			else if(resType == "getGeneralViewData") {
 				mainWindow.webContents.send("getGeneralViewData", jsonObj);
 			}
+			else if(resType == "getAlarmsViewData") {
+				mainWindow.webContents.send("getAlarmsViewData", jsonObj);
+			}
 			else if(resType == "getBinInputsState") {
 				mainWindow.webContents.send("getBinInputsState", jsonObj);
 			}
 			////////////
-			else if(resType == "alarms_list") {
-				let alarmsListResult = jsonObj.result;
-				mainWindow.webContents.send("render:alarms_list", alarmsListResult);
-			} else if(resType == "alarms_history") {
+			else if(resType == "alarms_history") {
 				let alarmsHistoryResult = jsonObj.result.history;
 				let alarmDataResult = jsonObj.result.data;
 				let machine_mode = jsonObj.result.mode;
@@ -367,7 +367,7 @@ ipcMain.on("connect:server", function(e) {
 ipcMain.on("get:views", function(e, machineId, view_name) {
 	currentConnectedMachine = machineId;
 	if(machineId!=0){
-		if(['statistics','general-view','general-view-devices'].includes(view_name)){
+		if(['statistics','general-view','general-view-devices','alarms-view'].includes(view_name)){
 			mainWindow.webContents.send("render:"+view_name, basic_info);
 		}
 	}
@@ -563,6 +563,12 @@ ipcMain.on("getStatisticsBinsCounter", function(e,machineId,from_timestamp,to_ti
 ipcMain.on("getGeneralViewData", function(e,machineId) {
 	if(machineId>0){
 		let m = {"req" : 'getGeneralViewData', "machineId" : machineId};
+		sendMessageToServer(JSON.stringify(m));
+	}
+});
+ipcMain.on("getAlarmsViewData", function(e,machineId) {
+	if(machineId>0){
+		let m = {"req" : 'getAlarmsViewData', "machineId" : machineId};
 		sendMessageToServer(JSON.stringify(m));
 	}
 });

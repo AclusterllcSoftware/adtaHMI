@@ -39,7 +39,7 @@
 <script src="js/daterangepicker/daterangepicker.js"></script>
 <script src="js/nav.js"></script>
 <script>
-let alarm_class_to_names = {"0" : "Error", "1" : "Warning", "2" : "Message"};
+
 let data_table;
 let machine_mode = 9;
 
@@ -51,12 +51,12 @@ jQuery(document).ready(function() {
         if(selected_machine !== "") {
             let selected_machine_name = machine_list[selected_machine];
             jQuery("#display_machine_name").text(selected_machine_name);            
-        } else {
+        }
+        else {
             jQuery("#display_machine_name").text("Select a machine");
             selected_machine = 0;            
         }
-
-        ipcRenderer.send("get:views", selected_machine, "alarms_list");
+        ipcRenderer.send("get:views", selected_machine, "alarms-view");
     });
 
     data_table = jQuery('#alarm_table').DataTable({
@@ -144,47 +144,36 @@ $.fn.dataTableExt.afnFiltering.push(
         return true;
     }
 );
-
-ipcRenderer.on("render:alarms_list", function(e, alarms_list_result) {
-    //console.log(alarms_list_result);
-    machine_mode = alarms_list_result['mode'];
-    changeMachineNameBg(machine_mode);
-    //console.log("Mode: ", machine_mode);
+let basic_info={}
+ipcRenderer.on("render:alarms-view", function(e, data) {
+    basic_info=data;
+    ipcRenderer.send("getAlarmsViewData", selected_machine);
+    console.log(basic_info)
+});
+ipcRenderer.on("getAlarmsViewData", function(e,data) {
+    let alarmsInfo=basic_info['alarmsInfo']
+    let activeAlarms = data['activeAlarms'];
+    let now_time=moment().unix();
     jQuery("#active_alarm_tbody").empty();
+    let alarm_class_to_names = {"0" : "Error", "1" : "Warning", "2" : "Message"};
 
-    let alarms_result = alarms_list_result['alarms'];
-    for (let k in alarms_result) {
-        let related_alarm_gui_id = k;
-        let related_alarm_info = alarms_result[k];
-        
-        let alarm_type = related_alarm_info['alarm_type'], 
-        alarm_description = related_alarm_info['description'], 
-        alarm_class = related_alarm_info['alarm_class'], 
-        alarm_location = related_alarm_info['location'], 
-	    variable_name = related_alarm_info['variable_name'], 
-        timestamp = related_alarm_info['timestamp'],
-        duration = related_alarm_info['duration'];
-        
-        timestamp = timeConverter(timestamp);
-        // let tr_html = '<tr>' + 
-        //     '<td>' + timestamp + '</td>'+
-        //     '<td>Some minutes</td>'+
-        //     '<td>' + alarm_class_to_names[alarm_class] + '</td>'+
-        //     '<td>' + alarm_location + '</td>'+
-        //     '<td>' + alarm_description + '</td>'+
-        //     '<td>' + variable_name + '</td>'+
-        //     '</tr>';
+
+    console.log(activeAlarms)
+
+    for (let index in activeAlarms) {
+        let activeAlarm = activeAlarms[index];
+        let combo_id=activeAlarm['machine_id']+'_'+activeAlarm['alarm_id']+'_'+activeAlarm['alarm_type'];
+        let alarmInfo=alarmsInfo[combo_id];
+        let date_active_timestamp=activeAlarm['date_active_timestamp'];
 
         data_table.row.add( [
-            timestamp,
-            secondsToDhms(duration),
-            alarm_class_to_names[alarm_class],
-            alarm_location,
-            alarm_description,
-            variable_name
+            timeConverter(date_active_timestamp),
+            secondsToDhms(now_time-date_active_timestamp),
+            alarm_class_to_names[alarmInfo['alarm_class']],
+            alarmInfo['location'],
+            alarmInfo['description'],
+            alarmInfo['variable_name']
         ] ).draw( false );
-
-        //jQuery("#active_alarm_tbody").append(tr_html);
     }
 
     data_table.columns().every(function () {
