@@ -189,8 +189,7 @@ button.button-3d{
     color: white;
     border: none;
     padding: 5px;
-    height: 80px;
-    width: 80px;
+
     cursor: pointer;
     transition: all 0.2s ease;
     outline: none !important;
@@ -199,11 +198,13 @@ button.button-3d{
     background-color: #27e22b;
 }
 button.button-3d:active {
-    background-color: #4d80ff;
+    /*background-color: #4d80ff;*/
     box-shadow: 0 0 2px darkslategray;
     transform: translateY(5px);
 }
 button.button-round{
+    height: 80px;
+    width: 80px;
     border-radius: 70%;
 }
 button.button-round-start{
@@ -215,4 +216,37 @@ button.button-round-stop{
 button.button-round-reset{
     color: black;
     background-color: #ccc;
+}
+button.button-bin-auto{
+    color: black;
+    background-color: #ccc;
+    height: 60px;
+    width: 60px;
+    font-size: 20px;
+}
+button.button-bin-manual{
+    color: #fff;
+    background-color: #c55a11;
+    font-size: 15px;
+    height: 60px;
+    width: 60px;
+}
+button.button-rectangle{
+    border-radius: 5%;
+    width: 115px;
+}
+button.button-bin-jog-raise{
+    color: #fff;
+    background-color: #4274D7;
+    font-size: 20px;
+}
+button.button-bin-jog-lower{
+    color: #fff;
+    background-color: #4274D7;
+    font-size: 20px;
+}
+button.button-bin-fault-reset{
+    color: #fff;
+    background-color: #4274D7;
+    font-size: 20px;
 }

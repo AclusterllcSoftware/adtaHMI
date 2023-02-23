@@ -157,6 +157,9 @@ jQuery(document).ready(function() {
         ipcRenderer.send("change:link", link);
         return false;
     });
+    $('.button-device-command').on('click',function (){
+        console.log('hi');
+    })
 });
 
 ipcRenderer.on("render:ip_list", function(e, ip_list_html, machine_list_from_server, maintenance_ip_list_from_server) {

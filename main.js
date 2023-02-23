@@ -225,8 +225,8 @@ function processReceivedJsonObjects(jsonObjects) {
 			else if(resType == "getAlarmsViewData") {
 				mainWindow.webContents.send("getAlarmsViewData", jsonObj);
 			}
-			else if(resType == "getBinInputsState") {
-				mainWindow.webContents.send("getBinInputsState", jsonObj);
+			else if(resType == "getBinDetailsViewData") {
+				mainWindow.webContents.send("getBinDetailsViewData", jsonObj);
 			}
 			////////////
 			else if(resType == "alarms_history") {
@@ -593,9 +593,9 @@ ipcMain.on("render:binDetails", function(e,machineId,key) {
 		}
 	}
 });
-ipcMain.on("getBinInputsState", function(e,machineId,sort_manager_id) {
+ipcMain.on("getBinDetailsViewData", function(e,machineId,sort_manager_id) {
 	if(machineId>0){
-		let m = {"req" : 'getBinInputsState', "machineId" : machineId,'sort_manager_id':sort_manager_id};
+		let m = {"req" : 'getBinDetailsViewData', "machineId" : machineId,'sort_manager_id':sort_manager_id};
 		sendMessageToServer(JSON.stringify(m));
 	}
 });

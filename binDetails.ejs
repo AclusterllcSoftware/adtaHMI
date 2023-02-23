@@ -1,7 +1,22 @@
 <%- include('header', {currentMenu: 'bin-details-view', pageTitle: 'Bin Dteails'}); %>
     <div class="row m-0 mt-1">
-		<div class="col-12" style="padding:0 200px;text-align: center;">
+		<div class="col-12 position-relative" style="padding:0 250px;text-align: center;">
 			<%- include('resources/bin-details.svg') %>
+            <div id="container-button-bin-manual" class="position-absolute" style="right: 600px;top:235px;z-index: 1;display: none;">
+                <button class="button-device-command button-3d button-round button-bin-manual d-block mb-4">Manual</button>
+            </div>
+            <div id="container-button-bin-auto" class="position-absolute" style="right: 600px;top:235px;z-index: 1;display: none;">
+                <button class="button-device-command button-3d button-round button-bin-auto d-block mb-4">Auto</button>
+            </div>
+            <div id="container-button-bin-jog-raise" class="position-absolute" style="right: 100px;top:310px;z-index: 1;display: none;">
+                <button class="button-device-command-press-release button-3d button-rectangle button-bin-jog-raise d-block mb-4">Jog Raise</button>
+            </div>
+            <div id="container-button-bin-jog-lower" class="position-absolute" style="right: 100px;top:470px;z-index: 1;display: none;">
+                <button class="button-device-command-press-release button-3d button-rectangle button-bin-jog-lower d-block mb-4">Jog Lower</button>
+            </div>
+            <div id="container-button-bin-jog-lower" class="position-absolute" style="right: 570px;top:575px;z-index: 1;">
+                <button class="button-device-command button-3d button-rectangle button-bin-fault-reset d-block mb-4">Fault Reset</button>
+            </div>
 		</div>
     </div>
 </div>
@@ -25,7 +40,11 @@
             }
         });
     });
+    let currentBinInfo={};
+    let currentBinInputs={};
     ipcRenderer.on("render:binDetails", function(e, binInfo,binInputs) {
+        currentBinInfo=binInfo;
+        currentBinInputs=binInputs;
         //console.log(binInfo)
         //console.log(binInputs)
         $("#bin_label").text(binInfo['bin_label'])
@@ -36,16 +55,34 @@
         }
         $('[data-toggle="tooltip"]').tooltip();
         setInterval(() => {
-            ipcRenderer.send("getBinInputsState", selected_machine,binInfo['sort_manager_id']);
+            ipcRenderer.send("getBinDetailsViewData", selected_machine,binInfo['sort_manager_id']);
         }, 1000);
     });
 
-    ipcRenderer.on("getBinInputsState", function(e, data) {
-        let binInputsStates=data['binInputsStates'];
-        for(let input_id in binInputsStates){
-            let active_color=$('.binDetails[input-id='+input_id+']').attr('active-color');
-            let inactive_color=$('.binDetails[input-id='+input_id+']').attr('inactive-color');
-            $('.binDetails[input-id='+input_id+'] .input_state').css('fill',(binInputsStates[input_id]['active_state']==binInputsStates[input_id]['input_state'])?active_color:inactive_color);
+    ipcRenderer.on("getBinDetailsViewData", function(e, data) {
+        let machineId=data['machineId'];
+        let inputsStates=data['inputsStates'];
+        let sort_manager_id=data['sort_manager_id'];
+        for(let key in currentBinInputs){
+            let currentBinInput=currentBinInputs[key];
+            let currentInputState=inputsStates[key];
+            let active_color=$('.binDetails[input-id='+currentBinInput["input_id"]+']').attr('active-color');
+            let inactive_color=$('.binDetails[input-id='+currentBinInput["input_id"]+']').attr('inactive-color');
+            $('.binDetails[input-id='+currentBinInput["input_id"]+'] .input_state').css('fill',(currentBinInput['active_state']==currentInputState['input_state'])?active_color:inactive_color);
+            if(currentBinInput['gui_input_id']=='110'){
+                if(currentBinInput['active_state']==currentInputState['input_state']){
+                    $('#container-button-bin-auto').show();
+                    $('#container-button-bin-manual').hide();
+                    $('#container-button-bin-jog-raise').show();
+                    $('#container-button-bin-jog-lower').show();
+                }
+                else{
+                    $('#container-button-bin-auto').hide();
+                    $('#container-button-bin-manual').show();
+                    $('#container-button-bin-jog-raise').hide();
+                    $('#container-button-bin-jog-lower').hide();
+                }
+            }
         }
     });
 </script>
