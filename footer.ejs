@@ -1,21 +1,36 @@
 <footer class="text-left">
-    <% if (['general-view','general-view-devices','general-view-motors','bin-details-view'].includes(currentMenu)) { %>
-        <div class="main-area flex-grow-1">
-            <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'general-view' ? 'active' : '' %>" href="#" data-link="general-view">Conveyors</a>
-            <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'general-view-devices' ? 'active' : '' %>" href="#" data-link="general-view-devices">Devices</a>
-            <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'general-view-motors' ? 'active' : '' %>" href="#" data-link="general-view-motors">Motor</a>
-
-        </div>
-    <% } %>
-    <% } %> <% if (['statistics', 'statistics-bins-detail'].includes(currentMenu))
-      { %>
-      <div class="main-area flex-grow-1">
-        <a
-          class="btn btn-outline-primary btn-footer <%= currentMenu === 'statistics-bins-detail' ? 'active' : '' %>"
-          href="#"
-          data-link="statistics-bins-detail"
-          >Bins Detailed</a
-        >
-      </div>
-      <% } %>
+  <% if
+  (['general-view','general-view-devices','general-view-motors'].includes(currentMenu))
+  { %>
+  <div class="main-area flex-grow-1">
+    <a
+      class="btn btn-outline-primary btn-footer <%= currentMenu === 'general-view' ? 'active' : '' %>"
+      href="#"
+      data-link="general-view"
+      >Conveyors</a
+    >
+    <a
+      class="btn btn-outline-primary btn-footer <%= currentMenu === 'general-view-devices' ? 'active' : '' %>"
+      href="#"
+      data-link="general-view-devices"
+      >Devices</a
+    >
+    <a
+      class="btn btn-outline-primary btn-footer <%= currentMenu === 'general-view-motors' ? 'active' : '' %>"
+      href="#"
+      data-link="general-view-motors"
+      >Motor</a
+    >
+  </div>
+  <% } %> <% if (['statistics', 'statistics-bins-detail'].includes(currentMenu))
+  { %>
+  <div class="main-area flex-grow-1">
+    <a
+      class="btn btn-outline-primary btn-footer <%= currentMenu === 'statistics-bins-detail' ? 'active' : '' %>"
+      href="#"
+      data-link="statistics-bins-detail"
+      >Bins Detailed</a
+    >
+  </div>
+  <% } %>
 </footer>
