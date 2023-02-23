@@ -3,19 +3,19 @@
 		<div class="col-12 position-relative" style="padding:0 250px;text-align: center;">
 			<%- include('resources/bin-details.svg') %>
             <div id="container-button-bin-manual" class="position-absolute" style="right: 600px;top:235px;z-index: 1;display: none;">
-                <button class="button-device-command button-3d button-round button-bin-manual d-block mb-4">Manual</button>
+                <button class="button-bin-command button-device-command button-3d button-round button-bin-manual d-block mb-4" data-device-id="0" data-command="1" data-parameter1="0">Manual</button>
             </div>
             <div id="container-button-bin-auto" class="position-absolute" style="right: 600px;top:235px;z-index: 1;display: none;">
-                <button class="button-device-command button-3d button-round button-bin-auto d-block mb-4">Auto</button>
+                <button class="button-bin-command button-device-command button-3d button-round button-bin-auto d-block mb-4"  data-device-id="0" data-command="2" data-parameter1="0">Auto</button>
             </div>
             <div id="container-button-bin-jog-raise" class="position-absolute" style="right: 100px;top:310px;z-index: 1;display: none;">
-                <button class="button-device-command-press-release button-3d button-rectangle button-bin-jog-raise d-block mb-4">Jog Raise</button>
+                <button class="button-bin-command button-device-command-press-release button-3d button-rectangle button-bin-jog-raise d-block mb-4" data-device-id="0" data-command-start="3" data-command-end="4" data-parameter1="0">Jog Raise</button>
             </div>
             <div id="container-button-bin-jog-lower" class="position-absolute" style="right: 100px;top:470px;z-index: 1;display: none;">
-                <button class="button-device-command-press-release button-3d button-rectangle button-bin-jog-lower d-block mb-4">Jog Lower</button>
+                <button class="button-bin-command button-device-command-press-release button-3d button-rectangle button-bin-jog-lower d-block mb-4" data-device-id="0" data-command-start="3" data-command-end="4" data-parameter1="0">Jog Lower</button>
             </div>
             <div id="container-button-bin-jog-lower" class="position-absolute" style="right: 570px;top:575px;z-index: 1;">
-                <button class="button-device-command button-3d button-rectangle button-bin-fault-reset d-block mb-4">Fault Reset</button>
+                <button class="button-bin-command button-device-command button-3d button-rectangle button-bin-fault-reset d-block mb-4" data-device-id="0" data-command="0" data-parameter1="0">Fault Reset</button>
             </div>
 		</div>
     </div>
@@ -39,6 +39,17 @@
                 selected_machine = 0;
             }
         });
+        $('.button-device-command-press-release').on('mousedown',function (){
+            let device_id=$(this).attr('data-device-id');
+            let command_start=$(this).attr('data-command-start');
+            let command_end=$(this).attr('data-command-end');
+            let parameter1=$(this).attr('data-parameter1');
+            ipcRenderer.send("sendDeviceCommand", selected_machine,device_id,command_start,parameter1);
+            $(document).one('mouseup',function (){
+                ipcRenderer.send("sendDeviceCommand", selected_machine,device_id,command_end,parameter1);
+            })
+        })
+
     });
     let currentBinInfo={};
     let currentBinInputs={};
@@ -53,6 +64,7 @@
                 .attr('title',binInputs[input_key].description+'<br>'+binInputs[input_key].electrical_name)
                 .attr('input-id',binInputs[input_key].input_id)
         }
+        $('.button-bin-command').attr('data-device-id',(201+(binInfo['bin_id']-1)))
         $('[data-toggle="tooltip"]').tooltip();
         setInterval(() => {
             ipcRenderer.send("getBinDetailsViewData", selected_machine,binInfo['sort_manager_id']);
