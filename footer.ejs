@@ -7,4 +7,15 @@
 
         </div>
     <% } %>
+    <% } %> <% if (['statistics', 'statistics-bins-detail'].includes(currentMenu))
+      { %>
+      <div class="main-area flex-grow-1">
+        <a
+          class="btn btn-outline-primary btn-footer <%= currentMenu === 'statistics-bins-detail' ? 'active' : '' %>"
+          href="#"
+          data-link="statistics-bins-detail"
+          >Bins Detailed</a
+        >
+      </div>
+      <% } %>
 </footer>
