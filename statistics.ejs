@@ -18,9 +18,9 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col-lg-12" id="tput-chart" style="height: 200px;">TPUT Chart</div>
-                    </div>
+                    </div> 
                     <div class="row mt-2">
-                        <div class="col-lg-12" id="volume-chart" style="height: 200px;">Volume</div>
+                        <div class="col-lg-12" id="new-volume-chart" style="height: 300px;">New Volume</div>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -62,7 +62,25 @@
                         <!-- <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-4">
                             
                         </div> -->
-                        <div class="col-lg-12 pl-0" id="pie-chart" style="height: 408px;">PIE Chart</div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="switchPie">
+                            <label class="form-check-label" for="switchPie">Pie Chart</label>
+                            </div>
+                        <div class="col-lg-12 pl-0 mt-2" id="pie-chart" style="height: 408px;">PIE Chart</div>
+                        <div class="col-lg-12 mt-2" id="sc-table" style="display: none;">
+                            <table class="table table-sm table-bordered">
+                                <thead id="sc-table-head">
+                                    <tr>
+                                        <th width="50%">SC Summary</th>
+                                        <th width="10%"></th>
+                                        <th width="10%"></th>     
+                                    </tr>
+                                </thead>
+                                <tbody id="sc-table-body">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,11 +157,20 @@ const machine_error_codes = ['sc1', 'sc3', 'sc4', 'sc6', 'sc9', 'sc14', 'sc16', 
 const non_machine_error_codes =['sc5', 'sc7', 'sc8', 'sc10', 'sc12', 'sc18'];
 let tr_html='';
 let update_period='Every 5 minutes';
+let showPie = true;
 
 
 
 jQuery(document).ready(function() {
+    jQuery('#switchPie').prop('checked', showPie);
+    if(showPie) {
+            $('#pie-chart').show();
+            $('#sc-table').hide();
+        } else {
+            $('#pie-chart').hide();
+            $('#sc-table').show();
 
+        }
     jQuery("#ip_list_dropdown").change(function() {
         selected_machine = jQuery(this).val();
 
@@ -165,6 +192,17 @@ jQuery(document).ready(function() {
     jQuery('#update_period').change(function(){
         update_period = jQuery(this).val();
         ipcRenderer.send("get:views", selected_machine, "statistics");
+    });
+    jQuery('#switchPie').change(function(){
+        showPie = $(this).is(":checked");
+        if($(this).is(":checked")) {
+            $('#pie-chart').show();
+            $('#sc-table').hide();
+        } else {
+            $('#pie-chart').hide();
+            $('#sc-table').show();
+
+        }
     });
 });
 
@@ -339,92 +377,92 @@ let tput_chart = Highcharts.chart('tput-chart', {
     }]
 });
 
-let volume_chart = Highcharts.chart('volume-chart', {
-    chart: {
-        type: 'spline',
-        animation: Highcharts.svg, // don't animate in old IE
-        marginRight: 10,        
-        borderColor: '#D3D3D3',
-        borderWidth: 1
-    },
+// let volume_chart = Highcharts.chart('volume-chart', {
+//     chart: {
+//         type: 'spline',
+//         animation: Highcharts.svg, // don't animate in old IE
+//         marginRight: 10,        
+//         borderColor: '#D3D3D3',
+//         borderWidth: 1
+//     },
 
-    time: {
-        useUTC: false
-    },
+//     time: {
+//         useUTC: false
+//     },
 
-    title: {
-        text: 'Volume'
-    },
+//     title: {
+//         text: 'Volume'
+//     },
 
-    accessibility: {
-        announceNewData: {
-            enabled: true,
-            minAnnounceInterval: 15000,
-            announcementFormatter: function (allSeries, newSeries, newPoint) {
-                if (newPoint) {
-                    return 'New point added. Value: ' + newPoint.y;
-                }
-                return false;
-            }
-        }
-    },
+//     accessibility: {
+//         announceNewData: {
+//             enabled: true,
+//             minAnnounceInterval: 15000,
+//             announcementFormatter: function (allSeries, newSeries, newPoint) {
+//                 if (newPoint) {
+//                     return 'New point added. Value: ' + newPoint.y;
+//                 }
+//                 return false;
+//             }
+//         }
+//     },
 
-    xAxis: {
-        type: 'datetime',
-        tickInterval: 1000*60*60
-    },
+//     xAxis: {
+//         type: 'datetime',
+//         tickInterval: 1000*60*60
+//     },
 
-    yAxis: {
-        title: {
-            text: null
-        },
-        labels: {
-            format: '{value}'
-        },
-        tickInterval: 2000,
-        tickWidth: 1,
-        tickLength: 5,
-        min: 0,
-        max: 6000,
-        lineColor: '#C0C0C0',
-        lineWidth: 1,
-        plotLines: [{
-            value: 0,
-            width: 1,
-            color: '#808080'
-        }]
-    },
+//     yAxis: {
+//         title: {
+//             text: null
+//         },
+//         labels: {
+//             format: '{value}'
+//         },
+//         tickInterval: 2000,
+//         tickWidth: 1,
+//         tickLength: 5,
+//         min: 0,
+//         max: 6000,
+//         lineColor: '#C0C0C0',
+//         lineWidth: 1,
+//         plotLines: [{
+//             value: 0,
+//             width: 1,
+//             color: '#808080'
+//         }]
+//     },
 
-    tooltip: {
-        headerFormat: '<b>{series.name}</b><br/>',
-        pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
-    },
+//     tooltip: {
+//         headerFormat: '<b>{series.name}</b><br/>',
+//         pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+//     },
 
-    legend: {
-        enabled: true
-    },
+//     legend: {
+//         enabled: true
+//     },
 
-    exporting: {
-        enabled: true,
-        buttons: {
-            contextButton: {
-                menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
-            }
-        }
-    },
+//     exporting: {
+//         enabled: true,
+//         buttons: {
+//             contextButton: {
+//                 menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
+//             }
+//         }
+//     },
 
-    credits: {
-        enabled: false
-    },
+//     credits: {
+//         enabled: false
+//     },
 
-    series: [{
-        name: 'Volume',
-        marker: {
-                enabled: false
-        },
-        data: []
-    }]
-});
+//     series: [{
+//         name: 'Volume',
+//         marker: {
+//                 enabled: false
+//         },
+//         data: []
+//     }]
+// });
 
 let pie_chart = Highcharts.chart('pie-chart', {
     chart: {
@@ -486,6 +524,116 @@ let pie_chart = Highcharts.chart('pie-chart', {
         data: []
     }]
 });
+let sc_color_codes ={
+    'sc0':'#34d399',
+    'sc1':'#38bdf8',
+    'sc3':'#fb923c',
+    'sc4':'#e879f9',
+    'sc5':'#818cf8',
+    'sc6':'#c084fc',
+    'sc7':'#2dd4bf',
+    'sc8':'#292524',
+    'sc9':'#facc15',
+    'sc10':'#a3e635',
+    'sc12':'#0891b2',
+    'sc14':'#dc2626',
+    'sc16':'#c026d3',
+    'sc17':'#7e22ce',
+    'sc18':'#a1a1aa',
+    'sc21':'#fde047',
+};
+let new_volume_chart = Highcharts.chart('new-volume-chart', {
+    chart: {
+        type: 'column',
+        animation: Highcharts.svg, // don't animate in old IE
+        marginRight: 10,
+        borderColor: '#D3D3D3',
+        borderWidth: 1
+    },
+
+    time: {
+        useUTC: false
+    },
+
+    title: {
+        text: 'Volume'
+    },
+
+    accessibility: {
+        announceNewData: {
+            enabled: true,
+            minAnnounceInterval: 15000,
+            announcementFormatter: function (allSeries, newSeries, newPoint) {
+                if (newPoint) {
+                    return 'New point added. Value: ' + newPoint.y;
+                }
+                return false;
+            }
+        }
+    },
+    xAxis: {
+        type: 'datetime',
+        tickInterval: 1000*60*60*24,
+        labels: {
+            // rotation: 90,
+            // formatter: function() {
+            //     //return Highcharts.dateFormat('%b-%e-%Y', this.value);
+            //     //return moment.unix(this.value/1000).format("YYYY-MM-DD");
+            // }
+        }
+    },
+
+    yAxis: {
+        title: {
+            text: null
+        },
+        tickInterval: 10,
+        tickWidth: 1,
+        tickLength: 5,
+        min: 0
+    },
+    // tooltip: {
+    //     headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+    //     pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+    //         '<td style="padding:0"><b>{point.y} </b></td></tr>',
+    //     footerFormat: '</table>',
+    //     shared: true,
+    //     useHTML: true
+    // },
+    tooltip: {
+        formatter: function () {
+            return '<b>' + moment.unix(this.x/1000).format("YYYY-MM-DD")+ '</b><br/>' +
+                this.series.name + ': ' + this.y + '<br/>' +
+                'Total: ' + this.point.stackTotal;
+        }
+    },
+    legend: {
+        enabled: true
+    },
+    plotOptions: {
+        column: {
+            stacking: 'normal'
+        }
+    },
+    exporting: {
+        enabled: true,
+        buttons: {
+            contextButton: {
+                menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
+            }
+        }
+    },
+    credits: {
+        enabled: false
+    },
+    
+    series: Object.keys(sc_color_codes).map(d => ({
+        name:d,
+        data:[],
+        color: sc_color_codes[d]
+    }))
+});
+
 
 ipcRenderer.on('render:statistics', function(e, basic_info){
     scs_info =[];
@@ -493,17 +641,18 @@ ipcRenderer.on('render:statistics', function(e, basic_info){
     Object.values(basic_info['scsInfo']).forEach(v=>{
             scs_info.push({...v, code:"sc"+v.value});
     });
-    
     end_time=moment().unix();
-    start_time=moment().subtract(1,"d").unix();
-    console.log(update_period);
+    start_time=moment().subtract(1, 'days').unix();
     if(update_period === 'Hourly'){
         ipcRenderer.send('getStatisticsHourly', selected_machine, start_time, end_time)
     }
     else {
         ipcRenderer.send('getStatistics', selected_machine, start_time, end_time);
     }
+    
 });
+
+
 
 ipcRenderer.on('getStatisticsHourly', function (e, data_result){
     populateChart(data_result['statistics']);
@@ -512,13 +661,31 @@ ipcRenderer.on('getStatisticsHourly', function (e, data_result){
 ipcRenderer.on('getStatistics', function (e, data_result){
     populateChart(data_result['statistics']);
 });
+
 function populateChart(statistics_result){
+    console.log(statistics_result);
     let total_inducted=0, total_good_diverts=0, total_machine_error=0, total_non_machine_error=0, lost_of_comm=0, avg_length=0, avg_gap=0, total_length=0, sum_length=0, total_gap=0, sum_gap=0, no_read=0,no_code=0, multiple_read=0,good_scan=0;
+    let sc0= [],
+sc1 = [],
+sc3 = [],
+sc4 = [],
+sc5 = [],
+sc6 = [],
+sc7 = [],
+sc8 = [],
+sc9 = [],
+sc10 = [],
+sc12 = [],
+sc14 = [],
+sc16 = [],
+sc17 = [],
+sc18 = [],
+sc21 = [];
     // let statistics_result = data_result['statistics'];
     
-    let bcr_chart_data = [], tput_chart_data = [], pie_chart_data = [], volume_chart_data=[], total_product_count=0;
-    let scs_data= scs_info.map(d=> ({...d, total:0}));
-    
+    let bcr_chart_data = [], tput_chart_data = [], pie_chart_data = [], total_product_count=0;
+    let scs_data= scs_info.map(d=> ({...d, total:0, color:sc_color_codes[d.code]}));
+    console.log('scs data', scs_data);
     for(k in statistics_result){
         let time_slot = statistics_result[k]['created_at_timestamp'],
         total_read = statistics_result[k]['total_read'],        
@@ -537,18 +704,20 @@ function populateChart(statistics_result){
             x: time_slot,
             y: bcr_read_rate
         });
-        let tput_value = 3600/(300/total_read); // Tput = 3600 / (period / number of products)
-        let volume_value = total_read; // per hour no of products
-        volume_chart_data.push({
-            x:time_slot,
-            y:volume_value
-        });
+        let tput_value = update_period=== 'Hourly'? total_read: 3600/(300/total_read); // Tput = 3600 / (period / number of products)
+        
 
         tput_chart_data.push({
             x: time_slot,
             y: tput_value
         });
-        scs_data.forEach(d=>d.total+=Number(statistics_result[k][d['code']]));
+        scs_data.forEach(d =>{
+            d.total+=Number(statistics_result[k][d['code']]);
+            eval(d['code']).push({
+                x: time_slot, 
+                y: Number(statistics_result[k][d['code']])
+            });
+        });
         //temporary
         total_gap += Number(statistics_result[k]['total_good_gap']);
         total_length += Number(statistics_result[k]['total_good_length']);
@@ -568,6 +737,7 @@ function populateChart(statistics_result){
     let maxSc = Math.max(...scs_data.map(e=>e.total));
     let highest_sc = scs_data.find(d=>d.total===maxSc);
     let highest_sc_index=scs_data.indexOf(highest_sc);
+    
     scs_data.forEach((d,idx)=>{
         // temporary
         total_inducted+=d.total;
@@ -584,23 +754,32 @@ function populateChart(statistics_result){
             pie_chart_data.push({
                 name: d.label,
                 y: Number(d.percentage),
-                selected: true
+                selected: true,
+                color: d.color
             });
         } else {
             pie_chart_data.push({
                 name: d.label,
                 y: Number(d.percentage),
-                sliced: true
+                sliced: true,
+                color:d.color
             });
         }
+        // new_volume_chart.series[idx].setData(eval(d.code), true);
+        
     })
-
+    
+    let volume_series = scs_data.map(d => ({name:d.label, data:eval(d.code)}))
+    new_volume_chart.update({
+        series: volume_series
+    })
+    new_volume_chart.redraw()
     bcr_chart.series[0].setData(bcr_chart_data, true);
     tput_chart.series[0].setData(tput_chart_data, true);
-    volume_chart.series[0].setData(volume_chart_data, true);
     pie_chart.series[0].setData(pie_chart_data, true);
     pie_chart.setTitle({text:"Total Products: "+total_product_count})
-
+    console.log(new_volume_chart);
+    console.log(bcr_chart);
     if(total_inducted>0){
         tr_html='<tr>' + 
                 '<td>' + 'Total inducted' + '</td>'+
@@ -648,7 +827,7 @@ function populateChart(statistics_result){
     jQuery("#production_table").empty();
     jQuery("#production_table").append(tr_html);
     
-
+    
     // scanner table
     let tr_scanner='';
     tr_scanner = '<tr>' + 
@@ -679,6 +858,18 @@ function populateChart(statistics_result){
             
     jQuery("#scanner_table").empty();
     jQuery("#scanner_table").append(tr_scanner);
+
+    // sc table 
+    let sc_table ='';
+    scs_data.sort((a,b) => b.total-a.total).forEach(d => {
+        sc_table+='<tr>' + 
+                '<td>' + d.label + '</td>'+
+                '<td>' + d.total + '</td>'+
+                '<td>' + d.percentage +'%' +'</td>'+
+                '</tr>';
+    }) 
+    jQuery("#sc-table-body").empty();
+    jQuery("#sc-table-body").append(sc_table);
 }
 //previous function
 // ipcRenderer.on("render:statistics", function(e, data_result) {
