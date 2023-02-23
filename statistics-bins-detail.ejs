@@ -1,1 +1,62 @@
 
+<%- include('header', {currentMenu: 'statistics-bins-detail', pageTitle: 'Bins Detailed'}); %>
+<div class="row m-0 mt-2" style="min-height: 70vh;">
+    <div class="col-lg-8 pt-0 pb-0 pl-2 pr-2 mt-4">
+        <div class="row">
+            <div class="col-lg-12" id="bins-detailed" style="height: 400px;">Bins Detailed</div>
+        </div>
+    </div>
+</div>
+
+<%- include('footer', {currentMenu: 'statistics-bins-detail'}); %>
+<script src="js/jquery-bootstrap.js"></script>
+<script src="js/nav.js"></script>
+<script>
+    const Highcharts = require('highcharts/highstock')
+    require('highcharts/modules/exporting')(Highcharts);
+    require('highcharts/modules/export-data')(Highcharts);
+
+    let bins_data=[];
+    Highcharts.chart('bins-detailed', {
+  chart: {
+    type: 'bar'
+  },
+  title: {
+    text: 'Bins Detailed'
+  },
+  xAxis: {
+    categories: ['S0101', 'S0102', 'S0103', 'S0104', 'S0105']
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: ''
+    }
+  },
+  legend: {
+    reversed: true
+  },
+  plotOptions: {
+    series: {
+      stacking: 'normal',
+      dataLabels: {
+        enabled: true
+      }
+    }
+  },
+  series: [{
+    name: 'SC0',
+    data: [4, 4, 6, 15, 12]
+  }, {
+    name: 'SC4',
+    data: [5, 3, 12, 6, 11]
+  }, {
+    name: 'SC14',
+    data: [5, 15, 8, 5, 8]
+  }]
+});
+
+
+</script>
+</body>
+</html>
