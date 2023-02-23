@@ -158,7 +158,7 @@ jQuery(document).ready(function() {
         return false;
     });
     $('.button-device-command').on('click',function (){
-        console.log('hi');
+        ipcRenderer.send("sendDeviceCommand", selected_machine,$(this).attr('data-device-id'),$(this).attr('data-command'),$(this).attr('data-parameter1'));
     })
 });
 
