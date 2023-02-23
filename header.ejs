@@ -57,7 +57,7 @@
                             <div class="collapse navbar-collapse" id="navbarColor03">
                                 <ul class="nav nav-pills w-100">
                                     <li class="nav-item">
-                                        <a class="nav-link <%= ['general-view','general-view-devices','general-view-motors'].includes(currentMenu) ? 'active' : 'bg-light' %>" href="#" data-link="general-view">General View</a>
+                                        <a class="nav-link <%= (['general-view','general-view-devices','general-view-motors','general-view-bin-details'].includes(currentMenu)) ? 'active' : 'bg-light' %>" href="#" data-link="general-view">General View</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link <%= currentMenu === 'alarms' ? 'active' : 'bg-light' %>" href="#" data-link="alarms">Alarms</a>
@@ -69,7 +69,7 @@
                                         <a class="nav-link <%= currentMenu === 'alarms-hit-list' ? 'active' : 'bg-light' %>" href="#" data-link="alarms-hit-list">Alarms Hit List</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link <%= (currentMenu === 'statistics') ? 'active' : 'bg-light' %>" href="#" data-link="statistics">Statistics</a>
+                                        <a class="nav-link <%= (['statistics','statistics-bins-detail'].includes(currentMenu)) ? 'active' : 'bg-light' %>" href="#" data-link="statistics">Statistics</a>
                                     </li>
                                     <li class="nav-item mr-0">
                                         <a class="nav-link <%= (currentMenu === 'token') ? 'active' : 'bg-light' %>" href="#" data-link="token">Token</a>

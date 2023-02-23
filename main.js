@@ -225,8 +225,8 @@ function processReceivedJsonObjects(jsonObjects) {
 			else if(resType == "getAlarmsViewData") {
 				mainWindow.webContents.send("getAlarmsViewData", jsonObj);
 			}
-			else if(resType == "getBinDetailsViewData") {
-				mainWindow.webContents.send("getBinDetailsViewData", jsonObj);
+			else if(resType == "getGeneralBinDetailsViewData") {
+				mainWindow.webContents.send("getGeneralBinDetailsViewData", jsonObj);
 			}
 			////////////
 			else if(resType == "alarms_history") {
@@ -572,7 +572,7 @@ ipcMain.on("getAlarmsViewData", function(e,machineId) {
 		sendMessageToServer(JSON.stringify(m));
 	}
 });
-ipcMain.on("render:binDetails", function(e,machineId,key) {
+ipcMain.on("render:general-view-bin-details", function(e,machineId,key) {
 	if(machineId>0){
 
 		if(basic_info['binsInfo'][key]){
@@ -587,15 +587,15 @@ ipcMain.on("render:binDetails", function(e,machineId,key) {
 					bin_inputs[input_key]=basic_info['inputsInfo'][input_key];
 				}
 			}
-			mainWindow.loadFile('binDetails.ejs').then(function (){
-				mainWindow.webContents.send("render:binDetails", bin_info,bin_inputs);
+			mainWindow.loadFile('general-view-bin-details.ejs').then(function (){
+				mainWindow.webContents.send("render:general-view-bin-details", bin_info,bin_inputs);
 			});
 		}
 	}
 });
-ipcMain.on("getBinDetailsViewData", function(e,machineId,sort_manager_id) {
+ipcMain.on("getGeneralBinDetailsViewData", function(e,machineId,sort_manager_id) {
 	if(machineId>0){
-		let m = {"req" : 'getBinDetailsViewData', "machineId" : machineId,'sort_manager_id':sort_manager_id};
+		let m = {"req" : 'getGeneralBinDetailsViewData', "machineId" : machineId,'sort_manager_id':sort_manager_id};
 		sendMessageToServer(JSON.stringify(m));
 	}
 });

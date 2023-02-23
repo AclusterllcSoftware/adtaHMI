@@ -1,4 +1,4 @@
-<%- include('header', {currentMenu: 'bin-details-view', pageTitle: 'Bin Dteails'}); %>
+<%- include('header', {currentMenu: 'general-view-bin-details', pageTitle: 'Bin Dteails'}); %>
     <div class="row m-0 mt-1">
 		<div class="col-12 position-relative" style="padding:0 250px;text-align: center;">
 			<%- include('resources/bin-details.svg') %>
@@ -20,7 +20,7 @@
 		</div>
     </div>
 </div>
-<%- include('footer', {currentMenu: 'bin-details-view'}); %>
+<%- include('footer', {currentMenu: 'general-view-bin-details'}); %>
 <script src="js/jquery-bootstrap.js"></script>
 <script src="js/jquery.newsTicker.js"></script>
 <script src="js/daterangepicker/moment.min.js"></script>
@@ -53,7 +53,7 @@
     });
     let currentBinInfo={};
     let currentBinInputs={};
-    ipcRenderer.on("render:binDetails", function(e, binInfo,binInputs) {
+    ipcRenderer.on("render:general-view-bin-details", function(e, binInfo,binInputs) {
         currentBinInfo=binInfo;
         currentBinInputs=binInputs;
         //console.log(binInfo)
@@ -67,11 +67,11 @@
         $('.button-bin-command').attr('data-device-id',(201+(binInfo['bin_id']-1)))
         $('[data-toggle="tooltip"]').tooltip();
         setInterval(() => {
-            ipcRenderer.send("getBinDetailsViewData", selected_machine,binInfo['sort_manager_id']);
+            ipcRenderer.send("getGeneralBinDetailsViewData", selected_machine,binInfo['sort_manager_id']);
         }, 1000);
     });
 
-    ipcRenderer.on("getBinDetailsViewData", function(e, data) {
+    ipcRenderer.on("getGeneralBinDetailsViewData", function(e, data) {
         let machineId=data['machineId'];
         let inputsStates=data['inputsStates'];
         let sort_manager_id=data['sort_manager_id'];

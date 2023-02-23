@@ -51,7 +51,7 @@ ipcRenderer.on("render:general-view", function(e, data) {
     $('.bin.cursor-pointer').on('click',function (){
         let key=$(this).attr('bin-key');
         //console.log(data['binsInfo'][key])
-        ipcRenderer.send("render:binDetails", selected_machine,key);
+        ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
     })
     setInterval(() => {
         ipcRenderer.send("getGeneralViewData", selected_machine);
