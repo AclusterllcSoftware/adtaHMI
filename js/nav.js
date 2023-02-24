@@ -362,6 +362,20 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
             }
         }
     }
+    function setDevicesStates(machineId,devicesStates,devicesInfo){
+        let device_colors = {"0" : "#f00", "1" : "#fff"};
+        for(let key in devicesInfo){
+            let deviceInfo=devicesInfo[key];
+            if(deviceInfo['gui_device_id']>0 ){
+                let state=0;
+                if(devicesStates[key]){
+                    state=devicesStates[key]['device_state'];
+                }
+                $('.device[device-id='+deviceInfo["device_id"]+'] .status').css('fill',device_colors[state]);
+
+            }
+        }
+    }
     function setEstopsLabel(inputsInfo){
         for(let key in inputsInfo){
             let inputInfo=inputsInfo[key];

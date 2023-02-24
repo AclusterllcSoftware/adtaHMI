@@ -62,7 +62,8 @@ ipcRenderer.on("getGeneralDevicesViewData", function(e, data) {
     setBinsStates(machineId,data['binsStates'],basic_info['binsInfo']);//nav.js
     setConveyorsStates(machineId,data['conveyorsStates'],basic_info['conveyorsInfo']);//nav.js
     setEstopsStates(machineId,data['inputsStates'],basic_info['inputsInfo']);//nav.js
-    setActiveAlarms(machineId,data['activeAlarms'],basic_info['alarmsInfo'])
+    setDevicesStates(machineId,data['devicesStates'],basic_info['devicesInfo']);//nav.js
+    setActiveAlarms(machineId,data['activeAlarms'],basic_info['alarmsInfo'])//nav.js
 
 });
 </script>

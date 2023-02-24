@@ -256,10 +256,6 @@ function processReceivedJsonObjects(jsonObjects) {
 				let deviceStatusResult = jsonObj.result;
 				//console.log(deviceStatusResult);
 				mainWindow.webContents.send("render:device_status", deviceStatusResult);
-			}  else if(resType == "device_titles") {
-				let deviceTitlesResult = jsonObj.result;
-				//console.log(deviceTitlesResult);
-				mainWindow.webContents.send("render:device_titles", deviceTitlesResult);
 			}
 			else if(resType == "settings") {
 				let settingResult = jsonObj.result;
