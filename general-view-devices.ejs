@@ -1,64 +1,33 @@
 <%- include('header', {currentMenu: 'general-view-devices', pageTitle: 'Devices'}); %>
     <div class="row m-0 mt-1">
         <div class="col-4" style="padding:0 50px;text-align: center;">
-            <%- include('resources/general-view-colors.svg') %>
+			<%- include('resources/general-view-colors.svg') %>
         </div>
-        <div class="col-8" style="padding:0 10px;text-align: center;">
-            <%- include('resources/general-view-devices.svg') %>
-        </div>
+		<div class="col-8  position-relative" style="padding:0 10px;text-align: center;">
+			<%- include('resources/general-view-devices.svg') %>
+            <div class="position-absolute" style="right: 100px;top:50px;z-index: 1"><%- include('components/machine_command_buttons'); %></div>
+		</div>
     </div>
     <div class="row m-0">
-        <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-4">
-            <table class="table table-sm table-bordered">
-                <thead>
-                <tr>
-                    <th width="20%">Timestamp</th>
-                    <th width="10%">Duration</th>
-                    <th width="10%">Class</th>
-                    <th width="10%">Location</th>
-                    <th width="20%">Description</th>
-                    <th width="20%">Variable Name</th>
-                </tr>
-                </thead>
-                <tbody id="active_alarm_tbody">
-                    <tr>
-                        <td colspan="6">No active alarm to display</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-2">
+            <%- include('components/active_alarm_content') %>
         </div>
     </div>
 </div>
 <%- include('footer', {currentMenu: 'general-view-devices'}); %>
 <script src="js/jquery-bootstrap.js"></script>
-<script src="js/nav.js"></script>
 <script src="js/jquery.newsTicker.js"></script>
 <script src="js/daterangepicker/moment.min.js"></script>
+<script src="js/nav.js"></script>
+
 <script>
-let detailed_active_alarm_settings_value = "";
 let basic_info={}
-let alarm_ticker = $('#alarm-ticker').newsTicker({
-    row_height: 100,
-    max_rows: 2,
-    duration: 4000,
-    pauseOnHover: 0
-});
-let old_tickers = [], new_tickers = [];
-async function loadDetailedActiveAlarmSettingsValue() {
-    detailed_active_alarm_settings_value = await ipcRenderer.invoke('getSingleStoreValue', 'adta_detailed_active_alarm');
 
-    if(detailed_active_alarm_settings_value === "active") {
-        jQuery("#marquee1").hide();
-        jQuery("#details_active_alarms_table").show();
-    } else {
-        jQuery("#details_active_alarms_table").hide();
-        jQuery("#marquee1").show();
-    }
-}
+
 jQuery(document).ready(function() {
-    $('[data-toggle="tooltip"]').tooltip();
-    loadDetailedActiveAlarmSettingsValue();
-
+	$('[data-toggle="tooltip"]').tooltip();
+    loadAndGetDetailedActiveAlarmSettings();//nav.js
+	
     jQuery("#ip_list_dropdown").change(function() {
         selected_machine = jQuery(this).val();
         if(selected_machine !== "") {
@@ -72,20 +41,29 @@ jQuery(document).ready(function() {
         ipcRenderer.send("get:views", selected_machine, "general-view-devices");
     });
 });
+
 ipcRenderer.on("render:general-view-devices", function(e, data) {
     basic_info=data;
-    setBinLabel(data['binsInfo']);
-    //setPhotoeyeLabel(data['inputsInfo']);
-    setConveyorLabel(data['conveyorsInfo']);
+    setBinsLabel(data['binsInfo']);//nav.js
+    setEstopsLabel(data['inputsInfo']);//nav.js
+    setDevicesLabel(data['devicesInfo']);//nav.js
+    setConveyorsLabel(data['conveyorsInfo']);//nav.js
 
     $('.bin.cursor-pointer').on('click',function (){
         let key=$(this).attr('bin-key');
-        //console.log(data['binsInfo'][key])
-        ipcRenderer.send("render:binDetails", selected_machine,key);
+        ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
     })
-    // setInterval(() => {
-    //     ipcRenderer.send("getGeneralViewDevicesData", selected_machine);
-    // }, 1000);
+    setInterval(() => {
+        ipcRenderer.send("getGeneralDevicesViewData", selected_machine);
+    }, 1000);
+});
+ipcRenderer.on("getGeneralDevicesViewData", function(e, data) {
+    let machineId=data['machineId'];
+    setBinsStates(machineId,data['binsStates'],basic_info['binsInfo']);//nav.js
+    setConveyorsStates(machineId,data['conveyorsStates'],basic_info['conveyorsInfo']);//nav.js
+    setEstopsStates(machineId,data['inputsStates'],basic_info['inputsInfo']);//nav.js
+    setActiveAlarms(machineId,data['activeAlarms'],basic_info['alarmsInfo'])
+
 });
 </script>
 </body>

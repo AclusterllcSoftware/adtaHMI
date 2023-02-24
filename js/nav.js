@@ -353,4 +353,36 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
             $('.conveyor[conveyor-id='+conveyor_id+'] .status').css('fill',conveyor_colors[conveyorsStates[conveyor_id]]);
         }
     }
+    function setDevicesLabel(devicesInfo){
+
+        for(let key in devicesInfo){
+            let deviceInfo=devicesInfo[key];
+            if(deviceInfo['gui_device_id']>0 ){
+                $('.device[gui-device-id='+deviceInfo["gui_device_id"]+']').attr('device-id',deviceInfo["device_id"]).attr('data-original-title',deviceInfo['device_name']);
+            }
+        }
+    }
+    function setEstopsLabel(inputsInfo){
+        for(let key in inputsInfo){
+            let inputInfo=inputsInfo[key];
+            if((inputInfo['input_type']==3) && inputInfo['gui_input_id']>0 &&  (inputInfo['device_type']==0) && (inputInfo['device_number']==0) ){
+                $('.estop[gui-input-id='+inputInfo["gui_input_id"]+']').attr('input-id',inputInfo["input_id"]).attr('data-original-title',inputInfo['electrical_name']+'<br>'+inputInfo['description']);
+            }
+        }
+    }
+    function setEstopsStates(machineId,inputsStates,inputsInfo){
+        //console.log(inputsStates,inputsInfo)
+        let input_colors = {"0" : "#fff", "1" : "#f5ea14"};
+        for(let key in inputsInfo){
+            let inputInfo=inputsInfo[key];
+            if((inputInfo['input_type']==3) && inputInfo['gui_input_id']>0 &&  (inputInfo['device_type']==0) && (inputInfo['device_number']==0) ){
+                let state=((inputInfo['active_state']==1)?0:1);
+                if(inputsStates[key]){
+                    state=inputsStates[key]['input_state'];
+                }
+                $('.estop[input-id='+inputInfo["input_id"]+'] .status').css('fill',input_colors[state]);
+
+            }
+        }
+    }
 

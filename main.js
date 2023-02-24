@@ -222,6 +222,9 @@ function processReceivedJsonObjects(jsonObjects) {
 			else if(resType == "getGeneralViewData") {
 				mainWindow.webContents.send("getGeneralViewData", jsonObj);
 			}
+			else if(resType == "getGeneralDevicesViewData") {
+				mainWindow.webContents.send("getGeneralDevicesViewData", jsonObj);
+			}
 			else if(resType == "getAlarmsViewData") {
 				mainWindow.webContents.send("getAlarmsViewData", jsonObj);
 			}
@@ -566,6 +569,12 @@ ipcMain.on("getStatisticsBinsCounter", function(e,machineId,from_timestamp,to_ti
 ipcMain.on("getGeneralViewData", function(e,machineId) {
 	if(machineId>0){
 		let m = {"req" : 'getGeneralViewData', "machineId" : machineId};
+		sendMessageToServer(JSON.stringify(m));
+	}
+});
+ipcMain.on("getGeneralDevicesViewData", function(e,machineId) {
+	if(machineId>0){
+		let m = {"req" : 'getGeneralDevicesViewData', "machineId" : machineId};
 		sendMessageToServer(JSON.stringify(m));
 	}
 });
