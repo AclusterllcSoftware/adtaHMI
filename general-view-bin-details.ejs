@@ -44,9 +44,17 @@
             let command_start=$(this).attr('data-command-start');
             let command_end=$(this).attr('data-command-end');
             let parameter1=$(this).attr('data-parameter1');
-            ipcRenderer.send("sendDeviceCommand", selected_machine,device_id,command_start,parameter1);
+            ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
+                'deviceId':device_id,
+                'command':command_start,
+                'parameter1':parameter1
+            });
             $(document).one('mouseup',function (){
-                ipcRenderer.send("sendDeviceCommand", selected_machine,device_id,command_end,parameter1);
+                ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
+                    'deviceId':device_id,
+                    'command':command_end,
+                    'parameter1':parameter1
+                });
             })
         })
 
@@ -67,7 +75,9 @@
         $('.button-bin-command').attr('data-device-id',(201+(binInfo['bin_id']-1)))
         $('[data-toggle="tooltip"]').tooltip();
         setInterval(() => {
-            ipcRenderer.send("getGeneralBinDetailsViewData", selected_machine,binInfo['sort_manager_id']);
+            ipcRenderer.send("sendRequest", selected_machine,'getGeneralBinDetailsViewData', {
+                'sort_manager_id':binInfo['sort_manager_id']
+            });
         }, 1000);
     });
 

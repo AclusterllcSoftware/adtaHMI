@@ -158,7 +158,11 @@ jQuery(document).ready(function() {
         return false;
     });
     $('.button-device-command').on('click',function (){
-        ipcRenderer.send("sendDeviceCommand", selected_machine,$(this).attr('data-device-id'),$(this).attr('data-command'),$(this).attr('data-parameter1'));
+        ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
+            'deviceId':$(this).attr('data-device-id'),
+            'command':$(this).attr('data-command'),
+            'parameter1':$(this).attr('data-parameter1')
+        });
     })
 });
 

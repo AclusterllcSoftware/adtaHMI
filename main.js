@@ -567,16 +567,3 @@ ipcMain.on("render:general-view-bin-details", function(e,machineId,key) {
 		}
 	}
 });
-ipcMain.on("getGeneralBinDetailsViewData", function(e,machineId,sort_manager_id) {
-	if(machineId>0){
-		let m = {"req" : 'getGeneralBinDetailsViewData', "machineId" : machineId,'sort_manager_id':sort_manager_id};
-		sendMessageToServer(JSON.stringify(m));
-	}
-});
-
-ipcMain.on("sendDeviceCommand", function(e,machineId,deviceId,command,parameter1) {
-	if(machineId>0){
-		let m = {"req" : 'sendDeviceCommand', "machineId" : machineId,'deviceId':deviceId,'command':command,'parameter1':parameter1};
-		sendMessageToServer(JSON.stringify(m));
-	}
-});
