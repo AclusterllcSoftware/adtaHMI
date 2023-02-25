@@ -502,44 +502,7 @@ ipcMain.handle('getStoreValue', (e) => {
 ipcMain.handle('getSingleStoreValue', (event, key) => {
 	return store.get(key, "not_set");
 });
-
 ///////
-ipcMain.on("getStatistics", function(e,machineId,from_timestamp,to_timestamp) {
-	if(machineId>0){
-		let m = {"req" : 'getStatistics', "machineId" : machineId,'from_timestamp':from_timestamp,'to_timestamp':to_timestamp};
-		sendMessageToServer(JSON.stringify(m));
-	}
-});
-ipcMain.on("getStatisticsHourly", function(e,machineId,from_timestamp,to_timestamp) {
-	if(machineId>0){
-		let m = {"req" : 'getStatisticsHourly', "machineId" : machineId,'from_timestamp':from_timestamp,'to_timestamp':to_timestamp};
-		sendMessageToServer(JSON.stringify(m));
-	}
-});
-ipcMain.on("getStatisticsCounter", function(e,machineId,from_timestamp,to_timestamp) {
-	if(machineId>0){
-		let m = {"req" : 'getStatisticsCounter', "machineId" : machineId,'from_timestamp':from_timestamp,'to_timestamp':to_timestamp};
-		sendMessageToServer(JSON.stringify(m));
-	}
-});
-ipcMain.on("getStatisticsBins", function(e,machineId,from_timestamp,to_timestamp) {
-	if(machineId>0){
-		let m = {"req" : 'getStatisticsBins', "machineId" : machineId,'from_timestamp':from_timestamp,'to_timestamp':to_timestamp};
-		sendMessageToServer(JSON.stringify(m));
-	}
-});
-ipcMain.on("getStatisticsBinsHourly", function(e,machineId,from_timestamp,to_timestamp) {
-	if(machineId>0){
-		let m = {"req" : 'getStatisticsBinsHourly', "machineId" : machineId,'from_timestamp':from_timestamp,'to_timestamp':to_timestamp};
-		sendMessageToServer(JSON.stringify(m));
-	}
-});
-ipcMain.on("getStatisticsBinsCounter", function(e,machineId,from_timestamp,to_timestamp) {
-	if(machineId>0){
-		let m = {"req" : 'getStatisticsBinsCounter', "machineId" : machineId,'from_timestamp':from_timestamp,'to_timestamp':to_timestamp};
-		sendMessageToServer(JSON.stringify(m));
-	}
-});
 ipcMain.on("sendRequest", function(e,machineId,requestName,params) {
 	if(machineId>0){
 		let m = {"req" : requestName, "machineId" : machineId,'params':params};
