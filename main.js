@@ -201,35 +201,13 @@ function processReceivedJsonObjects(jsonObjects) {
 				mainWindow.webContents.send("render:ip_list", ipListHtml, machineList, maintenanceIpList);
 
 			}
-			else if(resType == "getStatistics") {
-				mainWindow.webContents.send("getStatistics", jsonObj);
-			}
-			else if(resType == "getStatisticsHourly") {
-				mainWindow.webContents.send("getStatisticsHourly", jsonObj);
-			}
-			else if(resType == "getStatisticsCounter") {
-				mainWindow.webContents.send("getStatisticsCounter", jsonObj);
-			}
-			else if(resType == "getStatisticsBins") {
-				mainWindow.webContents.send("getStatisticsBins", jsonObj);
-			}
-			else if(resType == "getStatisticsBinsHourly") {
-				mainWindow.webContents.send("getStatisticsBinsHourly", jsonObj);
-			}
-			else if(resType == "getStatisticsBinsCounter") {
-				mainWindow.webContents.send("getStatisticsBinsCounter", jsonObj);
-			}
-			else if(resType == "getGeneralViewData") {
-				mainWindow.webContents.send("getGeneralViewData", jsonObj);
-			}
-			else if(resType == "getGeneralDevicesViewData") {
-				mainWindow.webContents.send("getGeneralDevicesViewData", jsonObj);
-			}
-			else if(resType == "getAlarmsViewData") {
-				mainWindow.webContents.send("getAlarmsViewData", jsonObj);
-			}
-			else if(resType == "getGeneralBinDetailsViewData") {
-				mainWindow.webContents.send("getGeneralBinDetailsViewData", jsonObj);
+			else if(
+				['getStatistics','getStatisticsHourly','getStatisticsCounter',
+					'getStatisticsBins','getStatisticsBinsHourly','getStatisticsBinsCounter',
+					'getGeneralViewData','getGeneralDevicesViewData','getGeneralMotorsViewData','getGeneralBinDetailsViewData',
+					'getAlarmsViewData'
+				].includes(resType)){
+				mainWindow.webContents.send(resType, jsonObj);
 			}
 			////////////
 			else if(resType == "alarms_history") {
@@ -366,7 +344,7 @@ ipcMain.on("connect:server", function(e) {
 ipcMain.on("get:views", function(e, machineId, view_name) {
 	currentConnectedMachine = machineId;
 	if(machineId!=0){
-		if(['statistics','general-view','general-view-devices','alarms-view'].includes(view_name)){
+		if(['statistics','general-view','general-view-devices','general-view-motors','alarms-view'].includes(view_name)){
 			mainWindow.webContents.send("render:"+view_name, basic_info);
 		}
 		else{
@@ -562,21 +540,9 @@ ipcMain.on("getStatisticsBinsCounter", function(e,machineId,from_timestamp,to_ti
 		sendMessageToServer(JSON.stringify(m));
 	}
 });
-ipcMain.on("getGeneralViewData", function(e,machineId) {
+ipcMain.on("sendRequest", function(e,machineId,requestName,params) {
 	if(machineId>0){
-		let m = {"req" : 'getGeneralViewData', "machineId" : machineId};
-		sendMessageToServer(JSON.stringify(m));
-	}
-});
-ipcMain.on("getGeneralDevicesViewData", function(e,machineId) {
-	if(machineId>0){
-		let m = {"req" : 'getGeneralDevicesViewData', "machineId" : machineId};
-		sendMessageToServer(JSON.stringify(m));
-	}
-});
-ipcMain.on("getAlarmsViewData", function(e,machineId) {
-	if(machineId>0){
-		let m = {"req" : 'getAlarmsViewData', "machineId" : machineId};
+		let m = {"req" : requestName, "machineId" : machineId,'params':params};
 		sendMessageToServer(JSON.stringify(m));
 	}
 });

@@ -147,7 +147,7 @@ $.fn.dataTableExt.afnFiltering.push(
 let basic_info={}
 ipcRenderer.on("render:alarms-view", function(e, data) {
     basic_info=data;
-    ipcRenderer.send("getAlarmsViewData", selected_machine);
+    ipcRenderer.send("sendRequest", selected_machine,'getAlarmsViewData', {});
 });
 ipcRenderer.on("getAlarmsViewData", function(e,data) {
     let alarmsInfo=basic_info['alarmsInfo']

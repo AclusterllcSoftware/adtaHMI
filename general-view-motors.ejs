@@ -1,156 +1,68 @@
 <%- include('header', {currentMenu: 'general-view-motors', pageTitle: 'Motors'}); %>
     <div class="row m-0 mt-1">
         <div class="col-4" style="padding:0 50px;text-align: center;">
-            <%- include('resources/general-view-colors.svg') %>
+			<%- include('resources/general-view-colors.svg') %>
         </div>
-        <div class="col-8" style="padding:0 10px;text-align: center;">
-            <%- include('resources/general-view-motors.svg') %>
-        </div>
+		<div class="col-8  position-relative" style="padding:0 10px;text-align: center;">
+			<%- include('resources/general-view-motors.svg') %>
+            <div class="position-absolute" style="right: 100px;top:50px;z-index: 1"><%- include('components/machine_command_buttons'); %></div>
+		</div>
     </div>
     <div class="row m-0">
-        <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-4">
-            <table class="table table-sm table-bordered">
-                <thead>
-                <tr>
-                    <th width="20%">Timestamp</th>
-                    <th width="10%">Duration</th>
-                    <th width="10%">Class</th>
-                    <th width="10%">Location</th>
-                    <th width="20%">Description</th>
-                    <th width="20%">Variable Name</th>
-                </tr>
-                </thead>
-                <tbody id="active_alarm_tbody">
-                    <tr>
-                        <td colspan="6">No active alarm to display</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-2">
+            <%- include('components/active_alarm_content') %>
         </div>
     </div>
 </div>
 <%- include('footer', {currentMenu: 'general-view-motors'}); %>
 <script src="js/jquery-bootstrap.js"></script>
+<script src="js/jquery.newsTicker.js"></script>
+<script src="js/daterangepicker/moment.min.js"></script>
 <script src="js/nav.js"></script>
+
 <script>
-let machine_mode = 9;
-let alarm_class_to_names = {"0" : "Error", "1" : "Warning", "2" : "Message"};
+let basic_info={}
+
 
 jQuery(document).ready(function() {
-    $('[data-toggle="tooltip"]').tooltip();
+	$('[data-toggle="tooltip"]').tooltip();
+    loadAndGetDetailedActiveAlarmSettings();//nav.js
+	
     jQuery("#ip_list_dropdown").change(function() {
         selected_machine = jQuery(this).val();
-
         if(selected_machine !== "") {
             let selected_machine_name = machine_list[selected_machine];
             jQuery("#display_machine_name").text(selected_machine_name);
-
-            setInterval(() => {
-                ipcRenderer.send("get:views", selected_machine, "status");
-            }, 1000);
-        } else {
+        }
+        else {
             jQuery("#display_machine_name").text("Select a machine");
             selected_machine = 0;
         }
-
-		ipcRenderer.send("get:views", selected_machine, "status");
-		ipcRenderer.send("get:views", selected_machine, "device_titles");
+        ipcRenderer.send("get:views", selected_machine, "general-view-motors");
     });
 });
 
-ipcRenderer.on("render:device_titles", function(e, titles_result) {
-	console.log(titles_result);
-	let devices_titles = titles_result['devices'];
-	let estops_titles = titles_result['estops'];
+ipcRenderer.on("render:general-view-motors", function(e, data) {
+    basic_info=data;
+    setBinsLabel(data['binsInfo']);//nav.js
+    setEstopsLabel(data['inputsInfo']);//nav.js
+    setDevicesLabel(data['devicesInfo']);//nav.js
+    setConveyorsLabel(data['conveyorsInfo']);//nav.js
 
-	//TODO Shaiful Replace following commented lines with dynamic tool tip
-	// for (let k in devices_titles) {
-    //     let related_device_title_id = ".device-title-" + k;
-	// 	let related_device_title_text = devices_titles[k];
-	// 	jQuery(related_device_title_id).text(related_device_title_text+"Shaiful");
-	// }
-
-	// for (let k in estops_titles) {
-    //     let related_estop_title_id = ".estop-title-" + k;
-	// 	let related_estop_title_text = estops_titles[k];
-	// 	jQuery(related_estop_title_id).text(related_estop_title_text+"shaiful");
-	// }
+    $('.bin.cursor-pointer').on('click',function (){
+        let key=$(this).attr('bin-key');
+        ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
+    })
+    setInterval(() => {
+        ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});
+    }, 1000);
 });
+ipcRenderer.on("getGeneralMotorsViewData", function(e, data) {
+    let machineId=data['machineId'];
+    setBinsStates(machineId,data['binsStates'],basic_info['binsInfo']);//nav.js
+    setConveyorsStates(machineId,data['conveyorsStates'],basic_info['conveyorsInfo']);//nav.js
+    setActiveAlarms(machineId,data['activeAlarms'],basic_info['alarmsInfo'])//nav.js
 
-ipcRenderer.on("render:status", function(e, status_result) {
-   machine_mode = status_result['mode'];
-   changeMachineNameBg(machine_mode);
-    //console.log("Mode: ", machine_mode);
-
-    $("[id*=estop]").css('fill', '#fff');
-    let scanner_colors = {"0" : "#f00", "1" : "#808184"};
-    let device_colors = {"0" : "#f00", "1" : "#231f20"};
-
-    console.log(status_result);
-    let alarms_result = status_result['alarms'];
-    let devices_result = status_result['devices'];
-    let estops_results = status_result['estops'];
-    //console.log(estops_results);
-
-    jQuery("#active_alarm_tbody").empty();
-
-    for (let k in devices_result) {
-        let related_device_class = "." + k;
-        let related_device_status = devices_result[k];
-        
-        if(jQuery(related_device_class).length > 0) {
-            let related_device_color = "#f00";
-
-            if(k == "device-1") {
-                related_device_color = scanner_colors[related_device_status];
-            } else {
-                related_device_color = device_colors[related_device_status];
-            }
-            jQuery(related_device_class).css("fill", related_device_color);
-        }
-    }
-
-    if(!jQuery.isEmptyObject(estops_results)) {
-        //console.log("entered here");
-        for (let k in estops_results) {
-            let related_estop_id = "#" + estops_results[k];
-            
-            if(jQuery(related_estop_id).length > 0) {
-                jQuery(related_estop_id).css("fill", "#ff0");
-            }
-        }
-    }
-
-    if(!jQuery.isEmptyObject(alarms_result)) {
-        for (let k in alarms_result) {
-            let related_alarm_gui_id = k;
-            let related_alarm_info = alarms_result[k];
-            
-            let alarm_type = related_alarm_info['alarm_type'], 
-            alarm_description = related_alarm_info['description'], 
-            alarm_class = related_alarm_info['alarm_class'], 
-            alarm_location = related_alarm_info['location'], 
-            variable_name = related_alarm_info['variable_name'], 
-            timestamp = related_alarm_info['timestamp'],
-            duration = related_alarm_info['duration'];
-
-            timestamp = timeConverter(timestamp);
-            
-            let tr_html = '<tr>' + 
-                '<td>' + timestamp + '</td>'+
-                '<td>' + secondsToDhms(duration) + '</td>'+
-                '<td>' + alarm_class_to_names[alarm_class] + '</td>'+
-                '<td>' + alarm_location + '</td>'+
-                '<td>' + alarm_description + '</td>'+
-                '<td>' + variable_name + '</td>'+
-                '</tr>';
-
-            jQuery("#active_alarm_tbody").append(tr_html);
-        }
-    } else {
-        let tr_html = '<tr><td colspan="6">No active alarm to display</td></tr>';
-        jQuery("#active_alarm_tbody").append(tr_html);
-    }
 });
 </script>
 </body>

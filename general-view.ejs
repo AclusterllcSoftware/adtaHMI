@@ -54,7 +54,7 @@ ipcRenderer.on("render:general-view", function(e, data) {
         ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
     })
     setInterval(() => {
-        ipcRenderer.send("getGeneralViewData", selected_machine);
+        ipcRenderer.send("sendRequest", selected_machine,'getGeneralViewData', {});
     }, 1000);
 });
 ipcRenderer.on("getGeneralViewData", function(e, data) {
