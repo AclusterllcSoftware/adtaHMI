@@ -48,6 +48,7 @@ ipcRenderer.on("render:general-view-motors", function(e, data) {
     setEstopsLabel(data['inputsInfo']);//nav.js
     setDevicesLabel(data['devicesInfo']);//nav.js
     setConveyorsLabel(data['conveyorsInfo']);//nav.js
+    setMotorsLabel(data['motorsInfo']);//nav.js
 
     $('.bin.cursor-pointer').on('click',function (){
         let key=$(this).attr('bin-key');
@@ -62,6 +63,9 @@ ipcRenderer.on("getGeneralMotorsViewData", function(e, data) {
     setBinsStates(machineId,data['binsStates'],basic_info['binsInfo']);//nav.js
     setConveyorsStates(machineId,data['conveyorsStates'],basic_info['conveyorsInfo']);//nav.js
     setActiveAlarms(machineId,data['activeAlarms'],basic_info['alarmsInfo'])//nav.js
+    //motorsCurrentSpeed
+    //activeAlarms
+    //inputsStates
 
 });
 </script>
