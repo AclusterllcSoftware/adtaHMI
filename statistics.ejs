@@ -27,7 +27,6 @@
                     <div class="row">
                         <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
                             <div class="row">
-
                                 <div class="col-lg-6">
                                     <table class="table table-sm table-bordered">
                                         <thead>
@@ -55,6 +54,7 @@
                                             
                                         </tbody>
                                     </table>
+                                    <button class="btn btn-outline-primary mt-4">Reset</button>
                                 </div>
                             </div>
                         </div>
@@ -80,6 +80,7 @@
                                     
                                 </tbody>
                             </table>
+                            
                         </div>
                     </div>
                 </div>
@@ -163,6 +164,7 @@ let showPie = true;
 
 
 jQuery(document).ready(function() {
+    
     jQuery('#switchPie').prop('checked', showPie);
     if(showPie) {
             $('#pie-chart').show();
@@ -770,7 +772,7 @@ sc21 = [];
         
     })
     
-    let volume_series = scs_data.map(d => ({name:d.label, data:eval(d.code)}))
+    let volume_series = scs_data.sort((a,b)=>a.total-b.total).map(d => ({name:d.label, data:eval(d.code), color: d.color}))
     new_volume_chart.update({
         series: volume_series
     })
@@ -834,27 +836,27 @@ sc21 = [];
     tr_scanner = '<tr>' + 
                 '<td>' + 'Good scans' + '</td>'+
                 '<td>' + good_scan + '</td>'+
-                '<td>' + '</td>'+
+                '<td>' + (good_scan/(good_scan)*100).toFixed(0)+'%' +'</td>'+
                 '</tr>'+
                 '<tr>' + 
                 '<td>' + 'No read' + '</td>'+
                 '<td>' + no_read + '</td>'+
-                '<td>' + '</td>'+
+                '<td>' + (no_read/(good_scan)*100).toFixed(0)+'%' +'</td>'+
                 '</tr>'+
                 '<tr>' + 
                 '<td>' + 'No Code' + '</td>'+
                 '<td>' + no_code + '</td>'+
-                '<td>' + '</td>'+
+                '<td>' + (no_code/(good_scan)*100).toFixed(0)+'%' +'</td>'+
                 '</tr>'+
                 '<tr>' + 
                 '<td>' + 'Multiple read' + '</td>'+
                 '<td>' + multiple_read + '</td>'+
-                '<td>' + '</td>'+
+                '<td>' + (multiple_read/(good_scan)*100).toFixed(0)+'%' +'</td>'+
                 '</tr>'+
                 '<tr>' + 
                 '<td>' + 'Lost of communication' + '</td>'+
                 '<td>' + lost_of_comm + '</td>'+
-                '<td>' + '</td>'+
+                '<td>' + (lost_of_comm/(good_scan)*100).toFixed(0)+'%' +'</td>'+
                 '</tr>';
             
     jQuery("#scanner_table").empty();
