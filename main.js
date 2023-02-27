@@ -344,7 +344,7 @@ ipcMain.on("connect:server", function(e) {
 ipcMain.on("get:views", function(e, machineId, view_name) {
 	currentConnectedMachine = machineId;
 	if(machineId!=0){
-		if(['statistics','general-view','general-view-devices','general-view-motors','alarms-view'].includes(view_name)){
+		if(['statistics','general-view','general-view-devices','general-view-motors','alarms-view','statistics-bins-detail','token'].includes(view_name)){
 			mainWindow.webContents.send("render:"+view_name, basic_info);
 		}
 		else{
