@@ -205,7 +205,7 @@ button.button-3d:active {
 button.button-round{
     height: 80px;
     width: 80px;
-    border-radius: 70%;
+    border-radius: 50%;
 }
 button.button-round-start{
     color: black;
@@ -234,19 +234,7 @@ button.button-bin-manual{
 button.button-rectangle{
     border-radius: 5%;
     width: 115px;
-}
-button.button-bin-jog-raise{
-    color: #fff;
-    background-color: #4274D7;
     font-size: 20px;
-}
-button.button-bin-jog-lower{
-    color: #fff;
     background-color: #4274D7;
-    font-size: 20px;
-}
-button.button-bin-fault-reset{
     color: #fff;
-    background-color: #4274D7;
-    font-size: 20px;
 }

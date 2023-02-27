@@ -6,6 +6,70 @@
 		<div class="col-8  position-relative" style="padding:0 10px;text-align: center;">
 			<%- include('resources/general-view-motors.svg') %>
             <div class="position-absolute" style="right: 100px;top:50px;z-index: 1"><%- include('components/machine_command_buttons'); %></div>
+            <div id="motor-details" class="position-absolute" style="width: 350px;height:270px;top:150px;left:200px; border: 1px solid black;display: none;">
+                <table class="table" style="margin: 0">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span>Cnx</span>
+                                <svg height="20" width="20">
+                                    <circle id="cnx_status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#fff"></circle>
+                                </svg></td>
+                            <td>
+                                <span>Faulted</span>
+                                <svg height="20" width="20">
+                                    <circle id="faulted_status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#fff"></circle>
+                                </svg></td>
+                            <td class="text-right">
+                                <button id="close" class="button-3d button-rectangle cursor-pointer" style="width: 25px;height: 25px;padding: 0;" >
+                                    <svg  style="vertical-align: inherit;" height="25" width="25">
+                                        <line x1="5" y1="5" x2="20" y2="20" style="stroke:#fff;stroke-width:2" />
+                                        <line x1="20" y1="5" x2="5" y2="20" style="stroke:#fff;stroke-width:2" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="padding:0px 20px;">
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td id="motor_name">-</td>
+                                <td id="location">-</td>
+                            </tr>
+                            <tr>
+                                <td id="ip_address">-</td>
+                                <td id="current_speed">-</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Set Speed</span>
+                                        </div>
+                                        <input id="speed" type="text" class="form-control text-right" value="0">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">m/s</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="padding:0px 20px;">
+                    <table class="motor-details table table-sm table-borderless">
+                        <tbody>
+                        <tr>
+                            <td><button id="button-motor-start" class="button-3d button-rectangle">Start</button></td>
+                            <td ><button id="button-motor-stop" class="button-3d button-rectangle">Stop</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="speed_error" class="text-danger" style="display: none;">Invalid Speed.Range[min: <span id="speed_min"></span> max: <span id="speed_max"></span>]</div>
+            </div>
 		</div>
     </div>
     <div class="row m-0">
@@ -22,6 +86,7 @@
 
 <script>
 let basic_info={}
+let motorIdForDetailsView=0;
 
 
 jQuery(document).ready(function() {
@@ -54,6 +119,27 @@ ipcRenderer.on("render:general-view-motors", function(e, data) {
         let key=$(this).attr('bin-key');
         ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
     })
+    $('.motor.cursor-pointer').on('click',function (){
+        let motorsInfo=data['motorsInfo']
+        let motor_id=$(this).attr('motor-id');
+        motorIdForDetailsView=motor_id;
+        $('#motor-details #speed_error').hide();
+        $('#motor-details #motor_name').html(motorsInfo[selected_machine+'_'+motor_id]['motor_name'])
+        $('#motor-details #location').html(motorsInfo[selected_machine+'_'+motor_id]['location'])
+        $('#motor-details #ip_address').html(motorsInfo[selected_machine+'_'+motor_id]['ip_address'])
+        $('#motor-details #current_speed').html('-')
+        $('#motor-details').show();
+    })
+    $('#motor-details #close').on('click',function (){
+
+        $('#motor-details').hide();
+    })
+    $('#motor-details  #button-motor-start').on('click',function (){
+        $('#motor-details #speed_error').show();
+    })
+    $('#motor-details  #button-motor-stop').on('click',function (){
+        $('#motor-details #speed_error').hide();
+    })
     setInterval(() => {
         ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});
     }, 1000);
@@ -63,10 +149,80 @@ ipcRenderer.on("getGeneralMotorsViewData", function(e, data) {
     setBinsStates(machineId,data['binsStates'],basic_info['binsInfo']);//nav.js
     setConveyorsStates(machineId,data['conveyorsStates'],basic_info['conveyorsInfo']);//nav.js
     setActiveAlarms(machineId,data['activeAlarms'],basic_info['alarmsInfo'])//nav.js
-    //motorsCurrentSpeed
-    //activeAlarms
-    //inputsStates
 
+    let motorsInfo=basic_info['motorsInfo'];
+    let inputsInfo=basic_info['inputsInfo'];
+    let alarmsInfo=basic_info['alarmsInfo'];
+    let inputsStates=data['inputsStates'];
+    let activeAlarms=data['activeAlarms'];
+
+    if(motorIdForDetailsView>0){
+        $('#motor-details #current_speed').html(data['motorsCurrentSpeed'][selected_machine+'_'+motorIdForDetailsView]/1000+ 'm/s')
+        if(motorsInfo[selected_machine+'_'+motorIdForDetailsView]){
+            let device_number=motorsInfo[selected_machine+'_'+motorIdForDetailsView]['device_number'];
+            if(device_number>0){
+                if(data['devicesStates'][[selected_machine+'_'+device_number]]){
+                    if(data['devicesStates'][[selected_machine+'_'+device_number]]['device_state']==1){
+                        $('#motor-details #cnx_status').css('fill','#27e22b');
+                    }
+                    else{
+                        $('#motor-details #cnx_status').css('fill','#f00');
+                    }
+                }
+                else{
+                    $('#motor-details #cnx_status').css('fill','#f00');
+                }
+            }
+        }
+    }
+
+    let activeAlarmsStates={};
+    for(let i in activeAlarms){
+        let activeAlarm=activeAlarms[i];
+        activeAlarmsStates[selected_machine+'_'+activeAlarm['alarm_id']+'_'+activeAlarm['alarm_type']]=1;
+    }
+
+    // console.log(activeAlarmsStates)
+    //console.log(inputsInfo)
+
+    for(let key in motorsInfo){
+        let motorInfo=motorsInfo[key]
+        let inputActive=false;
+        let alarmActive=false;
+        if(motorInfo['input_id']>0){
+            if(inputsInfo[selected_machine+'_'+motorInfo['input_id']]){
+                if((inputsStates[selected_machine+'_'+motorInfo['input_id']]['input_state'])==inputsInfo[selected_machine+'_'+motorInfo['input_id']]['active_state']){
+                    inputActive=true;
+                }
+            }
+        }
+        if(motorInfo['alarm_id']>0){
+            if(activeAlarmsStates[selected_machine+'_'+motorInfo['alarm_id']+'_'+motorInfo['alarm_type']]){
+                alarmActive=true;
+            }
+        }
+        if(alarmActive){
+            $('.motor[motor-id='+motorInfo["motor_id"]+'] .status').css('fill','#f00');
+            if(motorIdForDetailsView==motorInfo["motor_id"]){
+                $('#motor-details #faulted_status').css('fill','#f00');
+            }
+        }
+        else{
+            if(inputActive==1){
+                $('.motor[motor-id='+motorInfo["motor_id"]+'] .status').css('fill','#27e22b');
+                if(motorIdForDetailsView==motorInfo["motor_id"]){
+                    $('#motor-details #faulted_status').css('fill','#27e22b');
+                }
+            }
+            else{
+                $('.motor[motor-id='+motorInfo["motor_id"]+'] .status').css('fill','#fff');
+                if(motorIdForDetailsView==motorInfo["motor_id"]){
+                    $('#motor-details #faulted_status').css('fill','#fff');
+                }
+            }
+
+        }
+    }
 });
 </script>
 </body>
