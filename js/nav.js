@@ -143,6 +143,10 @@ let selected_machine = 0;
 let logged_in_user = "";
 
 jQuery(document).ready(function() {
+    $(document).on("input", ".float_positive", function(event)
+    {
+        this.value = this.value.replace(/[^0-9.]/g, '').replace('.', 'x').replace(/\./g,'').replace('x','.');
+    });
     ipcRenderer.send("page:loaded");
     loadCMAddress();
     startTime();
