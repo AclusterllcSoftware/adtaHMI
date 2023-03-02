@@ -334,13 +334,15 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
     }
     function setPhotoeyesStates(machineId,inputsStates,inputsInfo){
         //console.log(inputsStates,inputsInfo)
-        let input_colors = {"0" : "#f7931e", "1" : "#39b54a"};
+        let input_colors = {"in-active" : "#f7931e", "active" : "#39b54a"};
         for(let key in inputsInfo){
             let inputInfo=inputsInfo[key];
             if((inputInfo['input_type']==0)&&(inputInfo['device_type']==0)&&(inputInfo['device_number']==0)&& (inputInfo['gui_input_id']>0)){
-                let state=((inputInfo['active_state']==1)?0:1);
+                let state='in-active'
                 if(inputsStates[key]){
-                    state=inputsStates[key]['input_state'];
+                    if(inputInfo['active_state']==inputsStates[key]['input_state']){
+                        state='active'
+                    }
                 }
                 $('.photoeye[input-id='+inputInfo["input_id"]+'] .status').css('fill',input_colors[state]);
 
@@ -394,13 +396,15 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
     }
     function setEstopsStates(machineId,inputsStates,inputsInfo){
         //console.log(inputsStates,inputsInfo)
-        let input_colors = {"0" : "#fff", "1" : "#f5ea14"};
+        let input_colors = {"in-active" : "#fff", "active" : "#f5ea14"};
         for(let key in inputsInfo){
             let inputInfo=inputsInfo[key];
             if((inputInfo['input_type']==3) && inputInfo['gui_input_id']>0 &&  (inputInfo['device_type']==0) && (inputInfo['device_number']==0) ){
-                let state=((inputInfo['active_state']==1)?0:1);
+                let state='in-active'
                 if(inputsStates[key]){
-                    state=inputsStates[key]['input_state'];
+                    if(inputInfo['active_state']==inputsStates[key]['input_state']){
+                     state='active'
+                    }
                 }
                 $('.estop[input-id='+inputInfo["input_id"]+'] .status').css('fill',input_colors[state]);
 
