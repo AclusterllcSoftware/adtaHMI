@@ -42,7 +42,7 @@
                                 <td id="ip_address">-</td>
                                 <td id="current_speed">-</td>
                             </tr>
-                            <tr>
+                            <tr id="tr_speed">
                                 <td colspan="2">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -58,8 +58,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div style="padding:0px 20px;">
-                    <table class="motor-details table table-sm table-borderless">
+                <div id="command_buttons_container" style="padding:0px 20px;">
+                    <table class="table table-sm table-borderless">
                         <tbody>
                         <tr>
                             <td><button id="button-motor-start" class="button-3d button-rectangle">Start</button></td>
@@ -87,6 +87,7 @@
 <script>
 let basic_info={}
 let motorIdForDetailsView=0;
+let machine_mode=0;
 
 
 jQuery(document).ready(function() {
@@ -106,7 +107,19 @@ jQuery(document).ready(function() {
         ipcRenderer.send("get:views", selected_machine, "general-view-motors");
     });
 });
+function setMotorDetailsView(){
+    if(machine_mode!=1){
+        $('#motor-details #tr_speed').hide();
+        $('#motor-details #command_buttons_container').hide();
+        $('#motor-details').css('height','135px');
 
+    }
+    else{
+        $('#motor-details #tr_speed').show();
+        $('#motor-details #command_buttons_container').show();
+        $('#motor-details').css('height','270');
+    }
+}
 ipcRenderer.on("render:general-view-motors", function(e, data) {
     basic_info=data;
     setBinsLabel(data['binsInfo']);//nav.js
@@ -123,6 +136,7 @@ ipcRenderer.on("render:general-view-motors", function(e, data) {
         let motorsInfo=data['motorsInfo']
         let motor_id=$(this).attr('motor-id');
         motorIdForDetailsView=motor_id;
+        setMotorDetailsView();
         $('#motor-details #speed_error').hide();
         $('#motor-details #motor_name').html(motorsInfo[selected_machine+'_'+motor_id]['motor_name'])
         $('#motor-details #location').html(motorsInfo[selected_machine+'_'+motor_id]['location'])
@@ -135,34 +149,42 @@ ipcRenderer.on("render:general-view-motors", function(e, data) {
         $('#motor-details').hide();
     })
     $('#motor-details  #button-motor-start').on('click',function (){
-        let speed=$('#motor-details #speed').val()*1000;
-        let motorInfo=basic_info['motorsInfo'][selected_machine+'_'+motorIdForDetailsView];
-        if(speed<motorInfo['speed_min'] || speed>motorInfo['speed_max']){
-            $('#motor-details #speed_max').text(motorInfo['speed_max']/1000)
-            $('#motor-details #speed_min').text(motorInfo['speed_min']/1000)
-            $('#motor-details #speed_error').show();
-        }
-        else{
-            $('#motor-details #speed_error').hide();
-            ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
-                'deviceId':motorIdForDetailsView-1+101,
-                'command':1,
-                'parameter1':speed
-            });
+        if(machine_mode==1){
+            let speed=$('#motor-details #speed').val()*1000;
+            let motorInfo=basic_info['motorsInfo'][selected_machine+'_'+motorIdForDetailsView];
+            if(speed<motorInfo['speed_min'] || speed>motorInfo['speed_max']){
+                $('#motor-details #speed_max').text(motorInfo['speed_max']/1000)
+                $('#motor-details #speed_min').text(motorInfo['speed_min']/1000)
+                $('#motor-details #speed_error').show();
+            }
+            else{
+                $('#motor-details #speed_error').hide();
+                ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
+                    'deviceId':motorIdForDetailsView-1+101,
+                    'command':1,
+                    'parameter1':speed
+                });
+            }
         }
     })
     $('#motor-details  #button-motor-stop').on('click',function (){
-        ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
-            'deviceId':motorIdForDetailsView-1+101,
-            'command':0,
-            'parameter1':0
-        });
+        if(machine_mode==1) {
+            ipcRenderer.send("sendRequest", selected_machine, 'sendDeviceCommand', {
+                'deviceId': motorIdForDetailsView - 1 + 101,
+                'command': 0,
+                'parameter1': 0
+            });
+        }
     })
     setInterval(() => {
         ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});
     }, 1000);
 });
 ipcRenderer.on("getGeneralMotorsViewData", function(e, data) {
+    if(data['machineMode']!=machine_mode){
+        machine_mode=data['machineMode'];
+        setMotorDetailsView();
+    }
     let machineId=data['machineId'];
     setBinsStates(machineId,data['binsStates'],basic_info['binsInfo']);//nav.js
     setConveyorsStates(machineId,data['conveyorsStates'],basic_info['conveyorsInfo']);//nav.js
