@@ -184,6 +184,17 @@ function processReceivedJsonObjects(jsonObjects) {
 			if(resType == "basic_info") {
 				//can split in multiple request if data loss
 				basic_info=jsonObj.basic_info;
+				let doors={}
+				for(let key in basic_info['inputsInfo']){
+					let inputInfo=basic_info['inputsInfo'][key];
+					if(inputInfo['device_type']==6){
+						if(!doors[inputInfo['device_number']]){
+							doors[inputInfo['device_number']]={}
+						}
+						doors[inputInfo['device_number']][inputInfo['device_fct']]=inputInfo;
+					}
+				}
+				basic_info['doorsInfo']=doors;
 				//console.log(basic_info);
 			}
 			else if(resType == "ip_list") {

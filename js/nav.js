@@ -419,4 +419,40 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
             }
         }
     }
+    function setDoorsStates(machineId,inputsStates,doorsInfo){
+        $('.door').hide();//hide all buttons
+        for(let door_no in doorsInfo){
+            let doorInfo=doorsInfo[door_no];
+            let door_closed='in-active';
+            let door_locked='in-active';
+            let door_safe='in-active';
+            if(doorInfo[1]){
+                if(inputsStates[machineId+'_'+doorInfo[1]['input_id']]){
+                    if(inputsStates[machineId+'_'+doorInfo[1]['input_id']]['input_state']==doorInfo[1]['active_state']){
+                        door_closed='active';
+                    }
+                }
+            }
+            if(doorInfo[2]){
+                if(inputsStates[machineId+'_'+doorInfo[2]['input_id']]){
+                    if(inputsStates[machineId+'_'+doorInfo[2]['input_id']]['input_state']==doorInfo[2]['active_state']){
+                        door_locked='active';
+                    }
+                }
+            }
+            if(doorInfo[3]){
+                if(inputsStates[machineId+'_'+doorInfo[3]['input_id']]){
+                    if(inputsStates[machineId+'_'+doorInfo[3]['input_id']]['input_state']==doorInfo[3]['active_state']){
+                        door_safe='active';
+                    }
+                }
+            }
+            if((door_closed=='active')&&(door_locked=='in-active')&&(door_safe=='in-active')){
+                $('.door-lock[data-device-id='+(door_no-1+94)+']').show();
+            }
+            else if((door_closed=='active')&&((door_locked=='active')||(door_safe=='active'))){
+                $('.door-unlock[data-device-id='+(door_no-1+94)+']').show();
+            }
+        }
+}
 
