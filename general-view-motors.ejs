@@ -6,7 +6,7 @@
         <div class="col-8  position-relative" style="padding:0 50px 0 0;text-align: center;">
 			<%- include('resources/general-view-motors.svg') %>
             <div class="position-absolute" style="right: 100px;top:50px;z-index: 1"><%- include('components/machine_command_buttons'); %></div>
-            <div id="motor-details" class="position-absolute" style="width: 350px;height:270px;top:150px;left:200px; border: 1px solid black;display: none;">
+            <div id="motor-details" class="position-absolute" style="width: 350px;height:270px;top:150px;left:200px; border: 1px solid black;display: none;z-index: 2;background-color: white;">
                 <table class="table" style="margin: 0">
                     <tbody>
                         <tr>
@@ -69,6 +69,32 @@
                     </table>
                 </div>
                 <div id="speed_error" class="text-danger" style="display: none;">Invalid Speed.Range[min: <span id="speed_min"></span> max: <span id="speed_max"></span>]</div>
+            </div>
+            <div class="position-absolute" style="right: 95px;top:550px;z-index: 1">
+                <button class="door door-lock button-device-command button-3d button-rectangle" style="width: 40px;height: 36px;display: none;" data-device-id="94" data-command="1" data-parameter1="0"><i style="font-size: 22px;" class="bi bi-lock-fill"></i></button>
+                <button class="door door-unlock button-device-command button-3d button-rectangle" style="width: 40px;height: 36px;display: none;" data-device-id="94" data-command="0" data-parameter1="0"><i style="font-size: 22px;" class="bi bi-unlock-fill"></i></button>
+            </div>
+            <div class="position-absolute" style="right: 362px;top:550px;z-index: 1">
+                <button class="door door-lock button-device-command button-3d button-rectangle" style="width: 40px;height: 36px;display: none;" data-device-id="95" data-command="1" data-parameter1="0"><i style="font-size: 22px;" class="bi bi-lock-fill"></i></button>
+                <button class="door door-unlock button-device-command button-3d button-rectangle" style="width: 40px;height: 36px;display: none;" data-device-id="95" data-command="0" data-parameter1="0"><i style="font-size: 22px;" class="bi bi-unlock-fill"></i></button>
+            </div>
+            <div class="position-absolute" style="left: 103px;top:427px;z-index: 1">
+                <button class="door door-lock button-device-command button-3d button-rectangle" style="width: 40px;height: 36px;display: none;" data-device-id="96" data-command="1" data-parameter1="0"><i style="font-size: 22px;" class="bi bi-lock-fill"></i></button>
+                <button class="door door-unlock button-device-command button-3d button-rectangle" style="width: 40px;height: 36px;display: none;" data-device-id="96" data-command="0" data-parameter1="0"><i style="font-size: 22px;" class="bi bi-unlock-fill"></i></button>
+            </div>
+            <div class="position-absolute" style="left: -5px;top:40px;z-index: 1">
+                <button class="door door-lock button-device-command button-3d button-rectangle" style="width: 40px;height: 36px;display: none;" data-device-id="97" data-command="1" data-parameter1="0"><i style="font-size: 22px;" class="bi bi-lock-fill"></i></button>
+                <button class="door door-unlock button-device-command button-3d button-rectangle" style="width: 40px;height: 36px;display: none;" data-device-id="97" data-command="0" data-parameter1="0"><i style="font-size: 22px;" class="bi bi-unlock-fill"></i></button>
+            </div>
+
+            <div class="position-absolute" style="left: 150px;top:158px;z-index: 1;">
+                <button class="button-device-command-press-release button-3d button-rectangle" style="font-size: 14px;" data-device-id="83" data-command-start="0" data-command-end="1" data-parameter1="0">Test Red Light</button>
+            </div>
+            <div class="position-absolute" style="left: 150px;top:211px;z-index: 1;">
+                <button class="button-device-command-press-release button-3d button-rectangle" style="font-size: 14px;" data-device-id="84" data-command-start="0" data-command-end="1" data-parameter1="0">Test Amber Light</button>
+            </div>
+            <div class="position-absolute" style="left: 150px;top:266px;z-index: 1;">
+                <button class="button-device-command-press-release button-3d button-rectangle" style="font-size: 14px;" data-device-id="85" data-command-start="0" data-command-end="1" data-parameter1="0">Test Green Light</button>
             </div>
 		</div>
     </div>
@@ -188,6 +214,7 @@ ipcRenderer.on("getGeneralMotorsViewData", function(e, data) {
     let machineId=data['machineId'];
     setBinsStates(machineId,data['binsStates'],basic_info['binsInfo']);//nav.js
     setConveyorsStates(machineId,data['conveyorsStates'],basic_info['conveyorsInfo']);//nav.js
+    setDoorsStates(machineId,data['inputsStates'],basic_info['doorsInfo']);//nav.js
     setActiveAlarms(machineId,data['activeAlarms'],basic_info['alarmsInfo'])//nav.js
 
     let motorsInfo=basic_info['motorsInfo'];

@@ -168,6 +168,24 @@ jQuery(document).ready(function() {
             'parameter1':$(this).attr('data-parameter1')
         });
     })
+    $('.button-device-command-press-release').on('mousedown',function (){
+        let device_id=$(this).attr('data-device-id');
+        let command_start=$(this).attr('data-command-start');
+        let command_end=$(this).attr('data-command-end');
+        let parameter1=$(this).attr('data-parameter1');
+        ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
+            'deviceId':device_id,
+            'command':command_start,
+            'parameter1':parameter1
+        });
+        $(document).one('mouseup',function (){
+            ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
+                'deviceId':device_id,
+                'command':command_end,
+                'parameter1':parameter1
+            });
+        })
+    })
 });
 
 ipcRenderer.on("render:ip_list", function(e, ip_list_html, machine_list_from_server, maintenance_ip_list_from_server) {
