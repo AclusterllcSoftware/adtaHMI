@@ -1,6 +1,28 @@
 
 <%- include('header', {currentMenu: 'statistics-bins-detail', pageTitle: 'Bins Detailed'}); %>
-<ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="single-bin">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ul class="nav nav-tabs mt-4" id="myTab" role="tablist" style="padding: 0 40px">
   <li class="nav-item" role="presentation">
     <button class="nav-link active" id="volumen-tab" data-bs-toggle="tab" data-bs-target="#volume" type="button" role="tab" >Volume</button>
   </li>
@@ -11,7 +33,7 @@
     <button class="nav-link" id="table-view-tab" data-bs-toggle="tab" data-bs-target="#table-view" type="button" role="tab">Table</button>
   </li>
 </ul>
-<div class="tab-content mt-4" id="myTabContent" style="min-height: 65vh;">
+<div class="tab-content mt-4" id="myTabContent" style="min-height: 65vh; padding: 0 40px">
   <div class="tab-pane fade show active" id="volume" role="tabpanel">
     <div class="row">
       <div class="col-lg-12" id="bins-detailed" style="height: 400px;">Bins Detailed-Total</div>
@@ -73,20 +95,25 @@
 const Highcharts = require('highcharts/highstock')
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/export-data')(Highcharts);
-let scs_info = [], bins_info =[], start_time=null, end_time=null;
-let sc_codes = [
-  {code:'sc0', label: 'success'},
-  {code:'sc4', label: 'gap error'},
-  {code:'sc4', label: 'fail to divert'},
-];
-let bins_data=[
-  {id: 1, label:'S0101', sc0:4, sc4:5, sc14:5},
-  {id: 1, label:'S0102', sc0:4, sc4:3, sc14:15},
-  {id: 1, label:'S0103', sc0:6, sc4:12, sc14:8},
-  {id: 1, label:'S0104', sc0:15, sc4:6, sc14:5},
-  {id: 1, label:'S0105', sc0:12, sc4:11, sc14:8},
-];
-
+let scs_info = [], bins_info =[], start_time=null, end_time=null, bins_statistics=[];
+let sc_color_codes = {
+    sc0: "#34d399",
+    sc1: "#38bdf8",
+    sc3: "#fb923c",
+    sc4: "#e879f9",
+    sc5: "#818cf8",
+    sc6: "#c084fc",
+    sc7: "#2dd4bf",
+    sc8: "#292524",
+    sc9: "#facc15",
+    sc10: "#a3e635",
+    sc12: "#0891b2",
+    sc14: "#dc2626",
+    sc16: "#c026d3",
+    sc17: "#7e22ce",
+    sc18: "#a1a1aa",
+    sc21: "#fde047",
+  };
 
 jQuery(document).ready(function() {
   // tabs functionality
@@ -115,13 +142,15 @@ jQuery(document).ready(function() {
             jQuery("#display_machine_name").text("Select a machine");
             selected_machine = 0;
         }
-        ipcRenderer.send("get:views", selected_machine, "statistics");
+        ipcRenderer.send("get:views", selected_machine, "statistics-bins-detail");
     });
     
 });
 
-ipcRenderer.on('render:statistics', function(e, basic_info){
-    
+
+
+ipcRenderer.on('render:statistics-bins-detail', function(e, basic_info){
+    console.log('statistics-bins-detail render');
     Object.values(basic_info['scsInfo']).forEach(v=>{
             scs_info.push({...v, code:"sc"+v.value});
     });
@@ -133,13 +162,19 @@ ipcRenderer.on('render:statistics', function(e, basic_info){
     
     end_time=moment().unix();
     start_time=moment().subtract(1, 'days').unix();
-    ipcRenderer.send('getStatisticsBins', selected_machine, start_time, end_time)
+    // ipcRenderer.send('getStatisticsBins', selected_machine, start_time, end_time)
+    ipcRenderer.send("sendRequest", selected_machine,'getStatisticsBins', {
+            'from_timestamp':start_time,
+            'to_timestamp':end_time
+    });
 });
 
 ipcRenderer.on('getStatisticsBins', function (e, data_result){
-    let bins_statistics = data_result['statistics'], bins_summary=[], chart_series=[], 
+  
+    let bins_summary=[], chart_series=[], 
     chart_series_percentage=[], chart_categories=[];
-    let sc_codes = scs_info.map(s=> s.code)
+    let sc_codes = scs_info.map(s=> s.code);
+    bins_statistics = data_result['statistics']
     
     // console.log(bins_statistics);
     // console.log(bins_info);
@@ -153,8 +188,7 @@ ipcRenderer.on('getStatisticsBins', function (e, data_result){
       let {bin_id, label, ...rest} = bins_summary[key];
       bins_summary[key] = {...bins_summary[key],total: Object.values(rest).reduce((s, c)=> s+=c, 0)}
     })
-    console.log(bins_summary)
-    console.log(scs_info);
+    
     let sc_table_head='<th width="10%">Bin name</th>'+
                       '<th width="5%" class="text-right">Total</th>';
     scs_info.forEach(s=> {
@@ -179,9 +213,10 @@ ipcRenderer.on('getStatisticsBins', function (e, data_result){
 
     chart_categories = bins_summary.map(b=> b.label)
     scs_info.forEach(s=> {
-      chart_series.push({name:s.label, data:bins_summary.map(b => b[s.code])})
+      chart_series.push({name:s.label, color: sc_color_codes[s.code],data:bins_summary.map(b => b[s.code])})
       chart_series_percentage.push({
-        name:s.label, 
+        name:s.label,
+        color: sc_color_codes[s.code] ,
         data:bins_summary.map(b => {
           return b.total >0 ? Number((b[s.code]*100/b.total).toFixed(1)): 0;
         })})
@@ -191,6 +226,70 @@ ipcRenderer.on('getStatisticsBins', function (e, data_result){
     populateChart('bins-detailed', chart_categories, chart_series);
     populateChart('bins-detailed-percentage', chart_categories, chart_series_percentage, 'Bins Detailed-Percentage (%)');
 });
+
+function onBarClick(bin_label='') {
+  let selected_bin = bins_info.find(b => b.bin_label == bin_label), bin_data=[];
+  
+  bin_data = bins_statistics.filter(b => b.bin_id === selected_bin.bin_id);
+  
+  let chart_categories = [];
+    let scs_data = scs_info.map((d) => ({
+      ...d,
+      total: 0,
+      color: sc_color_codes[d.code],
+      data: [],
+    }));
+    for (k in bin_data.slice(0, 60)) {
+      let time_slot = bin_data[k]["created_at_timestamp"];
+      
+      chart_categories.push(moment.unix(time_slot).format("MMM D, H:mm"));
+      scs_data.forEach((d) => {
+        d.total += Number(bin_data[k][d["code"]]);
+        d.data.push(Number(bin_data[k][d["code"]]));
+      });
+    }
+    scs_data.sort((a, b) => a.total - b.total);
+  new Highcharts.chart("single-bin", {
+      chart: {
+        type: "column",
+      },
+      title: {
+        text: `Bin detail - ${bin_label}`,
+      },
+      xAxis: {
+        type: "datetime",
+        categories: chart_categories,
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: "",
+        },
+      },
+      //   tooltip: {
+      //     valueSuffix: title == "Bins Detailed-Total" ? "" : "%",
+      //   },
+      legend: {
+        reversed: true,
+      },
+      plotOptions: {
+        series: {
+          stacking: "normal",
+          dataLabels: {
+            enabled: true,
+          },
+        },
+      },
+      series: scs_data.map((d) => ({
+        name: d.label,
+        data: d.data,
+        color: d.color,
+      })),
+    });
+    $('#modal-title').text(`Bin detail - ${bin_label}`);
+    $('#exampleModal').modal('show');
+}
+
 function populateChart(id, categories=[], series=[], title='Bins Detailed-Total') {
   Highcharts.chart(id, {
   chart: {
@@ -219,6 +318,14 @@ function populateChart(id, categories=[], series=[], title='Bins Detailed-Total'
       stacking: 'normal',
       dataLabels: {
         enabled: true
+      },
+      cursor: 'pointer',
+      point:{
+        events:{
+          click: function(){
+            onBarClick(this.category);
+          },
+        }
       }
     }
   },
