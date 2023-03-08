@@ -216,7 +216,7 @@ function processReceivedJsonObjects(jsonObjects) {
 				['getStatistics','getStatisticsHourly','getStatisticsCounter',
 					'getStatisticsBins','getStatisticsBinsHourly','getStatisticsBinsCounter',
 					'getGeneralViewData','getGeneralDevicesViewData','getGeneralMotorsViewData','getGeneralBinDetailsViewData',
-					'getAlarmsViewData'
+					'getAlarmsViewData','getProductsHistory'
 				].includes(resType)){
 				mainWindow.webContents.send(resType, jsonObj);
 			}
