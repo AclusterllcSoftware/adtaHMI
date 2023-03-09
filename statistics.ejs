@@ -1,139 +1,125 @@
 <%- include('header', {currentMenu: 'statistics', pageTitle: 'Statistics'}); %>
 <!-- putting comment in git -->
-    <div class="row m-0 mt-2">
-        <div class="col-lg-3">
+<div class="row m-0 mt-2">
+    <div class="col-lg-3">
             <span class="badge badge-pill badge-light pt-1 pb-1 pr-2 pl-2">
-                <select id="update_period" style="border:0;background-color: #f8f9fa; font-weight: bold; font-size: 12px;">
+                <select id="update_period"
+                        style="border:0;background-color: #f8f9fa; font-weight: bold; font-size: 12px;">
                     <option selected>Every 5 minutes</option>
                     <option>Hourly</option>
                 </select>
             </span>
-            <span class="badge badge-pill badge-light" id="show-username"></span>
-        </div>
-        <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-4">
-            <div class="row m-0" id="big-chart-area" >
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-lg-12" id="bcr-chart" style="height: 200px;">BCR Chart</div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-lg-12" id="tput-chart" style="height: 200px;">TPUT Chart</div>
-                    </div> 
-                    <div class="row mt-2">
-                        <div class="col-lg-12" id="new-volume-chart" style="height: 300px;">New Volume</div>
-                    </div>
+        <span class="badge badge-pill badge-light" id="show-username"></span>
+    </div>
+    <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-4">
+        <div class="row m-0" id="big-chart-area">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-12" id="bcr-chart" style="height: 200px;">BCR Chart</div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <table class="table table-sm table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th width="50%">Production (starting)</th>
-                                            <th width="10%"></th>
-                                            <th width="10%"></th>     
-                                        </tr>
-                                        </thead>
-                                        <tbody id="production_table">
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-lg-6">
-                                    <table class="table table-sm table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th width="50%">Scanner Summary</th>
-                                            <th width="10%"></th>
-                                            <th width="10%"></th>     
-                                        </tr>
-                                        </thead>
-                                        <tbody id="scanner_table">
-                                            
-                                        </tbody>
-                                    </table>
-                                    <button class="btn btn-outline-primary mt-4">Reset</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-4">
-                            
-                        </div> -->
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="switchPie">
-                            <label class="form-check-label" for="switchPie">Pie Chart</label>
-                            </div>
-                        <div class="col-lg-12 pl-0 mt-2" id="pie-chart" style="height: 408px;">PIE Chart</div>
-                        <div class="col-lg-12 mt-2" id="sc-table" style="display: none;">
-                            <table class="table table-sm table-bordered">
-                                <thead id="sc-table-head">
+                <div class="row mt-2">
+                    <div class="col-lg-12" id="tput-chart" style="height: 200px;">TPUT Chart</div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-lg-12" id="new-volume-chart" style="height: 350px;">New Volume</div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <table class="table table-sm table-bordered">
+                                    <thead>
                                     <tr>
-                                        <th width="50%">SC Summary</th>
+                                        <th width="50%">Production (starting)</th>
                                         <th width="10%"></th>
-                                        <th width="10%"></th>     
+                                        <th width="10%"></th>
                                     </tr>
-                                </thead>
-                                <tbody id="sc-table-body">
-                                    
-                                </tbody>
-                            </table>
-                            
+                                    </thead>
+                                    <tbody id="production_table">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-6">
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th width="50%">Scanner Summary</th>
+                                        <th width="10%"></th>
+                                        <th width="10%"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="scanner_table">
+
+                                    </tbody>
+                                </table>
+                                <button class="button-device-command-press-release button-3d button-rectangle"
+                                        data-device-id="86"
+                                        data-command-start="0"
+                                        data-command-end="1"
+                                        data-parameter1="0">Reset
+                                </button>
+                            </div>
                         </div>
+                    </div>
+
+                    <!-- <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-4">
+
+                    </div> -->
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="switchPie">
+                        <label class="form-check-label" for="switchPie">Pie Chart</label>
+                    </div>
+                    <div class="col-lg-12 pl-0 mt-2" id="pie-chart" style="height: 408px;">PIE Chart</div>
+                    <div class="col-lg-12 mt-2" id="sc-table" style="display: none;">
+                        <table class="table table-sm table-bordered">
+                            <thead id="sc-table-head">
+                            <tr>
+                                <th width="50%">SC Summary</th>
+                                <th width="10%"></th>
+                                <th width="10%"></th>
+                            </tr>
+                            </thead>
+                            <tbody id="sc-table-body">
+
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
             </div>
-            <!-- <div class="row m-0" id="big-hourglass-area">
-                <div class="col-lg-12 text-center" style="height: 400px; position: relative;">
-                    <div style="position: absolute; top: 50%; left: 50%;">
-                        <img src="./resources/loading.gif">
-                    </div>
+        </div>
+        <!-- <div class="row m-0" id="big-hourglass-area">
+            <div class="col-lg-12 text-center" style="height: 400px; position: relative;">
+                <div style="position: absolute; top: 50%; left: 50%;">
+                    <img src="./resources/loading.gif">
                 </div>
-            </div> -->
-        </div>
-    </div>
-    <div class="row m-0">
-        <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-4">
-            <table class="table table-sm table-bordered">
-                <thead>
-                <tr>
-                    <th width="20%">Timestamp</th>
-                    <th width="10%">Duration</th>
-                    <th width="10%">Class</th>
-                    <th width="10%">Location</th>
-                    <th width="20%">Description</th>
-                    <th width="20%">Variable Name</th>
-                </tr>
-                </thead>
-                <tbody id="active_alarm_tbody">
-                    <tr>
-                        <td colspan="6">No active alarm to display</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            </div>
+        </div> -->
     </div>
 </div>
+
+</div>
 <style type="text/css">
-#sctooltip {
-    position: fixed;
-    display: none;
-    width: 180px !important;
-    color: #000;
-    font-size: 0.85em;
-    padding: 8px;
-    white-space: nowrap;
-    background-color: rgba(249, 249, 249, .85);    
-    opacity: 0.85;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.07), 
-                0 2px 4px rgba(0,0,0,0.07), 
-                0 4px 8px rgba(0,0,0,0.07), 
-                0 8px 16px rgba(0,0,0,0.07),
-                0 16px 32px rgba(0,0,0,0.07), 
-                0 32px 64px rgba(0,0,0,0.07);
-}
+    #sctooltip {
+        position: fixed;
+        display: none;
+        width: 180px !important;
+        color: #000;
+        font-size: 0.85em;
+        padding: 8px;
+        white-space: nowrap;
+        background-color: rgba(249, 249, 249, .85);
+        opacity: 0.85;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07),
+        0 2px 4px rgba(0, 0, 0, 0.07),
+        0 4px 8px rgba(0, 0, 0, 0.07),
+        0 8px 16px rgba(0, 0, 0, 0.07),
+        0 16px 32px rgba(0, 0, 0, 0.07),
+        0 32px 64px rgba(0, 0, 0, 0.07);
+    }
 </style>
 <div id="sctooltip"></div>
 <%- include('footer', {currentMenu: 'statistics'}); %>
@@ -144,29 +130,28 @@
 <script src="js/nav.js"></script>
 
 <script>
-const Highcharts = require('highcharts/highstock')
-require('highcharts/modules/exporting')(Highcharts);
-require('highcharts/modules/export-data')(Highcharts);
-// const moment = require('moment');
+    const Highcharts = require('highcharts/highstock')
+    require('highcharts/modules/exporting')(Highcharts);
+    require('highcharts/modules/export-data')(Highcharts);
+    // const moment = require('moment');
 
-let machine_mode = 9;
-let alarm_class_to_names = {"0" : "Error", "1" : "Warning", "2" : "Message"};
-let data_table;
-let currentMousePos = { x: -1, y: -1 };
-let statistics_started = 0;
-let scs_info = [], start_time=null, end_time=null;
-const machine_error_codes = ['sc1', 'sc3', 'sc4', 'sc6', 'sc9', 'sc14', 'sc16', 'sc17', 'sc21'];
-const non_machine_error_codes =['sc5', 'sc7', 'sc8', 'sc10', 'sc12', 'sc18'];
-let tr_html='';
-let update_period='Every 5 minutes';
-let showPie = true;
+    let machine_mode = 9;
+    let alarm_class_to_names = {"0": "Error", "1": "Warning", "2": "Message"};
+    let data_table;
+    let currentMousePos = {x: -1, y: -1};
+    let statistics_started = 0;
+    let scs_info = [], start_time = null, end_time = null;
+    const machine_error_codes = ['sc1', 'sc3', 'sc4', 'sc6', 'sc9', 'sc14', 'sc16', 'sc17', 'sc21'];
+    const non_machine_error_codes = ['sc5', 'sc7', 'sc8', 'sc10', 'sc12', 'sc18'];
+    let tr_html = '';
+    let update_period = 'Every 5 minutes';
+    let showPie = true;
 
 
+    jQuery(document).ready(function () {
 
-jQuery(document).ready(function() {
-    
-    jQuery('#switchPie').prop('checked', showPie);
-    if(showPie) {
+        jQuery('#switchPie').prop('checked', showPie);
+        if (showPie) {
             $('#pie-chart').show();
             $('#sc-table').hide();
         } else {
@@ -174,888 +159,908 @@ jQuery(document).ready(function() {
             $('#sc-table').show();
 
         }
-    jQuery("#ip_list_dropdown").change(function() {
-        selected_machine = jQuery(this).val();
+        jQuery("#ip_list_dropdown").change(function () {
+            selected_machine = jQuery(this).val();
 
-        if(selected_machine !== "") {
-            let selected_machine_name = machine_list[selected_machine];
-            jQuery("#display_machine_name").text(selected_machine_name);
+            if (selected_machine !== "") {
+                let selected_machine_name = machine_list[selected_machine];
+                jQuery("#display_machine_name").text(selected_machine_name);
 
-            setInterval(() => {
-                ipcRenderer.send("get:views", selected_machine, "statistics");
-            }, 60000);
+                setInterval(() => {
+                    ipcRenderer.send("get:views", selected_machine, "statistics");
+                }, 60000);
 
-        } else {
-            jQuery("#display_machine_name").text("Select a machine");
-            selected_machine = 0;
-        }
-
-        ipcRenderer.send("get:views", selected_machine, "statistics");
-    });
-    jQuery('#update_period').change(function(){
-        update_period = jQuery(this).val();
-        ipcRenderer.send("get:views", selected_machine, "statistics");
-    });
-    jQuery('#switchPie').change(function(){
-        showPie = $(this).is(":checked");
-        if($(this).is(":checked")) {
-            $('#pie-chart').show();
-            $('#sc-table').hide();
-        } else {
-            $('#pie-chart').hide();
-            $('#sc-table').show();
-
-        }
-    });
-});
-
-let bcr_chart = Highcharts.chart('bcr-chart', {
-    chart: {
-        type: 'spline',
-        animation: Highcharts.svg, // don't animate in old IE
-        marginRight: 10,
-        borderColor: '#D3D3D3',
-        borderWidth: 1
-    },
-
-    time: {
-        useUTC: false
-    },
-
-    title: {
-        text: 'BCR Read Rate'
-    },
-
-    accessibility: {
-        announceNewData: {
-            enabled: true,
-            minAnnounceInterval: 15000,
-            announcementFormatter: function (allSeries, newSeries, newPoint) {
-                if (newPoint) {
-                    return 'New point added. Value: ' + newPoint.y;
-                }
-                return false;
+            } else {
+                jQuery("#display_machine_name").text("Select a machine");
+                selected_machine = 0;
             }
-        }
-    },
 
-    xAxis: {
-        type: 'datetime',
-        tickInterval: 1000*60*60
-    },
+            ipcRenderer.send("get:views", selected_machine, "statistics");
+        });
+        jQuery('#update_period').change(function () {
+            update_period = jQuery(this).val();
+            ipcRenderer.send("get:views", selected_machine, "statistics");
+        });
+        jQuery('#switchPie').change(function () {
+            showPie = $(this).is(":checked");
+            if ($(this).is(":checked")) {
+                $('#pie-chart').show();
+                $('#sc-table').hide();
+            } else {
+                $('#pie-chart').hide();
+                $('#sc-table').show();
 
-    yAxis: {
+            }
+        });
+        $('.button-device-command-press-release').on('mousedown', function () {
+            let device_id = $(this).attr('data-device-id');
+            let command_start = $(this).attr('data-command-start');
+            let command_end = $(this).attr('data-command-end');
+            let parameter1 = $(this).attr('data-parameter1');
+            ipcRenderer.send("sendRequest", selected_machine, 'sendDeviceCommand', {
+                'deviceId': device_id,
+                'command': command_start,
+                'parameter1': parameter1
+            });
+            $(document).one('mouseup', function () {
+                ipcRenderer.send("sendRequest", selected_machine, 'sendDeviceCommand', {
+                    'deviceId': device_id,
+                    'command': command_end,
+                    'parameter1': parameter1
+                });
+            })
+        })
+    });
+
+    let bcr_chart = Highcharts.chart('bcr-chart', {
+        chart: {
+            type: 'spline',
+            animation: Highcharts.svg, // don't animate in old IE
+            marginRight: 10,
+            borderColor: '#D3D3D3',
+            borderWidth: 1
+        },
+
+        time: {
+            useUTC: false
+        },
+
         title: {
-            text: null
+            text: 'BCR Read Rate'
         },
-        tickInterval: 20,
-        tickWidth: 1,
-        tickLength: 5,
-        min: 0,
-        max: 100,
-        lineColor: '#C0C0C0',
-        lineWidth: 1,
-        plotLines: [{
-            value: 0,
-            width: 1,
-            color: '#808080'
-        }]
-    },
 
-    tooltip: {
-        headerFormat: '<b>{series.name}</b><br/>',
-        pointFormat: 'Time:{point.x:%Y-%m-%d %H:%M}<br/>Rate:{point.y:.2f}%'
-    },
-
-    legend: {
-        enabled: true
-    },
-
-    exporting: {
-        enabled: true,
-        buttons: {
-            contextButton: {
-                menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
-            }
-        }
-    },
-
-    credits: {
-        enabled: false
-    },
-
-    series: [{
-        name: 'BCR Read Rate',
-        marker: {
-            enabled: false
-        },
-        data: []
-    }]
-});
-
-let tput_chart = Highcharts.chart('tput-chart', {
-    chart: {
-        type: 'spline',
-        animation: Highcharts.svg, // don't animate in old IE
-        marginRight: 10,        
-        borderColor: '#D3D3D3',
-        borderWidth: 1
-    },
-
-    time: {
-        useUTC: false
-    },
-
-    title: {
-        text: 'Tput'
-    },
-
-    accessibility: {
-        announceNewData: {
-            enabled: true,
-            minAnnounceInterval: 15000,
-            announcementFormatter: function (allSeries, newSeries, newPoint) {
-                if (newPoint) {
-                    return 'New point added. Value: ' + newPoint.y;
-                }
-                return false;
-            }
-        }
-    },
-
-    xAxis: {
-        type: 'datetime',
-        tickInterval: 1000*60*60
-    },
-
-    yAxis: {
-        title: {
-            text: null
-        },
-        labels: {
-            format: '{value}'
-        },
-        tickInterval: 2000,
-        tickWidth: 1,
-        tickLength: 5,
-        min: 0,
-        max: 6000,
-        lineColor: '#C0C0C0',
-        lineWidth: 1,
-        plotLines: [{
-            value: 0,
-            width: 1,
-            color: '#808080'
-        }]
-    },
-
-    tooltip: {
-        headerFormat: '<b>{series.name}</b><br/>',
-        pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
-    },
-
-    legend: {
-        enabled: true
-    },
-
-    exporting: {
-        enabled: true,
-        buttons: {
-            contextButton: {
-                menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
-            }
-        }
-    },
-
-    credits: {
-        enabled: false
-    },
-
-    series: [{
-        name: 'Tput',
-        marker: {
-                enabled: false
-        },
-        data: []
-    }]
-});
-
-// let volume_chart = Highcharts.chart('volume-chart', {
-//     chart: {
-//         type: 'spline',
-//         animation: Highcharts.svg, // don't animate in old IE
-//         marginRight: 10,        
-//         borderColor: '#D3D3D3',
-//         borderWidth: 1
-//     },
-
-//     time: {
-//         useUTC: false
-//     },
-
-//     title: {
-//         text: 'Volume'
-//     },
-
-//     accessibility: {
-//         announceNewData: {
-//             enabled: true,
-//             minAnnounceInterval: 15000,
-//             announcementFormatter: function (allSeries, newSeries, newPoint) {
-//                 if (newPoint) {
-//                     return 'New point added. Value: ' + newPoint.y;
-//                 }
-//                 return false;
-//             }
-//         }
-//     },
-
-//     xAxis: {
-//         type: 'datetime',
-//         tickInterval: 1000*60*60
-//     },
-
-//     yAxis: {
-//         title: {
-//             text: null
-//         },
-//         labels: {
-//             format: '{value}'
-//         },
-//         tickInterval: 2000,
-//         tickWidth: 1,
-//         tickLength: 5,
-//         min: 0,
-//         max: 6000,
-//         lineColor: '#C0C0C0',
-//         lineWidth: 1,
-//         plotLines: [{
-//             value: 0,
-//             width: 1,
-//             color: '#808080'
-//         }]
-//     },
-
-//     tooltip: {
-//         headerFormat: '<b>{series.name}</b><br/>',
-//         pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
-//     },
-
-//     legend: {
-//         enabled: true
-//     },
-
-//     exporting: {
-//         enabled: true,
-//         buttons: {
-//             contextButton: {
-//                 menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
-//             }
-//         }
-//     },
-
-//     credits: {
-//         enabled: false
-//     },
-
-//     series: [{
-//         name: 'Volume',
-//         marker: {
-//                 enabled: false
-//         },
-//         data: []
-//     }]
-// });
-
-let pie_chart = Highcharts.chart('pie-chart', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        borderColor: '#D3D3D3',
-        borderWidth: 1
-    },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: 'Total Products: 0'
-    },
-    tooltip: {
-        pointFormat: '<b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    navigation: {
-        buttonOptions: {
-            enabled: false
-        }
-    },
-    legend: {
-        align: 'right',
-        verticalAlign: 'middle',
-        layout: 'vertical',
-        itemMarginBottom:8,
-        symbolHeight: 12,
-        symbolWidth: 12,
-        symbolRadius: 0,
-        itemStyle: {
-            fontWeight: 'normal',
-            fontSize: '11px',
-            cursor: "pointer",
-            color: '#000'
-        }
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
+        accessibility: {
+            announceNewData: {
                 enabled: true,
-                format: '{point.percentage:.1f}'
-            },
-            showInLegend: true
-        }
-    },
-    series: [{
-        name: 'Sorting Codes',
-        colorByPoint: true,
-        data: []
-    }]
-});
-let sc_color_codes ={
-    'sc0':'#34d399',
-    'sc1':'#38bdf8',
-    'sc3':'#fb923c',
-    'sc4':'#e879f9',
-    'sc5':'#818cf8',
-    'sc6':'#c084fc',
-    'sc7':'#2dd4bf',
-    'sc8':'#292524',
-    'sc9':'#facc15',
-    'sc10':'#a3e635',
-    'sc12':'#0891b2',
-    'sc14':'#dc2626',
-    'sc16':'#c026d3',
-    'sc17':'#7e22ce',
-    'sc18':'#a1a1aa',
-    'sc21':'#fde047',
-};
-let new_volume_chart = Highcharts.chart('new-volume-chart', {
-    chart: {
-        type: 'column',
-        animation: Highcharts.svg, // don't animate in old IE
-        marginRight: 10,
-        borderColor: '#D3D3D3',
-        borderWidth: 1
-    },
-
-    time: {
-        useUTC: false
-    },
-
-    title: {
-        text: 'Volume'
-    },
-
-    accessibility: {
-        announceNewData: {
-            enabled: true,
-            minAnnounceInterval: 15000,
-            announcementFormatter: function (allSeries, newSeries, newPoint) {
-                if (newPoint) {
-                    return 'New point added. Value: ' + newPoint.y;
+                minAnnounceInterval: 15000,
+                announcementFormatter: function (allSeries, newSeries, newPoint) {
+                    if (newPoint) {
+                        return 'New point added. Value: ' + newPoint.y;
+                    }
+                    return false;
                 }
-                return false;
             }
-        }
-    },
-    xAxis: {
-        type: 'datetime',
-        tickInterval: 1000*60*60*24,
-        labels: {
-            // rotation: 90,
-            // formatter: function() {
-            //     //return Highcharts.dateFormat('%b-%e-%Y', this.value);
-            //     //return moment.unix(this.value/1000).format("YYYY-MM-DD");
-            // }
-        }
-    },
-
-    yAxis: {
-        title: {
-            text: null
         },
-        tickInterval: 10,
-        tickWidth: 1,
-        tickLength: 5,
-        min: 0
-    },
-    // tooltip: {
-    //     headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-    //     pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-    //         '<td style="padding:0"><b>{point.y} </b></td></tr>',
-    //     footerFormat: '</table>',
-    //     shared: true,
-    //     useHTML: true
-    // },
-    tooltip: {
-        formatter: function () {
-            return '<b>' + moment.unix(this.x/1000).format("YYYY-MM-DD")+ '</b><br/>' +
-                this.series.name + ': ' + this.y + '<br/>' +
-                'Total: ' + this.point.stackTotal;
-        }
-    },
-    legend: {
-        enabled: true
-    },
-    plotOptions: {
-        column: {
-            stacking: 'normal'
-        }
-    },
-    exporting: {
-        enabled: true,
-        buttons: {
-            contextButton: {
-                menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
+
+        xAxis: {
+            type: 'datetime',
+            tickInterval: 1000 * 60 * 60
+        },
+
+        yAxis: {
+            title: {
+                text: null
+            },
+            tickInterval: 20,
+            tickWidth: 1,
+            tickLength: 5,
+            min: 0,
+            max: 100,
+            lineColor: '#C0C0C0',
+            lineWidth: 1,
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+
+        tooltip: {
+            headerFormat: '<b>{series.name}</b><br/>',
+            pointFormat: 'Time:{point.x:%Y-%m-%d %H:%M}<br/>Rate:{point.y:.2f}%'
+        },
+
+        legend: {
+            enabled: true
+        },
+
+        exporting: {
+            enabled: true,
+            buttons: {
+                contextButton: {
+                    menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
+                }
             }
-        }
-    },
-    credits: {
-        enabled: false
-    },
-    
-    series: Object.keys(sc_color_codes).map(d => ({
-        name:d,
-        data:[],
-        color: sc_color_codes[d]
-    }))
-});
+        },
 
+        credits: {
+            enabled: false
+        },
 
-ipcRenderer.on('render:statistics', function(e, basic_info){
-    scs_info =[];
-    console.log(basic_info);
-    Object.values(basic_info['scsInfo']).forEach(v=>{
-            scs_info.push({...v, code:"sc"+v.value});
+        series: [{
+            name: 'BCR Read Rate',
+            marker: {
+                enabled: false
+            },
+            data: []
+        }]
     });
-    end_time=moment().unix();
-    start_time=moment().subtract(1, 'days').unix();
-    if(update_period === 'Hourly'){
-        // ipcRenderer.send('getStatisticsHourly', selected_machine, start_time, end_time)
-        ipcRenderer.send("sendRequest", selected_machine,'getStatisticsHourly', {
-            'from_timestamp':start_time,
-            'to_timestamp':end_time
+
+    let tput_chart = Highcharts.chart('tput-chart', {
+        chart: {
+            type: 'spline',
+            animation: Highcharts.svg, // don't animate in old IE
+            marginRight: 10,
+            borderColor: '#D3D3D3',
+            borderWidth: 1
+        },
+
+        time: {
+            useUTC: false
+        },
+
+        title: {
+            text: 'Tput'
+        },
+
+        accessibility: {
+            announceNewData: {
+                enabled: true,
+                minAnnounceInterval: 15000,
+                announcementFormatter: function (allSeries, newSeries, newPoint) {
+                    if (newPoint) {
+                        return 'New point added. Value: ' + newPoint.y;
+                    }
+                    return false;
+                }
+            }
+        },
+
+        xAxis: {
+            type: 'datetime',
+            tickInterval: 1000 * 60 * 60
+        },
+
+        yAxis: {
+            title: {
+                text: null
+            },
+            labels: {
+                format: '{value}'
+            },
+            tickInterval: 2000,
+            tickWidth: 1,
+            tickLength: 5,
+            min: 0,
+            max: 6000,
+            lineColor: '#C0C0C0',
+            lineWidth: 1,
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+
+        tooltip: {
+            headerFormat: '<b>{series.name}</b><br/>',
+            pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+        },
+
+        legend: {
+            enabled: true
+        },
+
+        exporting: {
+            enabled: true,
+            buttons: {
+                contextButton: {
+                    menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
+                }
+            }
+        },
+
+        credits: {
+            enabled: false
+        },
+
+        series: [{
+            name: 'Tput',
+            marker: {
+                enabled: false
+            },
+            data: []
+        }]
+    });
+
+    // let volume_chart = Highcharts.chart('volume-chart', {
+    //     chart: {
+    //         type: 'spline',
+    //         animation: Highcharts.svg, // don't animate in old IE
+    //         marginRight: 10,
+    //         borderColor: '#D3D3D3',
+    //         borderWidth: 1
+    //     },
+
+    //     time: {
+    //         useUTC: false
+    //     },
+
+    //     title: {
+    //         text: 'Volume'
+    //     },
+
+    //     accessibility: {
+    //         announceNewData: {
+    //             enabled: true,
+    //             minAnnounceInterval: 15000,
+    //             announcementFormatter: function (allSeries, newSeries, newPoint) {
+    //                 if (newPoint) {
+    //                     return 'New point added. Value: ' + newPoint.y;
+    //                 }
+    //                 return false;
+    //             }
+    //         }
+    //     },
+
+    //     xAxis: {
+    //         type: 'datetime',
+    //         tickInterval: 1000*60*60
+    //     },
+
+    //     yAxis: {
+    //         title: {
+    //             text: null
+    //         },
+    //         labels: {
+    //             format: '{value}'
+    //         },
+    //         tickInterval: 2000,
+    //         tickWidth: 1,
+    //         tickLength: 5,
+    //         min: 0,
+    //         max: 6000,
+    //         lineColor: '#C0C0C0',
+    //         lineWidth: 1,
+    //         plotLines: [{
+    //             value: 0,
+    //             width: 1,
+    //             color: '#808080'
+    //         }]
+    //     },
+
+    //     tooltip: {
+    //         headerFormat: '<b>{series.name}</b><br/>',
+    //         pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+    //     },
+
+    //     legend: {
+    //         enabled: true
+    //     },
+
+    //     exporting: {
+    //         enabled: true,
+    //         buttons: {
+    //             contextButton: {
+    //                 menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
+    //             }
+    //         }
+    //     },
+
+    //     credits: {
+    //         enabled: false
+    //     },
+
+    //     series: [{
+    //         name: 'Volume',
+    //         marker: {
+    //                 enabled: false
+    //         },
+    //         data: []
+    //     }]
+    // });
+
+    let pie_chart = Highcharts.chart('pie-chart', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+            borderColor: '#D3D3D3',
+            borderWidth: 1
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Total Products: 0'
+        },
+        tooltip: {
+            pointFormat: '<b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        navigation: {
+            buttonOptions: {
+                enabled: false
+            }
+        },
+        legend: {
+            align: 'right',
+            verticalAlign: 'middle',
+            layout: 'vertical',
+            itemMarginBottom: 8,
+            symbolHeight: 12,
+            symbolWidth: 12,
+            symbolRadius: 0,
+            itemStyle: {
+                fontWeight: 'normal',
+                fontSize: '11px',
+                cursor: "pointer",
+                color: '#000'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.1f}'
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'Sorting Codes',
+            colorByPoint: true,
+            data: []
+        }]
+    });
+    let sc_color_codes = {
+        'sc0': '#34d399',
+        'sc1': '#38bdf8',
+        'sc3': '#fb923c',
+        'sc4': '#e879f9',
+        'sc5': '#818cf8',
+        'sc6': '#c084fc',
+        'sc7': '#2dd4bf',
+        'sc8': '#292524',
+        'sc9': '#facc15',
+        'sc10': '#a3e635',
+        'sc12': '#0891b2',
+        'sc14': '#dc2626',
+        'sc16': '#c026d3',
+        'sc17': '#7e22ce',
+        'sc18': '#a1a1aa',
+        'sc21': '#fde047',
+    };
+
+
+    ipcRenderer.on('render:statistics', function (e, basic_info) {
+        scs_info = [];
+        console.log(basic_info);
+        Object.values(basic_info['scsInfo']).forEach(v => {
+            scs_info.push({...v, code: "sc" + v.value});
         });
-    }
-    else {
-        // ipcRenderer.send('getStatistics', selected_machine, start_time, end_time);
-        ipcRenderer.send("sendRequest", selected_machine,'getStatistics', {
-            'from_timestamp':start_time,
-            'to_timestamp':end_time
-        });
-    }
-    
-});
-
-
-
-ipcRenderer.on('getStatisticsHourly', function (e, data_result){
-    populateChart(data_result['statistics']);
-});
-
-ipcRenderer.on('getStatistics', function (e, data_result){
-    populateChart(data_result['statistics']);
-});
-
-function populateChart(statistics_result){
-    console.log(statistics_result);
-    let total_inducted=0, total_good_diverts=0, total_machine_error=0, total_non_machine_error=0, lost_of_comm=0, avg_length=0, avg_gap=0, total_length=0, sum_length=0, total_gap=0, sum_gap=0, no_read=0,no_code=0, multiple_read=0,good_scan=0;
-    let sc0= [],
-    sc1 = [],
-    sc3 = [],
-    sc4 = [],
-    sc5 = [],
-    sc6 = [],
-    sc7 = [],
-    sc8 = [],
-    sc9 = [],
-    sc10 = [],
-    sc12 = [],
-    sc14 = [],
-    sc16 = [],
-    sc17 = [],
-    sc18 = [],
-    sc21 = [];
-    // let statistics_result = data_result['statistics'];
-    
-    let bcr_chart_data = [], tput_chart_data = [], pie_chart_data = [], total_product_count=0;
-    let scs_data= scs_info.map(d=> ({...d, total:0, color:sc_color_codes[d.code]}));
-    console.log('scs data', scs_data);
-    for(k in statistics_result){
-        let time_slot = statistics_result[k]['created_at_timestamp'],
-        total_read = statistics_result[k]['total_read'],        
-        valid = statistics_result[k]['valid'];
-
-        total_read = Number(total_read);
-        valid = Number(valid);
-        total_product_count+=total_read;
-
-        let bcr_read_rate = 0;
-        if(total_read > 0) {
-            bcr_read_rate = (valid / total_read) * 100;
-        }
-        time_slot = Number(moment.unix(time_slot));
-        bcr_chart_data.push({
-            x: time_slot,
-            y: bcr_read_rate
-        });
-        let tput_value = update_period=== 'Hourly'? total_read: 3600/(300/total_read); // Tput = 3600 / (period / number of products)
-        
-
-        tput_chart_data.push({
-            x: time_slot,
-            y: tput_value
-        });
-        scs_data.forEach(d =>{
-            d.total+=Number(statistics_result[k][d['code']]);
-            eval(d['code']).push({
-                x: time_slot, 
-                y: Number(statistics_result[k][d['code']])
-            });
-        });
-        //temporary
-        total_gap += Number(statistics_result[k]['total_good_gap']);
-        total_length += Number(statistics_result[k]['total_good_length']);
-        sum_gap += Number(statistics_result[k]['sum_gap']);
-        sum_length += Number(statistics_result[k]['sum_length']);
-        no_code += Number(statistics_result[k]['no_code']);
-        no_read += Number(statistics_result[k]['no_read']);
-        multiple_read += Number(statistics_result[k]['multiple_read']);
-        good_scan += Number(statistics_result[k]['valid']);
-    }
-
-    avg_gap = total_gap>0?(sum_gap/total_gap):0;
-    avg_length = total_length>0?(sum_length/total_length):0;
-    
-    
-    scs_data = scs_data.map(d=>({...d, percentage:((d.total/total_product_count)*100).toFixed(2)}));
-    let maxSc = Math.max(...scs_data.map(e=>e.total));
-    let highest_sc = scs_data.find(d=>d.total===maxSc);
-    let highest_sc_index=scs_data.indexOf(highest_sc);
-    
-    scs_data.forEach((d,idx)=>{
-        // temporary
-        total_inducted+=d.total;
-        if(d.code === 'sc0'){
-            total_good_diverts+=d.total;
-        }
-        if(machine_error_codes.includes(d.code)){
-            total_machine_error+=d.total;
-        }
-        if(non_machine_error_codes.includes(d.code)){
-            total_non_machine_error+=d.total;
-        }
-        if(idx === highest_sc_index){
-            pie_chart_data.push({
-                name: d.label,
-                y: Number(d.percentage),
-                selected: true,
-                color: d.color
+        end_time = moment().unix();
+        start_time = moment().subtract(1, 'days').unix();
+        if (update_period === 'Hourly') {
+            // ipcRenderer.send('getStatisticsHourly', selected_machine, start_time, end_time)
+            ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsHourly', {
+                'from_timestamp': start_time,
+                'to_timestamp': end_time
             });
         } else {
-            pie_chart_data.push({
-                name: d.label,
-                y: Number(d.percentage),
-                sliced: true,
-                color:d.color
+            // ipcRenderer.send('getStatistics', selected_machine, start_time, end_time);
+            ipcRenderer.send("sendRequest", selected_machine, 'getStatistics', {
+                'from_timestamp': start_time,
+                'to_timestamp': end_time
             });
         }
-        // new_volume_chart.series[idx].setData(eval(d.code), true);
-        
-    })
-    
-    let volume_series = scs_data.sort((a,b)=>a.total-b.total).map(d => ({name:d.label, data:eval(d.code), color: d.color}))
-    new_volume_chart.update({
-        series: volume_series
-    })
-    new_volume_chart.redraw()
-    bcr_chart.series[0].setData(bcr_chart_data, true);
-    tput_chart.series[0].setData(tput_chart_data, true);
-    pie_chart.series[0].setData(pie_chart_data, true);
-    pie_chart.setTitle({text:"Total Products: "+total_product_count})
-    console.log(new_volume_chart);
-    console.log(bcr_chart);
-    if(total_inducted>0){
-        tr_html='<tr>' + 
-                '<td>' + 'Total inducted' + '</td>'+
-                '<td>' + total_inducted + '</td>'+
-                '<td>' + '100%' + '</td>'+
-                '</tr>'+
-                '<tr>' + 
-                '<td>' + 'Total good diverts' + '</td>'+
-                '<td>' + total_good_diverts + '</td>'+
-                '<td>' + ((total_good_diverts/total_inducted)*100).toFixed(0)+'%' + '</td>'+
-                '</tr>'+
-                '<tr>' + 
-                '<td>' + 'Total machine error packages' + '</td>'+
-                '<td>' + total_machine_error + '</td>'+
-                '<td>' + ((total_machine_error/total_inducted)*100).toFixed(0)+'%' + '</td>'+
-                '</tr>'+
-                '<tr>' + 
-                '<td>' + 'Total Non machine error packages' + '</td>'+
-                '<td>' + total_non_machine_error + '</td>'+
-                '<td>' + ((total_non_machine_error/total_inducted)*100).toFixed(0)+'%' + '</td>'+
-                '</tr>'+
-                '<tr>' + 
-                '<td>' + 'Lost of communication' + '</td>'+
-                '<td>' + lost_of_comm + '</td>'+
-                '<td>' + ((lost_of_comm/total_inducted)*100).toFixed(0)+'%' + '</td>'+
-                '</tr>'+
-                '<tr>' + 
-                '<td>' + 'Avg. length' + '</td>'+
-                '<td>' + avg_length + '</td>'+
-                '<td>' + '</td>'+
-                '</tr>'+
-                '<tr>' + 
-                '<td>' + 'Avg. gap' + '</td>'+
-                '<td>' + avg_gap + '</td>'+
-                '<td>' + '</td>'+
+
+    });
+
+
+    ipcRenderer.on('getStatisticsHourly', function (e, data_result) {
+        populateChart(data_result['statistics']);
+    });
+
+    ipcRenderer.on('getStatistics', function (e, data_result) {
+        populateChart(data_result['statistics']);
+    });
+
+    function populateChart(statistics_result) {
+        console.log(statistics_result);
+        let total_inducted = 0, total_good_diverts = 0, total_machine_error = 0, total_non_machine_error = 0,
+            lost_of_comm = 0, avg_length = 0, avg_gap = 0, total_length = 0, sum_length = 0, total_gap = 0, sum_gap = 0,
+            no_read = 0, no_code = 0, multiple_read = 0, good_scan = 0;
+        let sc0 = [],
+            sc1 = [],
+            sc3 = [],
+            sc4 = [],
+            sc5 = [],
+            sc6 = [],
+            sc7 = [],
+            sc8 = [],
+            sc9 = [],
+            sc10 = [],
+            sc12 = [],
+            sc14 = [],
+            sc16 = [],
+            sc17 = [],
+            sc18 = [],
+            sc21 = [];
+        // let statistics_result = data_result['statistics'];
+
+        let bcr_chart_data = [], tput_chart_data = [], pie_chart_data = [], total_product_count = 0, time_slots=[];
+        let scs_data = scs_info.map(d => ({...d, total: 0, color: sc_color_codes[d.code]})),
+            volume_data= scs_info.map(d => ({...d, total: 0, color: sc_color_codes[d.code], data:[]}));
+        console.log('scs data', scs_data);
+        for (k in statistics_result) {
+            let time_slot = statistics_result[k]['created_at_timestamp'],
+                total_read = statistics_result[k]['total_read'],
+                valid = statistics_result[k]['valid'];
+
+            total_read = Number(total_read);
+            valid = Number(valid);
+            total_product_count += total_read;
+
+            let bcr_read_rate = 0;
+            if (total_read > 0) {
+                bcr_read_rate = (valid / total_read) * 100;
+            }
+            time_slot = Number(moment.unix(time_slot));
+            time_slots.push(time_slot);
+            bcr_chart_data.push({
+                x: time_slot,
+                y: bcr_read_rate
+            });
+            let tput_value = update_period === 'Hourly' ? total_read : 3600 / (300 / total_read); // Tput = 3600 / (period / number of products)
+
+
+            tput_chart_data.push({
+                x: time_slot,
+                y: tput_value
+            });
+
+            volume_data.forEach(d => {
+                d.total += Number(statistics_result[k][d["code"]]);
+                d.data.push(Number(statistics_result[k][d["code"]]));
+            })
+            scs_data.forEach(d => {
+                d.total += Number(statistics_result[k][d['code']]);
+                eval(d['code']).push({
+                    x: time_slot,
+                    y: Number(statistics_result[k][d['code']])
+                });
+            });
+            //temporary
+            total_gap += Number(statistics_result[k]['total_good_gap']);
+            total_length += Number(statistics_result[k]['total_good_length']);
+            sum_gap += Number(statistics_result[k]['sum_gap']);
+            sum_length += Number(statistics_result[k]['sum_length']);
+            no_code += Number(statistics_result[k]['no_code']);
+            no_read += Number(statistics_result[k]['no_read']);
+            multiple_read += Number(statistics_result[k]['multiple_read']);
+            good_scan += Number(statistics_result[k]['valid']);
+        }
+
+        avg_gap = total_gap > 0 ? (sum_gap / total_gap) : 0;
+        avg_length = total_length > 0 ? (sum_length / total_length) : 0;
+
+
+        scs_data = scs_data.map(d => ({...d, percentage: ((d.total / total_product_count) * 100).toFixed(2)}));
+        let maxSc = Math.max(...scs_data.map(e => e.total));
+        let highest_sc = scs_data.find(d => d.total === maxSc);
+        let highest_sc_index = scs_data.indexOf(highest_sc);
+
+        scs_data.forEach((d, idx) => {
+            // temporary
+            total_inducted += d.total;
+            if (d.code === 'sc0') {
+                total_good_diverts += d.total;
+            }
+            if (machine_error_codes.includes(d.code)) {
+                total_machine_error += d.total;
+            }
+            if (non_machine_error_codes.includes(d.code)) {
+                total_non_machine_error += d.total;
+            }
+            if (idx === highest_sc_index) {
+                pie_chart_data.push({
+                    name: d.label,
+                    y: Number(d.percentage),
+                    selected: true,
+                    color: d.color
+                });
+            } else {
+                pie_chart_data.push({
+                    name: d.label,
+                    y: Number(d.percentage),
+                    sliced: true,
+                    color: d.color
+                });
+            }
+            // new_volume_chart.series[idx].setData(eval(d.code), true);
+
+        })
+
+        volume_data.map(d=> ({...d, data: d.data.reverse()}));
+        console.log(volume_data);
+        let new_volume_chart = Highcharts.chart('new-volume-chart', {
+            chart: {
+                type: 'column',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10,
+                borderColor: '#D3D3D3',
+                borderWidth: 1
+            },
+
+            time: {
+                useUTC: false
+            },
+
+            title: {
+                text: 'Volume'
+            },
+
+            accessibility: {
+                announceNewData: {
+                    enabled: true,
+                    minAnnounceInterval: 15000,
+                    announcementFormatter: function (allSeries, newSeries, newPoint) {
+                        if (newPoint) {
+                            return 'New point added. Value: ' + newPoint.y;
+                        }
+                        return false;
+                    }
+                }
+            },
+            xAxis: {
+                type: 'datetime',
+
+                labels: {
+                    // rotation: 90,
+                    // formatter: function() {
+                    //     //return Highcharts.dateFormat('%b-%e-%Y', this.value);
+                    //     //return moment.unix(this.value/1000).format("YYYY-MM-DD");
+                    // }
+                },
+                categories: time_slots.map(t=> moment(t).format("MMM D,H:mm")).reverse()
+            },
+
+            yAxis: {
+                title: {
+                    text: null
+                },
+                tickInterval: 10,
+                tickWidth: 1,
+                tickLength: 5,
+                min: 0
+            },
+            // tooltip: {
+            //     headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            //     pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            //         '<td style="padding:0"><b>{point.y} </b></td></tr>',
+            //     footerFormat: '</table>',
+            //     shared: true,
+            //     useHTML: true
+            // },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + moment(this.x).format("YYYY-MM-DD") + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' +
+                        'Total: ' + this.point.stackTotal;
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal'
+                }
+            },
+            exporting: {
+                enabled: true,
+                buttons: {
+                    contextButton: {
+                        menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
+                    }
+                }
+            },
+            credits: {
+                enabled: false
+            },
+
+            series: volume_data.sort((a, b) => a.total - b.total).map(d=> ({name:d.label, color:d.color, data:d.data}))
+        });
+
+        bcr_chart.series[0].setData(bcr_chart_data, true);
+        tput_chart.series[0].setData(tput_chart_data, true);
+        pie_chart.series[0].setData(pie_chart_data, true);
+        pie_chart.setTitle({text: "Total Products: " + total_product_count})
+
+        if (total_inducted > 0) {
+            tr_html = '<tr>' +
+                '<td>' + 'Total inducted' + '</td>' +
+                '<td>' + total_inducted + '</td>' +
+                '<td>' + '100%' + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>' + 'Total good diverts' + '</td>' +
+                '<td>' + total_good_diverts + '</td>' +
+                '<td>' + ((total_good_diverts / total_inducted) * 100).toFixed(0) + '%' + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>' + 'Total machine error packages' + '</td>' +
+                '<td>' + total_machine_error + '</td>' +
+                '<td>' + ((total_machine_error / total_inducted) * 100).toFixed(0) + '%' + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>' + 'Total Non machine error packages' + '</td>' +
+                '<td>' + total_non_machine_error + '</td>' +
+                '<td>' + ((total_non_machine_error / total_inducted) * 100).toFixed(0) + '%' + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>' + 'Lost of communication' + '</td>' +
+                '<td>' + lost_of_comm + '</td>' +
+                '<td>' + ((lost_of_comm / total_inducted) * 100).toFixed(0) + '%' + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>' + 'Avg. length' + '</td>' +
+                '<td>' + avg_length + '</td>' +
+                '<td>' + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>' + 'Avg. gap' + '</td>' +
+                '<td>' + avg_gap + '</td>' +
+                '<td>' + '</td>' +
                 '</tr>';
-    } else {
-        tr_html='<tr>' + 
-                '<td>' + 'No data' + '</td>'+
-                '<td>' + '</td>'+
-                '<td>' + '</td>'+
+        } else {
+            tr_html = '<tr>' +
+                '<td>' + 'No data' + '</td>' +
+                '<td>' + '</td>' +
+                '<td>' + '</td>' +
                 '</tr>';
+        }
+
+        jQuery("#production_table").empty();
+        jQuery("#production_table").append(tr_html);
+
+
+        // scanner table
+        let tr_scanner = '';
+        tr_scanner = '<tr>' +
+            '<td>' + 'Good scans' + '</td>' +
+            '<td>' + good_scan + '</td>' +
+            '<td>' + (good_scan / (good_scan) * 100).toFixed(0) + '%' + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td>' + 'No read' + '</td>' +
+            '<td>' + no_read + '</td>' +
+            '<td>' + (no_read / (good_scan) * 100).toFixed(0) + '%' + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td>' + 'No Code' + '</td>' +
+            '<td>' + no_code + '</td>' +
+            '<td>' + (no_code / (good_scan) * 100).toFixed(0) + '%' + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td>' + 'Multiple read' + '</td>' +
+            '<td>' + multiple_read + '</td>' +
+            '<td>' + (multiple_read / (good_scan) * 100).toFixed(0) + '%' + '</td>' +
+            '</tr>' +
+            '<tr>' +
+            '<td>' + 'Lost of communication' + '</td>' +
+            '<td>' + lost_of_comm + '</td>' +
+            '<td>' + (lost_of_comm / (good_scan) * 100).toFixed(0) + '%' + '</td>' +
+            '</tr>';
+
+        jQuery("#scanner_table").empty();
+        jQuery("#scanner_table").append(tr_scanner);
+
+        // sc table
+        let sc_table = '';
+        scs_data.sort((a, b) => b.total - a.total).forEach(d => {
+            sc_table += '<tr>' +
+                '<td>' + d.label + '</td>' +
+                '<td>' + d.total + '</td>' +
+                '<td>' + d.percentage + '%' + '</td>' +
+                '</tr>';
+        })
+        jQuery("#sc-table-body").empty();
+        jQuery("#sc-table-body").append(sc_table);
     }
 
-    jQuery("#production_table").empty();
-    jQuery("#production_table").append(tr_html);
-    
-    
-    // scanner table
-    let tr_scanner='';
-    tr_scanner = '<tr>' + 
-                '<td>' + 'Good scans' + '</td>'+
-                '<td>' + good_scan + '</td>'+
-                '<td>' + (good_scan/(good_scan)*100).toFixed(0)+'%' +'</td>'+
-                '</tr>'+
-                '<tr>' + 
-                '<td>' + 'No read' + '</td>'+
-                '<td>' + no_read + '</td>'+
-                '<td>' + (no_read/(good_scan)*100).toFixed(0)+'%' +'</td>'+
-                '</tr>'+
-                '<tr>' + 
-                '<td>' + 'No Code' + '</td>'+
-                '<td>' + no_code + '</td>'+
-                '<td>' + (no_code/(good_scan)*100).toFixed(0)+'%' +'</td>'+
-                '</tr>'+
-                '<tr>' + 
-                '<td>' + 'Multiple read' + '</td>'+
-                '<td>' + multiple_read + '</td>'+
-                '<td>' + (multiple_read/(good_scan)*100).toFixed(0)+'%' +'</td>'+
-                '</tr>'+
-                '<tr>' + 
-                '<td>' + 'Lost of communication' + '</td>'+
-                '<td>' + lost_of_comm + '</td>'+
-                '<td>' + (lost_of_comm/(good_scan)*100).toFixed(0)+'%' +'</td>'+
-                '</tr>';
-            
-    jQuery("#scanner_table").empty();
-    jQuery("#scanner_table").append(tr_scanner);
+    //previous function
+    // ipcRenderer.on("render:statistics", function(e, data_result) {
+    //     machine_mode = data_result['mode'];
+    //     changeMachineNameBg(machine_mode);
+    //     //console.log("Mode: ", machine_mode);
 
-    // sc table 
-    let sc_table ='';
-    scs_data.sort((a,b) => b.total-a.total).forEach(d => {
-        sc_table+='<tr>' + 
-                '<td>' + d.label + '</td>'+
-                '<td>' + d.total + '</td>'+
-                '<td>' + d.percentage +'%' +'</td>'+
-                '</tr>';
-    }) 
-    jQuery("#sc-table-body").empty();
-    jQuery("#sc-table-body").append(sc_table);
-}
-//previous function
-// ipcRenderer.on("render:statistics", function(e, data_result) {
-//     machine_mode = data_result['mode'];
-//     changeMachineNameBg(machine_mode);
-//     //console.log("Mode: ", machine_mode);
+    //     console.log(data_result);
+    //     let alarms_result = data_result['alarms'];
+    //     let statistics_result = data_result['statistics'];
+    //     console.log(statistics_result);
+    //     let reasons_result = data_result['reasons'];
+    //     //console.log(reasons_result);
 
-//     console.log(data_result);
-//     let alarms_result = data_result['alarms'];
-//     let statistics_result = data_result['statistics'];
-//     console.log(statistics_result);
-//     let reasons_result = data_result['reasons'];
-//     //console.log(reasons_result);
+    //     let bcr_chart_data = [], tput_chart_data = [], pie_chart_data = [], volume_chart_data=[];
+    //     for (let k in statistics_result) {
+    //         //console.log(statistics_result);
+    //         //console.log(statistics_result[k]['time_slot']);
+    //         let time_slot = statistics_result[k]['time_stamp'],
+    //         total_read = statistics_result[k]['total_read'],
+    //         valid = statistics_result[k]['valid'];
 
-//     let bcr_chart_data = [], tput_chart_data = [], pie_chart_data = [], volume_chart_data=[];
-//     for (let k in statistics_result) {
-//         //console.log(statistics_result);
-//         //console.log(statistics_result[k]['time_slot']);
-//         let time_slot = statistics_result[k]['time_stamp'],
-//         total_read = statistics_result[k]['total_read'],        
-//         valid = statistics_result[k]['valid'];
+    //         // time_slot = time_slot.replace(":", ".");
+    //         total_read = Number(total_read);
+    //         valid = Number(valid);
 
-//         // time_slot = time_slot.replace(":", ".");
-//         total_read = Number(total_read);
-//         valid = Number(valid);
+    //         let bcr_read_rate = 0;
+    //         if(total_read > 0) {
+    //             bcr_read_rate = (valid / total_read) * 100;
+    //             //bcr_read_rate = bcr_read_rate.toFixed(2);
+    //         }
 
-//         let bcr_read_rate = 0;
-//         if(total_read > 0) {
-//             bcr_read_rate = (valid / total_read) * 100;
-//             //bcr_read_rate = bcr_read_rate.toFixed(2);
-//         }
+    //         let tput_value, volume_value = total_read * 12; //for right now its temporary multiplied by 12 to 5 minutes data to get 1hour
+    //         //tput_value = tput_value.toFixed(2);
 
-//         let tput_value, volume_value = total_read * 12; //for right now its temporary multiplied by 12 to 5 minutes data to get 1hour
-//         //tput_value = tput_value.toFixed(2);
+    //         time_slot = Number(time_slot);
+    //         bcr_chart_data.push({
+    //             x: time_slot,
+    //             y: bcr_read_rate
+    //         });
 
-//         time_slot = Number(time_slot);
-//         bcr_chart_data.push({
-//             x: time_slot,
-//             y: bcr_read_rate
-//         });
+    //         //console.log("Tput value: " + tput_value);
+    //         tput_chart_data.push({
+    //             x: time_slot,
+    //             y: tput_value
+    //         });
+    //         volume_chart_data.push({
+    //             x: time_slot,
+    //             y: volume_value
+    //         });
+    //         //bcr_chart_data.push(total_read);
 
-//         //console.log("Tput value: " + tput_value);
-//         tput_chart_data.push({
-//             x: time_slot,
-//             y: tput_value
-//         });
-//         volume_chart_data.push({
-//             x: time_slot,
-//             y: volume_value
-//         });
-//         //bcr_chart_data.push(total_read);
-        
-//     }
-//     //console.log(bcr_chart_data);
-//     bcr_chart.series[0].setData(bcr_chart_data, true);
-//     tput_chart.series[0].setData(tput_chart_data, true);
-//     volume_chart.series[0].setData(volume_chart_data, true);
+    //     }
+    //     //console.log(bcr_chart_data);
+    //     bcr_chart.series[0].setData(bcr_chart_data, true);
+    //     tput_chart.series[0].setData(tput_chart_data, true);
+    //     volume_chart.series[0].setData(volume_chart_data, true);
 
-//     //98 -> 01
-//     //14 -> 21
+    //     //98 -> 01
+    //     //14 -> 21
 
-// /*     sc01 : success
-// 	sc02 : alternate reject
-// 	sc03 : mechanical reject
-// 	sc04 : labeller error
-// 	sc05 : no container
-//  */
-//     let sorting_codes = {        
-//         "1":"SC01",
-//         "2":"SC02", 
-//         "3":"SC03", 
-//         "4":"SC04", 
-//         "5":"SC05", 
-//     };
+    // /*     sc01 : success
+    // 	sc02 : alternate reject
+    // 	sc03 : mechanical reject
+    // 	sc04 : labeller error
+    // 	sc05 : no container
+    //  */
+    //     let sorting_codes = {
+    //         "1":"SC01",
+    //         "2":"SC02",
+    //         "3":"SC03",
+    //         "4":"SC04",
+    //         "5":"SC05",
+    //     };
 
-//     let sorting_code_descriptions = {
-//         "SC01" : "Success",
-//         "SC02" : "Alternate Reject",
-//         "SC03" : "Mechanical Reject",
-//         "SC04" : "Labeller Error",
-//         "SC05" : "No Container",
-//     }
-    
-//     let total_products_count = Number(reasons_result['total']);
-//     let highest_sc = 0;
-//     let highest_sc_count = 0;
-//     for (let k in reasons_result) {
-//         let sc_count = Number(reasons_result[k]);
-//         if(sc_count > highest_sc_count) {
-//             highest_sc_count = sc_count;
-//             highest_sc = k;
-//         }
-//     }
-//     for (let k in sorting_codes) {
-//         let sc_percentage = 0;
-//         if(reasons_result[k] !== undefined) {
-//             let sc_count = Number(reasons_result[k]);
-//             sc_percentage = (sc_count / total_products_count) * 100;
-//         }
+    //     let sorting_code_descriptions = {
+    //         "SC01" : "Success",
+    //         "SC02" : "Alternate Reject",
+    //         "SC03" : "Mechanical Reject",
+    //         "SC04" : "Labeller Error",
+    //         "SC05" : "No Container",
+    //     }
 
-//         if(k == highest_sc) {
-//             pie_chart_data.push({
-//                 name: sorting_codes[k],
-//                 y: sc_percentage,
-//                 selected: true
-//             });
-//         } else {
-//             pie_chart_data.push({
-//                 name: sorting_codes[k],
-//                 y: sc_percentage,
-//                 sliced: true
-//             });
-//         }
-//     }
+    //     let total_products_count = Number(reasons_result['total']);
+    //     let highest_sc = 0;
+    //     let highest_sc_count = 0;
+    //     for (let k in reasons_result) {
+    //         let sc_count = Number(reasons_result[k]);
+    //         if(sc_count > highest_sc_count) {
+    //             highest_sc_count = sc_count;
+    //             highest_sc = k;
+    //         }
+    //     }
+    //     for (let k in sorting_codes) {
+    //         let sc_percentage = 0;
+    //         if(reasons_result[k] !== undefined) {
+    //             let sc_count = Number(reasons_result[k]);
+    //             sc_percentage = (sc_count / total_products_count) * 100;
+    //         }
 
-//     //console.log(pie_chart_data);
-//     pie_chart.series[0].setData(pie_chart_data, true);
-//     pie_chart.setTitle({text:"Total Products: "+total_products_count})
-//     jQuery("#pie-chart .highcharts-legend-item").each(function(i, e) {
-//         jQuery(this).mouseover(function() {
-//             let current_sc = jQuery(this).text();
-//             let tool_tip_text = sorting_code_descriptions[current_sc];
-//             var offset = jQuery(this).offset();
-//             jQuery( "#sctooltip" ).css({
-//                 "left" : offset.left - 210,
-//                 "top" : offset.top - 10
-//             }).html(tool_tip_text).show();
-            
-//         });
+    //         if(k == highest_sc) {
+    //             pie_chart_data.push({
+    //                 name: sorting_codes[k],
+    //                 y: sc_percentage,
+    //                 selected: true
+    //             });
+    //         } else {
+    //             pie_chart_data.push({
+    //                 name: sorting_codes[k],
+    //                 y: sc_percentage,
+    //                 sliced: true
+    //             });
+    //         }
+    //     }
 
-//         jQuery(this).mouseout(function() {
-//             jQuery( "#sctooltip" ).hide();
-//         });
-//     });
+    //     //console.log(pie_chart_data);
+    //     pie_chart.series[0].setData(pie_chart_data, true);
+    //     pie_chart.setTitle({text:"Total Products: "+total_products_count})
+    //     jQuery("#pie-chart .highcharts-legend-item").each(function(i, e) {
+    //         jQuery(this).mouseover(function() {
+    //             let current_sc = jQuery(this).text();
+    //             let tool_tip_text = sorting_code_descriptions[current_sc];
+    //             var offset = jQuery(this).offset();
+    //             jQuery( "#sctooltip" ).css({
+    //                 "left" : offset.left - 210,
+    //                 "top" : offset.top - 10
+    //             }).html(tool_tip_text).show();
 
-    
-//     jQuery("#active_alarm_tbody").empty();
+    //         });
 
-//     if(!jQuery.isEmptyObject(alarms_result)) {
-//         for (let k in alarms_result) {
-//             let related_alarm_gui_id = k;
-//             let related_alarm_info = alarms_result[k];
-            
-//             let alarm_type = related_alarm_info['alarm_type'], 
-//             alarm_description = related_alarm_info['description'], 
-//             alarm_class = related_alarm_info['alarm_class'], 
-//             alarm_location = related_alarm_info['location'], 
-//             variable_name = related_alarm_info['variable_name'], 
-//             timestamp = related_alarm_info['timestamp'],
-//             duration = related_alarm_info['duration'];
+    //         jQuery(this).mouseout(function() {
+    //             jQuery( "#sctooltip" ).hide();
+    //         });
+    //     });
 
-//             timestamp = timeConverter(timestamp);
-            
-//             let tr_html = '<tr>' + 
-//                 '<td>' + timestamp + '</td>'+
-//                 '<td>' + secondsToDhms(duration) + '</td>'+
-//                 '<td>' + alarm_class_to_names[alarm_class] + '</td>'+
-//                 '<td>' + alarm_location + '</td>'+
-//                 '<td>' + alarm_description + '</td>'+
-//                 '<td>' + variable_name + '</td>'+
-//                 '</tr>';
 
-//             jQuery("#active_alarm_tbody").append(tr_html);
-//         }
-//     } else {
-//         let tr_html = '<tr><td colspan="6">No active alarm to display</td></tr>';
-//         jQuery("#active_alarm_tbody").append(tr_html);
-//     }
+    //     jQuery("#active_alarm_tbody").empty();
 
-//     if(statistics_started === 0) {
-//         jQuery("#big-hourglass-area").hide();
-//         jQuery("#big-chart-area").show();
-//         statistics_started = 1;
-//     }
-// });
+    //     if(!jQuery.isEmptyObject(alarms_result)) {
+    //         for (let k in alarms_result) {
+    //             let related_alarm_gui_id = k;
+    //             let related_alarm_info = alarms_result[k];
+
+    //             let alarm_type = related_alarm_info['alarm_type'],
+    //             alarm_description = related_alarm_info['description'],
+    //             alarm_class = related_alarm_info['alarm_class'],
+    //             alarm_location = related_alarm_info['location'],
+    //             variable_name = related_alarm_info['variable_name'],
+    //             timestamp = related_alarm_info['timestamp'],
+    //             duration = related_alarm_info['duration'];
+
+    //             timestamp = timeConverter(timestamp);
+
+    //             let tr_html = '<tr>' +
+    //                 '<td>' + timestamp + '</td>'+
+    //                 '<td>' + secondsToDhms(duration) + '</td>'+
+    //                 '<td>' + alarm_class_to_names[alarm_class] + '</td>'+
+    //                 '<td>' + alarm_location + '</td>'+
+    //                 '<td>' + alarm_description + '</td>'+
+    //                 '<td>' + variable_name + '</td>'+
+    //                 '</tr>';
+
+    //             jQuery("#active_alarm_tbody").append(tr_html);
+    //         }
+    //     } else {
+    //         let tr_html = '<tr><td colspan="6">No active alarm to display</td></tr>';
+    //         jQuery("#active_alarm_tbody").append(tr_html);
+    //     }
+
+    //     if(statistics_started === 0) {
+    //         jQuery("#big-hourglass-area").hide();
+    //         jQuery("#big-chart-area").show();
+    //         statistics_started = 1;
+    //     }
+    // });
 </script>
 </body>
 </html>
