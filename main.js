@@ -541,3 +541,9 @@ ipcMain.on("render:general-view-bin-details", function(e,machineId,key) {
 		}
 	}
 });
+//rosi
+ipcMain.on('render:statistics-bins-detail-single', function (e, view_data) {
+	mainWindow.loadFile('statistics-bins-detail-single.ejs').then(function () {
+		mainWindow.webContents.send('render:statistics-bins-detail-single', view_data);
+	});
+});
