@@ -1,88 +1,48 @@
-
 <%- include('header', {currentMenu: 'statistics-bins-detail', pageTitle: 'Bins Detailed'}); %>
 
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="max-width: 80%;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="single-bin">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <ul class="nav nav-tabs mt-4" id="myTab" role="tablist" style="padding: 0 40px">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="volumen-tab" data-bs-toggle="tab" data-bs-target="#volume" type="button" role="tab" >Volume</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="percentage-tab" data-bs-toggle="tab" data-bs-target="#percentage" type="button" role="tab">Percentage</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="table-view-tab" data-bs-toggle="tab" data-bs-target="#table-view" type="button" role="tab">Table</button>
-  </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="volumen-tab" data-bs-toggle="tab" data-bs-target="#volume" type="button"
+                role="tab">Volume
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="percentage-tab" data-bs-toggle="tab" data-bs-target="#percentage" type="button"
+                role="tab">Percentage
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="table-view-tab" data-bs-toggle="tab" data-bs-target="#table-view" type="button"
+                role="tab">Table
+        </button>
+    </li>
 </ul>
 <div class="tab-content mt-4" id="myTabContent" style="min-height: 65vh; padding: 0 40px">
-  <div class="tab-pane fade show active" id="volume" role="tabpanel">
-    <div class="row">
-      <div class="col-lg-12" id="bins-detailed" style="height: 400px;">Bins Detailed-Total</div>
-    </div>
-  </div>
-  <div class="tab-pane fade" id="percentage" role="tabpanel">
-    <div class="row">
-      <div class="col-lg-12" id="bins-detailed-percentage" style="height: 400px;">Bins Detailed-Percentage</div>
-    </div>
-  </div>
-  <div class="tab-pane fade" id="table-view" role="tabpanel">
-    <div class="row">
-      <div class="col-lg-12">
-        <table class="table table-sm table-bordered" style="font-size: 12px;">
-            <thead>
-            <tr id="sc-table-head"> 
-            </tr>
-            </thead>
-            <tbody id="sc-table">
-            </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- <div class="row m-0 mt-4" style="min-height: 70vh;">
-    <div class="col-lg-10 pt-0 pb-0 pl-2 pr-2">
+    <div class="tab-pane fade show active" id="volume" role="tabpanel">
         <div class="row">
             <div class="col-lg-12" id="bins-detailed" style="height: 400px;">Bins Detailed-Total</div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="percentage" role="tabpanel">
+        <div class="row">
             <div class="col-lg-12" id="bins-detailed-percentage" style="height: 400px;">Bins Detailed-Percentage</div>
         </div>
     </div>
-    <div class="col-lg-12 mt-4">
-      <div class="row">
-        <div class="col-lg-12">
-          <table class="table table-sm table-bordered" style="font-size: 12px;">
-              <thead>
-              <tr id="sc-table-head"> 
-              </tr>
-              </thead>
-              <tbody id="sc-table">
-              </tbody>
-          </table>
+    <div class="tab-pane fade" id="table-view" role="tabpanel">
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-sm table-bordered" style="font-size: 12px;">
+                    <thead>
+                    <tr id="sc-table-head">
+                    </tr>
+                    </thead>
+                    <tbody id="sc-table">
+                    </tbody>
+                </table>
+            </div>
         </div>
-        
-      </div>
-      
-  </div>
-</div> -->
+    </div>
+</div>
 
 <%- include('footer', {currentMenu: 'statistics-bins-detail'}); %>
 <script src="js/jquery-bootstrap.js"></script>
@@ -92,246 +52,257 @@
 <script src=""></script>
 <script src="js/nav.js"></script>
 <script>
-const Highcharts = require('highcharts/highstock')
-require('highcharts/modules/exporting')(Highcharts);
-require('highcharts/modules/export-data')(Highcharts);
-let scs_info = [], bins_info =[], start_time=null, end_time=null, bins_statistics=[];
-let sc_color_codes = {
-    sc0: "#34d399",
-    sc1: "#38bdf8",
-    sc3: "#fb923c",
-    sc4: "#e879f9",
-    sc5: "#818cf8",
-    sc6: "#c084fc",
-    sc7: "#2dd4bf",
-    sc8: "#292524",
-    sc9: "#facc15",
-    sc10: "#a3e635",
-    sc12: "#0891b2",
-    sc14: "#dc2626",
-    sc16: "#c026d3",
-    sc17: "#7e22ce",
-    sc18: "#a1a1aa",
-    sc21: "#fde047",
-  };
+    const Highcharts = require('highcharts/highstock')
+    require('highcharts/modules/exporting')(Highcharts);
+    require('highcharts/modules/export-data')(Highcharts);
+    let scs_info = [], bins_info = [], start_time = null, end_time = null, bins_statistics = [], tab_target = '#volume';
+    let sc_color_codes = {
+        sc0: "#34d399",
+        sc1: "#38bdf8",
+        sc3: "#fb923c",
+        sc4: "#e879f9",
+        sc5: "#818cf8",
+        sc6: "#c084fc",
+        sc7: "#2dd4bf",
+        sc8: "#292524",
+        sc9: "#facc15",
+        sc10: "#a3e635",
+        sc12: "#0891b2",
+        sc14: "#dc2626",
+        sc16: "#c026d3",
+        sc17: "#7e22ce",
+        sc18: "#a1a1aa",
+        sc21: "#fde047",
+    };
 
-jQuery(document).ready(function() {
-  // tabs functionality
-  jQuery('#myTab li button').click(function(){
-    let target = $(this).data('bsTarget');
-    if(!$(this).hasClass('active')){  
-      $('#myTab li button').removeClass('active');
-      $(this).addClass('active');
-      $('#myTabContent div').removeClass('show active');
-      $(target).addClass('show active');
-    }
-  })
-  
-  jQuery("#ip_list_dropdown").change(function() {
-        selected_machine = jQuery(this).val();
+    jQuery(document).ready(function () {
+        // tabs functionality
+        jQuery('#myTab li button').click(function () {
+            let target = $(this).data('bsTarget');
+            tab_target = target;
+            if (!$(this).hasClass('active')) {
+                $('#myTab li button').removeClass('active');
+                $(this).addClass('active');
+                $('#myTabContent div').removeClass('show active');
+                $(target).addClass('show active');
+            }
+        })
 
-        if(selected_machine !== "") {
-            let selected_machine_name = machine_list[selected_machine];
-            jQuery("#display_machine_name").text(selected_machine_name);
+        jQuery("#ip_list_dropdown").change(function () {
+            selected_machine = jQuery(this).val();
 
-            // setInterval(() => {
-            //     ipcRenderer.send("get:views", selected_machine, "statistics");
-            // }, 60000);
+            if (selected_machine !== "") {
+                let selected_machine_name = machine_list[selected_machine];
+                jQuery("#display_machine_name").text(selected_machine_name);
 
-        } else {
-            jQuery("#display_machine_name").text("Select a machine");
-            selected_machine = 0;
+                // setInterval(() => {
+                //     ipcRenderer.send("get:views", selected_machine, "statistics");
+                // }, 60000);
+
+            } else {
+                jQuery("#display_machine_name").text("Select a machine");
+                selected_machine = 0;
+            }
+            ipcRenderer.send("get:views", selected_machine, "statistics-bins-detail");
+        });
+
+    });
+
+
+    ipcRenderer.on('render:statistics-bins-detail', function (e, basic_info) {
+        console.log('statistics-bins-detail render');
+        Object.values(basic_info['scsInfo']).forEach(v => {
+            scs_info.push({...v, code: "sc" + v.value});
+        });
+
+
+        Object.values(basic_info['binsInfo']).forEach(v => {
+            bins_info.push({...v, bin_id: Number(v['bin_id'])});
+        });
+
+        end_time = moment().unix();
+        start_time = moment().subtract(1, 'days').unix();
+        // ipcRenderer.send('getStatisticsBins', selected_machine, start_time, end_time)
+        ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsBins', {
+            'from_timestamp': start_time,
+            'to_timestamp': end_time
+        });
+    });
+
+    ipcRenderer.on('getStatisticsBins', function (e, data_result) {
+
+        let bins_summary = [], chart_series = [],
+            chart_series_percentage = [], chart_categories = [], reject_recirc = [
+                {name: 'Reject', code: 'reject', color: '#f43f5e'},
+                {name: 'Recirc', code: 'recirc', color: '#f59e0b'},
+            ], reject_recirc_stack = [], reject_recirc_stack_per = [];
+        let sc_codes = scs_info.map(s => s.code);
+        bins_statistics = data_result['statistics'];
+
+
+        // console.log(bins_statistics);
+        // console.log(bins_info);
+
+        bins_info.forEach((bin, key) => {
+            bins_summary[key] = {bin_id: bin.bin_id, label: bin.bin_label}
+
+            let bin_stat = bins_statistics.filter(b => b.bin_id == bin.bin_id);
+            bins_summary[key]['recirc'] = bin_stat.map(b => b['recirc_count']).reduce((sum, curr) => sum += curr, 0);
+
+            let reject_count = 0;
+            sc_codes.forEach(sc => {
+                // temporary. until getting the reject column from database
+                if (sc != 'sc0') {
+                    reject_count += bin_stat.map(b => b[sc]).reduce((sum, curr) => sum += curr, 0);
+                }
+
+                bins_summary[key][sc] = bin_stat.map(b => b[sc]).reduce((sum, curr) => sum += curr, 0);
+            });
+            bins_summary[key]['reject'] = reject_count;
+            let {bin_id, label,reject, recirc, ...rest} = bins_summary[key];
+            bins_summary[key] = {...bins_summary[key], total: Object.values(rest).reduce((s, c) => s += c, 0)}
+        });
+
+
+
+        let sc_table_head = '<th width="10%">Bin name</th>' +
+            '<th width="5%" class="text-right">Total</th>';
+        scs_info.forEach(s => {
+            sc_table_head += '<th width="5%" class="text-right">' + s.label + '</th>';
+        })
+        jQuery("#sc-table-head").empty();
+        jQuery("#sc-table-head").append(sc_table_head);
+        let sc_table = '';
+        bins_summary.forEach(d => {
+            let sc_rows = '', total_reject_recirc=0;
+            // reject recirc per for chart
+            total_reject_recirc = d['reject']+d['recirc'];
+            d['reject_per']= total_reject_recirc>0 ?
+                Number((d['reject']*100/total_reject_recirc).toFixed(2))
+                : 0;
+            d['recirc_per']= total_reject_recirc>0 ?
+                Number((d['recirc']*100/total_reject_recirc).toFixed(2))
+                : 0;
+            // sc table data
+            sc_table += '<tr>' +
+                '<td>' + d.label + '</td>' +
+                '<td class="text-right">' + d.total + '</td>';
+            scs_info.forEach(s => {
+                sc_rows += '<td class="text-right">' + d[s.code] + '</td>'
+            })
+            sc_table += sc_rows + '</tr>';
+        })
+
+        jQuery("#sc-table").empty();
+        jQuery("#sc-table").append(sc_table);
+
+        chart_categories = bins_summary.map(b => b.label)
+        scs_info.forEach(s => {
+            chart_series.push({name: s.label, color: sc_color_codes[s.code], data: bins_summary.map(b => b[s.code]), stack:'sort-codes'});
+            chart_series_percentage.push({
+                name: s.label,
+                color: sc_color_codes[s.code],
+                data: bins_summary.map(b => {
+                    return b.total > 0 ? Number((b[s.code] * 100 / b.total).toFixed(1)) : 0;
+                }),
+                stack:'sort-codes'
+            });
+        });
+        console.log(bins_summary);
+        reject_recirc.forEach(d => {
+            reject_recirc_stack.push({name: d.name, data: bins_summary.map(b => b[d.code]), color:d.color, stack:'others'});
+            reject_recirc_stack_per.push({name: d.name, data: bins_summary.map(b => b[d.code+'_per']), color:d.color, stack:'others'});
+        });
+
+        reject_recirc_stack.sort((a, b) => a.data.reduce((s, c) => s += c, 0) - b.data.reduce((s, c) => s += c, 0));
+        chart_series.sort((a, b) => a.data.reduce((s, c) => s += c, 0) - b.data.reduce((s, c) => s += c, 0));
+        chart_series_percentage.sort((a, b) => a.data.reduce((s, c) => s += c, 0) - b.data.reduce((s, c) => s += c, 0))
+        populateChart('bins-detailed', chart_categories, [...chart_series, ...reject_recirc_stack]);
+        populateChart('bins-detailed-percentage', chart_categories, [...chart_series_percentage, ...reject_recirc_stack_per], 'Bins Detailed-Percentage (%)');
+    });
+
+    function onBarClick(bin_label = '') {
+
+        let selected_bin = bins_info.find(b => b.bin_label == bin_label), bin_data = [];
+
+        bin_data = bins_statistics.filter(b => b.bin_id === selected_bin.bin_id);
+
+        let chart_categories = [];
+        let scs_data = scs_info.map((d) => ({
+            ...d,
+            total: 0,
+            color: sc_color_codes[d.code],
+            data: [],
+        }));
+
+        for (k in bin_data.slice(0, 60)) {
+
+            let time_slot = bin_data[k]["created_at_timestamp"];
+
+            chart_categories.push(moment.unix(time_slot).format("MMM D, H:mm"));
+            let total = scs_data.reduce((a, curr) => a + Number(bin_data[k][curr["code"]]), 0);
+            scs_data.forEach((d) => {
+                let val = Number(bin_data[k][d["code"]]),
+                    per_val = total > 0 ? Number((val * 100 / total).toFixed(2)) : 0;
+                d.total += val;
+                d.data.push(tab_target == '#volume' ? val : per_val);
+            });
+
         }
-        ipcRenderer.send("get:views", selected_machine, "statistics-bins-detail");
-    });
-    
-});
+        scs_data.sort((a, b) => a.total - b.total);
 
-
-
-ipcRenderer.on('render:statistics-bins-detail', function(e, basic_info){
-    console.log('statistics-bins-detail render');
-    Object.values(basic_info['scsInfo']).forEach(v=>{
-            scs_info.push({...v, code:"sc"+v.value});
-    });
-    
-    
-    Object.values(basic_info['binsInfo']).forEach(v=>{
-            bins_info.push({...v, bin_id:Number(v['bin_id'])});
-    });
-    
-    end_time=moment().unix();
-    start_time=moment().subtract(1, 'days').unix();
-    // ipcRenderer.send('getStatisticsBins', selected_machine, start_time, end_time)
-    ipcRenderer.send("sendRequest", selected_machine,'getStatisticsBins', {
-            'from_timestamp':start_time,
-            'to_timestamp':end_time
-    });
-});
-
-ipcRenderer.on('getStatisticsBins', function (e, data_result){
-  
-    let bins_summary=[], chart_series=[], 
-    chart_series_percentage=[], chart_categories=[];
-    let sc_codes = scs_info.map(s=> s.code);
-    bins_statistics = data_result['statistics']
-    
-    // console.log(bins_statistics);
-    // console.log(bins_info);
-    bins_info.forEach((bin, key) => {
-      bins_summary[key]= {bin_id: bin.bin_id, label:bin.bin_label }
-      
-      let bin_stat = bins_statistics.filter(b => b.bin_id == bin.bin_id);
-      sc_codes.forEach(sc => {
-        bins_summary[key][sc] = bin_stat.map(b=> b[sc]).reduce((sum, curr) => sum+=curr, 0)
-      })
-      let {bin_id, label, ...rest} = bins_summary[key];
-      bins_summary[key] = {...bins_summary[key],total: Object.values(rest).reduce((s, c)=> s+=c, 0)}
-    })
-    
-    let sc_table_head='<th width="10%">Bin name</th>'+
-                      '<th width="5%" class="text-right">Total</th>';
-    scs_info.forEach(s=> {
-      sc_table_head+='<th width="5%" class="text-right">'+s.label +'</th>';
-    })
-    jQuery("#sc-table-head").empty();
-    jQuery("#sc-table-head").append(sc_table_head);
-    let sc_table ='';
-    bins_summary.forEach(d => {
-      let sc_rows='';
-      sc_table+='<tr>' + 
-              '<td>' + d.label + '</td>'+
-              '<td class="text-right">' + d.total + '</td>';
-      scs_info.forEach(s=> {
-        sc_rows+='<td class="text-right">'+d[s.code]+'</td>'
-      })
-      sc_table+=sc_rows+ '</tr>';
-    }) 
-    
-    jQuery("#sc-table").empty();
-    jQuery("#sc-table").append(sc_table);
-
-    chart_categories = bins_summary.map(b=> b.label)
-    scs_info.forEach(s=> {
-      chart_series.push({name:s.label, color: sc_color_codes[s.code],data:bins_summary.map(b => b[s.code])})
-      chart_series_percentage.push({
-        name:s.label,
-        color: sc_color_codes[s.code] ,
-        data:bins_summary.map(b => {
-          return b.total >0 ? Number((b[s.code]*100/b.total).toFixed(1)): 0;
-        })})
-    })
-    console.log(chart_series.sort((a,b) => a.data.reduce((s,c) => s+=c, 0)-b.data.reduce((s,c) => s+=c, 0)));
-    chart_series_percentage.sort((a,b) => a.data.reduce((s,c) => s+=c, 0)-b.data.reduce((s,c) => s+=c, 0))
-    populateChart('bins-detailed', chart_categories, chart_series);
-    populateChart('bins-detailed-percentage', chart_categories, chart_series_percentage, 'Bins Detailed-Percentage (%)');
-});
-
-function onBarClick(bin_label='') {
-  let selected_bin = bins_info.find(b => b.bin_label == bin_label), bin_data=[];
-  
-  bin_data = bins_statistics.filter(b => b.bin_id === selected_bin.bin_id);
-  
-  let chart_categories = [];
-    let scs_data = scs_info.map((d) => ({
-      ...d,
-      total: 0,
-      color: sc_color_codes[d.code],
-      data: [],
-    }));
-    for (k in bin_data.slice(0, 60)) {
-      let time_slot = bin_data[k]["created_at_timestamp"];
-      
-      chart_categories.push(moment.unix(time_slot).format("MMM D, H:mm"));
-      scs_data.forEach((d) => {
-        d.total += Number(bin_data[k][d["code"]]);
-        d.data.push(Number(bin_data[k][d["code"]]));
-      });
+        ipcRenderer.send("render:statistics-bins-detail-single",
+            view_data = {
+                chart_categories,
+                scs_data,
+                bin_label,
+                machine_name: machine_list[selected_machine]
+            }
+        );
     }
-    scs_data.sort((a, b) => a.total - b.total);
-  new Highcharts.chart("single-bin", {
-      chart: {
-        type: "column",
-      },
-      title: {
-        text: `Bin detail - ${bin_label}`,
-      },
-      xAxis: {
-        type: "datetime",
-        categories: chart_categories,
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: "",
-        },
-      },
-      //   tooltip: {
-      //     valueSuffix: title == "Bins Detailed-Total" ? "" : "%",
-      //   },
-      legend: {
-        reversed: true,
-      },
-      plotOptions: {
-        series: {
-          stacking: "normal",
-          dataLabels: {
-            enabled: true,
-          },
-        },
-      },
-      series: scs_data.map((d) => ({
-        name: d.label,
-        data: d.data,
-        color: d.color,
-      })),
-    });
-    $('#modal-title').text(`Bin detail - ${bin_label}`);
-    $('#exampleModal').modal('show');
-}
 
-function populateChart(id, categories=[], series=[], title='Bins Detailed-Total') {
-  Highcharts.chart(id, {
-  chart: {
-    type: 'column'
-  },
-  title: {
-    text: title
-  },
-  xAxis: {
-    categories: categories
-  },
-  yAxis: {
-    min: 0,
-    title: {
-      text: ''
+    function populateChart(id, categories = [], series = [], title = 'Bins Detailed-Total') {
+        Highcharts.chart(id, {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: title
+            },
+            xAxis: {
+                categories: categories
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: ''
+                }
+            },
+            tooltip: {
+                valueSuffix: title == 'Bins Detailed-Total' ? '' : '%'
+            },
+            legend: {
+                reversed: true
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true
+                    },
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function () {
+                                onBarClick(this.category);
+                            },
+                        }
+                    }
+                }
+            },
+            series: series
+        });
     }
-  },
-  tooltip: {
-    valueSuffix: title=='Bins Detailed-Total'?'':'%'
-  },
-  legend: {
-    reversed: true
-  },
-  plotOptions: {
-    series: {
-      stacking: 'normal',
-      dataLabels: {
-        enabled: true
-      },
-      cursor: 'pointer',
-      point:{
-        events:{
-          click: function(){
-            onBarClick(this.category);
-          },
-        }
-      }
-    }
-  },
-  series: series
-});
-}
 
 </script>
 </body>
