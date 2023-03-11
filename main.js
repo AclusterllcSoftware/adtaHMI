@@ -213,7 +213,7 @@ function processReceivedJsonObjects(jsonObjects) {
 
 			}
 			else if(
-				['getStatistics','getStatisticsHourly','getStatisticsCounter',
+				['getStatistics','getStatisticsHourly','getStatisticsCounter','getStatisticsCounterLast',
 					'getStatisticsBins','getStatisticsBinsHourly','getStatisticsBinsCounter',
 					'getGeneralViewData','getGeneralDevicesViewData','getGeneralMotorsViewData','getGeneralBinDetailsViewData',
 					'getAlarmsViewData','getProductsHistory'
