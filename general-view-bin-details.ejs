@@ -76,16 +76,17 @@
             $('.binDetails[input-id='+currentBinInput["input_id"]+'] .input_state').css('fill',(currentBinInput['active_state']==currentInputState['input_state'])?active_color:inactive_color);
             if(currentBinInput['gui_input_id']=='110'){
                 if(currentBinInput['active_state']==currentInputState['input_state']){
-                    $('#container-button-bin-auto').show();
-                    $('#container-button-bin-manual').hide();
-                    $('#container-button-bin-jog-raise').show();
-                    $('#container-button-bin-jog-lower').show();
-                }
-                else{
                     $('#container-button-bin-auto').hide();
                     $('#container-button-bin-manual').show();
                     $('#container-button-bin-jog-raise').hide();
                     $('#container-button-bin-jog-lower').hide();
+                }
+                else{
+                    $('#container-button-bin-auto').show();
+                    $('#container-button-bin-manual').hide();
+                    $('#container-button-bin-jog-raise').show();
+                    $('#container-button-bin-jog-lower').show();
+
                 }
             }
         }

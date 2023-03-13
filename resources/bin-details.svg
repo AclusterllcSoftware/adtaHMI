@@ -163,7 +163,7 @@
     <path class="cls-11 input_state" d="M367.946,1.664V15.229c0,.77,3.482,1.395,7.777,1.395s7.777-.624,7.777-1.395V1.664h-15.554Z"/>
     <ellipse class="" cx="375.723" cy="1.664" rx="7.777" ry="1.395"/>
   </g>
-  <g class="binDetails" gui-input-id="110" input-id="0" data-toggle="tooltip" data-html="true" title="" active-color="#c55a11" inactive-color="#27e22b">
+  <g class="binDetails" gui-input-id="110" input-id="0" data-toggle="tooltip" data-html="true" title="" active-color="#27e22b" inactive-color="#c55a11">
     <polygon class="cls-9 input_state" points=".185 165.693 12.837 198.563 342.446 133.345 330.9 100.084 .185 165.693"/>
   </g>
 </svg>
