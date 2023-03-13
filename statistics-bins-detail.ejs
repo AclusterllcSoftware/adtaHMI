@@ -147,7 +147,7 @@
             bins_summary[key] = {bin_id: bin.bin_id, label: bin.bin_label}
 
             let bin_stat = bins_statistics.filter(b => b.bin_id == bin.bin_id);
-            bins_summary[key]['recirc'] = bin_stat.map(b => b['recirc_count']).reduce((sum, curr) => sum += curr, 0);
+            bins_summary[key]['recirc'] = bin_stat.map(b => b['recirc']).reduce((sum, curr) => sum += curr, 0);
 
             let reject_count = 0;
             sc_codes.forEach(sc => {
