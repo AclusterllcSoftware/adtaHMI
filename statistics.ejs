@@ -11,93 +11,74 @@
             </span>
         <span class="badge badge-pill badge-light" id="show-username"></span>
     </div>
-    <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-4">
-        <div class="row m-0" id="big-chart-area">
+    <div class="col-lg-12 mt-4">
+        <div class="row">
             <div class="col-lg-6">
                 <div class="row">
-                    <div class="col-lg-12" id="bcr-chart" style="height: 200px;">BCR Chart</div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-lg-12" id="tput-chart" style="height: 200px;">TPUT Chart</div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-lg-12" id="new-volume-chart" style="height: 350px;">New Volume</div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="row">
-                    <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <table class="table table-sm table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th width="50%">Production (starting)</th>
-                                        <th width="10%"></th>
-                                        <th width="10%"></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="production_table">
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-lg-6">
-                                <table class="table table-sm table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th width="50%">Scanner Summary</th>
-                                        <th width="10%"></th>
-                                        <th width="10%"></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="scanner_table">
-
-                                    </tbody>
-                                </table>
-                                <button class="button-device-command-press-release button-3d button-rectangle"
-                                        data-device-id="86"
-                                        data-command-start="0"
-                                        data-command-end="1"
-                                        data-parameter1="0">Reset
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-4">
-
-                    </div> -->
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="switchPie">
-                        <label class="form-check-label" for="switchPie">Pie Chart</label>
-                    </div>
-                    <div class="col-lg-12 pl-0 mt-2" id="pie-chart" style="height: 408px;">PIE Chart</div>
-                    <div class="col-lg-12 mt-2" id="sc-table" style="display: none;">
+                    <div class="col-lg-6">
                         <table class="table table-sm table-bordered">
-                            <thead id="sc-table-head">
+                            <thead>
                             <tr>
-                                <th width="50%">SC Summary</th>
+                                <th width="50%" id="prod_start">Production (starting)</th>
                                 <th width="10%"></th>
                                 <th width="10%"></th>
                             </tr>
                             </thead>
-                            <tbody id="sc-table-body">
+                            <tbody id="production_table">
 
                             </tbody>
                         </table>
+                    </div>
+                    <div class="col-lg-6">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                            <tr>
+                                <th width="50%">Scanner Summary</th>
+                                <th width="10%"></th>
+                                <th width="10%"></th>
+                            </tr>
+                            </thead>
+                            <tbody id="scanner_table">
 
+                            </tbody>
+                        </table>
+                        <button class="button-device-command button-3d button-rectangle"
+                                data-device-id="86"
+                                data-command="0"
+                                data-parameter1="0">Reset
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- <div class="row m-0" id="big-hourglass-area">
-            <div class="col-lg-12 text-center" style="height: 400px; position: relative;">
-                <div style="position: absolute; top: 50%; left: 50%;">
-                    <img src="./resources/loading.gif">
+            <div class="col-lg-6">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="switchPie">
+                    <label class="form-check-label" for="switchPie">Pie Chart</label>
+                </div>
+                <div class="col-lg-12 pl-0 mt-2" id="pie-chart" style="height: 408px;">PIE Chart</div>
+                <div class="col-lg-12 mt-2" id="sc-table" style="display: none;">
+                    <table class="table table-sm table-bordered">
+                        <thead id="sc-table-head">
+                        <tr>
+                            <th width="50%">SC Summary</th>
+                            <th width="10%"></th>
+                            <th width="10%"></th>
+                        </tr>
+                        </thead>
+                        <tbody id="sc-table-body">
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div> -->
+        </div>
+    </div>
+    <div class="col-lg-12 mt-4">
+        <div class="row m-0" id="big-chart-area">
+            <div class="col-lg-12 mt-4" id="bcr-chart" style="height: 200px;">BCR Chart</div>
+            <div class="col-lg-12 mt-4" id="tput-chart" style="height: 200px;">TPUT Chart</div>
+            <div class="col-lg-12 mt-4" id="new-volume-chart" style="height: 350px;">New Volume</div>
+        </div>
     </div>
 </div>
 
@@ -140,7 +121,7 @@
     let data_table;
     let currentMousePos = {x: -1, y: -1};
     let statistics_started = 0;
-    let scs_info = [], start_time = null, end_time = null;
+    let scs_info = [], start_time = null, end_time = null, shift_starting_time = null;
     const machine_error_codes = ['sc1', 'sc3', 'sc4', 'sc6', 'sc9', 'sc14', 'sc16', 'sc17', 'sc21'];
     const non_machine_error_codes = ['sc5', 'sc7', 'sc8', 'sc10', 'sc12', 'sc18'];
     let tr_html = '';
@@ -192,24 +173,7 @@
 
             }
         });
-        $('.button-device-command-press-release').on('mousedown', function () {
-            let device_id = $(this).attr('data-device-id');
-            let command_start = $(this).attr('data-command-start');
-            let command_end = $(this).attr('data-command-end');
-            let parameter1 = $(this).attr('data-parameter1');
-            ipcRenderer.send("sendRequest", selected_machine, 'sendDeviceCommand', {
-                'deviceId': device_id,
-                'command': command_start,
-                'parameter1': parameter1
-            });
-            $(document).one('mouseup', function () {
-                ipcRenderer.send("sendRequest", selected_machine, 'sendDeviceCommand', {
-                    'deviceId': device_id,
-                    'command': command_end,
-                    'parameter1': parameter1
-                });
-            })
-        })
+
     });
 
     let bcr_chart = Highcharts.chart('bcr-chart', {
@@ -558,6 +522,21 @@
         });
         end_time = moment().unix();
         start_time = moment().subtract(1, 'days').unix();
+        ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsCounterLast', {});
+
+
+    });
+    ipcRenderer.on('getStatisticsCounterLast', function (e, data_result) {
+        let shift_started = null;
+        let row = data_result['statistics'][0];
+        shift_starting_time = row['created_at_timestamp'];
+        shift_started = row['created_at'];
+        $('#prod_start').text(`Production (start from ${moment(shift_started).format('MMM D, H:mm')})`);
+
+
+        if (start_time < shift_starting_time) {
+            start_time = moment(shift_starting_time).unix();
+        }
         if (update_period === 'Hourly') {
             // ipcRenderer.send('getStatisticsHourly', selected_machine, start_time, end_time)
             ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsHourly', {
@@ -571,9 +550,7 @@
                 'to_timestamp': end_time
             });
         }
-
     });
-
 
     ipcRenderer.on('getStatisticsHourly', function (e, data_result) {
         populateChart(data_result['statistics']);
@@ -606,9 +583,9 @@
             sc21 = [];
         // let statistics_result = data_result['statistics'];
 
-        let bcr_chart_data = [], tput_chart_data = [], pie_chart_data = [], total_product_count = 0, time_slots=[];
+        let bcr_chart_data = [], tput_chart_data = [], pie_chart_data = [], total_product_count = 0, time_slots = [];
         let scs_data = scs_info.map(d => ({...d, total: 0, color: sc_color_codes[d.code]})),
-            volume_data= scs_info.map(d => ({...d, total: 0, color: sc_color_codes[d.code], data:[]}));
+            volume_data = scs_info.map(d => ({...d, total: 0, color: sc_color_codes[d.code], data: []}));
         console.log('scs data', scs_data);
         for (k in statistics_result) {
             let time_slot = statistics_result[k]['created_at_timestamp'],
@@ -699,7 +676,7 @@
 
         })
 
-        volume_data.map(d=> ({...d, data: d.data.reverse()}));
+        volume_data.map(d => ({...d, data: d.data.reverse()}));
         console.log(volume_data);
         let new_volume_chart = Highcharts.chart('new-volume-chart', {
             chart: {
@@ -740,7 +717,7 @@
                     //     //return moment.unix(this.value/1000).format("YYYY-MM-DD");
                     // }
                 },
-                categories: time_slots.map(t=> moment(t).format("MMM D,H:mm")).reverse()
+                categories: time_slots.map(t => moment(t).format("MMM D,H:mm")).reverse()
             },
 
             yAxis: {
@@ -787,7 +764,11 @@
                 enabled: false
             },
 
-            series: volume_data.sort((a, b) => a.total - b.total).map(d=> ({name:d.label, color:d.color, data:d.data}))
+            series: volume_data.sort((a, b) => a.total - b.total).map(d => ({
+                name: d.label,
+                color: d.color,
+                data: d.data
+            }))
         });
 
         bcr_chart.series[0].setData(bcr_chart_data, true);
