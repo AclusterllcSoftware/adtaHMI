@@ -1,5 +1,5 @@
 # Dependency directories
-adta-win32-x64*
+adta*-win32-x64*
 node_modules
 build
 logs/
