@@ -466,10 +466,10 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
                 }
             }
             if((door_closed=='active')&&(door_locked=='in-active')&&(door_safe=='in-active')){
-                $('.door-lock[data-device-id='+(door_no-1+94)+']').show();
+                $('.door-lock[data-device-id='+(door_no-1+91)+']').show();
             }
             else if((door_closed=='active')&&((door_locked=='active')||(door_safe=='active'))){
-                $('.door-unlock[data-device-id='+(door_no-1+94)+']').show();
+                $('.door-unlock[data-device-id='+(door_no-1+91)+']').show();
             }
         }
 }
