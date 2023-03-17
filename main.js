@@ -67,7 +67,7 @@ function logOutUser() {
 	Menu.setApplicationMenu(menu);
 
 	logged_in_user_role = 3;
-	logged_in_user_name = "BlueCrest Supervisor";
+	logged_in_user_name = "Amazon Operator";
 	mainWindow.loadFile("general-view.ejs");
 }
 
@@ -114,7 +114,7 @@ let machineList = {};
 let maintenanceIpList = {};
 let ipList, connectionStatus;
 let logged_in_user_role = 3;
-let logged_in_user_name = "BlueCrest Supervisor";
+let logged_in_user_name = "Amazon Operator";
 
 // Functions to handle socket events
 function makeConnection () {

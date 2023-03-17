@@ -243,7 +243,7 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
             jQuery("#display_machine_name").text("Select a machine");    
         }
     } else {
-        jQuery("#show-username").text("BlueCrest Supervisor");
+        jQuery("#show-username").text("Amazon Operator");
         ipcRenderer.send("connect:server");
         jQuery("#display_machine_name").text("Select a machine");
     }
