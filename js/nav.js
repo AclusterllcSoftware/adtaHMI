@@ -414,7 +414,7 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
     }
     function setEstopsStates(machineId,inputsStates,inputsInfo){
         //console.log(inputsStates,inputsInfo)
-        let input_colors = {"in-active" : "#fff", "active" : "#f5ea14"};
+        let input_colors = {"in-active" : "#00ff00", "active" : "#ff0000"};
         for(let key in inputsInfo){
             let inputInfo=inputsInfo[key];
             if((inputInfo['input_type']==3) && inputInfo['gui_input_id']>0 &&  (inputInfo['device_type']==0) && (inputInfo['device_number']==0) ){

@@ -86,13 +86,13 @@
   <g transform="translate(120 80)">
     <text class="gv-text" transform="translate(0 11)"><tspan x="0" y="0">Estop</tspan></text>
     <g transform="translate(0 21)">
-      <rect x="0" y="0" width="15.5" height="15.5" style="fill:#fff;stroke:#000000;stroke-width:1px;"/>
-      <circle cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#fff" />
+      <rect x="0" y="0" width="15.5" height="15.5" style="fill:#f5ea14;stroke:#000000;stroke-width:1px;"/>
+      <circle cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#00ff00" />
       <text class="gv-text" transform="translate(20 12)"><tspan x="0" y="0">Ok</tspan></text>
     </g>
     <g transform="translate(0 46)">
       <rect x="0" y="0" width="15.5" height="15.5" style="fill:#f5ea14;stroke:#000000;stroke-width:1px;"/>
-      <circle cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#fff" />
+      <circle cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#ff0000" />
       <text class="gv-text" transform="translate(20 12)"><tspan x="0" y="0">Pressed</tspan></text>
     </g>
 
