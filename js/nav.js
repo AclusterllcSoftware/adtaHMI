@@ -386,7 +386,7 @@ ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_serve
         for(let key in devicesInfo){
             let deviceInfo=devicesInfo[key];
             if(deviceInfo['gui_device_id']>0 ){
-                $('.device[gui-device-id='+deviceInfo["gui_device_id"]+']').attr('device-id',deviceInfo["device_id"]).attr('data-original-title',deviceInfo['device_name']);
+                $('.device[gui-device-id='+deviceInfo["gui_device_id"]+']').attr('device-id',deviceInfo["device_id"]).attr('data-original-title',deviceInfo['device_name']+'<br>'+deviceInfo['ip_address']);
             }
         }
     }

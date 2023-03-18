@@ -1,0 +1,42 @@
+<%- include('header', {currentMenu: 'maint', pageTitle: 'Maintenance'}); %>
+    <div class="row m-0 mt-1">
+        Maintenance
+    </div>
+</div>
+<%- include('footer', {currentMenu: 'maint'}); %>
+<script src="js/jquery-bootstrap.js"></script>
+<script src="js/jquery.newsTicker.js"></script>
+<script src="js/daterangepicker/moment.min.js"></script>
+<script src="js/nav.js"></script>
+
+<script>
+let basic_info={}
+
+jQuery(document).ready(function() {
+    jQuery("#ip_list_dropdown").change(function() {
+        selected_machine = jQuery(this).val();
+        if(selected_machine !== "") {
+            let selected_machine_name = machine_list[selected_machine];
+            jQuery("#display_machine_name").text(selected_machine_name);
+        }
+        else {
+            jQuery("#display_machine_name").text("Select a machine");
+            selected_machine = 0;
+        }
+        ipcRenderer.send("get:views", selected_machine, "maint");
+    });
+});
+
+ipcRenderer.on("render:maint", function(e, data) {
+    basic_info=data;
+    console.log(data)
+    setInterval(() => {
+        ipcRenderer.send("sendRequest", selected_machine,'getMaintViewData', {});
+    }, 1000);
+});
+ipcRenderer.on("getMaintViewData", function(e, data) {
+    console.log(data)
+});
+</script>
+</body>
+</html>

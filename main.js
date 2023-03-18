@@ -216,7 +216,8 @@ function processReceivedJsonObjects(jsonObjects) {
 				['getStatistics','getStatisticsHourly','getStatisticsCounter','getStatisticsCounterLast',
 					'getStatisticsBins','getStatisticsBinsHourly','getStatisticsBinsCounter',
 					'getGeneralViewData','getGeneralDevicesViewData','getGeneralMotorsViewData','getGeneralBinDetailsViewData',
-					'getAlarmsViewData','getProductsHistory'
+					'getAlarmsViewData','getProductsHistory',
+					'getMaintViewData'
 				].includes(resType)){
 				mainWindow.webContents.send(resType, jsonObj);
 			}
@@ -355,7 +356,9 @@ ipcMain.on("connect:server", function(e) {
 ipcMain.on("get:views", function(e, machineId, view_name) {
 	currentConnectedMachine = machineId;
 	if(machineId!=0){
-		if(['statistics','statistics-hourly','statistics-bins-detail','general-view','general-view-devices','general-view-motors','alarms-view','token'].includes(view_name)){
+		if(['statistics','statistics-hourly','statistics-bins-detail'
+			,'general-view','general-view-devices','general-view-motors'
+			,'alarms-view','token','maint'].includes(view_name)){
 			mainWindow.webContents.send("render:"+view_name, basic_info);
 		}
 		else{
