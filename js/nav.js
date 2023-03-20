@@ -226,30 +226,47 @@ ipcRenderer.on("render:device_status", function(e, device_status_result) {
     changeMachineNameBg(device_status_result['mode'])
 });
 
-ipcRenderer.on("link:changed", function(e, ip_list_html, machine_list_from_server, selected_machine_from_server, maintenance_ip_list_from_server, user_name) {
+ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from_server, selected_machine_from_server, maintenance_ip_list_from_server) {
     //console.log(machine_list_from_server);
     //console.log(selected_machine_from_server);
+    let currentUser=await getCurrentUser();
+    jQuery("#show-username").text(currentUser['name']);
     if(!jQuery.isEmptyObject(machine_list_from_server)) {
         selected_machine = selected_machine_from_server;
         machine_list = machine_list_from_server;
-        //logged_in_user = user_name;
-        jQuery("#show-username").text(user_name);
         maintenance_ip_list = maintenance_ip_list_from_server;
         jQuery("#ip_list_dropdown").html(ip_list_html);
-
         if(selected_machine != 0) {
             jQuery("#ip_list_dropdown").val(selected_machine_from_server).trigger("change");
-        } else {
+        }
+        else {
             jQuery("#display_machine_name").text("Select a machine");    
         }
-    } else {
-        jQuery("#show-username").text("Amazon Operator");
+    }
+    else{
         ipcRenderer.send("connect:server");
         jQuery("#display_machine_name").text("Select a machine");
     }
 });
 
 //global functions
+    function machineChangeAction(){
+        jQuery("#ip_list_dropdown").change(function() {
+            selected_machine = jQuery(this).val();
+            if(selected_machine !== "") {
+                let selected_machine_name = machine_list[selected_machine];
+                jQuery("#display_machine_name").text(selected_machine_name);
+            }
+            else {
+                jQuery("#display_machine_name").text("Select a machine");
+                selected_machine = 0;
+            }
+        });
+    }
+    async function getCurrentUser() {
+        return await ipcRenderer.invoke('getCurrentUser');
+    }
+
     async function loadAndGetDetailedActiveAlarmSettings() {
         let detailed_active_alarm_settings_value = await ipcRenderer.invoke('getSingleStoreValue', 'adta_detailed_active_alarm');
 

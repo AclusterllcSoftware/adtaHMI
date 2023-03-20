@@ -25,9 +25,8 @@
                             </div>
                         </div>
                         <div class="col-md-6 offset-md-4">
-                            <button type="button" class="btn btn-primary" id="login-btn">
-                                Login
-                            </button>
+                            <button type="button" class="btn btn-primary" id="button_login">Login</button>
+                            <button type="button" class="btn btn-primary" id="button_cancel">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -42,70 +41,40 @@
 <script src="js/nav.js"></script>
 <script>
 jQuery(document).ready(function() {
-    jQuery("#ip_list_dropdown").change(function() {
-        selected_machine = jQuery(this).val();
-
-        if(selected_machine !== "") {
-            let selected_machine_name = machine_list[selected_machine];
-            jQuery("#display_machine_name").text(selected_machine_name);
-
-            setInterval(() => {
-                ipcRenderer.send("get:views", selected_machine, "settings");
-            }, 1000);
-
-        } else {
-            selected_machine = 0;
-            jQuery("#display_machine_name").text("Select a machine");
-        }
-
-        ipcRenderer.send("get:views", selected_machine, "settings");
-    });
-
-
-    jQuery("#login-btn").click(function() {
-        let username = jQuery("#username").val();
-        username = username.trim();
+    machineChangeAction();//nav.js
+    $('#button_cancel').on('click',function (){
+        ipcRenderer.send("change:link", 'settings-page');
+    })
+    $('#button_login').on('click',function (){
+        let username = jQuery("#username").val().trim();
         let password = jQuery("#password").val();
-
         let error_msgs = [];
-
-        if(username === "") {
+        if(username == "") {
             error_msgs.push(" - <b>Please enter username</b>");
         }
-
-        if(password === "") {
+        if(password == "") {
             error_msgs.push(" - <b>Please enter password</b>");
         }
-
         if(error_msgs.length > 0) {
             let error_msg = error_msgs.join("<br>");
             jQuery("#warning-body").html(error_msg);
             jQuery("#warning-alert").show();
-        } else {
-            jQuery("#warning-alert").hide();
-            ipcRenderer.send("get:login_user", selected_machine, username, password);
         }
-    });
+        else {
+            jQuery("#warning-alert").hide();
+            ipcRenderer.send("sendRequest", selected_machine,'getLoginUser', {'username':username,'password':password});
+        }
+    })
 });
 
-ipcRenderer.on("render:settings", function(e, setting_page_result) {
-    machine_mode = setting_page_result['mode'];
-    changeMachineNameBg(machine_mode);
-});
-
-ipcRenderer.on("render:login_result", function(e, login_result) {
-    if(login_result['success'] === 0) {
+ipcRenderer.on("getLoginUser", function(e, data) {
+    if(data['loginInfo']['status']){
+        ipcRenderer.send("change:link", 'settings-page');
+    }
+    else{
         let error_msg = "<b>Please enter correct username and password</b>";
         jQuery("#warning-body").html(error_msg);
         jQuery("#warning-alert").show();
-    } else {
-        jQuery("#warning-alert").hide();
-        let success_user_name = login_result['name'];
-        let success_user_role = login_result['role'];
-        jQuery("#show-username").text(success_user_name);
-        logged_in_user = success_user_name;
-        ipcRenderer.send("get:set_user_role", success_user_role, success_user_name);
-        
     }
 });
 </script>

@@ -1,0 +1,117 @@
+<%- include('header', {currentMenu: '', pageTitle: 'Settings'}); %>
+    <div class="row m-0 mt-2">
+        <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
+            <form id="settings-form">
+                <fieldset>
+                    <legend id="the_legend">Settings</legend>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="ip_address_input">Java Server IP Address</label>
+                                <input type="text" class="form-control" id="ip_address_input" name="ip_address_input" aria-describedby="ipAddressHelp" placeholder="Enter IP Address">
+                                <small id="ipAddressHelp" class="form-text text-muted">Java server IP address</small>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="port_input">Java Server Port</label>
+                                <input type="text" class="form-control" id="port_input" name="port_input" aria-describedby="portHelp" placeholder="Enter Port">
+                                <small id="portHelp" class="form-text text-muted">Java server port number</small>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="cm_ip_address_input">CM IP Address</label>
+                                <input type="text" class="form-control" id="cm_ip_address_input" name="cm_ip_address_input" aria-describedby="cmIpAddressHelp" placeholder="Enter CM IP Address">
+                                <small id="cmIpAddressHelp" class="form-text text-muted">CM IP Address</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="diagonstic_url">Diagonstic URL</label>
+                        <input type="text" class="form-control" id="diagonstic_url" name="diagonstic_url" aria-describedby="diagonsticURLHelp" placeholder="Diagonstic URL">
+                        <small id="diagonsticURLHelp" class="form-text text-muted">Diagonstic URL</small>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="detailed_active_alarm" name="detailed_active_alarm" value="active">
+                        <label class="form-check-label" for="detailed_active_alarm">Detailed Active Alarm</label>
+                    </div>
+                    <button type="button" id="button_save" class="btn btn-primary">Save</button>
+                    <button type="button" id="button_login" class="btn btn-primary">Login</button>
+                    <button type="button" id="button_logout" class="btn btn-primary">Logout</button>
+                    <button type="button" id="button_changePassword" class="btn btn-primary">Change Password</button>
+                    <button type="button" id="button_manual_mode_active" class="btn btn-primary">Activate manual mode</button>
+                    <button type="button" id="button_manual_mode_deactive" class="btn btn-primary">Deactivate manual mode</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include('footer', {currentMenu: 'settings'}); %>
+<script src="js/jquery-bootstrap.js"></script>
+<script src="js/jquery.newsTicker.js"></script>
+<script src="js/daterangepicker/moment.min.js"></script>
+<script src="js/nav.js"></script>
+<script>
+
+jQuery(document).ready(function() {
+    jQuery("#ip_list_dropdown").change(function() {
+        console.log("inside")
+        selected_machine = jQuery(this).val();
+        if(selected_machine !== "") {
+            let selected_machine_name = machine_list[selected_machine];
+            jQuery("#display_machine_name").text(selected_machine_name);
+        }
+        else {
+            jQuery("#display_machine_name").text("Select a machine");
+            selected_machine = 0;
+        }
+        ipcRenderer.send("get:views", selected_machine, "settings");
+    });
+    console.log("outside")
+    // loadSettingsValues();
+    // loadResetCounterButton(currentUser);
+    // jQuery("#ip_list_dropdown").change(function() {
+    //     selected_machine = jQuery(this).val();
+    //
+    //     if(selected_machine !== "") {
+    //         let selected_machine_name = machine_list[selected_machine];
+    //         jQuery("#display_machine_name").text(selected_machine_name);
+    //
+    //         setInterval(() => {
+    //             ipcRenderer.send("get:views", selected_machine, "settings");
+    //         }, 1000);
+    //
+    //     } else {
+    //         selected_machine = 0;
+    //         jQuery("#display_machine_name").text("Select a machine");
+    //     }
+    //
+    //     ipcRenderer.send("get:views", selected_machine, "settings");
+    // });
+    //
+    // jQuery("#save_button").click(function() {
+    //     var $form = $("#settings-form");
+    //     var form_data = getFormData($form);
+    //     //console.log( form_data );
+    //
+    //     ipcRenderer.send("settings:saved", form_data);
+    // });
+    //
+    // jQuery("#manual_mode_button").click(function() {
+    //     if(jQuery(this).val() === "1") {
+    //         ipcRenderer.send("get:change_mode", selected_machine, "1");
+    //     } else {
+    //         ipcRenderer.send("get:change_mode", selected_machine, "0");
+    //     }
+    // });
+    ipcRenderer.on("render:settings", async function(e, data) {
+            console.log(data)
+    });
+
+});
+
+
+</script>
+</body>
+</html>

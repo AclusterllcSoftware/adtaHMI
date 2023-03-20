@@ -40,13 +40,7 @@ let nativeMenus = [
 			{
 				label: 'Settings',
 				click() {
-					//if(logged_in_user_role === 1) {
-						let linkFile = "settings-page.ejs";
-						mainWindow.loadFile(linkFile, {query: {"role": logged_in_user_role}});
-					// } else {
-					// 	let linkFile = "login.ejs";
-					// 	mainWindow.loadFile(linkFile);
-					// }
+						mainWindow.loadFile("settings-page.ejs");
 				}
 			},
 			{
@@ -58,18 +52,6 @@ let nativeMenus = [
 		]
 	}
 ];
-
-
-function logOutUser() {
-	nativeMenus[0].submenu.pop();
-
-	menu = Menu.buildFromTemplate(nativeMenus);
-	Menu.setApplicationMenu(menu);
-
-	logged_in_user_role = 3;
-	logged_in_user_name = "Amazon Operator";
-	mainWindow.loadFile("general-view.ejs");
-}
 
 let menu = Menu.buildFromTemplate(nativeMenus)
 Menu.setApplicationMenu(menu)
@@ -113,8 +95,16 @@ let retrying = false;
 let machineList = {};
 let maintenanceIpList = {};
 let ipList, connectionStatus;
-let logged_in_user_role = 3;
-let logged_in_user_name = "Amazon Operator";
+let unRegisteredUser={'id':0,'name':'Amazon Operator','role':0}
+let currentUser=unRegisteredUser;
+
+function logoutUser() {
+	nativeMenus[0].submenu.pop();
+	menu = Menu.buildFromTemplate(nativeMenus);
+	Menu.setApplicationMenu(menu);
+	currentUser=unRegisteredUser;
+	mainWindow.loadFile("settings-page.ejs");
+}
 
 // Functions to handle socket events
 function makeConnection () {
@@ -140,21 +130,9 @@ function generateIpListHtml() {
 	return returnHtml;
 }
 
-
 function getStoredValue(key_name) {
 	return store.get(key_name, "not_set");
 }
-
-/* client.on('connect', () => {
-	clearIntervalConnect();
-	//client.setKeepAlive(true, 30000);
-	console.log('Connected to server');
-	if(previouslyConnected == 0) {
-		previouslyConnected = 1;
-		let m = {"req" : "send_ip_list"};
-		sendMessageToServer(JSON.stringify(m));
-	}
-}); */
 
 function connectEventHandler() {
 	//console.log('connected');
@@ -221,6 +199,20 @@ function processReceivedJsonObjects(jsonObjects) {
 				].includes(resType)){
 				mainWindow.webContents.send(resType, jsonObj);
 			}
+			else if(resType == "getLoginUser") {
+				if(jsonObj['loginInfo']['status']){
+					currentUser=jsonObj['loginInfo']['user'];
+					nativeMenus[0].submenu.push({
+						label: 'Logout',
+						click() {
+							logoutUser();
+						}
+					});
+					menu = Menu.buildFromTemplate(nativeMenus);
+					Menu.setApplicationMenu(menu);
+				}
+				mainWindow.webContents.send("getLoginUser", jsonObj);
+			}
 			////////////
 			else if(resType == "alarms_history") {
 				let alarmsHistoryResult = jsonObj.result.history;
@@ -247,29 +239,7 @@ function processReceivedJsonObjects(jsonObjects) {
 				//console.log(deviceStatusResult);
 				mainWindow.webContents.send("render:device_status", deviceStatusResult);
 			}
-			else if(resType == "settings") {
-				let settingResult = jsonObj.result;
-				//console.log(deviceTitlesResult);
-				mainWindow.webContents.send("render:settings", settingResult);
-			}   else if(resType == "login_user") {
-				let loginResult = jsonObj.result;
 
-				if(loginResult['success'] === 1) {
-					//console.log("LOGGED IN OK ->" + nativeMenus[0].submenu[3].enabled);
-					nativeMenus[0].submenu.push({
-						label: 'Logout',
-						click() {
-							logOutUser();
-						}
-					});
-
-					menu = Menu.buildFromTemplate(nativeMenus);
-					Menu.setApplicationMenu(menu);
-				}
-
-				//console.log(deviceTitlesResult);
-				mainWindow.webContents.send("render:login_result", loginResult);
-			}
 			
 		}
 	});
@@ -355,28 +325,23 @@ ipcMain.on("connect:server", function(e) {
 
 ipcMain.on("get:views", function(e, machineId, view_name) {
 	currentConnectedMachine = machineId;
-	if(machineId!=0){
+	if(['settings'].includes(view_name)){
+		mainWindow.webContents.send("render:"+view_name, {'connected':alreadyConnected});
+	}
+	else if(machineId!=0){
 		if(['statistics','statistics-hourly','statistics-bins-detail'
 			,'general-view','general-view-devices','general-view-motors'
 			,'alarms-view','token','maint'].includes(view_name)){
 			mainWindow.webContents.send("render:"+view_name, basic_info);
 		}
 		else{
-			if((machineId != 0) && (view_name != "diagonstics")) {
+			if(view_name != "diagonstics") {
 				let m = {"req" : view_name, "id" : machineId};
 				sendMessageToServer(JSON.stringify(m));
 			}
 		}
 	}
 
-});
-
-ipcMain.on("get:change_mode", function(e, machineId, mode) {
-	currentConnectedMachine = machineId;
-	if((machineId != 0)) {
-		let m = {"req" : "change_mode", "id" : machineId, "mode" : mode};
-		sendMessageToServer(JSON.stringify(m));
-	}
 });
 
 ipcMain.on("get:change_induct", function(e, machineId, mode, inductId) {
@@ -403,15 +368,6 @@ ipcMain.on("get:induct", function(e, machineId, induct_number) {
 	}
 });
 
-//ipcRenderer.send("get:change_bin_mode", selected_machine, bin_id, changed_bin_mode);
-
-ipcMain.on("get:change_bin_mode", function(e, machineId, binId, mode) {
-	currentConnectedMachine = machineId;
-	if((machineId != 0) && (binId != 0)) {
-		let m = {"req" : "change_bin_mode", "machine" : machineId, "bin" : binId, "mode" : mode};
-		sendMessageToServer(JSON.stringify(m));
-	}
-});
 
 ipcMain.on("get:device_command", function(e, machineId, device_id, operation_id) {
 	currentConnectedMachine = machineId;
@@ -456,9 +412,10 @@ ipcMain.on("change:induct", function(e, induct_id) {
 	mainWindow.loadFile(linkFile, {query: {"induct_number": induct_id}});
 });
 
+//called by nav.js when page loaded
 ipcMain.on("page:loaded", function(e) {
 	let ipListHtml = generateIpListHtml();
-	mainWindow.webContents.send("link:changed", ipListHtml, machineList, currentConnectedMachine, maintenanceIpList, logged_in_user_name);
+	mainWindow.webContents.send("link:changed", ipListHtml, machineList, currentConnectedMachine, maintenanceIpList);
 });
 
 
@@ -482,25 +439,6 @@ ipcMain.on("settings:saved", function(e, settings_data) {
 	}
 });
 
-ipcMain.on("get:login_user", function(e, machineId, username, password) {
-	currentConnectedMachine = machineId;
-	if((username !== "") && (password !== "")) {
-		var md5Hash = crypto.createHash('md5').update(password).digest('hex');
-		var sha1Hash = crypto.createHash('sha1').update(md5Hash).digest('hex');
-		//console.log(sha1Hash); // 9b74c9897bac770ffc029102a200c5de
-		let m = {"req" : "login_user", "id" : machineId, "username" : username, "password" : sha1Hash};
-		sendMessageToServer(JSON.stringify(m));
-	}
-});
-
-ipcMain.on("get:set_user_role", function(e, role, name) {
-	logged_in_user_role = role;
-	logged_in_user_name = name;
-	if(logged_in_user_role === 1)
-		mainWindow.loadFile("settings-page.ejs", {query: {"role": logged_in_user_role}});
-	else
-		mainWindow.loadFile("general-view.ejs");
-});
 
 ipcMain.handle('getStoreValue', (e) => {
 	let server_address = store.get("adta_server_address", "not_set");
@@ -516,9 +454,16 @@ ipcMain.handle('getStoreValue', (e) => {
 ipcMain.handle('getSingleStoreValue', (event, key) => {
 	return store.get(key, "not_set");
 });
+
 ///////
+ipcMain.handle('getCurrentUser', (event, key) => {
+	return currentUser;
+});
 ipcMain.on("sendRequest", function(e,machineId,requestName,params) {
-	if(machineId>0){
+	if(requestName=='logoutUser'){
+		logoutUser();
+	}
+	else if(machineId>0){
 		let m = {"req" : requestName, "machineId" : machineId,'params':params};
 		sendMessageToServer(JSON.stringify(m));
 	}
