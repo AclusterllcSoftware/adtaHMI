@@ -116,6 +116,9 @@
         jQuery("#button_logout").click( function() {
             ipcRenderer.send("sendRequest", selected_machine,'logoutUser', {});
         });
+        jQuery("#button_changePassword").click( function() {
+            ipcRenderer.send("change:link", "change-password");
+        });
         jQuery("#button_manual_mode_active").click( function() {
             $('#button_manual_mode_active').hide();
             ipcRenderer.send("sendRequest", selected_machine,'changeMode', {'mode':1});
