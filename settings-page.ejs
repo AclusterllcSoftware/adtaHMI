@@ -37,12 +37,12 @@
                     <label class="form-check-label" for="detailed_active_alarm">Detailed Active Alarm</label>
                 </div>
                 <button type="button" style="visibility: hidden;" id="button_save" class="btn btn-primary">Save</button>
-                <button type="button" style="visibility: hidden;" id="button_login" class="btn btn-primary">Login</button>
-                <button type="button" style="visibility: hidden;" id="button_logout" class="btn btn-primary">Logout</button>
-                <button type="button" style="visibility: hidden;" id="button_changePassword" class="btn btn-primary">Change Password</button>
-                <span id="mode_buttons_container" style="visibility: hidden;">
-                    <button type="button" style="visibility: hidden;" id="button_manual_mode_active" class="btn btn-primary">Activate manual mode</button>
-                    <button type="button" style="visibility: hidden;" id="button_manual_mode_deactive" class="btn btn-primary">Deactivate manual mode</button>
+                <button type="button" style="display: none;" id="button_login" class="btn btn-primary">Login</button>
+                <button type="button" style="display: none;" id="button_logout" class="btn btn-primary">Logout</button>
+                <button type="button" style="display: none;" id="button_changePassword" class="btn btn-primary">Change Password</button>
+                <span id="mode_buttons_container" style="display: none">
+                    <button type="button" style="display: none;" id="button_manual_mode_active" class="btn btn-primary">Activate manual mode</button>
+                    <button type="button" style="display: none;" id="button_manual_mode_deactive" class="btn btn-primary">Deactivate manual mode</button>
                 </span>
             </fieldset>
         </form>
@@ -85,26 +85,26 @@
                 else{
                     $('#button_save').css("visibility", "hidden");
                 }
-                $('#button_login').css("visibility", "hidden");
-                $('#button_logout').css("visibility", "visible");
-                $('#button_changePassword').css("visibility", "visible");
-                $('#mode_buttons_container').css("visibility", "visible");
+                $('#button_login').hide();
+                $('#button_logout').show();
+                $('#button_changePassword').show();
+                $('#mode_buttons_container').show();
 
             }
-            else{
+            else {
                 $('#button_save').css("visibility", "hidden");
-                $('#button_login').css("visibility", "visible");
-                $('#button_logout').css("visibility", "hidden");
-                $('#button_changePassword').css("visibility", "hidden");
-                $('#mode_buttons_container').css("visibility", "hidden");
+                $('#button_login').show();
+                $('#button_logout').hide();
+                $('#button_changePassword').hide();
+                $('#mode_buttons_container').hide();
             }
         }
         else{
             $('#button_save').css("visibility", "visible");
-            $('#button_login').css("visibility", "hidden");
-            $('#button_logout').css("visibility", "hidden");
-            $('#button_changePassword').css("visibility", "hidden");
-            $('#mode_buttons_container').css("visibility", "hidden");
+            $('#button_login').hide();
+            $('#button_logout').hide();
+            $('#button_changePassword').hide();
+            $('#mode_buttons_container').hide();
         }
     }
     jQuery(document).ready(async function() {
@@ -117,11 +117,11 @@
             ipcRenderer.send("sendRequest", selected_machine,'logoutUser', {});
         });
         jQuery("#button_manual_mode_active").click( function() {
-            $('#button_manual_mode_active').css("visibility", "hidden");
+            $('#button_manual_mode_active').hide();
             ipcRenderer.send("sendRequest", selected_machine,'changeMode', {'mode':1});
         });
         jQuery("#button_manual_mode_deactive").click( function() {
-            $('#button_manual_mode_deactive').css("visibility", "hidden");
+            $('#button_manual_mode_deactive').hide();
             ipcRenderer.send("sendRequest", selected_machine,'changeMode', {'mode':0});
         });
         setInterval(() => {
@@ -136,16 +136,16 @@
     ipcRenderer.on("render:device_status", function(e, data) {
         let currentMachineMode=data['mode']
         if(currentMachineMode==0){
-            $('#button_manual_mode_active').css("visibility", "inherit");
-            $('#button_manual_mode_deactive').css("visibility", "hidden");
+            $('#button_manual_mode_active').show();
+            $('#button_manual_mode_deactive').hide();
         }
         else if(currentMachineMode==1){
-            $('#button_manual_mode_active').css("visibility", "hidden");
-            $('#button_manual_mode_deactive').css("visibility", "inherit");
+            $('#button_manual_mode_active').hide();
+            $('#button_manual_mode_deactive').show();
         }
         else{
-            $('#button_manual_mode_active').css("visibility", "hidden");
-            $('#button_manual_mode_deactive').css("visibility", "hidden");
+            $('#button_manual_mode_active').hide();
+            $('#button_manual_mode_deactive').hide();
         }
     });
 </script>
