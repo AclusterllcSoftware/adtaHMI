@@ -418,28 +418,6 @@ ipcMain.on("page:loaded", function(e) {
 	mainWindow.webContents.send("link:changed", ipListHtml, machineList, currentConnectedMachine, maintenanceIpList);
 });
 
-
-ipcMain.on("settings:saved", function(e, settings_data) {
-	//console.log(settings_data);
-
-	store.set("adta_server_address", settings_data['ip_address_input']);
-	host = settings_data['ip_address_input'];
-
-	store.set("adta_server_port", settings_data['port_input']);
-	port = settings_data['port_input'];
-
-	store.set("adta_cm_address", settings_data['cm_ip_address_input']);
-	cmAddress = settings_data['cm_ip_address_input'];
-
-	store.set("adta_diagonstic_url", settings_data['diagonstic_url']);
-	if (typeof settings_data['detailed_active_alarm'] !== 'undefined') {
-		store.set("adta_detailed_active_alarm", settings_data['detailed_active_alarm']);
-	} else {
-		store.set("adta_detailed_active_alarm", "not_set");
-	}
-});
-
-
 ipcMain.handle('getStoreValue', (e) => {
 	let server_address = store.get("adta_server_address", "not_set");
 	let server_port = store.get("adta_server_port", "not_set");
@@ -456,6 +434,26 @@ ipcMain.handle('getSingleStoreValue', (event, key) => {
 });
 
 ///////
+
+ipcMain.on("saveSettings", function(e, settings_data) {
+	store.set("adta_server_address", settings_data['ip_address_input']);
+	host = settings_data['ip_address_input'];
+
+	store.set("adta_server_port", settings_data['port_input']);
+	port = settings_data['port_input'];
+
+	store.set("adta_cm_address", settings_data['cm_ip_address_input']);
+	cmAddress = settings_data['cm_ip_address_input'];
+
+	store.set("adta_diagonstic_url", settings_data['diagonstic_url']);
+	if (typeof settings_data['detailed_active_alarm'] !== 'undefined') {
+		store.set("adta_detailed_active_alarm", settings_data['detailed_active_alarm']);
+	}
+	else {
+		store.set("adta_detailed_active_alarm", "not_set");
+	}
+});
+
 ipcMain.handle('getCurrentUser', (event, key) => {
 	return currentUser;
 });

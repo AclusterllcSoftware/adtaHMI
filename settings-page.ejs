@@ -124,6 +124,13 @@
             $('#button_manual_mode_deactive').hide();
             ipcRenderer.send("sendRequest", selected_machine,'changeMode', {'mode':0});
         });
+        jQuery("#button_save").click( function() {
+            let formData = {};
+            jQuery.map($("#settings-form").serializeArray(), function(n, i){
+                formData[n['name']] = n['value'];
+            });
+            ipcRenderer.send("saveSettings", formData);
+        });
         setInterval(() => {
             ipcRenderer.send("get:views", selected_machine, "settings");
         }, 1000);
