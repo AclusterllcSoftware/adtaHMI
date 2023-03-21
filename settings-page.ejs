@@ -55,6 +55,7 @@
 <script src="js/daterangepicker/moment.min.js"></script>
 <script src="js/nav.js"></script>
 <script>
+    let basic_info={}
     async function setSettingsValues(){
         //loading default values
         let settings_values = await ipcRenderer.invoke('getStoreValue');
@@ -77,7 +78,7 @@
     }
     async function setButtonAccess(connected){
         if(connected==1){
-            let currentUser=await getCurrentUser();
+            let currentUser=basic_info['currentUser'];
             if(currentUser['role']>0){
                 if(currentUser['role']==1){
                     $('#button_save').css("visibility", "visible");
@@ -112,8 +113,19 @@
         }
     }
     jQuery(document).ready(async function() {
-        machineChangeAction();//nav.js
         await setSettingsValues();
+        jQuery("#ip_list_dropdown").change(function() {
+            selected_machine = jQuery(this).val();
+            if(selected_machine !== "") {
+                let selected_machine_name = machine_list[selected_machine];
+                jQuery("#display_machine_name").text(selected_machine_name);
+            }
+            else {
+                jQuery("#display_machine_name").text("Select a machine");
+                selected_machine = 0;
+            }
+            ipcRenderer.send("get:views", selected_machine, "settings");
+        });
         jQuery("#button_login").click( function() {
             ipcRenderer.send("change:link", "login");
         });
@@ -138,15 +150,19 @@
             });
             ipcRenderer.send("saveSettings", formData);
         });
-        setInterval(() => {
-            ipcRenderer.send("get:views", selected_machine, "settings");
-        }, 1000);
+        //call even not connected
+        ipcRenderer.send("get:views", selected_machine, "settings");
 
     });
     ipcRenderer.on("render:settings", async function(e, data) {
-        await setButtonAccess(data['connected']);
+        basic_info=data;
+        setInterval(() => {
+            ipcRenderer.send("sendRequest", selected_machine,'getSettingsViewData', {});
+        }, 1000);
     });
-
+    ipcRenderer.on("getSettingsViewData",async function(e, data) {
+        await setButtonAccess(data['connected']);
+    })
     ipcRenderer.on("render:device_status", function(e, data) {
         let currentMachineMode=data['mode']
         if(currentMachineMode==0){

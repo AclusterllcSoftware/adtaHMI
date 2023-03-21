@@ -256,19 +256,6 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
 });
 
 //global functions
-    function machineChangeAction(){
-        jQuery("#ip_list_dropdown").change(function() {
-            selected_machine = jQuery(this).val();
-            if(selected_machine !== "") {
-                let selected_machine_name = machine_list[selected_machine];
-                jQuery("#display_machine_name").text(selected_machine_name);
-            }
-            else {
-                jQuery("#display_machine_name").text("Select a machine");
-                selected_machine = 0;
-            }
-        });
-    }
     async function getCurrentUser() {
         return await ipcRenderer.invoke('getCurrentUser');
     }

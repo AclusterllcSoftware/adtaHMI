@@ -41,7 +41,17 @@
 <script src="js/nav.js"></script>
 <script>
 jQuery(document).ready(function() {
-    machineChangeAction();//nav.js
+    jQuery("#ip_list_dropdown").change(function() {
+        selected_machine = jQuery(this).val();
+        if(selected_machine !== "") {
+            let selected_machine_name = machine_list[selected_machine];
+            jQuery("#display_machine_name").text(selected_machine_name);
+        }
+        else {
+            jQuery("#display_machine_name").text("Select a machine");
+            selected_machine = 0;
+        }
+    });
     $('#button_cancel').on('click',function (){
         ipcRenderer.send("change:link", 'settings-page');
     })

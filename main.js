@@ -325,14 +325,16 @@ ipcMain.on("connect:server", function(e) {
 
 ipcMain.on("get:views", function(e, machineId, view_name) {
 	currentConnectedMachine = machineId;
+	let data=basic_info;
+	data['currentUser']=currentUser;
 	if(['settings'].includes(view_name)){
-		mainWindow.webContents.send("render:"+view_name, {'connected':alreadyConnected});
+		mainWindow.webContents.send("render:"+view_name, basic_info);
 	}
 	else if(machineId!=0){
 		if(['statistics','statistics-hourly','statistics-bins-detail'
 			,'general-view','general-view-devices','general-view-motors'
 			,'alarms-view','token','maint'].includes(view_name)){
-			mainWindow.webContents.send("render:"+view_name, basic_info);
+			mainWindow.webContents.send("render:"+view_name, data);
 		}
 		else{
 			if(view_name != "diagonstics") {
@@ -460,6 +462,9 @@ ipcMain.handle('getCurrentUser', (event, key) => {
 ipcMain.on("sendRequest", function(e,machineId,requestName,params) {
 	if(requestName=='logoutUser'){
 		logoutUser();
+	}
+	else if(requestName=='getSettingsViewData'){
+		mainWindow.webContents.send("getSettingsViewData", {'connected':alreadyConnected});
 	}
 	else if(machineId>0){
 		let m = {"req" : requestName, "machineId" : machineId,'params':params};
