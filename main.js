@@ -139,7 +139,7 @@ function connectEventHandler() {
 	alreadyConnected = 1;
 	retrying = false;
 	mainWindow.webContents.send("render:server_connected");
-	sendMessageToServer(JSON.stringify({"req" : "basic_info"}));
+
 	connectionStatus = setInterval(() => {
 		if(currentConnectedMachine != 0) {
 			//console.log("sending device status check message");		
@@ -153,6 +153,7 @@ function connectEventHandler() {
 		let m = {"req" : "send_ip_list"};
 		sendMessageToServer(JSON.stringify(m));
 	}
+	sendMessageToServer(JSON.stringify({"req" : "basic_info"}));
 }
 let basic_info={};
 function processReceivedJsonObjects(jsonObjects) {
