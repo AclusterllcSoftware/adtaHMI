@@ -139,10 +139,6 @@
         let sc_codes = scs_info.map(s => s.code);
         bins_statistics = data_result['statistics'];
 
-
-        // console.log(bins_statistics);
-        // console.log(bins_info);
-
         bins_info.forEach((bin, key) => {
             bins_summary[key] = {bin_id: bin.bin_id, label: bin.bin_label}
 
@@ -208,7 +204,6 @@
                 stack:'sort-codes'
             });
         });
-        console.log(bins_summary);
         reject_recirc.forEach(d => {
             reject_recirc_stack.push({name: d.name, data: bins_summary.map(b => b[d.code]), color:d.color, stack:'others'});
             reject_recirc_stack_per.push({name: d.name, data: bins_summary.map(b => b[d.code+'_per']), color:d.color, stack:'others'});
