@@ -147,12 +147,6 @@ function connectEventHandler() {
 			sendMessageToServer(JSON.stringify(m));
 		}
 	}, 2000);
-
-	if(previouslyConnected == 0) {
-		previouslyConnected = 1;
-		let m = {"req" : "send_ip_list"};
-		sendMessageToServer(JSON.stringify(m));
-	}
 	sendMessageToServer(JSON.stringify({"req" : "basic_info"}));
 }
 let basic_info={};
@@ -174,6 +168,12 @@ function processReceivedJsonObjects(jsonObjects) {
 					}
 				}
 				basic_info['doorsInfo']=doors;
+				//now call ip list if first time
+				if(previouslyConnected == 0) {
+					previouslyConnected = 1;
+					let m = {"req" : "send_ip_list"};
+					sendMessageToServer(JSON.stringify(m));
+				}
 				//console.log(basic_info);
 			}
 			else if(resType == "ip_list") {
