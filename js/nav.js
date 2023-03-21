@@ -230,6 +230,12 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
     //console.log(machine_list_from_server);
     //console.log(selected_machine_from_server);
     let currentUser=await getCurrentUser();
+    if((currentUser['role']>0)&&(currentUser['role']<4)){
+        jQuery("#menu-maint").show();
+    }
+    else{
+        jQuery("#menu-maint").hide();
+    }
     jQuery("#show-username").text(currentUser['name']);
     if(!jQuery.isEmptyObject(machine_list_from_server)) {
         selected_machine = selected_machine_from_server;

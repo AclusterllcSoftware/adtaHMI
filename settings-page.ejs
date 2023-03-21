@@ -88,8 +88,12 @@
                 $('#button_login').hide();
                 $('#button_logout').show();
                 $('#button_changePassword').show();
-                $('#mode_buttons_container').show();
-
+                if(currentUser['role']<4){
+                    $('#mode_buttons_container').show();
+                }
+                else{
+                    $('#mode_buttons_container').hide();
+                }
             }
             else {
                 $('#button_save').css("visibility", "hidden");

@@ -71,10 +71,10 @@
                                     <li class="nav-item">
                                         <a class="nav-link <%= (['statistics','statistics-hourly','statistics-bins-detail', 'statistics-bins-detail-single'].includes(currentMenu)) ? 'active' : 'bg-light' %>" href="#" data-link="statistics">Statistics</a>
                                     </li>
-                                    <li class="nav-item mr-0">
+                                    <li class="nav-item">
                                         <a class="nav-link <%= (currentMenu === 'token') ? 'active' : 'bg-light' %>" href="#" data-link="token">Token</a>
                                     </li>
-                                    <li class="nav-item mr-0">
+                                    <li id="menu-maint" class="nav-item mr-0" style="display: none;">
                                         <a class="nav-link <%= (currentMenu === 'token') ? 'active' : 'bg-light' %>" href="#" data-link="maint">Maint</a>
                                     </li>
                                 </ul>
