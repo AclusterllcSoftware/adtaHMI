@@ -398,11 +398,12 @@
                     d["code"] === "sc0" ? Number(statistics_result[k][d["code"]]) : 0;
                 reject_counts +=
                     d["code"] != "sc0"
-                        ? Number(statistics_result[k][d["code"]]) - recirc_count
+                        ? Number(statistics_result[k][d["code"]])
                         : 0;
                 d.total += Number(statistics_result[k][d["code"]]);
                 d.data.push(Number(statistics_result[k][d["code"]]));
             });
+            reject_counts -=recirc_count;
             general_data.forEach(g => {
                 if (g.name === 'success') {
                     g.data.push(good_diverts)
