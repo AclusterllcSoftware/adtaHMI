@@ -14,8 +14,14 @@
             <div id="container-button-bin-jog-lower" class="position-absolute" style="right: 100px;top:470px;z-index: 1;display: none;">
                 <button class="button-bin-command button-device-command-press-release button-3d button-rectangle button-bin-jog-lower d-block mb-4" data-device-id="0" data-command-start="6" data-command-end="5" data-parameter1="0">Jog Lower</button>
             </div>
-            <div id="container-button-bin-jog-lower" class="position-absolute" style="right: 570px;top:575px;z-index: 1;">
+            <div id="container-button-bin-fault-reset" class="position-absolute" style="right: 570px;top:575px;z-index: 1;display: none;">
                 <button class="button-bin-command button-device-command button-3d button-rectangle button-bin-fault-reset d-block mb-4" data-device-id="0" data-command="0" data-parameter1="0">Fault Reset</button>
+            </div>
+            <div id="container-button-bin-enable" class="position-absolute" style="right: 270px;top:575px;z-index: 1;display: none;">
+                <button class="button-bin-command button-device-command button-3d button-rectangle button-bin-enable d-block mb-4" data-device-id="0" data-command="8" data-parameter1="0">Enable</button>
+            </div>
+            <div id="container-button-bin-disable" class="position-absolute" style="right: 270px;top:575px;z-index: 1;display: none;">
+                <button class="button-bin-command button-device-command button-3d button-rectangle button-bin-enable d-block mb-4" style="background-color: darkgray;" data-device-id="0" data-command="7" data-parameter1="0">Disable</button>
             </div>
 		</div>
     </div>
@@ -44,22 +50,22 @@
     });
     let currentBinInfo={};
     let currentBinInputs={};
-    ipcRenderer.on("render:general-view-bin-details", function(e, binInfo,binInputs) {
-        currentBinInfo=binInfo;
-        currentBinInputs=binInputs;
-        //console.log(binInfo)
-        //console.log(binInputs)
-        $("#bin_label").text(binInfo['bin_label'])
-        for(let input_key in binInputs){
-            $('.binDetails[gui-input-id='+binInputs[input_key].gui_input_id+']')
-                .attr('title',binInputs[input_key].description+'<br>'+binInputs[input_key].electrical_name)
-                .attr('input-id',binInputs[input_key].input_id)
+    let currentUser={};
+    ipcRenderer.on("render:general-view-bin-details", function(e, data) {
+        currentBinInfo=data['binInfo'];
+        currentBinInputs=data['binInputs'];
+        currentUser=data['currentUser'];
+        $("#bin_label").text(currentBinInfo['bin_label'])
+        for(let input_key in currentBinInputs){
+            $('.binDetails[gui-input-id='+currentBinInputs[input_key]['gui_input_id']+']')
+                .attr('title',currentBinInputs[input_key].description+'<br>'+currentBinInputs[input_key]['electrical_name'])
+                .attr('input-id',currentBinInputs[input_key]['input_id'])
         }
-        $('.button-bin-command').attr('data-device-id',(201+(binInfo['bin_id']-1)))
+        $('.button-bin-command').attr('data-device-id',(201+(currentBinInfo['bin_id']-1)))
         $('[data-toggle="tooltip"]').tooltip();
         setInterval(() => {
             ipcRenderer.send("sendRequest", selected_machine,'getGeneralBinDetailsViewData', {
-                'sort_manager_id':binInfo['sort_manager_id']
+                'sort_manager_id':currentBinInfo['sort_manager_id']
             });
         }, 1000);
     });
@@ -75,21 +81,49 @@
             let inactive_color=$('.binDetails[input-id='+currentBinInput["input_id"]+']').attr('inactive-color');
             $('.binDetails[input-id='+currentBinInput["input_id"]+'] .input_state').css('fill',(currentBinInput['active_state']==currentInputState['input_state'])?active_color:inactive_color);
             if(currentBinInput['gui_input_id']=='110'){
-                if(currentBinInput['active_state']==currentInputState['input_state']){
+                if((currentUser['role']>0)&&(currentUser['role']<4))
+                {
+                    if(currentBinInput['active_state']==currentInputState['input_state']){
+                        $('#container-button-bin-auto').hide();
+                        $('#container-button-bin-manual').show();
+                        $('#container-button-bin-jog-raise').hide();
+                        $('#container-button-bin-jog-lower').hide();
+                    }
+                    else{
+                        $('#container-button-bin-auto').show();
+                        $('#container-button-bin-manual').hide();
+                        $('#container-button-bin-jog-raise').show();
+                        $('#container-button-bin-jog-lower').show();
+
+                    }
+                }
+                else{
                     $('#container-button-bin-auto').hide();
-                    $('#container-button-bin-manual').show();
+                    $('#container-button-bin-manual').hide();
                     $('#container-button-bin-jog-raise').hide();
                     $('#container-button-bin-jog-lower').hide();
                 }
-                else{
-                    $('#container-button-bin-auto').show();
-                    $('#container-button-bin-manual').hide();
-                    $('#container-button-bin-jog-raise').show();
-                    $('#container-button-bin-jog-lower').show();
 
-                }
             }
         }
+        if((currentUser['role']>0)&&(currentUser['role']<4)) {
+            if(data['binsStates'][currentBinInfo['bin_id']]==4)
+            {
+                $('#container-button-bin-disable').hide();
+                $('#container-button-bin-enable').show();
+            }
+            else{
+                $('#container-button-bin-disable').show();
+                $('#container-button-bin-enable').hide();
+            }
+            $('#container-button-bin-fault-reset').show();
+        }
+        else{
+            $('#container-button-bin-fault-reset').hide();
+            $('#container-button-bin-disable').hide();
+            $('#container-button-bin-enable').hide();
+        }
+
     });
 </script>
 </body>

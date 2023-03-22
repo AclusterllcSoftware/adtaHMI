@@ -487,8 +487,12 @@ ipcMain.on("render:general-view-bin-details", function(e,machineId,key) {
 					bin_inputs[input_key]=basic_info['inputsInfo'][input_key];
 				}
 			}
+			let data={}
+			data['binInfo']=bin_info;
+			data['binInputs']=bin_inputs;
+			data['currentUser']=currentUser;
 			mainWindow.loadFile('general-view-bin-details.ejs').then(function (){
-				mainWindow.webContents.send("render:general-view-bin-details", bin_info,bin_inputs);
+				mainWindow.webContents.send("render:general-view-bin-details", data);
 			});
 		}
 	}
