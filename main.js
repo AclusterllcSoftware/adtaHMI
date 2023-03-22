@@ -142,8 +142,8 @@ function connectEventHandler() {
 
 	connectionStatus = setInterval(() => {
 		if(currentConnectedMachine != 0) {
-			//console.log("sending device status check message");		
-			let m = {"req" : "device_status", "id" : currentConnectedMachine};
+			//console.log("sending device status check message");
+			let m = {"req" : "getCommonStatus", "machineId" : currentConnectedMachine,'params':{}};
 			sendMessageToServer(JSON.stringify(m));
 		}
 	}, 2000);
@@ -196,7 +196,7 @@ function processReceivedJsonObjects(jsonObjects) {
 					'getStatisticsBins','getStatisticsBinsHourly','getStatisticsBinsCounter',
 					'getGeneralViewData','getGeneralDevicesViewData','getGeneralMotorsViewData','getGeneralBinDetailsViewData',
 					'getAlarmsViewData','getProductsHistory',
-					'getMaintViewData','changeCurrentUserPassword'
+					'getMaintViewData','changeCurrentUserPassword','getCommonStatus'
 				].includes(resType)){
 				mainWindow.webContents.send(resType, jsonObj);
 			}
@@ -235,13 +235,6 @@ function processReceivedJsonObjects(jsonObjects) {
 				let inductResult = jsonObj.result;
 				mainWindow.webContents.send("render:induct", inductResult);
 			}
-			else if(resType == "device_status") {
-				let deviceStatusResult = jsonObj.result;
-				//console.log(deviceStatusResult);
-				mainWindow.webContents.send("render:device_status", deviceStatusResult);
-			}
-
-			
 		}
 	});
 }

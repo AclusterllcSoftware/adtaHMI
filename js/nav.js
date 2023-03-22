@@ -213,19 +213,33 @@ ipcRenderer.on("render:server_disconnected", function(e) {
     jQuery("#status-circle").css("color", "#FF0000");
     //jQuery("#status-circle").css("color", "#000000");
 });
-
-ipcRenderer.on("render:device_status", function(e, device_status_result) {
-    let device_disconneted = device_status_result['total'];
-    device_disconneted = Number(device_disconneted);
-    if(device_disconneted != 0) {
+ipcRenderer.on("getCommonStatus", function(e, data) {
+    let disconnectedDeviceCounter = Number(data['disconnectedDeviceCounter']);
+    if(disconnectedDeviceCounter != 0) {
         jQuery("#status-circle").css("color", "#FFBF00");
-        //jQuery("#status-circle").css("color", "#0000FF");
-    } else {
+    }
+    else {
         jQuery("#status-circle").css("color", "#32CD32");
     }
-    changeMachineNameBg(device_status_result['mode'])
-});
+    changeMachineNameBg(data['machineMode'])
 
+    $('#header-alarm-id-1').hide();
+    $('#header-alarm-id-40').css('background-color','#00FF00');
+    $('#header-alarm-id-53').css('background-color','#00FF00');
+
+    for(let i in data['activeAlarms']){
+        let activeAlarm=data['activeAlarms'][i];
+        if((activeAlarm['alarm_id']==1)&&(activeAlarm['alarm_type']==0)){
+            $('#header-alarm-id-1').show();
+        }
+        if((activeAlarm['alarm_id']==40)&&(activeAlarm['alarm_type']==0)){
+            $('#header-alarm-id-40').css('background-color','#FF0000');
+        }
+        if((activeAlarm['alarm_id']==53)&&(activeAlarm['alarm_type']==0)){
+            $('#header-alarm-id-53').css('background-color','#FF0000');
+        }
+    }
+});
 ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from_server, selected_machine_from_server, maintenance_ip_list_from_server) {
     //console.log(machine_list_from_server);
     //console.log(selected_machine_from_server);

@@ -163,8 +163,8 @@
     ipcRenderer.on("getSettingsViewData",async function(e, data) {
         await setButtonAccess(data['connected']);
     })
-    ipcRenderer.on("render:device_status", function(e, data) {
-        let currentMachineMode=data['mode']
+    ipcRenderer.on("getCommonStatus", function(e, data) {
+        let currentMachineMode=data['machineMode']
         if(currentMachineMode==0){
             $('#button_manual_mode_active').show();
             $('#button_manual_mode_deactive').hide();
