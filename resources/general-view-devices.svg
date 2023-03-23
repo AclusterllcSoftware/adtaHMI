@@ -192,7 +192,7 @@
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(60 80)" class="device" gui-device-id="3" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(60 320)" class="device" gui-device-id="3" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
@@ -205,7 +205,7 @@
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(25 374)" class="device" gui-device-id="6" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(80 390)" class="device" gui-device-id="6" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
@@ -213,11 +213,11 @@
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(81 395)" class="device" gui-device-id="8" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(125 440)" class="device" gui-device-id="8" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(81 430)" class="device" gui-device-id="9" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(110 390)" class="device" gui-device-id="9" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
@@ -232,43 +232,43 @@
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(155 430)" class="device" gui-device-id="12" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(185 430)" class="device" gui-device-id="12" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(245 385)" class="device" gui-device-id="13" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(275 385)" class="device" gui-device-id="13" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(265 430)" class="device" gui-device-id="14" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(245 385)" class="device" gui-device-id="14" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(355 425)" class="device" gui-device-id="15" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(355 385)" class="device" gui-device-id="15" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(385 425)" class="device" gui-device-id="16" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(385 385)" class="device" gui-device-id="16" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(408 425)" class="device" gui-device-id="17" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(408 385)" class="device" gui-device-id="17" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(438 425)" class="device" gui-device-id="18" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(438 385)" class="device" gui-device-id="18" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(477 425)" class="device" gui-device-id="19" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(477 385)" class="device" gui-device-id="19" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(505 425)" class="device" gui-device-id="20" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(505 385)" class="device" gui-device-id="20" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(545 425)" class="device" gui-device-id="21" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(545 385)" class="device" gui-device-id="21" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
