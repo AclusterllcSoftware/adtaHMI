@@ -14,7 +14,7 @@
             <div id="container-button-bin-jog-lower" class="position-absolute" style="right: 100px;top:470px;z-index: 1;display: none;">
                 <button class="button-bin-command button-device-command-press-release button-3d button-rectangle button-bin-jog-lower d-block mb-4" data-device-id="0" data-command-start="6" data-command-end="5" data-parameter1="0">Jog Lower</button>
             </div>
-            <div id="container-button-bin-fault-reset" class="position-absolute" style="right: 570px;top:575px;z-index: 1;display: none;">
+            <div id="container-button-bin-fault-reset" class="position-absolute" style="right: 570px;top:575px;z-index: 1;">
                 <button class="button-bin-command button-device-command button-3d button-rectangle button-bin-fault-reset d-block mb-4" data-device-id="0" data-command="0" data-parameter1="0">Fault Reset</button>
             </div>
             <div id="container-button-bin-enable" class="position-absolute" style="right: 270px;top:575px;z-index: 1;display: none;">
@@ -116,10 +116,8 @@
                 $('#container-button-bin-disable').show();
                 $('#container-button-bin-enable').hide();
             }
-            $('#container-button-bin-fault-reset').show();
         }
         else{
-            $('#container-button-bin-fault-reset').hide();
             $('#container-button-bin-disable').hide();
             $('#container-button-bin-enable').hide();
         }
