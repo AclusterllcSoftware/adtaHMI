@@ -325,7 +325,7 @@ ipcMain.on("get:views", function(e, machineId, view_name) {
 	else if(machineId!=0){
 		if(['statistics','statistics-hourly','statistics-bins-detail'
 			,'general-view','general-view-devices','general-view-motors'
-			,'alarms-view','token','maint'].includes(view_name)){
+			,'alarms-view','token','maint','params','sorting-code-detai'].includes(view_name)){
 			mainWindow.webContents.send("render:"+view_name, data);
 		}
 		else{
