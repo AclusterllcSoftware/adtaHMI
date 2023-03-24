@@ -1,42 +1,272 @@
 <%- include('header', {currentMenu: 'maint', pageTitle: 'Maintenance'}); %>
-    <div class="row m-0 mt-1">
-        Maintenance
+
+<div class="row mt-3">
+    <div class="col-lg-5" style="text-align: center">
+        <div class="row">
+            <div class="col-lg-12">
+                <label for="update_input_board" class="mr-1">Choose a input board</label>
+                <span class="badge badge-pill badge-light">
+                <select id="update_input_board" class="pt-2 pb-2 pl-2 pr-2"
+                        style="border:0;background-color: #f8f9fa; font-weight: bold; font-size: 12px;">
+                </select>
+            </span>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-12">
+                <table class="table table-sm table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th width="10%">Label</th>
+                        <th width="35%">Description</th>
+                        <th width="30%">Tag</th>
+                        <th width="15%">Terminal</th>
+                        <th width="10%">State</th>
+                    </tr>
+                    </thead>
+                    <tbody id="table-inputs"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--    output boards-->
+    <div class="col-lg-7" style="text-align: center">
+        <div class="row">
+            <div class="col-lg-12">
+                <label for="update_output_board" class="mr-1">Choose a output board</label>
+                <span class="badge badge-pill badge-light">
+                <select id="update_output_board" class="pt-2 pb-2 pl-2 pr-2"
+                        style="border:0;background-color: #f8f9fa; font-weight: bold; font-size: 12px;">
+                </select>
+            </span>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-12">
+                <table class="table table-sm table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th width="10%">Label</th>
+                        <th width="20%">Description</th>
+                        <th width="25%">Tag</th>
+                        <th width="10%">Terminal</th>
+                        <th width="5%">State</th>
+                        <th width="30%"></th>
+                    </tr>
+                    </thead>
+                    <tbody id="table-outputs"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+</div>
+
+<style>
+    table {
+        table-layout: fixed;
+    }
+
+    .table-striped > tbody > tr:nth-child(even) > td {
+        background-color: #bfdbfe;
+    }
+
+    .table-striped > tbody > tr:nth-child(odd) > td {
+        background-color: #fff;
+    }
+
+    .table-striped > thead > tr > th {
+        background-color: #e2e8f0;
+    }
+</style>
 <%- include('footer', {currentMenu: 'maint'}); %>
 <script src="js/jquery-bootstrap.js"></script>
 <script src="js/jquery.newsTicker.js"></script>
 <script src="js/daterangepicker/moment.min.js"></script>
 <script src="js/nav.js"></script>
-
 <script>
-let basic_info={}
+    let basic_info = {}, boards = [], input_boards = [], selected_input_board = null, board_ios = [],
+        selected_inputs = [], input_options_html = '', output_boards = [], selected_output_board = null,
+        selected_outputs = [],
+        output_options_html = '';
 
-jQuery(document).ready(function() {
-    jQuery("#ip_list_dropdown").change(function() {
-        selected_machine = jQuery(this).val();
-        if(selected_machine !== "") {
-            let selected_machine_name = machine_list[selected_machine];
-            jQuery("#display_machine_name").text(selected_machine_name);
-        }
-        else {
-            jQuery("#display_machine_name").text("Select a machine");
-            selected_machine = 0;
-        }
-        ipcRenderer.send("get:views", selected_machine, "maint");
+    jQuery(document).ready(function () {
+        jQuery("#ip_list_dropdown").change(function () {
+            selected_machine = jQuery(this).val();
+            if (selected_machine !== "") {
+                let selected_machine_name = machine_list[selected_machine];
+                jQuery("#display_machine_name").text(selected_machine_name);
+            } else {
+                jQuery("#display_machine_name").text("Select a machine");
+                selected_machine = 0;
+            }
+            ipcRenderer.send("get:views", selected_machine, "maint");
+        });
+        jQuery('#update_input_board').change(function () {
+            let sid = jQuery(this).val();
+            selected_input_board = input_boards.filter(b => b.board_id == sid)[0];
+            updateInputs();
+            ipcRenderer.send("sendRequest", selected_machine, 'getMaintViewData', {});
+        });
+
+        jQuery('#update_output_board').change(function () {
+            let sout = jQuery(this).val();
+            selected_output_board = output_boards.filter(b => Number(b.board_id) == Number(sout))[0];
+            updateOutputs();
+            ipcRenderer.send("sendRequest", selected_machine, 'getMaintViewData', {});
+        });
+
     });
-});
 
-ipcRenderer.on("render:maint", function(e, data) {
-    basic_info=data;
-    console.log(data)
-    setInterval(() => {
-        ipcRenderer.send("sendRequest", selected_machine,'getMaintViewData', {});
-    }, 1000);
-});
-ipcRenderer.on("getMaintViewData", function(e, data) {
-    console.log(data)
-});
+    ipcRenderer.on("render:maint", function (e, data) {
+        basic_info = data;
+        boards = Object.values(basic_info['boardsInfo']);
+        input_boards = boards.filter(b => b.board_type == 0);
+        output_boards = boards.filter(b => b.board_type == 1);
+        board_ios = Object.values(basic_info['board_iosInfo']);
+
+        if (selected_input_board == null) {
+            selected_input_board = input_boards[0];
+            updateInputs();
+        }
+        if (selected_output_board == null) {
+            selected_output_board = output_boards[0];
+            updateOutputs();
+        }
+        input_boards.forEach(b => {
+            if (b.id == selected_input_board.id) {
+                input_options_html += '<option selected ' + 'value='+b.id+'>' + b.id+' -- '+ b.description+ ' -- '+ b.location + '</option>';
+            } else {
+                input_options_html += '<option '+ 'value='+b.id+'>' + b.id+' -- '+ b.description+ ' -- '+ b.location + '</option>';
+            }
+
+        });
+        output_boards.forEach(b => {
+            if (b.id == selected_output_board.id) {
+                output_options_html += '<option selected ' + 'value='+b.id+'>' + b.id+' -- '+ b.description+ ' -- '+ b.location + '</option>';
+            } else {
+                output_options_html += '<option '+ 'value='+b.id+'>' + b.id+' -- '+ b.description+ ' -- '+ b.location + '</option>';
+            }
+        });
+
+        jQuery('#update_input_board').html(input_options_html);
+        jQuery('#update_output_board').html(output_options_html);
+
+        ipcRenderer.send("sendRequest", selected_machine, 'getMaintViewData', {});
+        setInterval(() => {
+            ipcRenderer.send("sendRequest", selected_machine,'getMaintViewData', {});
+        }, 60000);
+    });
+
+    ipcRenderer.on("getMaintViewData", function (e, data) {
+        console.log('data', data);
+        let inputs_table_html = '', input_states = Object.values(data['ioInputsStates']),
+            output_states = Object.values(data['ioOutputStates']), outputs_table_html = '';
+
+        input_states.forEach(d => {
+            let current_input = selected_inputs.find(i => Number(i.input_id) == Number(d.input_id));
+            if (current_input !== undefined) {
+                current_input['state'] = d.state;
+            }
+        });
+        output_states.forEach(d => {
+            let current_output = selected_outputs.find(i => Number(i.output_id) == Number(d.output_id));
+            if (current_output !== undefined) {
+                current_output['state'] = d.state;
+            }
+        });
+        selected_inputs.forEach(i => {
+            inputs_table_html +=
+                "<tr>" +
+                "<td>" +
+                i.in +
+                "</td>" +
+                "<td class='text-left' style='word-wrap: break-word'>" +
+                i.description +
+                "</td>" +
+                "<td class='text-left'>" +
+                i.tag +
+                "</td>" +
+                "<td class='text-left'>" +
+                i.terminal +
+                "</td>" +
+                "<td>" +
+                (i.state === 1 ?
+                        '<span style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
+                        : '<span style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>'
+                ) +
+                "</td>" + "</tr>";
+        });
+
+        selected_outputs.forEach(i => {
+            outputs_table_html +=
+                "<tr>" +
+                "<td>" +
+                i.in +
+                "</td>" +
+                "<td class='text-left' style='word-wrap: break-word'>" +
+                i.description +
+                "</td>" +
+                "<td class='text-left'>" +
+                i.tag +
+                "</td>" +
+                "<td class='text-left'>" +
+                i.terminal +
+                "</td>" +
+                "<td>" +
+                (i.state === 1 ?
+                        '<span style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
+                        : '<span style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>'
+                ) +
+                "</td>" +
+                "<td>" +
+                (Number(i.change_allowed) === 1 ?
+                        '<form class="d-flex form-output"> <input type="text" class="form-control" name="c_value"> ' +
+                        '<input class="output_id" type="hidden" name="c_id" value="${i.in}">' +
+                        '<button type="submit" class="btn btn-primary button_change" >Change</button> </form>'
+                        : ''
+                ) +
+                "</td>" +
+                "</tr>";
+        });
+
+        jQuery("#table-inputs").empty();
+        jQuery("#table-inputs").append(inputs_table_html);
+        jQuery("#table-outputs").empty();
+        jQuery("#table-outputs").append(outputs_table_html);
+        //binding all output ids to hidden input field
+        jQuery('.form-output>.output_id').each(function (index, element) {
+            $(element).val(Number(selected_outputs[index]['output_id']));
+        });
+
+        $('.form-output').submit(function (e) {
+            e.preventDefault();
+            let inputValues = $(this).serializeArray();
+            let output_id=null, output_value=null;
+            inputValues.forEach(inpValue => {
+                if(inpValue.name== 'c_value'){
+                    output_value = Number(inpValue.value);
+                }
+                if(inpValue.name== 'c_id'){
+                    output_id = Number(inpValue.value);
+                }
+            });
+            ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
+                'deviceId':99,
+                'command':output_value,
+                'parameter1':output_id
+            });
+        });
+    });
+
+
+    function updateInputs() {
+        selected_inputs = board_ios.filter(b => b.board_id == selected_input_board.id);
+        console.log(selected_inputs);
+    }
+
+    function updateOutputs() {
+        selected_outputs = board_ios.filter(b => b.board_id == selected_output_board.id);
+        console.log('outputs', selected_outputs);
+    }
 </script>
-</body>
-</html>
