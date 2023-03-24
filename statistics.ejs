@@ -45,6 +45,11 @@
                     <tbody id="scanner_table">
                     </tbody>
                 </table>
+                <button id="reset-button" class="button-device-command button-3d button-rectangle"
+                        data-device-id="86"
+                        data-command="0"
+                        data-parameter1="0">Reset
+                </button>
             </div>
         </div>
         <div class="form-check form-switch">
@@ -365,7 +370,7 @@
     });
 
     let scs_info = [], shift_statistics = {}, start_time = null, end_time = null, shift_strating_time = null,
-        scs_data={};
+        scs_data={}, current_user={};
     let production_data = {
         total_read: {label: 'Total inducted', value: 0},
         good: {label: 'Total good diverts', value: 0},
@@ -423,9 +428,15 @@
             }
             ipcRenderer.send("get:views", selected_machine, "statistics");
         });
+        jQuery('#reset-button').hide();
     });
 
     ipcRenderer.on('render:statistics', function (e, basic_info) {
+        console.log(basic_info);
+        current_user = basic_info['currentUser'];
+        if(current_user.role ==1 || current_user.role==2) {
+            $('#reset-button').show();
+        }
         Object.values(basic_info['scsInfo']).forEach(v => {
             scs_data["sc" + v.value] = {code:"sc" + v.value,
                 color: sc_color_codes["sc" + v.value],
