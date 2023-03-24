@@ -196,7 +196,7 @@ function processReceivedJsonObjects(jsonObjects) {
 					'getStatisticsBins','getStatisticsBinsHourly','getStatisticsBinsCounter',
 					'getGeneralViewData','getGeneralDevicesViewData','getGeneralMotorsViewData','getGeneralBinDetailsViewData',
 					'getAlarmsViewData','getProductsHistory',
-					'getMaintViewData','changeCurrentUserPassword','getCommonStatus'
+					'getMaintViewData','getParamsViewData','changeCurrentUserPassword','getCommonStatus'
 				].includes(resType)){
 				mainWindow.webContents.send(resType, jsonObj);
 			}
@@ -225,10 +225,8 @@ function processReceivedJsonObjects(jsonObjects) {
 				let alarmDataResult = jsonObj.result.data;
 				let machine_mode = jsonObj.result.mode;
 				mainWindow.webContents.send("render:alarms_hit_list", alarmsHitListResult, alarmDataResult, machine_mode);
-			} else if(resType == "status") {
-				let statusViewResult = jsonObj.result;
-				mainWindow.webContents.send("render:status", statusViewResult);
-			} else if(resType == "mod_sort") {
+			}
+			else if(resType == "mod_sort") {
 				let modSortResult = jsonObj.result;
 				mainWindow.webContents.send("render:mod_sort", modSortResult);
 			} else if(resType == "induct") {
