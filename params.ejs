@@ -37,16 +37,16 @@
                 selected_machine = 0;
             }
             ipcRenderer.send("get:views", selected_machine, "params");
-            setInterval(()=>{
-                ipcRenderer.send("get:views", selected_machine, "params");
-            }, 60000)
+            // setInterval(()=>{
+            //     ipcRenderer.send("get:views", selected_machine, "params");
+            // }, 60000)
         });
     });
     ipcRenderer.on("render:params", function (e, data) {
         let parameters = [], table_html = '';
-        basic_info = data;
+            basic_info = data;
+        console.log(data)
         parameters = Object.values(basic_info['parametersInfo']);
-        console.log(parameters);
         parameters.forEach(i => {
             table_html +=
                 "<tr>" +
@@ -56,7 +56,7 @@
                 "<td>" +
                 i.description +
                 "</td>" +
-                "<td>" +
+                "<td data-id="+i.id +" class='params-value'>" +
                 i.value +
                 "</td>" +
                 "<td>" +
@@ -92,5 +92,22 @@
                 'value':new_value
             });
         });
+        ipcRenderer.send("sendRequest", selected_machine, 'getMaintViewData', {});
+        setInterval(()=>{
+            ipcRenderer.send("sendRequest", selected_machine, 'getMaintViewData', {});
+        }, 1000);
+    });
+    ipcRenderer.on("getMaintViewData", function (e, data) {
+        console.log(data);
+        let paramValues=Object.values(data['parameterValues']), allRows=[];
+        console.log(paramValues);
+        allRows=$('.params-value');
+        $(allRows).each((key,elem)=>{
+            let rowId=$(elem)[0].dataset.id, paramData = paramValues.find(d=> d.param_id== rowId);
+            console.log(paramData);
+            $(elem).text(paramData.value);
+        })
+        console.log();
+
     });
 </script>
