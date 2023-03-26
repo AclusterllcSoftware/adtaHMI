@@ -61,11 +61,12 @@
                 <thead>
                 <tr>
                     <th width="20%">Timestamp</th>
+                    <th width="20%">No of Occurrences</th>
                     <th width="10%">Duration</th>
                     <th width="10%">Class</th>
                     <th width="10%">Location</th>
                     <th width="20%">Description</th>
-                    <th width="20%">Variable Name</th>
+                    <th width="10%">Variable Name</th>
                 </tr>
                 </thead>
                 <tbody id="active_alarm_tbody">
@@ -73,6 +74,7 @@
                 <tfoot>
                     <tr>
                         <th>Timestamp</th>
+                        <th>No of Occurrences</th>
                         <th>Duration</th>
                         <th>Class</th>
                         <th>Location</th>
@@ -217,6 +219,7 @@ jQuery(document).ready(function() {
         }],
         "columns": [
             null,
+            null,
             { "orderable": false },
             null,
             null,
@@ -228,10 +231,10 @@ jQuery(document).ready(function() {
             this.api().columns().every(function () {
                 var column = this;
                 
-                if (column.index() === 2 || column.index() === 3) {
+                if (column.index() === 3 || column.index() === 4) {
                     let select_txt = "";
                     let select_id = "";
-                    if(column.index() === 2) {
+                    if(column.index() === 3) {
                         select_txt = "Select class";
                         select_id = "class_filter";
                     } else {
@@ -285,26 +288,41 @@ $.fn.dataTableExt.afnFiltering.push(
 );
 
 ipcRenderer.on("render:alarms_hit_list", function(e, alarms_history_result, alarms_data_result, machine_mode_from_server) {
+    let alarms_history=[];
     machine_mode = machine_mode_from_server;
     changeMachineNameBg(machine_mode);
     //console.log("Mode: ", machine_mode);
-    //console.log(alarms_history_result);
-    //console.log(alarms_data_result);
+    // console.log(alarms_history_result);
+    // console.log(alarms_data_result);
     //jQuery("#active_alarm_tbody").empty();
     data_table.clear().search( '' ).columns().search( '' ).draw();
+    alarms_history_result.forEach((history_row)=> {
+        let comobo_id= history_row['mid'] + "" + history_row['aid'] + "" + history_row['at'],
+            foundAlarm = alarms_history[comobo_id];
+        if(foundAlarm !== undefined) {
+            alarms_history[comobo_id]['freq'] = Number(alarms_history[comobo_id]['freq'])+1;
+            alarms_history[comobo_id]['duration'] = Number(alarms_history[comobo_id]['duration']) + history_row['duration'];
+            alarms_history[comobo_id]['t'] = alarms_history[comobo_id]['t']+','+ history_row['t'];
+        } else {
+            alarms_history[comobo_id]= {...history_row, freq:1};
+        }
+    });
 
-    //for (let k in alarms_result) {
-    alarms_history_result.forEach(function(history_row){
-        
+    alarms_history.forEach(function(history_row){
         let related_alarm_type = history_row['at'], 
         related_alarm_id = history_row['aid'], 
         related_machine_id = history_row['mid'],
-        related_active_timestamp = history_row['t'],
+        related_active_timestamp = history_row['t'].indexOf(',') >-1 ? history_row['t'].split(',') : history_row['t'],
         related_inactive_timestamp = history_row['i'],
-        related_duration = history_row['duration'];
+        related_duration = history_row['duration'], converted_active_timestamps =[];
 
-        related_active_timestamp = timeConverter(related_active_timestamp);
-        
+        // related_active_timestamp = timeConverter(related_active_timestamp);
+        if(related_active_timestamp instanceof Array){
+            related_active_timestamp.forEach(t=> converted_active_timestamps.push(timeConverter(t)));
+        } else {
+            converted_active_timestamps.push(timeConverter(related_active_timestamp));
+        }
+        console.log(converted_active_timestamps);
         let combo_id = related_machine_id + "" + related_alarm_id + "" + related_alarm_type;
         let related_alarm_data = alarms_data_result[combo_id];
         
@@ -318,7 +336,8 @@ ipcRenderer.on("render:alarms_hit_list", function(e, alarms_history_result, alar
         //     '</tr>';
 
         data_table.row.add( [
-            related_active_timestamp,
+            [...converted_active_timestamps],
+            history_row['freq'],
             secondsToDhms(related_duration),
             alarm_class_to_names[related_alarm_data['alarm_class']],
             related_alarm_data['location'],
@@ -331,21 +350,20 @@ ipcRenderer.on("render:alarms_hit_list", function(e, alarms_history_result, alar
 
     data_table.columns().every(function () {
         var column = this;
-        
-        if (column.index() === 2 || column.index() === 3) {
+
+        if (column.index() === 3 || column.index() === 4) {
             let select_txt = "";
             let select_id = "";
-            if(column.index() === 2) {
+            if(column.index() === 3) {
                 select_txt = "Select class";
                 select_id = "#class_filter";
-            } else {
+            } else if(column.index() === 4) {
                 select_txt = "Select location";
                 select_id = "#location_filter";
             }
             
             let select = $(select_id);
             column.data().unique().sort().each(function (d, j) {
-                //console.log(d);
                 select.append('<option value="' + d + '">' + d + '</option>')
             });
         }
