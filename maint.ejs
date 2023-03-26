@@ -122,8 +122,8 @@
         let outputs_table_html = '', output_options_html = '';
         basic_info = data;
         boards = Object.values(basic_info['boardsInfo']);
-        input_boards = boards.filter(b => b.board_type == 0);
-        output_boards = boards.filter(b => b.board_type == 1);
+        input_boards = boards.filter(b => b.board_type == 0).sort((a,b) => Number(a.board_id) - Number(b.board_id));
+        output_boards = boards.filter(b => b.board_type == 1).sort((a,b) => Number(a.board_id) - Number(b.board_id));
         board_ios = Object.values(basic_info['board_iosInfo']);
 
         if (selected_input_board == null) {
