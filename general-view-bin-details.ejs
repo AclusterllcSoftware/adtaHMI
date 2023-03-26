@@ -83,17 +83,28 @@
             if(currentBinInput['gui_input_id']=='110'){
                 if((currentUser['role']>0)&&(currentUser['role']<4))
                 {
-                    if(currentBinInput['active_state']==currentInputState['input_state']){
+                    if(currentBinInput['active_state']==currentInputState['input_state']){//auto
                         $('#container-button-bin-auto').hide();
                         $('#container-button-bin-manual').show();
                         $('#container-button-bin-jog-raise').hide();
                         $('#container-button-bin-jog-lower').hide();
+                        $('#container-button-bin-disable').hide();
+                        $('#container-button-bin-enable').hide();
                     }
-                    else{
+                    else{//manual
                         $('#container-button-bin-auto').show();
                         $('#container-button-bin-manual').hide();
                         $('#container-button-bin-jog-raise').show();
                         $('#container-button-bin-jog-lower').show();
+                        if(data['binsStates'][currentBinInfo['bin_id']]==4)
+                        {
+                            $('#container-button-bin-disable').hide();
+                            $('#container-button-bin-enable').show();
+                        }
+                        else{
+                            $('#container-button-bin-disable').show();
+                            $('#container-button-bin-enable').hide();
+                        }
 
                     }
                 }
@@ -102,26 +113,12 @@
                     $('#container-button-bin-manual').hide();
                     $('#container-button-bin-jog-raise').hide();
                     $('#container-button-bin-jog-lower').hide();
+                    $('#container-button-bin-disable').hide();
+                    $('#container-button-bin-enable').hide();
                 }
 
             }
         }
-        if((currentUser['role']>0)&&(currentUser['role']<4)) {
-            if(data['binsStates'][currentBinInfo['bin_id']]==4)
-            {
-                $('#container-button-bin-disable').hide();
-                $('#container-button-bin-enable').show();
-            }
-            else{
-                $('#container-button-bin-disable').show();
-                $('#container-button-bin-enable').hide();
-            }
-        }
-        else{
-            $('#container-button-bin-disable').hide();
-            $('#container-button-bin-enable').hide();
-        }
-
     });
 </script>
 </body>
