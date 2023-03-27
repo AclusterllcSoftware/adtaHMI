@@ -489,12 +489,18 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
                     }
                 }
             }
-            if((door_closed=='active')&&(door_locked=='in-active')&&(door_safe=='in-active')){
-                $('.door-lock[data-device-id='+(door_no-1+91)+']').show();
+            if(door_closed=='active'){
+                if((door_locked=='in-active')&&(door_safe=='in-active')){
+                    $('.door-lock[data-device-id='+(door_no-1+91)+']').show();
+                }
+                else{
+                    $('.door-unlock[data-device-id='+(door_no-1+91)+']').show();
+                }
             }
-            else if((door_closed=='active')&&((door_locked=='active')||(door_safe=='active'))){
-                $('.door-unlock[data-device-id='+(door_no-1+91)+']').show();
+            else{
+                $('.door-open[data-device-id='+(door_no-1+91)+']').show();
             }
+
         }
 }
 
