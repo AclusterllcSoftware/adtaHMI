@@ -87,7 +87,7 @@
 <script src="js/nav.js"></script>
 <script>
     let basic_info = {}, boards = [], input_boards = [], selected_input_board = null, board_ios = [],
-        selected_inputs = [], input_options_html = '', output_boards = [], selected_output_board = null,
+        selected_inputs = [], output_boards = [], selected_output_board = null,
         selected_outputs = [];
 
     jQuery(document).ready(function () {
@@ -113,14 +113,13 @@
             let sout = jQuery(this).val();
             selected_output_board = output_boards.filter(b => Number(b.board_id) == Number(sout))[0];
             updateOutputs();
-            console.log(selected_output_board);
             ipcRenderer.send("get:views", selected_machine, "maint");
         });
 
     });
 
     ipcRenderer.on("render:maint", function (e, data) {
-        let outputs_table_html = '', output_options_html = '';
+        let outputs_table_html = '', output_options_html = '',input_options_html = '';
         basic_info = data;
         boards = Object.values(basic_info['boardsInfo']);
         input_boards = boards.filter(b => b.board_type == 0).sort((a,b) => Number(a.board_id) - Number(b.board_id));
@@ -154,7 +153,7 @@
                 output_options_html += '<option '+ 'value='+b.id+'>' + b.id+' -- '+ b.description+ ' -- '+ b.location + '</option>';
             }
         });
-
+        jQuery('#update_input_board').empty();
         jQuery('#update_input_board').html(input_options_html);
         jQuery('#update_output_board').empty();
         jQuery('#update_output_board').html(output_options_html);
