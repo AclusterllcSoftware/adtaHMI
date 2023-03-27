@@ -39,9 +39,14 @@
                     text: "",
                 },
             },
-            //   tooltip: {
-            //     valueSuffix: title == "Bins Detailed-Total" ? "" : "%",
-            //   },
+            tooltip: {
+                // valueSuffix: title == 'Bins Detailed-Total' ? '' : '%'
+                formatter: function () {
+                    return '<b>' + this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' +
+                        'Total: ' + this.point.stackTotal;
+                }
+            },
             legend: {
                 reversed: true,
             },
@@ -52,6 +57,17 @@
                         enabled: true,
                     },
                 },
+            },
+            exporting: {
+                enabled: true,
+                buttons: {
+                    contextButton: {
+                        menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
+                    }
+                }
+            },
+            credits: {
+                enabled: false
             },
             series: chart_data.map((d) => ({
                 name: d.label,
