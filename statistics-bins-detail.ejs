@@ -138,7 +138,7 @@
             ], reject_recirc_stack = [], reject_recirc_stack_per = [];
         let sc_codes = scs_info.map(s => s.code);
         bins_statistics = data_result['statistics'];
-
+        bins_info.sort((a,b)=> Number(a.sort_manager_id)-Number(b.sort_manager_id));
         bins_info.forEach((bin, key) => {
             bins_summary[key] = {bin_id: bin.bin_id, label: bin.bin_label}
 
@@ -274,7 +274,12 @@
                 }
             },
             tooltip: {
-                valueSuffix: title == 'Bins Detailed-Total' ? '' : '%'
+                // valueSuffix: title == 'Bins Detailed-Total' ? '' : '%'
+                formatter: function () {
+                    return '<b>' + this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' +
+                        'Total: ' + this.point.stackTotal;
+                }
             },
             legend: {
                 reversed: true
@@ -294,6 +299,17 @@
                         }
                     }
                 }
+            },
+            exporting: {
+                enabled: true,
+                buttons: {
+                    contextButton: {
+                        menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
+                    }
+                }
+            },
+            credits: {
+                enabled: false
             },
             series: series
         });
