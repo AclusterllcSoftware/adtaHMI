@@ -449,9 +449,13 @@
                     text: "",
                 },
             },
-            //   tooltip: {
-            //     valueSuffix: title == "Bins Detailed-Total" ? "" : "%",
-            //   },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + moment(this.x).format("YYYY-MM-DD") + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' +
+                        'Total: ' + this.point.stackTotal;
+                }
+            },
             legend: {
                 reversed: true,
             },
@@ -462,6 +466,17 @@
                         enabled: true,
                     },
                 },
+            },
+            exporting: {
+                enabled: true,
+                buttons: {
+                    contextButton: {
+                        menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
+                    }
+                }
+            },
+            credits: {
+                enabled: false
             },
             series: scs_data.map((d) => ({
                 name: d.label,
@@ -486,9 +501,13 @@
                     text: "",
                 },
             },
-            //   tooltip: {
-            //     valueSuffix: title == "Bins Detailed-Total" ? "" : "%",
-            //   },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + moment(this.x).format("YYYY-MM-DD") + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' +
+                        'Total: ' + this.point.stackTotal;
+                }
+            },
             legend: {
                 reversed: true,
             },
@@ -499,6 +518,17 @@
                         enabled: true,
                     },
                 },
+            },
+            exporting: {
+                enabled: true,
+                buttons: {
+                    contextButton: {
+                        menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
+                    }
+                }
+            },
+            credits: {
+                enabled: false
             },
             series: general_data,
         });
