@@ -318,7 +318,8 @@ ipcRenderer.on("render:alarms_hit_list", function(e, alarms_history_result, alar
 
         // related_active_timestamp = timeConverter(related_active_timestamp);
         if(related_active_timestamp instanceof Array){
-            related_active_timestamp.forEach(t=> converted_active_timestamps.push(timeConverter(t)));
+            // related_active_timestamp.forEach(t=> converted_active_timestamps.push(timeConverter(t)));
+            converted_active_timestamps.push(timeConverter(related_active_timestamp[0]))
         } else {
             converted_active_timestamps.push(timeConverter(related_active_timestamp));
         }

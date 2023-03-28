@@ -1,7 +1,7 @@
 <%- include('header', {currentMenu: 'maint', pageTitle: 'Maintenance'}); %>
 
 <div class="row mt-3">
-    <div class="col-lg-5" style="text-align: center">
+    <div class="col-lg-6">
         <div class="row">
             <div class="col-lg-12">
                 <label for="update_input_board" class="mr-1">Choose a input board</label>
@@ -30,7 +30,7 @@
         </div>
     </div>
     <!--    output boards-->
-    <div class="col-lg-7" style="text-align: center">
+    <div class="col-lg-6">
         <div class="row">
             <div class="col-lg-12">
                 <label for="update_output_board" class="mr-1">Choose a output board</label>
@@ -47,11 +47,11 @@
                     <thead>
                     <tr>
                         <th width="10%">Label</th>
-                        <th width="20%">Description</th>
-                        <th width="25%">Tag</th>
+                        <th width="35%">Description</th>
+                        <th width="20%">Tag</th>
                         <th width="10%">Terminal</th>
                         <th width="5%">State</th>
-                        <th width="30%"></th>
+                        <th width="15%"></th>
                     </tr>
                     </thead>
                     <tbody id="table-outputs"></tbody>
@@ -65,6 +65,7 @@
 <style>
     table {
         table-layout: fixed;
+        font-size: 12px;
     }
 
     .table-striped > tbody > tr:nth-child(even) > td {
@@ -86,7 +87,7 @@
 <script src="js/nav.js"></script>
 <script>
     let basic_info = {}, boards = [], input_boards = [], selected_input_board = null, board_ios = [],
-        selected_inputs = [], input_options_html = '', output_boards = [], selected_output_board = null,
+        selected_inputs = [], output_boards = [], selected_output_board = null,
         selected_outputs = [];
 
     jQuery(document).ready(function () {
@@ -112,14 +113,13 @@
             let sout = jQuery(this).val();
             selected_output_board = output_boards.filter(b => Number(b.board_id) == Number(sout))[0];
             updateOutputs();
-            console.log(selected_output_board);
             ipcRenderer.send("get:views", selected_machine, "maint");
         });
 
     });
 
     ipcRenderer.on("render:maint", function (e, data) {
-        let outputs_table_html = '', output_options_html = '';
+        let outputs_table_html = '', output_options_html = '',input_options_html = '';
         basic_info = data;
         boards = Object.values(basic_info['boardsInfo']);
         input_boards = boards.filter(b => b.board_type == 0).sort((a,b) => Number(a.board_id) - Number(b.board_id));
@@ -153,7 +153,7 @@
                 output_options_html += '<option '+ 'value='+b.id+'>' + b.id+' -- '+ b.description+ ' -- '+ b.location + '</option>';
             }
         });
-
+        jQuery('#update_input_board').empty();
         jQuery('#update_input_board').html(input_options_html);
         jQuery('#update_output_board').empty();
         jQuery('#update_output_board').html(output_options_html);
@@ -183,7 +183,7 @@
                 (Number(i.change_allowed) === 1 ?
                         '<form class="d-flex form-output"> <input type="text" class="form-control" name="c_value"> ' +
                         '<input class="output_id" type="hidden" name="c_id" value="${i.in}">' +
-                        '<button type="submit" class="btn btn-primary button_change" >Change</button> </form>'
+                        '<button type="submit" class="btn btn-primary btn-sm button_change" style="font-size: 12px;padding-left: 2px; padding-right: 2px; padding-top: 1px; padding-bottom: 1px;">Change</button> </form>'
                         : ''
                 ) +
                 "</td>" +
