@@ -36,6 +36,13 @@
                     <input type="checkbox" class="form-check-input" id="detailed_active_alarm" name="detailed_active_alarm" value="active">
                     <label class="form-check-label" for="detailed_active_alarm">Detailed Active Alarm</label>
                 </div>
+                <div class="form-group">
+                    <label>Motor Speed Unit</label>
+                    <select id="motor_speed_unit" name="motor_speed_unit" class="form-control">
+                        <option value="m_s">m/s</option>
+                        <option value="ft_min">ft/min</option>
+                    </select>
+                </div>
                 <button type="button" style="visibility: hidden;" id="button_save" class="btn btn-primary">Save</button>
                 <button type="button" style="display: none;" id="button_login" class="btn btn-primary">Login</button>
                 <button type="button" style="display: none;" id="button_logout" class="btn btn-primary">Logout</button>
@@ -69,7 +76,8 @@
                 else {
                     jQuery(related_input_id).prop( "checked", false );
                 }
-            } else {
+            }
+            else {
                 if(value != "not_set") {
                     jQuery(related_input_id).val(value)
                 }

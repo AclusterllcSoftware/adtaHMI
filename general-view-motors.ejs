@@ -199,7 +199,12 @@ ipcRenderer.on("getGeneralMotorsViewData", function(e, data) {
     let activeAlarms=data['activeAlarms'];
 
     if(motorIdForDetailsView>0){
-        $('#motor-details #current_speed').html(data['motorsCurrentSpeed'][selected_machine+'_'+motorIdForDetailsView]/1000+ 'm/s')
+        if(basic_info['hmiSettings']['motor_speed_unit']=='ft_min'){
+            $('#motor-details #current_speed').html((data['motorsCurrentSpeed'][selected_machine+'_'+motorIdForDetailsView]/5.08).toFixed(2)+ ' ft/min')
+        }
+        else{
+            $('#motor-details #current_speed').html(data['motorsCurrentSpeed'][selected_machine+'_'+motorIdForDetailsView]/1000+ ' m/s')
+        }
         if(motorsInfo[selected_machine+'_'+motorIdForDetailsView]){
             let device_number=motorsInfo[selected_machine+'_'+motorIdForDetailsView]['device_number'];
             if(device_number>0){

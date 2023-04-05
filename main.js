@@ -321,6 +321,7 @@ ipcMain.on("get:views", function(e, machineId, view_name) {
 	currentConnectedMachine = machineId;
 	let data=basic_info;
 	data['currentUser']=currentUser;
+	data['hmiSettings']=getHMISettings();
 	if(['settings'].includes(view_name)){
 		mainWindow.webContents.send("render:"+view_name, basic_info);
 	}
@@ -414,40 +415,46 @@ ipcMain.on("page:loaded", function(e) {
 	mainWindow.webContents.send("link:changed", ipListHtml, machineList, currentConnectedMachine, maintenanceIpList);
 });
 
-ipcMain.handle('getStoreValue', (e) => {
-	let server_address = store.get("adta_server_address", "not_set");
-	let server_port = store.get("adta_server_port", "not_set");
-	let diagonstic_url = store.get("adta_diagonstic_url", "not_set");
-	let cm_address = store.get("adta_cm_address", "not_set");
-	let detailed_active_alarm = store.get("adta_detailed_active_alarm", "not_set");
 
-
-	return {"ip_address_input" : server_address, "port_input" : server_port, "diagonstic_url" : diagonstic_url, "cm_ip_address_input" : cm_address, "detailed_active_alarm" : detailed_active_alarm};
-});
 
 ipcMain.handle('getSingleStoreValue', (event, key) => {
 	return store.get(key, "not_set");
 });
 
 ///////
-
+function getHMISettings(){
+	let project_prefix='adta_';
+	return {
+		"ip_address_input" : store.get(project_prefix+"server_address", "not_set")
+		,"port_input" : store.get(project_prefix+"server_port", "not_set")
+		,"diagonstic_url" : store.get(project_prefix+"diagonstic_url", "not_set")
+		,"cm_ip_address_input" :  store.get(project_prefix+"cm_address", "not_set")
+		,"detailed_active_alarm" : store.get(project_prefix+"detailed_active_alarm", "not_set")
+		,"motor_speed_unit" : store.get(project_prefix+"motor_speed_unit", "m_s")
+	};
+}
+ipcMain.handle('getStoreValue', (e) => {
+	return getHMISettings();
+});
 ipcMain.on("saveSettings", function(e, settings_data) {
-	store.set("adta_server_address", settings_data['ip_address_input']);
+	let project_prefix='adta_';
+	store.set(project_prefix+"_server_address", settings_data['ip_address_input']);
 	host = settings_data['ip_address_input'];
 
-	store.set("adta_server_port", settings_data['port_input']);
+	store.set(project_prefix+"server_port", settings_data['port_input']);
 	port = settings_data['port_input'];
 
-	store.set("adta_cm_address", settings_data['cm_ip_address_input']);
+	store.set(project_prefix+"cm_address", settings_data['cm_ip_address_input']);
 	cmAddress = settings_data['cm_ip_address_input'];
 
-	store.set("adta_diagonstic_url", settings_data['diagonstic_url']);
+	store.set(project_prefix+"_diagonstic_url", settings_data['diagonstic_url']);
 	if (typeof settings_data['detailed_active_alarm'] !== 'undefined') {
-		store.set("adta_detailed_active_alarm", settings_data['detailed_active_alarm']);
+		store.set(project_prefix+"detailed_active_alarm", settings_data['detailed_active_alarm']);
 	}
 	else {
-		store.set("adta_detailed_active_alarm", "not_set");
+		store.set(project_prefix+"detailed_active_alarm", "not_set");
 	}
+	store.set(project_prefix+"motor_speed_unit", settings_data['motor_speed_unit']);
 });
 
 ipcMain.handle('getCurrentUser', (event, key) => {
