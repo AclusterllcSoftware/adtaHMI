@@ -99,6 +99,8 @@ let unRegisteredUser={'id':0,'name':'Amazon Operator','role':0}
 let currentUser=unRegisteredUser;
 
 function logoutUser() {
+	let m = {"req" : 'changeMode', "machineId" : currentConnectedMachine,'params': {'mode':0}};//force to set auto mode
+	sendMessageToServer(JSON.stringify(m));
 	nativeMenus[0].submenu.pop();
 	menu = Menu.buildFromTemplate(nativeMenus);
 	Menu.setApplicationMenu(menu);

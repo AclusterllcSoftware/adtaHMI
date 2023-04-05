@@ -152,8 +152,13 @@ jQuery(document).ready(function() {
     startTime();
     
     jQuery("a.nav-link").click(function() {
-        let link = jQuery(this).data("link");
-        ipcRenderer.send("change:link", link);
+        if($(this).attr('id')=='btn-logout'){
+            ipcRenderer.send("sendRequest", selected_machine,'logoutUser', {});
+        }
+        else{
+            let link = jQuery(this).data("link");
+            ipcRenderer.send("change:link", link);
+        }
         return false;
     });
     jQuery("a.btn-footer").click( function() {
@@ -249,6 +254,14 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
     }
     else{
         jQuery("#menu-maint").hide();
+    }
+    if(currentUser['role']>0){
+        jQuery("#menu-login").hide();
+        jQuery("#menu-logout").show();
+    }
+    else{
+        jQuery("#menu-login").show();
+        jQuery("#menu-logout").hide();
     }
     jQuery("#show-username").text(currentUser['name']);
     if(!jQuery.isEmptyObject(machine_list_from_server)) {
