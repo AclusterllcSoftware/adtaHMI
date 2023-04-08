@@ -178,19 +178,26 @@ jQuery(document).ready(function() {
         let command_start=$(this).attr('data-command-start');
         let command_end=$(this).attr('data-command-end');
         let parameter1=$(this).attr('data-parameter1');
-        ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
-            'deviceId':device_id,
-            'command':command_start,
-            'parameter1':parameter1
-        });
-        $(document).one('mouseup',function (){
+        let started=$(this).attr('data-started');//data-started is not set in the gui
+        if(started==1){
             ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
                 'deviceId':device_id,
                 'command':command_end,
                 'parameter1':parameter1
             });
-        })
-    })
+            $(this).attr('data-started',0);
+            $(this).css('background-color','darkgray');
+        }
+        else{
+            ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
+                'deviceId':device_id,
+                'command':command_start,
+                'parameter1':parameter1
+            });
+            $(this).attr('data-started',1);
+            $(this).css('background-color','#27e22b');
+        }
+    });
 });
 
 ipcRenderer.on("render:ip_list", function(e, ip_list_html, machine_list_from_server, maintenance_ip_list_from_server) {
