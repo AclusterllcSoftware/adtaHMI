@@ -61,7 +61,7 @@
 </div>
 <div class="row m-0 mt-2">
     <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
-        <table class="table table-sm table-bordered" id="alarm_table">
+        <table class="table table-sm table-bordered" id="token_table">
             <thead>
             <tr>
                 <th width="20%">Timestamp</th>
@@ -74,6 +74,7 @@
             </tr>
             </thead>
             <tbody id="package_list_tbody">
+
             </tbody>
             <tfoot>
             <tr>
@@ -87,9 +88,35 @@
             </tr>
             </tfoot>
         </table>
+        <nav class="pt-1" id="page-nav">
+            <ul class="pagination justify-content-end" id="page-wrapper">
+
+            </ul>
+        </nav>
     </div>
 </div>
 </div>
+<style>
+    #top-to-button{
+        bottom: 72px!important;
+    }
+    #loading {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(255,255,255,.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+        to { -webkit-transform: rotate(360deg); }
+    }
+    @-webkit-keyframes spin {
+        to { -webkit-transform: rotate(360deg); }
+    }
+</style>
 <%- include('footer', {currentMenu: 'token'}); %>
 <script src="js/jquery-bootstrap.js"></script>
 <script src="js/datatables/datatables.js"></script>
@@ -103,7 +130,7 @@
     let data_table;
     let machine_mode = 9, end_time = null, start_time = null, filter_sorting_code=null;
 
-    let sorting_codes = {};
+    let sorting_codes = {}, current_page=1, total_records=null,per_page=500;
 
     function load_hour_minute_dropdowns() {
         let hours_html, minutes_html;
@@ -248,9 +275,9 @@
             ipcRenderer.send("get:views", selected_machine, "token");
         });
 
-        data_table = jQuery('#alarm_table').DataTable({
+        data_table = jQuery('#token_table').DataTable({
             dom: 'Bifrtp',
-            "paging": false,
+            paging: false,
             buttons: [
                 {
                     extend: 'csv',
@@ -288,25 +315,30 @@
 
     ipcRenderer.on("render:token", function (e, basic_info) {
         sorting_codes = basic_info['scsInfo'];
-
-
         for (let k in sorting_codes) {
             let sc = sorting_codes[k];
             jQuery("#filter_sorting_code").append('<option value="' + sc.value + '">' + sc.label + '</option>');
         }
         end_time = moment().unix();
-        start_time = moment().subtract(1, 'days').unix();
-
+        start_time = moment().subtract(6, 'days').unix();
         ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
+            'page':1,
+            'per_page':per_page,
             'from_timestamp': start_time,
-            'to_timestamp': end_time
+            'to_timestamp': end_time,
         });
     });
 
     ipcRenderer.on("getProductsHistory", function (e, data_result) {
-
+        let total_pages=0, page_html='';
         data_table.clear().search('').columns().search('').draw();
-        let packages_result = data_result['products'];
+
+        console.log(data_result);
+        current_page = data_result['page'], total_records=data_result['totalRecords'];
+        total_pages = Math.ceil(Number(total_records/data_result['per_page']));
+
+        console.log(total_pages);
+        let packages_result = data_result['products'], table_html='', products=[];
 
         if(filter_sorting_code !==null && filter_sorting_code!== 'na') {
             console.log(filter_sorting_code);
@@ -324,7 +356,7 @@
                 barcode1_string = related_package_info['barcode1_string'];
 
 
-            timestamp = timeConverter(timestamp);
+            timestamp = moment.unix(timestamp).format("MMM D, H:mm")
 
             // let destination_txt = destination_to_bin(destination);
             // let final_destination_txt = destination_to_bin(final_destination);
@@ -347,7 +379,22 @@
             // <th>SortedCode</th>
             // <th>Destination</th>
             // <th>FinalDestination</th>
-
+            // table_html+='<tr>' +
+            //     '<td>' + timestamp + '</td>' +
+            //     '<td>' + mail_id + '</td>' +
+            //     '<td>' + length + '</td>' +
+            //     '<td>' + barcode1_string + '</td>' +
+            //     '<td>' + sorting_code_txt + '</td>' +
+            //     '<td>' + destination + '</td>' +
+            //     '<td>' + final_destination + '</td>' +
+            //     '</tr>';
+            // products.push({timestamp,
+            //     mail_id,
+            //     length,
+            //     barcode1_string,
+            //     sorting_code_txt,
+            //     destination,
+            //     final_destination});
             data_table.row.add([
                 timestamp,
                 mail_id,
@@ -356,10 +403,111 @@
                 sorting_code_txt,
                 destination,
                 final_destination
-            ]).draw(false);
-
-            //jQuery("#active_alarm_tbody").append(tr_html);
+            ]);
         }
+
+        if(current_page==1){
+            page_html+= '<li class="page-item disabled"><button class="page-link page-prev" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button></li>';
+        } else {
+            page_html+= '<li class="page-item"><button class="page-link page-prev" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button></li>';
+        }
+
+       // for (let i=1;i<=total_pages;i++){
+       //     page_html+=`<li class="page-item"><a class="page-link" href="#">${i}</a></li>`;
+       // }
+
+        // products.forEach(p=> {
+        //     data_table.row.add([
+        //         p.timestamp,
+        //         p.mail_id,
+        //         p.length,
+        //         p.barcode1_string,
+        //         p.sorting_code_txt,
+        //         p.destination,
+        //         p.final_destination
+        //     ]);
+        // })
+
+        data_table.draw();
+        if(total_pages>6){
+            if(current_page>=5 && current_page+4 < total_pages){
+                page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${1} href="#">1</button></li>`;
+                page_html+=`<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
+                page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${current_page-1} href="#">${current_page-1}</button></li>`;
+                page_html+=`<li class="page-item active"><button class="page-link page-btn" data-page-no=${current_page} href="#">${current_page}</button></li>`;
+                page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${current_page+1} href="#">${current_page+1}</button></li>`;
+                page_html+=`<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
+                page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${total_pages} href="#">${total_pages}</button></li>`;
+            } else if (current_page>=5 && current_page+4 >= total_pages){
+                page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${1} href="#">1</button></li>`;
+                page_html+=`<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
+                for (let p=total_pages-4;p<=total_pages;p++){
+                    if(p== current_page){
+                        page_html+=`<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+                    }
+                    else {
+                        page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+                    }
+                }
+
+            } else {
+                for (let p=1;p<=5;p++){
+                    if(p== current_page){
+                        page_html+=`<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+                    }
+                    else {
+                        page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+                    }
+                }
+                page_html+=`<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
+                page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${total_pages} href="#">${total_pages}</button></li>`;
+            }
+        } else {
+            for (let p=1;p<=total_pages;p++){
+                if(p== current_page){
+                    page_html+=`<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+                }
+                else {
+                    page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+                }
+            }
+        }
+        if(current_page==total_pages){
+            page_html+= '<li class="page-item disabled"><button class="page-link page-next" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></button></li>';
+        } else {
+            page_html+= '<li class="page-item"><button class="page-link page-next" href="#" aria-label="Previous"><span aria-hidden="true">&raquo;</span></button></li>';
+        }
+        $('#page-wrapper').empty();
+        $('#page-wrapper').append(page_html);
+
+        $('.page-btn').click(function (e) {
+            if(current_page !== Number($(this).data('pageNo'))) {
+                ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
+                    'page':Number($(this).data('pageNo')),
+                    'per_page':per_page,
+                    'from_timestamp': start_time,
+                    'to_timestamp': end_time,
+                });
+            }
+        });
+        $('.page-prev').click(function (e) {
+            ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
+                'page':current_page-1,
+                'per_page':per_page,
+                'from_timestamp': start_time,
+                'to_timestamp': end_time,
+            });
+        });
+        $('.page-next').click(function (e) {
+            ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
+                'page':current_page+1,
+                'per_page':per_page,
+                'from_timestamp': start_time,
+                'to_timestamp': end_time,
+            });
+        });
+        $('#token_table_info').html(`Showing ${(current_page*per_page)-(per_page-1)} to ${current_page*per_page >total_records ? total_records: current_page*per_page} of ${total_records} entries`);
+
 
         /* data_table.columns().every(function () {
             var column = this;
@@ -385,93 +533,9 @@
             }
         }); */
 
-        //data_table.draw();
-        jQuery("#head-loader").html('Packages');
+        // jQuery("#head-loader").html('Packages');
     });
 
-    ipcRenderer.on("render:package_list", function (e, package_list_result) {
-
-        machine_mode = package_list_result['mode'];
-        changeMachineNameBg(machine_mode);
-        //console.log("Mode: ", machine_mode);
-        //console.log(package_list_result);
-        //jQuery("#package_list_tbody").empty();
-        data_table.clear().search('').columns().search('').draw();
-
-
-        let packages_result = package_list_result['packages'];
-        //console.log(packages_result);
-        for (let k in packages_result) {
-            let related_package_info = packages_result[k];
-
-            let mail_id = Number(related_package_info['m_id']),
-                length = Number(related_package_info['l']),
-                reject_code = Number(related_package_info['r_c']),
-                sorting_code = related_package_info['s_c'],
-                destination = Number(related_package_info['d']),
-                timestamp = related_package_info['t'],
-                final_destination = Number(related_package_info['f_d']),
-                barcode_string = related_package_info['b_s'];
-
-            timestamp = timeConverter(timestamp);
-
-            let destination_txt = destination_to_bin(destination);
-            let final_destination_txt = destination_to_bin(final_destination);
-
-            //sorting_code_txt = sorting_codes[sorting_code];
-            sorting_code_txt = Number(sorting_code);
-
-            //console.log("ts: " + timestamp + " m: " + mail_id + " l: " + length + " b_s: "+ barcode_string + " r_c: " + reject_code + " s_c: " + sorting_code_txt + " ds: " + destination_txt + " fds: " + final_destination_txt);
-
-            // <th>Timestamp</th>
-            // <th>MailId</th>
-            // <th>Length</th>
-            // <th>RejectCode</th>
-            // <th>SortedCode</th>
-            // <th>Destination</th>
-            // <th>FinalDestination</th>
-
-            data_table.row.add([
-                timestamp,
-                mail_id,
-                length,
-                barcode_string,
-                reject_code,
-                sorting_code_txt,
-                destination_txt,
-                final_destination_txt
-            ]).draw(false);
-
-            //jQuery("#active_alarm_tbody").append(tr_html);
-        }
-
-        /* data_table.columns().every(function () {
-            var column = this;
-
-            if (column.index() === 3 || column.index() === 4) {
-                let select_txt = "";
-                let select_id = "";
-                if(column.index() === 3) {
-                    select_txt = "Select reject code";
-                    select_id = "#reject_code_filter";
-                    jQuery(select_id).empty().append('<option value="">'+ select_txt +'</option>').val('');
-                } else {
-                    select_txt = "Select sorting code";
-                    select_id = "#sorting_code_filter";
-                    jQuery(select_id).empty().append('<option value="">'+ select_txt +'</option>').val('');
-                }
-
-                let select = $(select_id);
-                column.data().unique().sort().each(function (d, j) {
-                    //console.log(d);
-                    select.append('<option value="' + d + '">' + d + '</option>')
-                });
-            }
-        }); */
-
-        //data_table.draw();
-        jQuery("#head-loader").html('Packages');
-    });
 </script>
 </body>
 </html>
