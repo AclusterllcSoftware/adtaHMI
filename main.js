@@ -122,13 +122,8 @@ function makeConnection () {
 function generateIpListHtml() {
 	let returnHtml = '<option value="">Select machine</option>';
 	for (let k in ipList) {
-		//console.log(k + " " + ipList[k]);
 		returnHtml += '<option value="'+ k +'">' + ipList[k].ip_address + '</option>';
-		/* if(cmAddress == ipList[k].ip_address) {
-			currentConnectedMachine = k;
-		} */
 	}
-
 	return returnHtml;
 }
 
@@ -170,28 +165,19 @@ function processReceivedJsonObjects(jsonObjects) {
 					}
 				}
 				basic_info['doorsInfo']=doors;
-				//now call ip list if first time
+				//ip_list request removed
 				if(previouslyConnected == 0) {
 					previouslyConnected = 1;
-					let m = {"req" : "send_ip_list"};
-					sendMessageToServer(JSON.stringify(m));
+					machineList = {};
+					maintenanceIpList = {};
+					ipList =basic_info['machinesInfo'];
+					let ipListHtml = generateIpListHtml();
+					for (let k in ipList) {
+						machineList[k] = ipList[k]['machine_name']+'\n'+ipList[k]['site_name'];
+						maintenanceIpList[k] = ipList[k]['maintenance_gui_ip'];
+					}
+					mainWindow.webContents.send("render:ip_list", ipListHtml, machineList, maintenanceIpList);
 				}
-				//console.log(basic_info);
-			}
-			else if(resType == "ip_list") {
-				machineList = {};
-				maintenanceIpList = {};
-				ipList = jsonObj.result;
-				let ipListHtml = generateIpListHtml();
-				//let ipListHtml = '<option value="">Select machine</option>';
-				for (let k in ipList) {
-					//console.log(k + " " + ipList[k]);
-					//ipListHtml += '<option value="'+ k +'">' + ipList[k].ip_address + '</option>';
-					machineList[k] = ipList[k].machine_name;
-					maintenanceIpList[k] = ipList[k].maintenance_ip;
-				}
-				mainWindow.webContents.send("render:ip_list", ipListHtml, machineList, maintenanceIpList);
-
 			}
 			else if(
 				['getStatistics','getStatisticsHourly','getStatisticsCounter','getStatisticsCounterLast',
