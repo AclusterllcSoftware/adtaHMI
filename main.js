@@ -173,7 +173,7 @@ function processReceivedJsonObjects(jsonObjects) {
 					ipList =basic_info['machinesInfo'];
 					let ipListHtml = generateIpListHtml();
 					for (let k in ipList) {
-						machineList[k] = ipList[k]['machine_name']+'\n'+ipList[k]['site_name'];
+						machineList[k] = ipList[k]['site_name']+" "+ipList[k]['machine_name'];
 						maintenanceIpList[k] = ipList[k]['maintenance_gui_ip'];
 					}
 					mainWindow.webContents.send("render:ip_list", ipListHtml, machineList, maintenanceIpList);
