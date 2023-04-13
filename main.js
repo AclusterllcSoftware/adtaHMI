@@ -3,6 +3,30 @@ const url = require('url');
 const path = require('path');
 const net = require('net');
 const ejse = require('ejs-electron');
+
+const date_format = require('date-format');
+const log4js = require("log4js");
+const logger = log4js.getLogger();
+let d = new Date();
+let loggerConfig={
+	"appenders": {
+		"everything": {
+			"type": "file",
+			"filename":"logs/"+("0" +  d.getFullYear()+ "_" + ("0"+(d.getMonth()+1)).slice(-2) + "_" +("0" + d.getDate()).slice(-2)+"_" + ("0" + d.getHours()).slice(-2) + "_" + ("0" + d.getMinutes()).slice(-2)+ "_" + ("0" + d.getSeconds()).slice(-2))+'/logger.log',
+			"maxLogSize":"10M",
+			"layout":{
+				"type": "pattern",
+				"pattern": "[%d] [%5.5p] %m"
+			}
+		}
+	},
+	"categories": {
+		"default": { "appenders": [ "everything"], "level": "ALL" }
+	}
+}
+log4js.configure(loggerConfig);
+
+
 var client = new net.Socket();
 var crypto = require('crypto');
 
@@ -227,11 +251,14 @@ function processReceivedJsonObjects(jsonObjects) {
 
 let chunk = "";
 const DELIMITER = (';#;#;');
+let dataReceiveCount=0;
 function dataEventHandler(data) {
+	dataReceiveCount++;
 	let jsonData;
 	let jsonObjects;
 	chunk += data.toString(); // Add string on the end of the variable 'chunk'
-    d_index = chunk.indexOf(DELIMITER); // Find the delimiter
+    let d_index = chunk.indexOf(DELIMITER); // Find the delimiter
+	logger.debug('[DATA RECEIVED]['+dataReceiveCount+'] '+data.toString());
 
     // While loop to keep going until no delimiter can be found
     while (d_index > -1) {
@@ -239,10 +266,12 @@ function dataEventHandler(data) {
             jsonData = chunk.substring(0,d_index); // Create string up until the delimiter
 			//jsonObjects = JSON.parse(jsonData); // Parse the current string
 			jsonObjects = JSON.parse('[' + jsonData.replace(/\}\s*\{/g, '},{') + ']')
-            processReceivedJsonObjects(jsonObjects); // Function that does something with the current chunk of valid json.        
+            processReceivedJsonObjects(jsonObjects); // Function that does something with the current chunk of valid json.
+			dataReceiveCount=0;
 		}catch(er) {
 			console.log("Error happened in main again");
 			console.log(jsonData);
+			logger.error("[INVALID DATA] "+jsonData)
 		}
 		
         chunk = chunk.substring(d_index+DELIMITER.length); // Cuts off the processed chunk
