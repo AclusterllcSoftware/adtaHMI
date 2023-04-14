@@ -276,7 +276,7 @@
         ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsCounterLast', {});
         setInterval(() => {
             ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsCounterLast', {});
-        }, 60000);
+        }, 2000);
     });
 
     ipcRenderer.on('getStatisticsCounterLast', function (e, data_result) {
@@ -354,10 +354,32 @@
                     color: scs_data[sc_key].color
                 });
             }
+            if (machine_error_codes.includes(sc_key) || sc_key=='sc0') {
+                scs_data[sc_key]['order']=1;
+            }
+            if (non_machine_error_codes.includes(sc_key)) {
+                scs_data[sc_key]['order']=2;
+            }
+            // sc_table += '<tr>' +
+            //     '<td>' + scs_data[sc_key].label + '</td>' +
+            //     '<td>' + scs_data[sc_key].value + '</td>' +
+            //     '<td>' + Number((scs_data[sc_key].value *100/total_scs_value).toFixed(1)) + '%' + '</td>' +
+            //     '</tr>';
+        });
+        let op_scs = Object.fromEntries(Object.entries(scs_data).filter(s=> s[1].order==1).sort((a,b)=> b[1].value - a[1].value)),
+            non_op_scs = Object.fromEntries(Object.entries(scs_data).filter(s=> s[1].order==2).sort((a,b)=> b[1].value - a[1].value));
+        Object.keys(op_scs).forEach(s_key=> {
             sc_table += '<tr>' +
-                '<td>' + scs_data[sc_key].label + '</td>' +
-                '<td>' + scs_data[sc_key].value + '</td>' +
-                '<td>' + Number((scs_data[sc_key].value *100/total_scs_value).toFixed(1)) + '%' + '</td>' +
+                '<td>' + op_scs[s_key].label + '</td>' +
+                '<td>' + op_scs[s_key].value + '</td>' +
+                '<td>' + Number((op_scs[s_key].value *100/total_scs_value).toFixed(1)) + '%' + '</td>' +
+                '</tr>';
+        });
+        Object.keys(non_op_scs).forEach(s_key=> {
+            sc_table += '<tr>' +
+                '<td>' + non_op_scs[s_key].label + '</td>' +
+                '<td>' + non_op_scs[s_key].value + '</td>' +
+                '<td>' + Number((non_op_scs[s_key].value *100/total_scs_value).toFixed(1)) + '%' + '</td>' +
                 '</tr>';
         });
         pie_chart.series[0].setData(pie_chart_data, true);
@@ -432,6 +454,11 @@
         // bcr_chart.series[0].setData(bcr_chart_data, false);
         // bcr_chart.redraw();
         new Highcharts.chart('bcr-chart', {
+            plotOptions: {
+                series: {
+                    animation: false
+                }
+            },
             chart: {
                 type: 'spline',
                 animation: Highcharts.svg, // don't animate in old IE
@@ -515,6 +542,11 @@
             }]
         });
         new Highcharts.chart('tput-chart', {
+            plotOptions: {
+                series: {
+                    animation: false
+                }
+            },
             chart: {
                 type: 'spline',
                 animation: Highcharts.svg, // don't animate in old IE
