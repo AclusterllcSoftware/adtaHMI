@@ -353,8 +353,21 @@
         Object.values(basic_info["scsInfo"]).forEach((v) => {
             scs_info.push({...v, code: "sc" + v.value});
         });
+
+        ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsCounterLast', {});
+        setInterval(() => {
+            ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsCounterLast', {});
+        }, 60000);
+    });
+
+    ipcRenderer.on('getStatisticsCounterLast', function (e, data_result) {
+        let shift_statistics = data_result['statistics'][0];
+        let shift_strating_time = shift_statistics['created_at_timestamp'];
         end_time = moment().unix();
-        start_time = moment().subtract(1, "days").unix();
+        start_time = moment().subtract(24, 'hours').unix();
+        if ((moment().unix() - moment(shift_strating_time)) / 3600 <= 24) {
+            start_time = shift_strating_time;
+        }
         ipcRenderer.send("sendRequest", selected_machine, "getStatisticsHourly", {
             from_timestamp: start_time,
             to_timestamp: end_time,
