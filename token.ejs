@@ -53,10 +53,23 @@
                             <input type="hidden" id="start_timestamp2">
                             <input type="hidden" id="end_timestamp2">
                         </div>
+
                     </div>
                 </div>
+
             </div>
         </form>
+    </div>
+    <div class="pl-2 mt-3 mb-3">
+        <label for="no_of_rows" class="mr-1">No of rows</label>
+        <span class="badge badge-pill badge-light">
+            <select id="no_of_rows" class="pt-2 pb-2 pl-2 pr-2"
+                    style="border:0;background-color: #f8f9fa; font-weight: bold; font-size: 12px;">
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+                <option value="1500">1500</option>
+            </select>
+        </span>
     </div>
 </div>
 <div class="row m-0 mt-2">
@@ -97,24 +110,31 @@
 </div>
 </div>
 <style>
-    #top-to-button{
-        bottom: 72px!important;
+    #top-to-button {
+        bottom: 72px !important;
     }
+
     #loading {
         display: inline-block;
         width: 50px;
         height: 50px;
-        border: 3px solid rgba(255,255,255,.3);
+        border: 3px solid rgba(255, 255, 255, .3);
         border-radius: 50%;
         border-top-color: #fff;
         animation: spin 1s ease-in-out infinite;
         -webkit-animation: spin 1s ease-in-out infinite;
     }
+
     @keyframes spin {
-        to { -webkit-transform: rotate(360deg); }
+        to {
+            -webkit-transform: rotate(360deg);
+        }
     }
+
     @-webkit-keyframes spin {
-        to { -webkit-transform: rotate(360deg); }
+        to {
+            -webkit-transform: rotate(360deg);
+        }
     }
 </style>
 <%- include('footer', {currentMenu: 'token'}); %>
@@ -128,9 +148,9 @@
 <script>
     let alarm_class_to_names = {"0": "Error", "1": "Warning", "2": "Message"};
     let data_table;
-    let machine_mode = 9, end_time = null, start_time = null, filter_sorting_code=null;
+    let machine_mode = 9, end_time = null, start_time = null, filter_sorting_code = null;
 
-    let sorting_codes = {}, current_page=1, total_records=null,per_page=500;
+    let sorting_codes = {}, current_page = 1, total_records = null, per_page = 500;
 
     function load_hour_minute_dropdowns() {
         let hours_html, minutes_html;
@@ -182,6 +202,7 @@
                 top_to_btn.removeClass('show');
             }
         });
+        $('#no_of_rows').val(per_page);
 
         top_to_btn.on('click', function (e) {
             e.preventDefault();
@@ -295,6 +316,19 @@
             ],
             "order": [],
         });
+
+        $('#no_of_rows').change(function () {
+            let selected_option = $(this).val();
+            per_page = Number(selected_option);
+            ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
+                'page': 1,
+                'per_page': per_page,
+                'from_timestamp': start_time,
+                'to_timestamp': end_time,
+            });
+        });
+
+
     });
     /* let destination_to_bin = {};
     for (let d=0; d < 54; d++) {
@@ -322,27 +356,27 @@
         end_time = moment().unix();
         start_time = moment().subtract(6, 'days').unix();
         ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
-            'page':1,
-            'per_page':per_page,
+            'page': 1,
+            'per_page': per_page,
             'from_timestamp': start_time,
             'to_timestamp': end_time,
         });
     });
 
     ipcRenderer.on("getProductsHistory", function (e, data_result) {
-        let total_pages=0, page_html='';
+        let total_pages = 0, page_html = '';
         data_table.clear().search('').columns().search('').draw();
 
         console.log(data_result);
-        current_page = data_result['page'], total_records=data_result['totalRecords'];
-        total_pages = Math.ceil(Number(total_records/data_result['per_page']));
+        current_page = data_result['page'], total_records = data_result['totalRecords'];
+        total_pages = Math.ceil(Number(total_records / data_result['per_page']));
 
         console.log(total_pages);
-        let packages_result = data_result['products'], table_html='', products=[];
+        let packages_result = data_result['products'], table_html = '', products = [];
 
-        if(filter_sorting_code !==null && filter_sorting_code!== 'na') {
+        if (filter_sorting_code !== null && filter_sorting_code !== 'na') {
             console.log(filter_sorting_code);
-            packages_result = packages_result.filter(f=> f.reason ==Number(filter_sorting_code));
+            packages_result = packages_result.filter(f => f.reason == Number(filter_sorting_code));
         }
         for (let k in packages_result) {
             let related_package_info = packages_result[k];
@@ -363,9 +397,9 @@
 
             //sorting_code_txt = sorting_codes[sorting_code];
             sorting_code_txt = '';
-            for (k in sorting_codes){
+            for (k in sorting_codes) {
                 let sc = sorting_codes[k];
-                if(sc.value == sorting_code){
+                if (sc.value == sorting_code) {
                     sorting_code_txt = sc.label;
                 }
             }
@@ -406,15 +440,15 @@
             ]);
         }
 
-        if(current_page==1){
-            page_html+= '<li class="page-item disabled"><button class="page-link page-prev" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button></li>';
+        if (current_page == 1) {
+            page_html += '<li class="page-item disabled"><button class="page-link page-prev" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button></li>';
         } else {
-            page_html+= '<li class="page-item"><button class="page-link page-prev" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button></li>';
+            page_html += '<li class="page-item"><button class="page-link page-prev" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button></li>';
         }
 
-       // for (let i=1;i<=total_pages;i++){
-       //     page_html+=`<li class="page-item"><a class="page-link" href="#">${i}</a></li>`;
-       // }
+        // for (let i=1;i<=total_pages;i++){
+        //     page_html+=`<li class="page-item"><a class="page-link" href="#">${i}</a></li>`;
+        // }
 
         // products.forEach(p=> {
         //     data_table.row.add([
@@ -429,62 +463,59 @@
         // })
 
         data_table.draw();
-        if(total_pages>6){
-            if(current_page>=5 && current_page+4 < total_pages){
-                page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${1} href="#">1</button></li>`;
-                page_html+=`<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
-                page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${current_page-1} href="#">${current_page-1}</button></li>`;
-                page_html+=`<li class="page-item active"><button class="page-link page-btn" data-page-no=${current_page} href="#">${current_page}</button></li>`;
-                page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${current_page+1} href="#">${current_page+1}</button></li>`;
-                page_html+=`<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
-                page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${total_pages} href="#">${total_pages}</button></li>`;
-            } else if (current_page>=5 && current_page+4 >= total_pages){
-                page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${1} href="#">1</button></li>`;
-                page_html+=`<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
-                for (let p=total_pages-4;p<=total_pages;p++){
-                    if(p== current_page){
-                        page_html+=`<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                    }
-                    else {
-                        page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+        if (total_pages > 6) {
+            if (current_page >= 5 && current_page + 4 < total_pages) {
+                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${1} href="#">1</button></li>`;
+                page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
+                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${current_page - 1} href="#">${current_page - 1}</button></li>`;
+                page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${current_page} href="#">${current_page}</button></li>`;
+                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${current_page + 1} href="#">${current_page + 1}</button></li>`;
+                page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
+                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${total_pages} href="#">${total_pages}</button></li>`;
+            } else if (current_page >= 5 && current_page + 4 >= total_pages) {
+                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${1} href="#">1</button></li>`;
+                page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
+                for (let p = total_pages - 4; p <= total_pages; p++) {
+                    if (p == current_page) {
+                        page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+                    } else {
+                        page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
                     }
                 }
 
             } else {
-                for (let p=1;p<=5;p++){
-                    if(p== current_page){
-                        page_html+=`<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                    }
-                    else {
-                        page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+                for (let p = 1; p <= 5; p++) {
+                    if (p == current_page) {
+                        page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+                    } else {
+                        page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
                     }
                 }
-                page_html+=`<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
-                page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${total_pages} href="#">${total_pages}</button></li>`;
+                page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
+                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${total_pages} href="#">${total_pages}</button></li>`;
             }
         } else {
-            for (let p=1;p<=total_pages;p++){
-                if(p== current_page){
-                    page_html+=`<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                }
-                else {
-                    page_html+=`<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+            for (let p = 1; p <= total_pages; p++) {
+                if (p == current_page) {
+                    page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+                } else {
+                    page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
                 }
             }
         }
-        if(current_page==total_pages){
-            page_html+= '<li class="page-item disabled"><button class="page-link page-next" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></button></li>';
+        if (current_page == total_pages) {
+            page_html += '<li class="page-item disabled"><button class="page-link page-next" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></button></li>';
         } else {
-            page_html+= '<li class="page-item"><button class="page-link page-next" href="#" aria-label="Previous"><span aria-hidden="true">&raquo;</span></button></li>';
+            page_html += '<li class="page-item"><button class="page-link page-next" href="#" aria-label="Previous"><span aria-hidden="true">&raquo;</span></button></li>';
         }
         $('#page-wrapper').empty();
         $('#page-wrapper').append(page_html);
 
         $('.page-btn').click(function (e) {
-            if(current_page !== Number($(this).data('pageNo'))) {
+            if (current_page !== Number($(this).data('pageNo'))) {
                 ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
-                    'page':Number($(this).data('pageNo')),
-                    'per_page':per_page,
+                    'page': Number($(this).data('pageNo')),
+                    'per_page': per_page,
                     'from_timestamp': start_time,
                     'to_timestamp': end_time,
                 });
@@ -492,21 +523,21 @@
         });
         $('.page-prev').click(function (e) {
             ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
-                'page':current_page-1,
-                'per_page':per_page,
+                'page': current_page - 1,
+                'per_page': per_page,
                 'from_timestamp': start_time,
                 'to_timestamp': end_time,
             });
         });
         $('.page-next').click(function (e) {
             ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
-                'page':current_page+1,
-                'per_page':per_page,
+                'page': current_page + 1,
+                'per_page': per_page,
                 'from_timestamp': start_time,
                 'to_timestamp': end_time,
             });
         });
-        $('#token_table_info').html(`Showing ${(current_page*per_page)-(per_page-1)} to ${current_page*per_page >total_records ? total_records: current_page*per_page} of ${total_records} entries`);
+        $('#token_table_info').html(`Showing ${(current_page * per_page) - (per_page - 1)} to ${current_page * per_page > total_records ? total_records : current_page * per_page} of ${total_records} entries`);
 
 
         /* data_table.columns().every(function () {
