@@ -1,0 +1,111 @@
+<%- include('header', {currentMenu: 'maint-devices', pageTitle: 'Devices'}); %>
+<div class="row mt-3">
+    <div class="col-lg-12">
+        <table class="table table-sm table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Machine ID</th>
+                <th>Device ID</th>
+                <th>Device name</th>
+                <th>Device type</th>
+                <th>IP Address</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody id="table-devices"></tbody>
+        </table>
+    </div>
+</div>
+</div>
+<style>
+    .table-striped > tbody > tr:nth-child(even) > td {
+        background-color: #bfdbfe;
+    }
+
+    .table-striped > tbody > tr:nth-child(odd) > td {
+        background-color: #fff;
+    }
+
+    .table-striped > thead > tr > th {
+        background-color: #e2e8f0;
+    }
+</style>
+<%- include('footer', {currentMenu: 'maint-devices'}); %>
+
+<script src="js/jquery-bootstrap.js"></script>
+<script src="js/jquery.newsTicker.js"></script>
+<script src="js/daterangepicker/moment.min.js"></script>
+<script src="js/nav.js"></script>
+
+<script>
+    let basic_info = {};
+
+    jQuery(document).ready(function () {
+        jQuery("#ip_list_dropdown").change(function () {
+            selected_machine = jQuery(this).val();
+            if (selected_machine !== "") {
+                let selected_machine_name = machine_list[selected_machine];
+                jQuery("#display_machine_name").text(selected_machine_name);
+            } else {
+                jQuery("#display_machine_name").text("Select a machine");
+                selected_machine = 0;
+            }
+            ipcRenderer.send("get:views", selected_machine, "maint-devices");
+        });
+    });
+    ipcRenderer.on("render:maint-devices", function (e, data) {
+        let devices = [], devices_html = '';
+        basic_info = data;
+        devices = Object.values(basic_info['devicesInfo']);
+
+        devices.sort((a,b)=> a.device_id-b.device_id);
+        devices.map(d => ({...d, states: 0})).forEach(d => {
+            devices_html += '<tr>' +
+                '<td>' +
+                d.machine_id +
+                '</td>' +
+                '<td>' +
+                d.device_id +
+                '</td>' +
+                '<td>' +
+                d.device_name +
+                '</td>' +
+                '<td>' +
+                d.device_type +
+                '</td>' +
+                '<td>' +
+                d.ip_address +
+                '</td>' +
+                "<td>" +
+                (d.state === 1 ?
+                        '<span' + ' data-id=' + d.device_id + 'class="state-row" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
+                        : '<span' + ' data-id=' + d.device_id + ' class="state-row" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>'
+                ) +
+                "</td>" +
+                "</tr>";
+        });
+        jQuery("#table-devices").empty();
+        jQuery("#table-devices").append(devices_html);
+
+        setInterval(() => {
+            ipcRenderer.send("sendRequest", selected_machine,'getGeneralDevicesViewData', {});
+        }, 1000);
+
+    });
+    ipcRenderer.on("getGeneralDevicesViewData", function (e, data) {
+
+        let device_states= Object.values(data['devicesStates']);
+        let allStatesRows= jQuery('.state-row');
+
+        allStatesRows.each((key, elem) => {
+            let rowId=$(elem)[0].dataset.id, deviceData = device_states.find(d=> d.device_id == rowId);
+
+            if(deviceData.device_state==1){
+                $(elem).css('background-color', "#4fe21f");
+            }
+            if(deviceData.device_state==0){
+                $(elem).css('background-color', "#9e9e9e");
+            }
+        });
+    });
+</script>
