@@ -120,13 +120,24 @@
             bins_info.push({...v, bin_id: Number(v['bin_id'])});
         });
 
-        end_time = moment().unix();
-        start_time = moment().subtract(1, 'days').unix();
         // ipcRenderer.send('getStatisticsBins', selected_machine, start_time, end_time)
+
+        ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsCounterLast', {});
+        setInterval(() => {
+            ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsCounterLast', {});
+        }, 60000);
+    });
+
+    ipcRenderer.on('getStatisticsCounterLast', function (e, data_result) {
+        let shift_statistics = data_result['statistics'][0];
+        let shift_strating_time = shift_statistics['created_at_timestamp'];
+        end_time = moment().unix();
+        start_time = shift_strating_time;
         ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsBins', {
             'from_timestamp': start_time,
             'to_timestamp': end_time
         });
+
     });
 
     ipcRenderer.on('getStatisticsBins', function (e, data_result) {
@@ -212,8 +223,8 @@
         reject_recirc_stack.sort((a, b) => a.data.reduce((s, c) => s += c, 0) - b.data.reduce((s, c) => s += c, 0));
         chart_series.sort((a, b) => a.data.reduce((s, c) => s += c, 0) - b.data.reduce((s, c) => s += c, 0));
         chart_series_percentage.sort((a, b) => a.data.reduce((s, c) => s += c, 0) - b.data.reduce((s, c) => s += c, 0))
-        populateChart('bins-detailed', chart_categories, [...chart_series, ...reject_recirc_stack]);
-        populateChart('bins-detailed-percentage', chart_categories, [...chart_series_percentage, ...reject_recirc_stack_per], 'Bins Detailed-Percentage (%)');
+        populateChart('bins-detailed', chart_categories, chart_series);
+        populateChart('bins-detailed-percentage', chart_categories, chart_series_percentage, 'Bins Detailed-Percentage (%)');
     });
 
     function onBarClick(bin_label = '') {
