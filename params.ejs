@@ -43,9 +43,10 @@
         });
     });
     ipcRenderer.on("render:params", function (e, data) {
-        let parameters = [], table_html = '';
-            basic_info = data;
+        let parameters = [], table_html = '', current_user = null;
+        basic_info = data;
         console.log(data)
+        current_user = basic_info['currentUser'];
         parameters = Object.values(basic_info['parametersInfo']);
         parameters.forEach(i => {
             table_html +=
@@ -56,16 +57,19 @@
                 "<td>" +
                 i.description +
                 "</td>" +
-                "<td data-id="+i.id +" class='params-value'>" +
+                "<td data-id=" + i.id + " class='params-value'>" +
                 i.value +
                 "</td>" +
                 "<td>" +
                 i.unit +
                 "</td>" +
                 "<td>" +
-                '<form class="d-flex form-params"> <input type="text" class="form-control" name="c_value"> ' +
-                '<input class="params-id" type="hidden" name="params_id" value="">' +
-                '<button type="submit" class="btn btn-primary button_params" >Change</button> </form>' +
+                ((current_user.role == 1 || current_user.role == 2) ?
+                        '<form class="d-flex form-params"> <input type="text" class="form-control" name="c_value"> ' +
+                        '<input class="params-id" type="hidden" name="params_id" value="">' +
+                        '<button type="submit" class="btn btn-primary button_params" >Change</button> </form>' : ''
+                )
+                +
                 "</td></tr>";
         });
         jQuery("#table-parameters").empty();
@@ -76,34 +80,34 @@
         $('.form-params').submit(function (e) {
             e.preventDefault();
             let inputValues = $(this).serializeArray();
-            let param_id=null, new_value=null;
+            let param_id = null, new_value = null;
 
             inputValues.forEach(inpValue => {
-                if(inpValue.name== 'c_value'){
+                if (inpValue.name == 'c_value') {
                     new_value = Number(inpValue.value);
                 }
-                if(inpValue.name== 'params_id'){
+                if (inpValue.name == 'params_id') {
                     param_id = Number(inpValue.value);
                 }
             });
 
-            ipcRenderer.send("sendRequest", selected_machine,'sendSetParamMessage', {
-                'paramId':param_id,
-                'value':new_value
+            ipcRenderer.send("sendRequest", selected_machine, 'sendSetParamMessage', {
+                'paramId': param_id,
+                'value': new_value
             });
         });
         ipcRenderer.send("sendRequest", selected_machine, 'getMaintViewData', {});
-        setInterval(()=>{
+        setInterval(() => {
             ipcRenderer.send("sendRequest", selected_machine, 'getMaintViewData', {});
         }, 1000);
     });
     ipcRenderer.on("getMaintViewData", function (e, data) {
         console.log(data);
-        let paramValues=Object.values(data['parameterValues']), allRows=[];
+        let paramValues = Object.values(data['parameterValues']), allRows = [];
         console.log(paramValues);
-        allRows=$('.params-value');
-        $(allRows).each((key,elem)=>{
-            let rowId=$(elem)[0].dataset.id, paramData = paramValues.find(d=> d.param_id== rowId);
+        allRows = $('.params-value');
+        $(allRows).each((key, elem) => {
+            let rowId = $(elem)[0].dataset.id, paramData = paramValues.find(d => d.param_id == rowId);
             console.log(paramData);
             $(elem).text(paramData.value);
         })
