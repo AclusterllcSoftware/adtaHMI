@@ -220,13 +220,15 @@ jQuery(document).ready(function() {
         "columns": [
             null,
             null,
-            { "orderable": false },
+            null,
             null,
             null,
             { "orderable": false },
             { "orderable": false },
         ],
-        "order": [],
+        "order": [
+            [1, 'desc']
+        ],
         initComplete: function () {
             this.api().columns().every(function () {
                 var column = this;
@@ -344,10 +346,11 @@ ipcRenderer.on("render:alarms_hit_list", function(e, alarms_history_result, alar
             related_alarm_data['location'],
             related_alarm_data['description'],
             related_alarm_data['variable_name']
-        ] ).draw( false );
+        ] );
 
         //jQuery("#active_alarm_tbody").append(tr_html);
     });
+
 
     data_table.columns().every(function () {
         var column = this;
@@ -369,6 +372,8 @@ ipcRenderer.on("render:alarms_hit_list", function(e, alarms_history_result, alar
             });
         }
     });
+
+    data_table.draw();
 
     jQuery("#head-loader").html('Alarms Hit List');
 
