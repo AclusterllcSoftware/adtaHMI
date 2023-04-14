@@ -13,10 +13,12 @@
           <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'sorting-code-detail' ? 'active' : '' %>"  href="#" data-link="sorting-code-detail">Sorting Code Detail</a>
       </div>
     <%}
-    else if (['maint', 'params'].includes(currentMenu)) {%>
+    else if (['maint', 'params','maint-motors','maint-devices'].includes(currentMenu)) {%>
       <div class="main-area flex-grow-1">
           <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'maint' ? 'active' : '' %>"  href="#" data-link="maint">IOs</a>
           <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'params' ? 'active' : '' %>"  href="#" data-link="params">Params</a>
+          <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'maint-devices' ? 'active' : '' %>"  href="#" data-link="maint-devices">Devices</a>
+          <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'maint-motors' ? 'active' : '' %>"  href="#" data-link="maint-motors">Motors</a>
       </div>
       <%}%>
 </footer>
