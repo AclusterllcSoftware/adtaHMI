@@ -132,7 +132,6 @@
         }
 
         if (selected_output_board == null) {
-            console.log('ob',selected_output_board);
             selected_output_board = output_boards[0];
             updateOutputs();
         }
@@ -147,7 +146,6 @@
 
         output_boards.forEach(b => {
             if (b.id == selected_output_board.id) {
-                console.log(b.id)
                 output_options_html += '<option selected ' + 'value='+b.id+'>' + b.id+' -- '+ b.description+ ' -- '+ b.location + '</option>';
             } else {
                 output_options_html += '<option '+ 'value='+b.id+'>' + b.id+' -- '+ b.description+ ' -- '+ b.location + '</option>';
@@ -223,7 +221,7 @@
     });
 
     ipcRenderer.on("getMaintViewData", function (e, data) {
-        console.log('data', data);
+
         let inputs_table_html = '', input_states = Object.values(data['ioInputsStates']),
             output_states = Object.values(data['ioOutputStates']);
 
@@ -239,11 +237,11 @@
             let rowId=$(elem)[0].dataset.id, outputData = output_states.find(d=> d.output_id== rowId);
 
             if(outputData.state==1){
-                console.log(elem);
+
                 $(elem).css('background-color', "#4fe21f");
             }
             if(outputData.state==0){
-                console.log(elem);
+
                 $(elem).css('background-color', "#9e9e9e");
             }
         });
@@ -283,11 +281,11 @@
 
     function updateInputs() {
         selected_inputs = board_ios.filter(b => b.board_id == selected_input_board.id);
-        console.log(selected_inputs);
+
     }
 
     function updateOutputs() {
         selected_outputs = board_ios.filter(b => b.board_id == selected_output_board.id);
-        console.log('outputs', selected_outputs);
+
     }
 </script>
