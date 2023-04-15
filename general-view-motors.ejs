@@ -177,6 +177,7 @@ ipcRenderer.on("render:general-view-motors", function(e, data) {
             });
         }
     })
+    ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});//for fixing waiting 1sec
     setInterval(() => {
         ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});
     }, 1000);

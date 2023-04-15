@@ -53,6 +53,7 @@ ipcRenderer.on("render:general-view", function(e, data) {
         //console.log(data['binsInfo'][key])
         ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
     })
+    ipcRenderer.send("sendRequest", selected_machine,'getGeneralViewData', {});//for fixing waiting 1sec
     setInterval(() => {
         ipcRenderer.send("sendRequest", selected_machine,'getGeneralViewData', {});
     }, 1000);
