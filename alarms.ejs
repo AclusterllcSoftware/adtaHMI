@@ -147,7 +147,11 @@ $.fn.dataTableExt.afnFiltering.push(
 let basic_info={}
 ipcRenderer.on("render:alarms-view", function(e, data) {
     basic_info=data;
-    ipcRenderer.send("sendRequest", selected_machine,'getAlarmsViewData', {});
+    ipcRenderer.send("sendRequest", selected_machine,'getAlarmsViewData', {});//for fixing waiting 1sec
+    setInterval(() => {
+        ipcRenderer.send("sendRequest", selected_machine,'getAlarmsViewData', {});
+    }, 1000);
+
 });
 ipcRenderer.on("getAlarmsViewData", function(e,data) {
     let alarmsInfo=basic_info['alarmsInfo']
@@ -155,6 +159,7 @@ ipcRenderer.on("getAlarmsViewData", function(e,data) {
     let now_time=moment().unix();
     jQuery("#active_alarm_tbody").empty();
     let alarm_class_to_names = {"0" : "Error", "1" : "Warning", "2" : "Message"};
+    data_table.clear().draw();
     for (let index in activeAlarms) {
         let activeAlarm = activeAlarms[index];
         let combo_id=activeAlarm['machine_id']+'_'+activeAlarm['alarm_id']+'_'+activeAlarm['alarm_type'];
