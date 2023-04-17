@@ -84,9 +84,12 @@ Menu.setApplicationMenu(menu)
 app.on('ready', function() {
     //creating new window
     mainWindow = new BrowserWindow({
-        width: 1282,
+        width: 1920,
         height: 1080,
         resizable: false,
+		minimizable:false,
+		movable:false,
+		closable:false,
         webPreferences: {
 			nodeIntegration: true,
 			devTools: true
@@ -123,6 +126,7 @@ let unRegisteredUser={'id':0,'name':'Amazon Operator','role':0}
 let currentUser=unRegisteredUser;
 
 function logoutUser() {
+	mainWindow.closable=false;
 	let m = {"req" : 'changeMode', "machineId" : currentConnectedMachine,'params': {'mode':0}};//force to set auto mode
 	sendMessageToServer(JSON.stringify(m));
 	nativeMenus[0].submenu.pop();
@@ -215,6 +219,10 @@ function processReceivedJsonObjects(jsonObjects) {
 			else if(resType == "getLoginUser") {
 				if(jsonObj['loginInfo']['status']){
 					currentUser=jsonObj['loginInfo']['user'];
+					if(currentUser['role']>0 && currentUser['role']<3){
+						mainWindow.closable=true;
+					}
+
 					nativeMenus[0].submenu.push({
 						label: 'Logout',
 						click() {

@@ -143,6 +143,16 @@ let selected_machine = 0;
 let logged_in_user = "";
 
 jQuery(document).ready(function() {
+    window.addEventListener('keydown', (e) => {
+        const { key, altKey } = e;
+        if (key === 'F4' && altKey) {
+            e.preventDefault();
+        }
+        // if (altKey) {
+        //     e.preventDefault();
+        // }
+    });
+
     $(document).on("input", ".float_positive", function(event)
     {
         this.value = this.value.replace(/[^0-9.]/g, '').replace('.', 'x').replace(/\./g,'').replace('x','.');
