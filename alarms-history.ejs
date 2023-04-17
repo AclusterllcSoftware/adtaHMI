@@ -82,6 +82,11 @@
                     </tr>
                 </tfoot>
             </table>
+            <nav class="pt-1" id="page-nav">
+                <ul class="pagination justify-content-end" id="page-wrapper">
+
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -97,7 +102,10 @@
 <script>
 let alarm_class_to_names = {"0" : "Error", "1" : "Warning", "2" : "Message"};
 let data_table;
-let machine_mode = 9;
+let machine_mode = 9,
+    end_time = moment().unix(),
+start_time = moment().subtract(6, 'days').unix(), alarms_info={},
+    current_page = 1, total_records = null, per_page = 500;
 
 function load_hour_minute_dropdowns() {
     let hours_html, minutes_html;
@@ -174,8 +182,15 @@ jQuery(document).ready(function() {
                 
             } else {
                 jQuery("#alert-div").hide();
-                ipcRenderer.send("get:filtered_alarm_history", selected_machine, from_timestamp, to_timestamp);
-                jQuery("#head-loader").html('Alarms History <img src="./resources/loading.gif">');
+                start_time= from_timestamp;
+                end_time=to_timestamp;
+                console.log(moment(from_timestamp).format('M-D-YYYY HH:mm'))
+                ipcRenderer.send("sendRequest", selected_machine, 'getAlarmsHistory', {
+                    'page': 1,
+                    'per_page': per_page,
+                    'from_timestamp': from_timestamp,
+                    'to_timestamp': to_timestamp,
+                });
             }
             
         }
@@ -203,12 +218,13 @@ jQuery(document).ready(function() {
             selected_machine = 0;
         }
 
-        ipcRenderer.send("get:views", selected_machine, "alarms_history");
-        jQuery("#head-loader").html('Alarms History <img src="./resources/loading.gif">');
+        ipcRenderer.send("get:views", selected_machine, "alarms-history-view");
+
     });
 
     data_table = jQuery('#alarm_table').DataTable({
         dom: 'Bfrtip',
+        paging: false,
         buttons: [
         {
             extend: 'csv',
@@ -283,28 +299,96 @@ $.fn.dataTableExt.afnFiltering.push(
     }
 );
 
-ipcRenderer.on("render:alarms_history", function(e, alarms_history_result, alarms_data_result, machine_mode_from_server) {
-    machine_mode = machine_mode_from_server;
-    changeMachineNameBg(machine_mode);
+ipcRenderer.on("render:alarms-history-view", function(e, basic_info) {
+console.log(basic_info);
+alarms_info = basic_info['alarmsInfo'];
+ipcRenderer.send("sendRequest", selected_machine, 'getAlarmsHistory', {
+        'page': 1,
+        'per_page': per_page,
+        'from_timestamp': start_time,
+        'to_timestamp': end_time,
+    });
+    // machine_mode = machine_mode_from_server;
+    // changeMachineNameBg(machine_mode);
     //console.log("Mode: ", machine_mode);
     //console.log(alarms_history_result);
     //console.log(alarms_data_result);
-    data_table.clear().search( '' ).columns().search( '' ).draw();
+
 
     //for (let k in alarms_result) {
+    // alarms_history_result.forEach(function(history_row){
+    //
+    //     let related_alarm_type = history_row['at'],
+    //     related_alarm_id = history_row['aid'],
+    //     related_machine_id = history_row['mid'],
+    //     related_active_timestamp = history_row['t'],
+    //     related_inactive_timestamp = history_row['i'],
+    //     related_duration = history_row['duration'];
+    //
+    //     related_active_timestamp = timeConverter(related_active_timestamp);
+    //
+    //     let combo_id = related_machine_id + "" + related_alarm_id + "" + related_alarm_type;
+    //     let related_alarm_data = alarms_data_result[combo_id];
+    //
+    //     data_table.row.add( [
+    //         related_active_timestamp,
+    //         secondsToDhms(related_duration),
+    //         alarm_class_to_names[related_alarm_data['alarm_class']],
+    //         related_alarm_data['location'],
+    //         related_alarm_data['description'],
+    //         related_alarm_data['variable_name']
+    //     ] ).draw( false );
+    //
+    //     //jQuery("#active_alarm_tbody").append(tr_html);
+    // });
+
+    // data_table.columns().every(function () {
+    //     var column = this;
+    //
+    //     if (column.index() === 2 || column.index() === 3) {
+    //         let select_txt = "";
+    //         let select_id = "";
+    //         if(column.index() === 2) {
+    //             select_txt = "Select class";
+    //             select_id = "#class_filter";
+    //         } else {
+    //             select_txt = "Select location";
+    //             select_id = "#location_filter";
+    //         }
+    //
+    //         let select = $(select_id);
+    //         column.data().unique().sort().each(function (d, j) {
+    //             //console.log(d);
+    //             select.append('<option value="' + d + '">' + d + '</option>')
+    //         });
+    //     }
+    // });
+    //
+    // jQuery("#head-loader").html('Alarms History');
+});
+
+ipcRenderer.on("getAlarmsHistory", function (e, data_result) {
+    let total_pages = 0,page_html = '';
+    console.log(data_result);
+    current_page = data_result['page'], total_records = data_result['totalRecords'];
+    total_pages = Math.ceil(Number(total_records / data_result['per_page']));
+    data_table.clear().search( '' ).columns().search( '' ).draw();
+    let alarms_history_result= data_result['alarms'];
+    data_table.clear().search( '' ).columns().search( '' ).draw();
+
     alarms_history_result.forEach(function(history_row){
-        
-        let related_alarm_type = history_row['at'], 
-        related_alarm_id = history_row['aid'], 
-        related_machine_id = history_row['mid'],
-        related_active_timestamp = history_row['t'],
-        related_inactive_timestamp = history_row['i'],
-        related_duration = history_row['duration'];
+
+        let related_alarm_type = history_row['alarm_type'],
+            related_alarm_id = history_row['alarm_id'],
+            related_machine_id = history_row['machine_id'],
+            related_active_timestamp = history_row['date_active_timestamp'],
+            related_inactive_timestamp = history_row['date_inactive_timestamp'],
+            related_duration = history_row['duration'];
 
         related_active_timestamp = timeConverter(related_active_timestamp);
 
-        let combo_id = related_machine_id + "" + related_alarm_id + "" + related_alarm_type;
-        let related_alarm_data = alarms_data_result[combo_id];
+        let combo_id = related_machine_id + "_" + related_alarm_id + "_" + related_alarm_type;
+        let related_alarm_data = alarms_info[combo_id];
 
         data_table.row.add( [
             related_active_timestamp,
@@ -315,32 +399,90 @@ ipcRenderer.on("render:alarms_history", function(e, alarms_history_result, alarm
             related_alarm_data['variable_name']
         ] ).draw( false );
 
-        //jQuery("#active_alarm_tbody").append(tr_html);
-    });
 
-    data_table.columns().every(function () {
-        var column = this;
-        
-        if (column.index() === 2 || column.index() === 3) {
-            let select_txt = "";
-            let select_id = "";
-            if(column.index() === 2) {
-                select_txt = "Select class";
-                select_id = "#class_filter";
-            } else {
-                select_txt = "Select location";
-                select_id = "#location_filter";
+    });
+    if (current_page == 1) {
+        page_html += '<li class="page-item disabled"><button class="page-link page-prev" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button></li>';
+    } else {
+        page_html += '<li class="page-item"><button class="page-link page-prev" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button></li>';
+    }
+    if (total_pages > 6) {
+        if (current_page >= 5 && current_page + 4 < total_pages) {
+            page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${1} href="#">1</button></li>`;
+            page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
+            page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${current_page - 1} href="#">${current_page - 1}</button></li>`;
+            page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${current_page} href="#">${current_page}</button></li>`;
+            page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${current_page + 1} href="#">${current_page + 1}</button></li>`;
+            page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
+            page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${total_pages} href="#">${total_pages}</button></li>`;
+        } else if (current_page >= 5 && current_page + 4 >= total_pages) {
+            page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${1} href="#">1</button></li>`;
+            page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
+            for (let p = total_pages - 4; p <= total_pages; p++) {
+                if (p == current_page) {
+                    page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+                } else {
+                    page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+                }
             }
-            
-            let select = $(select_id);
-            column.data().unique().sort().each(function (d, j) {
-                //console.log(d);
-                select.append('<option value="' + d + '">' + d + '</option>')
+
+        } else {
+            for (let p = 1; p <= 5; p++) {
+                if (p == current_page) {
+                    page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+                } else {
+                    page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+                }
+            }
+            page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
+            page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${total_pages} href="#">${total_pages}</button></li>`;
+        }
+    } else {
+        for (let p = 1; p <= total_pages; p++) {
+            if (p == current_page) {
+                page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+            } else {
+                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
+            }
+        }
+    }
+    if (current_page == total_pages) {
+        page_html += '<li class="page-item disabled"><button class="page-link page-next" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></button></li>';
+    } else {
+        page_html += '<li class="page-item"><button class="page-link page-next" href="#" aria-label="Previous"><span aria-hidden="true">&raquo;</span></button></li>';
+    }
+    $('#page-wrapper').empty();
+    $('#page-wrapper').append(page_html);
+
+    $('.page-btn').click(function (e) {
+        if (current_page !== Number($(this).data('pageNo'))) {
+            ipcRenderer.send("sendRequest", selected_machine, 'getAlarmsHistory', {
+                'page': Number($(this).data('pageNo')),
+                'per_page': per_page,
+                'from_timestamp': start_time,
+                'to_timestamp': end_time,
             });
         }
     });
+    $('.page-prev').click(function (e) {
+        ipcRenderer.send("sendRequest", selected_machine, 'getAlarmsHistory', {
+            'page': current_page - 1,
+            'per_page': per_page,
+            'from_timestamp': start_time,
+            'to_timestamp': end_time,
+        });
+    });
+    $('.page-next').click(function (e) {
+        ipcRenderer.send("sendRequest", selected_machine, 'getAlarmsHistory', {
+            'page': current_page + 1,
+            'per_page': per_page,
+            'from_timestamp': start_time,
+            'to_timestamp': end_time,
+        });
+    });
+    $('#alarm_table_info').html(`Showing ${(current_page * per_page) - (per_page - 1)} to ${current_page * per_page > total_records ? total_records : current_page * per_page} of ${total_records} entries`);
 
-    jQuery("#head-loader").html('Alarms History');
+
 });
 </script>
 </body>
