@@ -54,6 +54,17 @@
                 </div>
             </form>
         </div>
+        <div class="pl-2 mt-3 mb-3">
+            <label for="no_of_rows" class="mr-1">No of rows</label>
+            <span class="badge badge-pill badge-light">
+            <select id="no_of_rows" class="pt-2 pb-2 pl-2 pr-2"
+                    style="border:0;background-color: #f8f9fa; font-weight: bold; font-size: 12px;">
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+                <option value="1500">1500</option>
+            </select>
+        </span>
+        </div>
     </div>
     <div class="row m-0 mt-2">
         <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
@@ -220,6 +231,17 @@ jQuery(document).ready(function() {
 
         ipcRenderer.send("get:views", selected_machine, "alarms-history-view");
 
+    });
+
+    $('#no_of_rows').change(function () {
+        let selected_option = $(this).val();
+        per_page = Number(selected_option);
+        ipcRenderer.send("sendRequest", selected_machine, 'getAlarmsHistory', {
+            'page': 1,
+            'per_page': per_page,
+            'from_timestamp': start_time,
+            'to_timestamp': end_time,
+        });
     });
 
     data_table = jQuery('#alarm_table').DataTable({
