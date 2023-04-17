@@ -261,7 +261,7 @@ function dataEventHandler(data) {
 	let jsonObjects;
 	chunk += data.toString(); // Add string on the end of the variable 'chunk'
     let d_index = chunk.indexOf(DELIMITER); // Find the delimiter
-	logger.debug('[DATA RECEIVED]['+dataReceiveCount+'] '+data.toString());
+	//logger.debug('[DATA RECEIVED]['+dataReceiveCount+'] '+data.toString());
 
     // While loop to keep going until no delimiter can be found
     while (d_index > -1) {
