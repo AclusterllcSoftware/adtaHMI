@@ -5,12 +5,13 @@
       <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'general-view-devices' ? 'active' : '' %>" href="#" data-link="general-view-devices">Devices</a>
       <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'general-view-motors' ? 'active' : '' %>" href="#" data-link="general-view-motors">Motor</a>
     </div>
-  <% } else if (['statistics','statistics-hourly', 'statistics-bins-detail', 'statistics-bins-detail-single','sorting-code-detail'].includes(currentMenu))
+  <% } else if (['statistics','statistics-hourly', 'statistics-bins-detail', 'statistics-bins-detail-single','sorting-code-detail','statistics-shift-wise'].includes(currentMenu))
     { %>
       <div class="main-area flex-grow-1">
         <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'statistics-bins-detail' ? 'active' : '' %>"  href="#" data-link="statistics-bins-detail">Bins Detailed</a>
         <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'statistics-hourly' ? 'active' : '' %>"  href="#" data-link="statistics-hourly">Hourly</a>
-          <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'sorting-code-detail' ? 'active' : '' %>"  href="#" data-link="sorting-code-detail">Sorting Code Detail</a>
+        <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'sorting-code-detail' ? 'active' : '' %>"  href="#" data-link="sorting-code-detail">Sorting Code Detail</a>
+        <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'statistics-shift-wise' ? 'active' : '' %>"  href="#" data-link="statistics-shift-wise">Shift wise</a>
       </div>
     <%}
     else if (['maint', 'params','maint-motors','maint-devices'].includes(currentMenu)) {%>
