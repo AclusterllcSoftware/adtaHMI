@@ -419,7 +419,7 @@ ipcRenderer.on("getAlarmsHistory", function (e, data_result) {
             related_alarm_data['location'],
             related_alarm_data['description'],
             related_alarm_data['variable_name']
-        ] ).draw( false );
+        ] );
 
 
     });
@@ -428,6 +428,7 @@ ipcRenderer.on("getAlarmsHistory", function (e, data_result) {
     } else {
         page_html += '<li class="page-item"><button class="page-link page-prev" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button></li>';
     }
+    data_table.draw();
     if (total_pages > 6) {
         if (current_page >= 5 && current_page + 4 < total_pages) {
             page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${1} href="#">1</button></li>`;
