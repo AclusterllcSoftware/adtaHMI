@@ -258,9 +258,13 @@
                     jQuery("#alert-div").hide();
                     filter_sorting_code = jQuery("#filter_sorting_code").val();
                     // ipcRenderer.send("get:filtered_package_list", selected_machine, from_timestamp, to_timestamp, filter_sorting_code);
+                    start_time= from_timestamp;
+                    end_time= to_timestamp;
                     ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
+                        'page': 1,
+                        'per_page': per_page,
                         'from_timestamp': from_timestamp,
-                        'to_timestamp': to_timestamp
+                        'to_timestamp': to_timestamp,
                     });
                 }
 
