@@ -50,7 +50,7 @@
                                         </div>
                                         <input id="speed" type="text" class="form-control text-right float_positive" value="0">
                                         <div class="input-group-append">
-                                            <span class="input-group-text">m/s</span>
+                                            <span id="label_speed_input_unit" class="input-group-text">./.</span>
                                         </div>
                                     </div>
                                 </td>
@@ -123,6 +123,13 @@ function setMotorDetailsView(){
 }
 ipcRenderer.on("render:general-view-motors", function(e, data) {
     basic_info=data;
+    if(basic_info['hmiSettings']['motor_speed_unit']=='ft_min'){
+        $('#motor-details #label_speed_input_unit').html('ft/min')
+    }
+    else{
+        $('#motor-details #label_speed_input_unit').html('m/s')
+    }
+
     setBinsLabel(data['binsInfo']);//nav.js
     setEstopsLabel(data['inputsInfo']);//nav.js
     setDevicesLabel(data['devicesInfo']);//nav.js
@@ -151,11 +158,25 @@ ipcRenderer.on("render:general-view-motors", function(e, data) {
     })
     $('#motor-details  #button-motor-start').on('click',function (){
         if(machine_mode==1){
-            let speed=$('#motor-details #speed').val()*1000;
             let motorInfo=basic_info['motorsInfo'][selected_machine+'_'+motorIdForDetailsView];
+            let speed;
+            let speed_min;
+            let speed_max;
+            if(basic_info['hmiSettings']['motor_speed_unit']=='ft_min'){
+                speed=$('#motor-details #speed').val()*5.08;
+                speed_min=motorInfo['speed_min']/5.08;
+                speed_max=motorInfo['speed_max']/5.08;
+            }
+            else{
+                speed=$('#motor-details #speed').val()*1000;
+                speed_min=motorInfo['speed_min']/1000;
+                speed_max=motorInfo['speed_max']/1000;
+            }
+            speed=parseInt(speed);
+
             if(speed<motorInfo['speed_min'] || speed>motorInfo['speed_max']){
-                $('#motor-details #speed_max').text(motorInfo['speed_max']/1000)
-                $('#motor-details #speed_min').text(motorInfo['speed_min']/1000)
+                $('#motor-details #speed_max').text(speed_max.toFixed(2))
+                $('#motor-details #speed_min').text(speed_min.toFixed(2))
                 $('#motor-details #speed_error').show();
             }
             else{
