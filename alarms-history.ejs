@@ -405,7 +405,7 @@ ipcRenderer.on("getAlarmsHistory", function (e, data_result) {
             related_machine_id = history_row['machine_id'],
             related_active_timestamp = history_row['date_active_timestamp'],
             related_inactive_timestamp = history_row['date_inactive_timestamp'],
-            related_duration = history_row['duration'];
+            related_duration = related_inactive_timestamp - related_active_timestamp;
 
         related_active_timestamp = timeConverter(related_active_timestamp);
 
