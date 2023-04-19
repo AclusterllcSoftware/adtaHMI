@@ -211,7 +211,7 @@ function processReceivedJsonObjects(jsonObjects) {
 				['getStatistics','getStatisticsHourly','getStatisticsCounter','getStatisticsCounterLast',
 					'getStatisticsBins','getStatisticsBinsHourly','getStatisticsBinsCounter',
 					'getGeneralViewData','getGeneralDevicesViewData','getGeneralMotorsViewData','getGeneralBinDetailsViewData',
-					'getAlarmsViewData','getAlarmsHistory','getProductsHistory',
+					'getAlarmsViewData','getAlarmsHistory','getProductsHistory','getAlarmsHitList',
 					'getMaintViewData','getParamsViewData','changeCurrentUserPassword','getCommonStatus'
 				].includes(resType)){
 				mainWindow.webContents.send(resType, jsonObj);
@@ -235,12 +235,6 @@ function processReceivedJsonObjects(jsonObjects) {
 				mainWindow.webContents.send("getLoginUser", jsonObj);
 			}
 			////////////
-			else if(resType == "alarms_hit_list") {
-				let alarmsHitListResult = jsonObj.result.history;
-				let alarmDataResult = jsonObj.result.data;
-				let machine_mode = jsonObj.result.mode;
-				mainWindow.webContents.send("render:alarms_hit_list", alarmsHitListResult, alarmDataResult, machine_mode);
-			}
 			else if(resType == "mod_sort") {
 				let modSortResult = jsonObj.result;
 				mainWindow.webContents.send("render:mod_sort", modSortResult);
@@ -346,7 +340,7 @@ ipcMain.on("get:views", function(e, machineId, view_name) {
 	else if(machineId!=0){
 		if(['statistics','statistics-hourly','statistics-bins-detail'
 			,'general-view','general-view-devices','general-view-motors'
-			,'alarms-view','alarms-history-view',
+			,'alarms-view','alarms-history-view','alarms-hitlist-view',
 			'token','maint','maint-devices','maint-motors','params','sorting-code-detail','statistics-shift-wise'].includes(view_name)){
 			mainWindow.webContents.send("render:"+view_name, data);
 		}
