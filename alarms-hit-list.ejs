@@ -324,16 +324,18 @@
 
             let combo_id = related_machine_id + "_" + related_alarm_id + "_" + related_alarm_type;
             let related_alarm_data = alarms_info[combo_id];
+            if(related_alarm_data){
+                data_table.row.add( [
+                    converted_active_timestamp,
+                    no_of_occurances,
+                    secondsToDhms(related_duration),
+                    alarm_class_to_names[related_alarm_data['alarm_class']],
+                    related_alarm_data['location'],
+                    related_alarm_data['description'],
+                    related_alarm_data['variable_name']
+                ] );
+            }
 
-            data_table.row.add( [
-                converted_active_timestamp,
-                no_of_occurances,
-                secondsToDhms(related_duration),
-                alarm_class_to_names[related_alarm_data['alarm_class']],
-                related_alarm_data['location'],
-                related_alarm_data['description'],
-                related_alarm_data['variable_name']
-            ] );
         });
         data_table.columns().every(function () {
             var column = this;
