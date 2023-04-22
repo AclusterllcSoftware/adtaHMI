@@ -208,7 +208,7 @@ function processReceivedJsonObjects(jsonObjects) {
 				}
 			}
 			else if(
-				['getStatistics','getStatisticsHourly','getStatisticsCounter','getStatisticsCounterLast',
+				['getStatistics','getStatisticsHourly','getStatisticsMinutely','getStatisticsCounter','getStatisticsCounterLast',
 					'getStatisticsBins','getStatisticsBinsHourly','getStatisticsBinsCounter',
 					'getGeneralViewData','getGeneralDevicesViewData','getGeneralMotorsViewData','getGeneralBinDetailsViewData',
 					'getAlarmsViewData','getAlarmsHistory','getProductsHistory','getAlarmsHitList',
