@@ -16,21 +16,25 @@
   </defs>
   <g transform="translate(0 0)">
     <text class="gv-text" transform="translate(0 11)"><tspan x="0" y="0">Conveyor</tspan></text>
-    <g transform="translate(0 23)">
+    <g transform="translate(0 20)">
       <rect x="3" y="3" width="80" height="20" rx="2.5" ry="2.5" style="fill:#fff;stroke:#27e22b;stroke-width:3px;"/>
       <text class="gv-text" transform="translate(18 16)"><tspan x="0" y="0">Running</tspan></text>
     </g>
-    <g transform="translate(0 57)">
+    <g transform="translate(0 50)">
       <rect x="3" y="3" width="80" height="20" rx="2.5" ry="2.5" style="fill:#fff;stroke:#ccc;stroke-width:3px;"/>
       <text class="gv-text" transform="translate(18 16)"><tspan x="0" y="0">Stopped</tspan></text>
     </g>
-    <g transform="translate(0 91)">
+    <g transform="translate(0 80)">
       <rect x="3" y="3" width="80" height="20" rx="2.5" ry="2.5" style="fill:#fff;stroke:#ff0000;stroke-width:3px;"/>
       <text class="gv-text" transform="translate(18 16)"><tspan x="0" y="0">Faulted</tspan></text>
     </g>
-    <g transform="translate(0 125)">
+    <g transform="translate(0 110)">
       <rect x="3" y="3" width="80" height="20" rx="2.5" ry="2.5" style="fill:#fff;stroke:#ffc000;stroke-width:3px;"/>
       <text class="gv-text" transform="translate(18 16)"><tspan x="0" y="0">Jammed</tspan></text>
+    </g>
+    <g transform="translate(0 140)">
+      <rect x="3" y="3" width="80" height="20" rx="2.5" ry="2.5" style="fill:#fff;stroke:#87cefa;stroke-width:3px;"/>
+      <text class="gv-text" transform="translate(18 16)"><tspan x="0" y="0">Eco Mng</tspan></text>
     </g>
   </g>
   <g transform="translate(0 170)">
@@ -70,7 +74,7 @@
       <rect class="photoeye-off" x="32" y="5" width="3.2" height="3.2"/>
       <rect class="photoeye-off" x="38" y="5" width="3.2" height="3.2"/>
       <rect class="photoeye-off" x="44" y="0" width="3.6" height="12"/>
-      <text  class="gv-text" style="font-size:9px" x="55" y="10" >Unblocked</text>
+      <text  class="gv-text" style="font-size:9px" x="55" y="10" >Blocked</text>
     </g>
     <g transform="translate(0 46)">
       <polygon class="photoeye-on" points="12 6 0 0 0 12 12 6"/>
@@ -80,7 +84,7 @@
       <rect class="photoeye-on" x="32" y="5" width="3.2" height="3.2"/>
       <rect class="photoeye-on" x="38" y="5" width="3.2" height="3.2"/>
       <rect class="photoeye-on" x="44" y="0" width="3.6" height="12"/>
-      <text class="gv-text" style="font-size:9px" x="55" y="10" >Blocked</text>
+      <text class="gv-text" style="font-size:9px" x="55" y="10" >Unblocked</text>
     </g>
   </g>
   <g transform="translate(120 80)">

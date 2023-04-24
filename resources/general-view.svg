@@ -193,7 +193,7 @@
     <rect class="cls-14 status" x="46" y="5" width="3.2" height="3.2"/>
     <rect class="cls-14 status" x="54" y="0" width="3.6" height="12"/>
   </g>
-  <g transform="translate(18 70)" class="photoeye" gui-input-id="2" input-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(18 80)" class="photoeye" gui-input-id="2" input-id="0" data-toggle="tooltip" data-html="true" title="">
     <polygon class="cls-14 status" points="12 6 0 0 0 12 12 6"/>
     <rect class="cls-14 status" x="14" y="5" width="3.2" height="3.2"/>
     <rect class="cls-14 status" x="22" y="5" width="3.2" height="3.2"/>
@@ -274,7 +274,7 @@
     <rect class="cls-14 status" x="46" y="5" width="3.2" height="3.2"/>
     <rect class="cls-14 status" x="54" y="0" width="3.6" height="12"/>
   </g>
-  <g transform="translate(339 452) rotate(270)" class="photoeye" gui-input-id="12" input-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(338 452) rotate(270)" class="photoeye" gui-input-id="12" input-id="0" data-toggle="tooltip" data-html="true" title="">
     <polygon class="cls-14 status" points="12 6 0 0 0 12 12 6"/>
     <rect class="cls-14 status" x="14" y="5" width="3.2" height="3.2"/>
     <rect class="cls-14 status" x="22" y="5" width="3.2" height="3.2"/>
@@ -284,5 +284,25 @@
     <rect class="cls-14 status" x="54" y="5" width="3.2" height="3.2"/>
     <rect class="cls-14 status" x="62" y="5" width="3.2" height="3.2"/>
     <rect class="cls-14 status" x="70" y="0" width="3.6" height="12"/>
+  </g>
+  <g transform="translate(564 452) rotate(270)" class="photoeye" gui-input-id="5" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-14 status" points="12 6 0 0 0 12 12 6"/>
+    <rect class="cls-14 status" x="14" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14 status" x="22" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14 status" x="30" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14 status" x="38" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14 status" x="46" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14 status" x="54" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14 status" x="62" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14 status" x="70" y="0" width="3.6" height="12"/>
+  </g>
+  <g transform="translate(18 60)" class="photoeye" gui-input-id="13" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="cls-14 status" points="12 6 0 0 0 12 12 6"/>
+    <rect class="cls-14 status" x="14" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14 status" x="22" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14 status" x="30" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14 status" x="38" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14 status" x="46" y="5" width="3.2" height="3.2"/>
+    <rect class="cls-14 status" x="54" y="0" width="3.6" height="12"/>
   </g>
 </svg>
