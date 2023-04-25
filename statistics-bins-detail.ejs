@@ -1,202 +1,62 @@
-<%- include('header', {currentMenu: 'statistics-hourly', pageTitle: 'Hourly'}); %>
+<%- include('header', {currentMenu: 'statistics-bins-detail', pageTitle: 'Bins Detailed'}); %>
 
-<div class="row mt-2">
-    <div class="col-lg-12" style="padding: 0 40px">
-        <form>
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="form-row" id="alert-div" style="display: none">
-                        <div class="col-md-12" id="alert-div-area"></div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <h5>From</h5>
-                        </div>
-                        <div class="col-md-4">
-                            <h5>To</h5>
-                        </div>
-                        <div class="col-md-4"></div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-2">
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="from_date"
-                                    placeholder="From date"
-                            />
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="from_date_hour"></select>
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="from_date_minute"></select>
-                        </div>
-                        <div class="col-md-2">
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="to_date"
-                                    placeholder="To date"
-                            />
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="to_date_hour"></select>
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="to_date_minute"></select>
-                        </div>
-                        <div class="col-md-2">
-                            <button
-                                    type="button"
-                                    class="btn btn-primary"
-                                    id="filter_submit_btn2"
-                            >
-                                Filter
-                            </button>
-                            <input type="hidden" id="start_timestamp2"/>
-                            <input type="hidden" id="end_timestamp2"/>
-                        </div>
-                        <div class="col-md-2"></div>
-                    </div>
-                </div>
+<ul class="nav nav-tabs mt-4" id="myTab" role="tablist" style="padding: 0 40px">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="volumen-tab" data-bs-toggle="tab" data-bs-target="#volume" type="button"
+                role="tab">Volume
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="percentage-tab" data-bs-toggle="tab" data-bs-target="#percentage" type="button"
+                role="tab">Percentage
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="table-view-tab" data-bs-toggle="tab" data-bs-target="#table-view" type="button"
+                role="tab">Table
+        </button>
+    </li>
+</ul>
+<div class="tab-content mt-4" id="myTabContent" style="min-height: 65vh; padding: 0 40px">
+    <div class="tab-pane fade show active" id="volume" role="tabpanel">
+        <div class="row">
+            <div class="col-lg-12" id="bins-detailed" style="height: 400px;">Bins Detailed-Total</div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="percentage" role="tabpanel">
+        <div class="row">
+            <div class="col-lg-12" id="bins-detailed-percentage" style="height: 400px;">Bins Detailed-Percentage</div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="table-view" role="tabpanel">
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-sm table-bordered" style="font-size: 12px;">
+                    <thead>
+                    <tr id="sc-table-head">
+                    </tr>
+                    </thead>
+                    <tbody id="sc-table">
+                    </tbody>
+                </table>
             </div>
-        </form>
-    </div>
-    <div class="d-flex justify-content-end align-items-center" style="padding: 0 40px; margin-left: auto">
-        <span class="mr-2">Detail</span>
-        <label class="switch m-0">
-            <input type="checkbox" id="switch-detail" checked>
-            <span class="slider round"></span>
-        </label>
-        <span class="ml-2">General</span>
-    </div>
-    <div
-            class="col-lg-12"
-            style="padding: 0 40px; text-align: center"
-            id="new-volume-chart"
-            style="height: 400px"
-    >
-        Hourly
-    </div>
-    <div
-            class="col-lg-12"
-            style="padding: 0 40px; text-align: center"
-            id="new-general-chart"
-            style="height: 400px"
-    >
-        Hourly
-    </div>
-    <div class="col-lg-12" style="padding: 0 40px; text-align: center">
-        <table class="table table-sm table-bordered table-striped">
-            <thead>
-            <tr>
-                <th>Date/Time</th>
-                <th>Scanner Reads</th>
-                <th>Scanner No Reads</th>
-                <th>% No Reads</th>
-                <th>Good diverts</th>
-                <th>Reject Count</th>
-                <th>Recirc Count</th>
-                <th>% Recirc</th>
-            </tr>
-            </thead>
-            <tbody id="table-hourly"></tbody>
-        </table>
+        </div>
     </div>
 </div>
 
-<div class="row mt-2"></div>
-<style type="text/css">
-    .table-striped > tbody > tr:nth-child(even) > td {
-        background-color: #bfdbfe;
-    / / Choose your own color here
-    }
-
-    .table-striped > tbody > tr:nth-child(odd) > td {
-        background-color: #fff;
-    }
-
-    .table-striped > thead > tr > th {
-        background-color: #e2e8f0;
-    }
-
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 48px;
-        height: 24px;
-    }
-
-    .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 20px;
-        width: 20px;
-        left: 1px;
-        bottom: 2px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    input:checked + .slider {
-        background-color: #2196F3;
-    }
-
-    input:focus + .slider {
-        box-shadow: 0 0 1px #2196F3;
-    }
-
-    input:checked + .slider:before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
-    }
-
-    /* Rounded sliders */
-    .slider.round {
-        border-radius: 34px;
-    }
-
-    .slider.round:before {
-        border-radius: 50%;
-    }
-</style>
-<%- include('footer', {currentMenu: 'statistics-hourly'}); %>
+<%- include('footer', {currentMenu: 'statistics-bins-detail'}); %>
 <script src="js/jquery-bootstrap.js"></script>
 <script src="js/daterangepicker/moment.min.js"></script>
 <script src="js/datepicker/bootstrap-datepicker.min.js"></script>
 <script src="js/jquery.newsTicker.js"></script>
-<script src="js/datatables/datatables.js"></script>
-<script src="js/jszip.min.js"></script>
+<script src=""></script>
 <script src="js/nav.js"></script>
-
 <script>
-    const Highcharts = require("highcharts/highstock");
-    require("highcharts/modules/exporting")(Highcharts);
-    require("highcharts/modules/export-data")(Highcharts);
-    let scs_info = [],
-        end_time = null,
-        start_time = null, show_general = true;
+    const Highcharts = require('highcharts/highstock')
+    require('highcharts/modules/exporting')(Highcharts);
+    require('highcharts/modules/export-data')(Highcharts);
+    let scs_info = [], bins_info = [], start_time = null, end_time = null, bins_statistics = [], tab_target = '#volume',
+        detail_bins_statistics=[];
     let sc_color_codes = {
         sc0: "#34d399",
         sc1: "#38bdf8",
@@ -216,124 +76,18 @@
         sc21: "#fde047",
     };
 
-    function load_hour_minute_dropdowns() {
-        let hours_html, minutes_html;
-        for (var i = 0; i < 24; i++) {
-            let v = i;
-            if (i < 10) {
-                v = "0" + i;
-            }
-            hours_html += '<option value="' + v + '">' + v + "</option>";
-        }
-
-        for (var i = 0; i < 60; i++) {
-            let v = i;
-            if (i < 10) {
-                v = "0" + i;
-            }
-            minutes_html += '<option value="' + v + '">' + v + "</option>";
-        }
-
-        jQuery("#from_date_hour").html(hours_html);
-        jQuery("#from_date_minute").html(minutes_html);
-        jQuery("#to_date_hour").html(hours_html);
-        jQuery("#to_date_minute").html(minutes_html);
-    }
-
     jQuery(document).ready(function () {
-        load_hour_minute_dropdowns();
-
-        jQuery("#filter_submit_btn2").click(function () {
-            let date_ok = 1;
-            let from_date = jQuery("#from_date").val();
-            let from_date_hour = jQuery("#from_date_hour").val();
-            let from_date_minute = jQuery("#from_date_minute").val();
-
-            let to_date = jQuery("#to_date").val();
-            let to_date_hour = jQuery("#to_date_hour").val();
-            let to_date_minute = jQuery("#to_date_minute").val();
-
-            if (from_date.trim().length === 0) {
-                date_ok = 0;
+        // tabs functionality
+        jQuery('#myTab li button').click(function () {
+            let target = $(this).data('bsTarget');
+            tab_target = target;
+            if (!$(this).hasClass('active')) {
+                $('#myTab li button').removeClass('active');
+                $(this).addClass('active');
+                $('#myTabContent div').removeClass('show active');
+                $(target).addClass('show active');
             }
-
-            if (to_date.trim().length === 0) {
-                date_ok = 0;
-            }
-
-            if (date_ok === 0) {
-                jQuery("#alert-div-area").empty();
-                let alert_div_html =
-                    '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
-                    '<strong id="alert-div-text">Please select dates correctly</strong>' +
-                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                    '<span aria-hidden="true">&times;</span>' +
-                    "</button>" +
-                    "</div>";
-                jQuery("#alert-div-area").html(alert_div_html);
-                jQuery("#alert-div").show();
-            } else {
-                let from_date_time =
-                    from_date + " " + from_date_hour + ":" + from_date_minute;
-                let to_date_time = to_date + " " + to_date_hour + ":" + to_date_minute;
-
-                var from_timestamp = moment(from_date_time, "M-D-YYYY HH:mm").unix();
-                var to_timestamp = moment(to_date_time, "M/D/YYYY HH:mm").unix();
-                if (from_timestamp > to_timestamp) {
-                    jQuery("#alert-div-area").empty();
-                    let alert_div_html =
-                        '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
-                        '<strong id="alert-div-text">Please select date times correctly</strong>' +
-                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                        '<span aria-hidden="true">&times;</span>' +
-                        "</button>" +
-                        "</div>";
-                    jQuery("#alert-div-area").html(alert_div_html);
-                    jQuery("#alert-div").show();
-                } else {
-                    start_time = from_timestamp;
-                    end_time = to_timestamp;
-                    ipcRenderer.send(
-                        "sendRequest",
-                        selected_machine,
-                        "getStatisticsHourly",
-                        {
-                            from_timestamp: start_time,
-                            to_timestamp: end_time,
-                        }
-                    );
-                }
-            }
-        });
-
-        jQuery("#from_date").datepicker({
-            autoclose: true,
-            format: "mm-dd-yyyy",
-        });
-
-        jQuery("#to_date").datepicker({
-            autoclose: true,
-            format: "mm-dd-yyyy",
-        });
-        jQuery('#switch-detail').prop('checked', show_general);
-        if (show_general) {
-            $('#new-general-chart').show();
-            $('#new-volume-chart').hide();
-        } else {
-            $('#new-general-chart').hide();
-            $('#new-volume-chart').show();
-        }
-
-        jQuery('#switch-detail').change(function () {
-            show_general = $(this).is(":checked");
-            if ($(this).is(":checked")) {
-                $('#new-general-chart').show();
-                $('#new-volume-chart').hide();
-            } else {
-                $('#new-general-chart').hide();
-                $('#new-volume-chart').show();
-            }
-        });
+        })
 
         jQuery("#ip_list_dropdown").change(function () {
             selected_machine = jQuery(this).val();
@@ -341,18 +95,33 @@
             if (selected_machine !== "") {
                 let selected_machine_name = machine_list[selected_machine];
                 jQuery("#display_machine_name").text(selected_machine_name);
-                ipcRenderer.send("get:views", selected_machine, "statistics-hourly");
+
+                // setInterval(() => {
+                //     ipcRenderer.send("get:views", selected_machine, "statistics");
+                // }, 60000);
+
             } else {
                 jQuery("#display_machine_name").text("Select a machine");
                 selected_machine = 0;
             }
+            ipcRenderer.send("get:views", selected_machine, "statistics-bins-detail");
         });
+
     });
 
-    ipcRenderer.on("render:statistics-hourly", function (e, basic_info) {
-        Object.values(basic_info["scsInfo"]).forEach((v) => {
+
+    ipcRenderer.on('render:statistics-bins-detail', function (e, basic_info) {
+        console.log('statistics-bins-detail render');
+        Object.values(basic_info['scsInfo']).forEach(v => {
             scs_info.push({...v, code: "sc" + v.value});
         });
+
+
+        Object.values(basic_info['binsInfo']).forEach(v => {
+            bins_info.push({...v, bin_id: Number(v['bin_id'])});
+        });
+
+        // ipcRenderer.send('getStatisticsBins', selected_machine, start_time, end_time)
 
         ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsCounterLast', {});
         setInterval(() => {
@@ -364,124 +133,196 @@
         let shift_statistics = data_result['statistics'][0];
         let shift_strating_time = shift_statistics['created_at_timestamp'],
             converted_shift_started_time = null, diff = null;
-        diff = moment(shift_strating_time).minutes();
+        diff = moment(shift_strating_time).minutes() % 3;
         converted_shift_started_time = shift_strating_time - diff*60;
         end_time = moment().unix();
-        start_time = moment().subtract(24, 'hours').unix();
-        if ((moment().unix() - moment(converted_shift_started_time)) / 3600 <= 24) {
-            start_time = converted_shift_started_time;
-        }
-        ipcRenderer.send("sendRequest", selected_machine, "getStatisticsHourly", {
-            from_timestamp: start_time,
-            to_timestamp: end_time,
+        start_time = converted_shift_started_time;
+        ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsBins', {
+            'from_timestamp': start_time,
+            'to_timestamp': end_time
         });
+
+        ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsBinsCounter', {
+            'from_timestamp': start_time,
+            'to_timestamp': end_time
+        });
+
     });
 
-    ipcRenderer.on("getStatisticsHourly", function (e, data_result) {
+    ipcRenderer.on('getStatisticsBinsCounter', function (e, data_result) {
+        detail_bins_statistics = data_result['statistics'];
+    });
 
-        let chart_categories = [],
-            table_data = [];
-        let statistics_result = data_result["statistics"];
+    ipcRenderer.on('getStatisticsBinsCounter', function (e, data_result) {
+
+        let bins_summary = [], chart_series = [],
+            chart_series_percentage = [], chart_categories = [], reject_recirc = [
+                {name: 'Reject', code: 'reject', color: '#f43f5e'},
+                {name: 'Recirc', code: 'recirc', color: '#f59e0b'},
+            ], reject_recirc_stack = [], reject_recirc_stack_per = [];
+        let sc_codes = scs_info.map(s => s.code);
+        bins_statistics = data_result['statistics'];
+        bins_info.sort((a,b)=> Number(a.sort_manager_id)-Number(b.sort_manager_id));
+        bins_info.forEach((bin, key) => {
+            bins_summary[key] = {bin_id: bin.bin_id, label: bin.bin_label}
+
+            let bin_stat = bins_statistics.filter(b => b.bin_id == bin.bin_id);
+            bins_summary[key]['recirc'] = bin_stat.map(b => b['recirc']).reduce((sum, curr) => sum += curr, 0);
+
+            let reject_count = 0;
+            sc_codes.forEach(sc => {
+                // temporary. until getting the reject column from database
+                if (sc != 'sc0') {
+                    reject_count += bin_stat.map(b => b[sc]).reduce((sum, curr) => sum += curr, 0);
+                }
+
+                bins_summary[key][sc] = bin_stat.map(b => b[sc]).reduce((sum, curr) => sum += curr, 0);
+            });
+            bins_summary[key]['reject'] = reject_count;
+            let {bin_id, label,reject, recirc, ...rest} = bins_summary[key];
+            bins_summary[key] = {...bins_summary[key], total: Object.values(rest).reduce((s, c) => s += c, 0)}
+        });
+
+
+
+        let sc_table_head = '<th width="10%">Bin name</th>' +
+            '<th width="5%" class="text-right">Total</th>';
+        scs_info.forEach(s => {
+            sc_table_head += '<th width="5%" class="text-right">' + s.label + '</th>';
+        })
+        jQuery("#sc-table-head").empty();
+        jQuery("#sc-table-head").append(sc_table_head);
+        let sc_table = '';
+        bins_summary.forEach(d => {
+            let sc_rows = '', total_reject_recirc=0;
+            // reject recirc per for chart
+            total_reject_recirc = d['reject']+d['recirc'];
+            d['reject_per']= total_reject_recirc>0 ?
+                Number((d['reject']*100/total_reject_recirc).toFixed(2))
+                : 0;
+            d['recirc_per']= total_reject_recirc>0 ?
+                Number((d['recirc']*100/total_reject_recirc).toFixed(2))
+                : 0;
+            // sc table data
+            sc_table += '<tr>' +
+                '<td>' + d.label + '</td>' +
+                '<td class="text-right">' + d.total + '</td>';
+            scs_info.forEach(s => {
+                sc_rows += '<td class="text-right">' + d[s.code] + '</td>'
+            })
+            sc_table += sc_rows + '</tr>';
+        })
+
+        jQuery("#sc-table").empty();
+        jQuery("#sc-table").append(sc_table);
+
+        chart_categories = bins_summary.map(b => b.label)
+        scs_info.forEach(s => {
+            chart_series.push({name: s.label, color: sc_color_codes[s.code], data: bins_summary.map(b => b[s.code]), stack:'sort-codes'});
+            chart_series_percentage.push({
+                name: s.label,
+                color: sc_color_codes[s.code],
+                data: bins_summary.map(b => {
+                    return b.total > 0 ? Number((b[s.code] * 100 / b.total).toFixed(1)) : 0;
+                }),
+                stack:'sort-codes'
+            });
+        });
+        reject_recirc.forEach(d => {
+            reject_recirc_stack.push({name: d.name, data: bins_summary.map(b => b[d.code]), color:d.color, stack:'others'});
+            reject_recirc_stack_per.push({name: d.name, data: bins_summary.map(b => b[d.code+'_per']), color:d.color, stack:'others'});
+        });
+
+        reject_recirc_stack.sort((a, b) => a.data.reduce((s, c) => s += c, 0) - b.data.reduce((s, c) => s += c, 0));
+        chart_series.sort((a, b) => a.data.reduce((s, c) => s += c, 0) - b.data.reduce((s, c) => s += c, 0));
+        chart_series_percentage.sort((a, b) => a.data.reduce((s, c) => s += c, 0) - b.data.reduce((s, c) => s += c, 0))
+        populateChart('bins-detailed', chart_categories, chart_series);
+        populateChart('bins-detailed-percentage', chart_categories, chart_series_percentage, 'Bins Detailed-Percentage (%)');
+    });
+
+    function onBarClick(bin_label = '') {
+
+        let selected_bin = bins_info.find(b => b.bin_label == bin_label), bin_data = [];
+
+        bin_data = detail_bins_statistics.filter(b => b.bin_id === selected_bin.bin_id);
+
+        let chart_categories = [];
         let scs_data = scs_info.map((d) => ({
             ...d,
             total: 0,
             color: sc_color_codes[d.code],
             data: [],
-        })), general_data = [
-            {name: 'success', total: 0, data: [], color: '#34d399'},
-            {name: 'reject', total: 0, data: [], color: '#f43f5e'},
-            {name: 'recirc', total: 0, data: [], color: '#f59e0b'},
-        ];
+        }));
 
-        for (k in statistics_result) {
-            let time_slot = statistics_result[k]["created_at_timestamp"],
-                good_diverts = 0,
-                reject_counts = 0,
-                recirc_count = Number(statistics_result[k]["recirc"]),
-                total_read = Number(statistics_result[k]["total_read"]),
-                no_read = Number(statistics_result[k]["no_read"]),
-                per_no_read =
-                    total_read > 0
-                        ? Number(((no_read / total_read) * 100).toFixed(2))
-                        : 0,
-                per_recirc_count =
-                    total_read > 0
-                        ? Number(((recirc_count / total_read) * 100).toFixed(2))
-                        : 0;
+        for (k in bin_data.slice(0, 60)) {
+
+            let time_slot = bin_data[k]["created_at_timestamp"];
+
             chart_categories.push(moment.unix(time_slot).format("MMM D, H:mm"));
+            let total = scs_data.reduce((a, curr) => a + Number(bin_data[k][curr["code"]]), 0);
             scs_data.forEach((d) => {
-                good_diverts +=
-                    d["code"] === "sc0" ? Number(statistics_result[k][d["code"]]) : 0;
-                reject_counts +=
-                    d["code"] != "sc0"
-                        ? Number(statistics_result[k][d["code"]])
-                        : 0;
-                d.total += Number(statistics_result[k][d["code"]]);
-                d.data.push(Number(statistics_result[k][d["code"]]));
+                let val = Number(bin_data[k][d["code"]]),
+                    per_val = total > 0 ? Number((val * 100 / total).toFixed(2)) : 0;
+                d.total += val;
+                d.data.push(tab_target == '#volume' ? val : per_val);
             });
-            reject_counts -=recirc_count;
-            general_data.forEach(g => {
-                if (g.name === 'success') {
-                    g.data.push(good_diverts)
-                    g.total += good_diverts;
-                } else if (g.name === 'reject') {
-                    g.data.push(reject_counts)
-                    g.total += reject_counts;
-                } else if (g.name === 'recirc') {
-                    g.data.push(recirc_count);
-                    g.total += recirc_count;
-                }
-            })
 
-            table_data.push({
-                total_read,
-                no_read,
-                per_no_read,
-                good_diverts,
-                reject_counts,
-                recirc_count,
-                per_recirc_count,
-                time_slot: moment.unix(time_slot).format("MMM D, H:mm"),
-            });
         }
-        console.log(general_data);
         scs_data.sort((a, b) => a.total - b.total);
-        general_data.sort((a, b) => a.total - b.total);
 
-        new Highcharts.chart("new-volume-chart", {
+        ipcRenderer.send("render:statistics-bins-detail-single",
+            view_data = {
+                chart_categories,
+                scs_data,
+                bin_label,
+                machine_name: machine_list[selected_machine]
+            }
+        );
+    }
+
+    function populateChart(id, categories = [], series = [], title = 'Bins Detailed-Total') {
+        Highcharts.chart(id, {
             chart: {
-                type: "column",
+                type: 'column'
             },
             title: {
-                text: "Hourly - Detail",
+                text: title
             },
             xAxis: {
-                type: "datetime",
-                categories: chart_categories,
+                categories: categories
             },
             yAxis: {
                 min: 0,
                 title: {
-                    text: "",
-                },
+                    text: ''
+                }
             },
             tooltip: {
+                // valueSuffix: title == 'Bins Detailed-Total' ? '' : '%'
                 formatter: function () {
-                    return '<b>' + moment(this.x).format("YYYY-MM-DD") + '</b><br/>' +
+                    return '<b>' + this.x + '</b><br/>' +
                         this.series.name + ': ' + this.y + '<br/>' +
                         'Total: ' + this.point.stackTotal;
                 }
             },
             legend: {
-                reversed: true,
+                reversed: true
             },
             plotOptions: {
                 series: {
-                    stacking: "normal",
+                    stacking: 'normal',
                     dataLabels: {
-                        enabled: true,
+                        enabled: true
                     },
-                },
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function () {
+                                onBarClick(this.category);
+                            },
+                        }
+                    }
+                }
             },
             exporting: {
                 enabled: true,
@@ -494,94 +335,10 @@
             credits: {
                 enabled: false
             },
-            series: scs_data.map((d) => ({
-                name: d.label,
-                data: d.data,
-                color: d.color,
-            })),
+            series: series
         });
-        new Highcharts.chart("new-general-chart", {
-            chart: {
-                type: "column",
-            },
-            title: {
-                text: "Hourly - General",
-            },
-            xAxis: {
-                type: "datetime",
-                categories: chart_categories,
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: "",
-                },
-            },
-            tooltip: {
-                formatter: function () {
-                    return '<b>' + moment(this.x).format("YYYY-MM-DD") + '</b><br/>' +
-                        this.series.name + ': ' + this.y + '<br/>' +
-                        'Total: ' + this.point.stackTotal;
-                }
-            },
-            legend: {
-                reversed: true,
-            },
-            plotOptions: {
-                series: {
-                    stacking: "normal",
-                    dataLabels: {
-                        enabled: true,
-                    },
-                },
-            },
-            exporting: {
-                enabled: true,
-                buttons: {
-                    contextButton: {
-                        menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
-                    }
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: general_data,
-        });
+    }
 
-        let table_rows = "";
-
-        table_data.forEach((d, idx) => {
-            let sc_rows = "";
-            table_rows +=
-                "<tr>" +
-                "<td>" +
-                d.time_slot +
-                "</td>" +
-                "<td>" +
-                d.total_read +
-                "</td>" +
-                "<td>" +
-                d.no_read +
-                "</td>" +
-                "<td>" +
-                d.per_no_read +
-                "</td>" +
-                "<td>" +
-                d.good_diverts +
-                "</td>" +
-                "<td>" +
-                d.reject_counts +
-                "</td>" +
-                "<td>" +
-                d.recirc_count +
-                "</td>" +
-                "<td>" +
-                d.per_recirc_count +
-                "</td>" +
-                "</tr>";
-        });
-        jQuery("#table-hourly").empty();
-        jQuery("#table-hourly").append(table_rows);
-    });
 </script>
+</body>
+</html>
