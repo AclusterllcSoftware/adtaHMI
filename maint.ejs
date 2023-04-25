@@ -155,7 +155,7 @@
         jQuery('#update_input_board').html(input_options_html);
         jQuery('#update_output_board').empty();
         jQuery('#update_output_board').html(output_options_html);
-
+console.log('outputs',selected_outputs)
         selected_outputs.map(s=> ({...s,state:0})).forEach(i => {
             outputs_table_html +=
                 "<tr>" +
@@ -180,9 +180,11 @@
                 "<td>" +
                 (Number(i.change_allowed) === 1 ?
                         '<form class="d-flex form-output"> <input type="text" class="form-control" name="c_value"> ' +
-                        '<input class="output_id" type="hidden" name="c_id" value="${i.in}">' +
+                        '<input type="hidden" class="output_id" name="c_id" value="${i.output_id}">' +
                         '<button type="submit" class="btn btn-primary btn-sm button_change" style="font-size: 12px;padding-left: 2px; padding-right: 2px; padding-top: 1px; padding-bottom: 1px;">Change</button> </form>'
-                        : ''
+                        : '<form class="d-flex form-output"> ' +
+                        '<input type="hidden" class="output_id" name="c_id" value="${i.output_id}">' +
+                        ' </form>'
                 ) +
                 "</td>" +
                 "</tr>";
