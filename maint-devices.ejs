@@ -79,7 +79,7 @@
                 "<td>" +
                 (d.state === 1 ?
                         '<span' + ' data-id=' + d.device_id + 'class="state-row" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
-                        : '<span' + ' data-id=' + d.device_id + ' class="state-row" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>'
+                        : '<span' + ' data-id=' + d.device_id + ' class="state-row" style="background-color: #f43f5e; width: 12px;height: 12px; display: inline-flex"></span>'
                 ) +
                 "</td>" +
                 "</tr>";
@@ -104,7 +104,7 @@
                 $(elem).css('background-color', "#4fe21f");
             }
             if(deviceData.device_state==0){
-                $(elem).css('background-color', "#9e9e9e");
+                $(elem).css('background-color', "#f43f5e");
             }
         });
     });
