@@ -85,11 +85,14 @@
         }, 60000);
     });
     ipcRenderer.on('getStatisticsCounterLast', function (e, data_result) {
+        let converted_shift_started_time = null, diff = null;
         shift_strating_time = data_result['statistics'][0]['created_at_timestamp'];
+        diff = update_period === 'Hourly' ? moment(shift_strating_time).minutes() : moment(shift_strating_time).minutes() % 3;
+        converted_shift_started_time = shift_strating_time - diff*60;
         end_time = moment().unix();
         start_time = moment().subtract(24, 'hours').unix();
-        if ((moment().unix() - moment(shift_strating_time)) / 3600 <= 24) {
-            start_time = shift_strating_time;
+        if ((moment().unix() - moment(converted_shift_started_time)) / 3600 <= 24) {
+            start_time = converted_shift_started_time;
         }
 
         if (update_period === 'Hourly') {
