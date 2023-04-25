@@ -5,7 +5,7 @@
             <span class="badge badge-pill badge-light">
                 <select id="update_period" class="pt-2 pb-2 pl-2 pr-2"
                         style="border:0;background-color: #f8f9fa; font-weight: bold; font-size: 12px;">
-                    <option selected>Every 5 minutes</option>
+                    <option selected>Every 3 minutes</option>
                     <option>Hourly</option>
                 </select>
             </span>
@@ -199,7 +199,7 @@
     });
 
     let scs_info = [], shift_statistics = {}, start_time = null, end_time = null, shift_strating_time = null,
-        scs_data={}, current_user={};
+        scs_data = {}, current_user = {};
     let production_data = {
         total_read: {label: 'Total inducted', value: 0},
         good: {label: 'Total good diverts', value: 0},
@@ -263,13 +263,14 @@
     ipcRenderer.on('render:statistics', function (e, basic_info) {
         console.log(basic_info);
         current_user = basic_info['currentUser'];
-        if(current_user.role ==1 || current_user.role==2) {
+        if (current_user.role == 1 || current_user.role == 2) {
             $('#reset-button').show();
         }
         Object.values(basic_info['scsInfo']).forEach(v => {
-            scs_data["sc" + v.value] = {code:"sc" + v.value,
+            scs_data["sc" + v.value] = {
+                code: "sc" + v.value,
                 color: sc_color_codes["sc" + v.value],
-                value:0,
+                value: 0,
                 label: v.label
             };
         });
@@ -280,16 +281,20 @@
     });
 
     ipcRenderer.on('getStatisticsCounterLast', function (e, data_result) {
+        let converted_shift_started_time = null, diff = null;
         shift_statistics = data_result['statistics'][0];
         shift_strating_time = shift_statistics['created_at_timestamp'];
         $('#prod_start').text(`Production (started from ${moment(shift_strating_time * 1000).format('MMM D Y, H:mm')})`);
 
         populatePieTable(shift_statistics);
 
+        diff = update_period === 'Hourly' ? moment(shift_strating_time).minutes() : moment(shift_strating_time).minutes() % 3;
+        converted_shift_started_time = shift_strating_time - diff*60;
+
         end_time = moment().unix();
         start_time = moment().subtract(24, 'hours').unix();
-        if ((moment().unix() - moment(shift_strating_time)) / 3600 <= 24) {
-            start_time = shift_strating_time;
+        if ((moment().unix() - moment(converted_shift_started_time)) / 3600 <= 24) {
+            start_time = converted_shift_started_time;
         }
 
         if (update_period === 'Hourly') {
@@ -308,19 +313,20 @@
     });
 
     ipcRenderer.on('getStatisticsHourly', function (e, data_result) {
-        console.log('hourly', data_result);
+
         populateChart(data_result['statistics']);
     });
 
     ipcRenderer.on('getStatistics', function (e, data_result) {
-        console.log('minutes', data_result);
-        populateChart(data_result['statistics']);
+
+        populateChart(data_result['statistics'], data_result['statistics_minute']);
     });
 
     function populatePieTable(data = {}) {
         let tr_production_html = '', tr_scanner_html = '',
             total_inducted = data['total_read'],
-            machine_errors = 0, non_machine_errors = 0, lost_comm = 0, total_scs_value=0, highest_sc=null, pie_chart_data=[],
+            machine_errors = 0, non_machine_errors = 0, lost_comm = 0, total_scs_value = 0, highest_sc = null,
+            pie_chart_data = [],
             sc_table = '';
 
         Object.keys(data).forEach(s_key => {
@@ -330,35 +336,35 @@
             if (non_machine_error_codes.includes(s_key)) {
                 non_machine_errors += Number(data[s_key]);
             }
-            if(Object.keys(scs_data).includes(s_key)){
-                total_scs_value+=data[s_key];
+            if (Object.keys(scs_data).includes(s_key)) {
+                total_scs_value += data[s_key];
                 scs_data[s_key].value = data[s_key];
             }
         });
 
-        highest_sc = Object.keys(scs_data).reduce((a,b)=> scs_data[a].value > scs_data[b].value ? a:b);
-        scs_data = Object.fromEntries(Object.entries(scs_data).sort((a,b) => b[1].value - a[1].value));
+        highest_sc = Object.keys(scs_data).reduce((a, b) => scs_data[a].value > scs_data[b].value ? a : b);
+        scs_data = Object.fromEntries(Object.entries(scs_data).sort((a, b) => b[1].value - a[1].value));
         Object.keys(scs_data).forEach(sc_key => {
-            if(sc_key === highest_sc){
+            if (sc_key === highest_sc) {
                 pie_chart_data.push({
                     name: scs_data[sc_key].label,
-                    y: Number((scs_data[sc_key].value *100/total_scs_value).toFixed(1)),
+                    y: Number((scs_data[sc_key].value * 100 / total_scs_value).toFixed(1)),
                     selected: true,
                     color: scs_data[sc_key].color
                 });
             } else {
                 pie_chart_data.push({
                     name: scs_data[sc_key].label,
-                    y: Number((scs_data[sc_key].value *100/total_scs_value).toFixed(1)),
+                    y: Number((scs_data[sc_key].value * 100 / total_scs_value).toFixed(1)),
                     sliced: true,
                     color: scs_data[sc_key].color
                 });
             }
-            if (machine_error_codes.includes(sc_key) || sc_key=='sc0') {
-                scs_data[sc_key]['order']=1;
+            if (machine_error_codes.includes(sc_key) || sc_key == 'sc0') {
+                scs_data[sc_key]['order'] = 1;
             }
             if (non_machine_error_codes.includes(sc_key)) {
-                scs_data[sc_key]['order']=2;
+                scs_data[sc_key]['order'] = 2;
             }
             // sc_table += '<tr>' +
             //     '<td>' + scs_data[sc_key].label + '</td>' +
@@ -366,20 +372,20 @@
             //     '<td>' + Number((scs_data[sc_key].value *100/total_scs_value).toFixed(1)) + '%' + '</td>' +
             //     '</tr>';
         });
-        let op_scs = Object.fromEntries(Object.entries(scs_data).filter(s=> s[1].order==1).sort((a,b)=> b[1].value - a[1].value)),
-            non_op_scs = Object.fromEntries(Object.entries(scs_data).filter(s=> s[1].order==2).sort((a,b)=> b[1].value - a[1].value));
-        Object.keys(op_scs).forEach(s_key=> {
+        let op_scs = Object.fromEntries(Object.entries(scs_data).filter(s => s[1].order == 1).sort((a, b) => b[1].value - a[1].value)),
+            non_op_scs = Object.fromEntries(Object.entries(scs_data).filter(s => s[1].order == 2).sort((a, b) => b[1].value - a[1].value));
+        Object.keys(op_scs).forEach(s_key => {
             sc_table += '<tr>' +
                 '<td>' + op_scs[s_key].label + '</td>' +
                 '<td>' + op_scs[s_key].value + '</td>' +
-                '<td>' + Number((op_scs[s_key].value *100/total_scs_value).toFixed(1)) + '%' + '</td>' +
+                '<td>' + Number((op_scs[s_key].value * 100 / total_scs_value).toFixed(1)) + '%' + '</td>' +
                 '</tr>';
         });
-        Object.keys(non_op_scs).forEach(s_key=> {
+        Object.keys(non_op_scs).forEach(s_key => {
             sc_table += '<tr>' +
                 '<td>' + non_op_scs[s_key].label + '</td>' +
                 '<td>' + non_op_scs[s_key].value + '</td>' +
-                '<td>' + Number((non_op_scs[s_key].value *100/total_scs_value).toFixed(1)) + '%' + '</td>' +
+                '<td>' + Number((non_op_scs[s_key].value * 100 / total_scs_value).toFixed(1)) + '%' + '</td>' +
                 '</tr>';
         });
         pie_chart.series[0].setData(pie_chart_data, true);
@@ -406,7 +412,7 @@
         Object.keys(production_data).forEach(p_key => {
             tr_production_html += '<tr>' + '<td>' + production_data[p_key]['label'] + '</td>' +
                 '<td class="text-center">' + production_data[p_key]['value'] + '</td>' +
-                '<td class="text-center">' + (total_inducted > 0 ? (production_data[p_key]['value'] * 100 / total_inducted).toFixed(0) : 0) + '%' + '</td>'
+                '<td class="text-center">' + (total_inducted > 0 ? (production_data[p_key]['value'] * 100 / total_inducted).toFixed(2) : 0) + '%' + '</td>'
                 + '</tr>';
         });
 
@@ -414,7 +420,7 @@
             tr_scanner_html += '<tr>' + '<td>' + scanner_data[p_key]['label'] + '</td>' +
                 '<td class="text-center">' + scanner_data[p_key]['value'] + '</td>' +
                 '<td class="text-center">' + (scanner_data['good_scan'].value > 0 ?
-                    (scanner_data[p_key]['value'] * 100 / scanner_data['good_scan'].value).toFixed(0) : 0) + '%' + '</td>'
+                    (scanner_data[p_key]['value'] * 100 / scanner_data['good_scan'].value).toFixed(2) : 0) + '%' + '</td>'
                 + '</tr>';
         });
         jQuery("#production_table").empty();
@@ -424,8 +430,21 @@
         jQuery("#scanner_table").append(tr_scanner_html);
     }
 
-    function populateChart(statistics_result={}) {
-        let bcr_chart_data = [], tput_chart_data = [];
+    function populateChart(statistics_result = {}, statistics_result_per_minute = {}) {
+        let bcr_chart_data = [], tput_chart_data = [], tput_chart_data_min = [];
+        for (k in statistics_result_per_minute) {
+            let time_slot = statistics_result_per_minute[k]['created_at_timestamp'],
+                total_read = statistics_result_per_minute[k]['total_read'];
+
+            total_read = Number(total_read);
+            time_slot = Number(moment.unix(time_slot).add(1, 'minutes'));
+
+            let tput_value = update_period === 'Hourly' ? total_read : 3600 / (60 / total_read); // Tput = 3600 / (period / number of products)
+            tput_chart_data_min.push({
+                x: time_slot,
+                y: tput_value
+            });
+        }
         for (k in statistics_result) {
             let time_slot = statistics_result[k]['created_at_timestamp'],
                 total_read = statistics_result[k]['total_read'],
@@ -433,7 +452,7 @@
 
             total_read = Number(total_read);
             valid = Number(valid);
-            time_slot = Number(moment.unix(time_slot).add(5,'minutes'));
+            time_slot = Number(moment.unix(time_slot).add(3, 'minutes'));
 
             let bcr_read_rate = 0;
             if (total_read > 0) {
@@ -444,7 +463,7 @@
                 x: time_slot,
                 y: bcr_read_rate
             });
-            let tput_value = update_period === 'Hourly' ? total_read : 3600 / (300 / total_read); // Tput = 3600 / (period / number of products)
+            let tput_value = update_period === 'Hourly' ? total_read : 3600 / (180 / total_read); // Tput = 3600 / (period / number of products)
             tput_chart_data.push({
                 x: time_slot,
                 y: tput_value
@@ -532,6 +551,8 @@
             credits: {
                 enabled: false
             },
+
+            colors: ['#38bdf8'],
 
             series: [{
                 name: 'BCR Read Rate',
@@ -623,14 +644,31 @@
             credits: {
                 enabled: false
             },
+            colors: ['#38bdf8', '#fbbf24'],
 
-            series: [{
-                name: 'Tput',
-                marker: {
-                    enabled: false
-                },
-                data: tput_chart_data
-            }]
+            series: update_period === 'Hourly' ? [{
+                    name: 'Tput',
+                    marker: {
+                        enabled: false
+                    },
+                    data: tput_chart_data
+                }] :
+                [
+                    {
+                        name: 'Tput-3-minutes',
+                        marker: {
+                            enabled: false
+                        },
+                        data: tput_chart_data
+                    },
+                    {
+                        name: 'Tput-per-minute',
+                        marker: {
+                            enabled: false
+                        },
+                        data: tput_chart_data_min
+                    },
+                ]
         });
         // tput_chart.series[0].setData(tput_chart_data, false);
         // tput_chart.redraw();
