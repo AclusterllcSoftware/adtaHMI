@@ -123,7 +123,7 @@
   <g transform="translate(120 270)">
     <text class="gv-text" transform="translate(0 11)"><tspan x="0" y="0">Device</tspan></text>
     <g transform="translate(0 23)">
-      <rect x="0" y="0" width="19.914" height="9.863" style="fill:#fff"/>
+      <rect x="0" y="0" width="19.914" height="9.863" style="fill:#27e22b"/>
       <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
       <text class="gv-text" transform="translate(25 12)"><tspan x="0" y="0">Comm Ok</tspan></text>
     </g>

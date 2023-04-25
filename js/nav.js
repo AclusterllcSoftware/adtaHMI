@@ -445,7 +445,7 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
         }
     }
     function setDevicesStates(machineId,devicesStates,devicesInfo){
-        let device_colors = {"0" : "#f00", "1" : "#fff"};
+        let device_colors = {"0" : "#f00", "1" : "#27e22b"};
         for(let key in devicesInfo){
             let deviceInfo=devicesInfo[key];
             if(deviceInfo['gui_device_id']>0 ){
