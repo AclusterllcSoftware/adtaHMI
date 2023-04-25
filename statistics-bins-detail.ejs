@@ -55,7 +55,8 @@
     const Highcharts = require('highcharts/highstock')
     require('highcharts/modules/exporting')(Highcharts);
     require('highcharts/modules/export-data')(Highcharts);
-    let scs_info = [], bins_info = [], start_time = null, end_time = null, bins_statistics = [], tab_target = '#volume';
+    let scs_info = [], bins_info = [], start_time = null, end_time = null, bins_statistics = [], tab_target = '#volume',
+        detail_bins_statistics=[];
     let sc_color_codes = {
         sc0: "#34d399",
         sc1: "#38bdf8",
@@ -130,17 +131,29 @@
 
     ipcRenderer.on('getStatisticsCounterLast', function (e, data_result) {
         let shift_statistics = data_result['statistics'][0];
-        let shift_strating_time = shift_statistics['created_at_timestamp'];
+        let shift_strating_time = shift_statistics['created_at_timestamp'],
+            converted_shift_started_time = null, diff = null;
+        diff = moment(shift_strating_time).minutes() % 3;
+        converted_shift_started_time = shift_strating_time - diff*60;
         end_time = moment().unix();
-        start_time = shift_strating_time;
+        start_time = converted_shift_started_time;
         ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsBins', {
+            'from_timestamp': start_time,
+            'to_timestamp': end_time
+        });
+
+        ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsBinsCounter', {
             'from_timestamp': start_time,
             'to_timestamp': end_time
         });
 
     });
 
-    ipcRenderer.on('getStatisticsBins', function (e, data_result) {
+    ipcRenderer.on('getStatisticsBinsCounter', function (e, data_result) {
+        detail_bins_statistics = data_result['statistics'];
+    });
+
+    ipcRenderer.on('getStatisticsBinsCounter', function (e, data_result) {
 
         let bins_summary = [], chart_series = [],
             chart_series_percentage = [], chart_categories = [], reject_recirc = [
@@ -231,7 +244,7 @@
 
         let selected_bin = bins_info.find(b => b.bin_label == bin_label), bin_data = [];
 
-        bin_data = bins_statistics.filter(b => b.bin_id === selected_bin.bin_id);
+        bin_data = detail_bins_statistics.filter(b => b.bin_id === selected_bin.bin_id);
 
         let chart_categories = [];
         let scs_data = scs_info.map((d) => ({
