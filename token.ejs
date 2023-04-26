@@ -357,8 +357,14 @@
             let sc = sorting_codes[k];
             jQuery("#filter_sorting_code").append('<option value="' + sc.value + '">' + sc.label + '</option>');
         }
+        ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsCounterLast', {});
+
+    });
+    ipcRenderer.on('getStatisticsCounterLast', function (e, data_result) {
+        shift_statistics = data_result['statistics'][0];
+        shift_strating_time = shift_statistics['created_at_timestamp'];
         end_time = moment().unix();
-        start_time = moment().subtract(6, 'days').unix();
+        start_time = shift_strating_time;
         ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
             'page': 1,
             'per_page': per_page,
@@ -394,7 +400,7 @@
                 barcode1_string = related_package_info['barcode1_string'];
 
 
-            timestamp = moment.unix(timestamp).format("MMM D, H:mm")
+            timestamp = moment.unix(timestamp).format("MMM D Y, H:mm:ss")
 
             // let destination_txt = destination_to_bin(destination);
             // let final_destination_txt = destination_to_bin(final_destination);
