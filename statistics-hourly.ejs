@@ -392,7 +392,7 @@
             {name: 'reject', total: 0, data: [], color: '#f43f5e'},
             {name: 'recirc', total: 0, data: [], color: '#f59e0b'},
         ];
-
+        statistics_result.sort((a,b) => a.created_at_timestamp-b.created_at_timestamp);
         for (k in statistics_result) {
             let time_slot = statistics_result[k]["created_at_timestamp"],
                 good_diverts = 0,
@@ -441,10 +441,10 @@
                 reject_counts,
                 recirc_count,
                 per_recirc_count,
-                time_slot: moment.unix(time_slot).format("MMM D, H:mm"),
+                time_slot: time_slot,
             });
         }
-        console.log(general_data);
+
         scs_data.sort((a, b) => a.total - b.total);
         general_data.sort((a, b) => a.total - b.total);
 
@@ -550,13 +550,13 @@
         });
 
         let table_rows = "";
-
+        table_data.sort((a,b)=> b.time_slot-a.time_slot);
         table_data.forEach((d, idx) => {
             let sc_rows = "";
             table_rows +=
                 "<tr>" +
                 "<td>" +
-                d.time_slot +
+                moment.unix(d.time_slot).format("MMM D, H:mm") +
                 "</td>" +
                 "<td>" +
                 d.total_read +
