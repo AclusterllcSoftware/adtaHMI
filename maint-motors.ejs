@@ -1,7 +1,26 @@
 <%- include('header', {currentMenu: 'maint-motors', pageTitle: 'Motors'}); %>
 <div class="row mt-3">
+<!--    <div class="col-lg-12">-->
+<!--        <table class="table table-sm table-bordered table-striped">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>Motor ID</th>-->
+<!--                <th>Motor name</th>-->
+<!--                <th>Motor location</th>-->
+<!--                <th>IP Address</th>-->
+<!--                <th>Speed</th>-->
+<!--                <th>Connection Status</th>-->
+<!--                <th>Fault</th>-->
+<!--                <th></th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody id="table-motors"></tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+</div>
+<div class="row mt-3">
     <div class="col-lg-12">
-        <table class="table table-sm table-bordered table-striped">
+        <table class="table table-sm table-bordered table-striped" id="motor_table">
             <thead>
             <tr>
                 <th>Motor ID</th>
@@ -14,7 +33,7 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody id="table-motors"></tbody>
+            <tbody id="motor_table"></tbody>
         </table>
     </div>
 </div>
@@ -37,10 +56,15 @@
 <script src="js/jquery-bootstrap.js"></script>
 <script src="js/jquery.newsTicker.js"></script>
 <script src="js/daterangepicker/moment.min.js"></script>
+<script src="js/datatables/datatables.js"></script>
+<script src="js/jszip.min.js"></script>
+<script src="js/datepicker/bootstrap-datepicker.min.js"></script>
 <script src="js/nav.js"></script>
+
 
 <script>
     let basic_info = {}, motors = [], motor_speed_unit = '', inputs_info = [];
+    let data_table;
 
     jQuery(document).ready(function () {
         jQuery("#ip_list_dropdown").change(function () {
@@ -54,8 +78,28 @@
             }
             ipcRenderer.send("get:views", selected_machine, "maint-motors");
         });
+
+        data_table = jQuery('#motor_table').DataTable({
+            dom: 'Bfrtip',
+            paging: false,
+            buttons: [
+               ],
+            "columns": [
+                null,
+                null,
+                null,
+                { "orderable": false },
+                { "orderable": false },
+                { "orderable": false },
+                { "orderable": false },
+                { "orderable": false }
+            ],
+            "order": [],
+
+        });
     });
     ipcRenderer.on("render:maint-motors", function (e, data) {
+        data_table.clear().search( '' ).columns().search( '' ).draw();
         console.log(data)
         let motors_html = '';
         basic_info = data;
@@ -69,48 +113,70 @@
             connection_status: 0,
             fault_status: 0,
         })).forEach(d => {
-            motors_html += '<tr>' +
-                '<td>' +
-                d.motor_id +
-                '</td>' +
-                '<td>' +
-                d.motor_name +
-                '</td>' +
-                '<td>' +
-                d.location +
-                '</td>' +
-                '<td>' +
-                d.ip_address +
-                '</td>' +
-                '<td class="speed-row"' + ' data-id=' + d.motor_id + '>' +
-                d.speed +
-                '</td>' +
-                "<td>" +
+            data_table.row.add([
+                d.motor_id,
+                d.motor_name,
+                d.location,
+                d.ip_address,
+                '<span class="speed-row" data-id='+d.motor_id+ '>'+d.speed+'</span>',
                 (d.connection_status === 1 ?
                         '<span' + ' data-id=' + d.motor_id + 'class="conn-state" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
                         : '<span' + ' data-id=' + d.motor_id + ' class="conn-state" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>'
-                ) +
-                "</td>" +
-                "<td>" +
+                ),
                 (d.fault_status === 1 ?
                         '<span' + ' data-id=' + d.motor_id + 'class="fault-state" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
                         : '<span' + ' data-id=' + d.motor_id + ' class="fault-state" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>'
-                ) +
-                "</td>" +
-                "<td>" +
+                ),
                 '<div class="d-inline-flex">' +
                 '<input type="text" class="form-control ' + 'motor-' + d.motor_id +'"' + 'style="width: 80px">' +
                 '<button' + ' data-motor-id=' + d.motor_id + ' type="button" class="btn btn-primary btn-sm button_start" style="font-size: 12px;padding-left: 12px; padding-right: 12px; padding-top: 1px; padding-bottom: 1px; margin-right: 4px;">Start</button>' +
                 '<button' + ' data-motor-id=' + d.motor_id + ' type="button" class="btn btn-danger btn-sm button_stop" style="font-size: 12px;padding-left: 12px; padding-right: 12px; padding-top: 1px; padding-bottom: 1px;">Stop</button>' +
                 '</div>'
-            "</td>"
-            "</tr>";
+            ])
+            // motors_html += '<tr>' +
+            //     '<td>' +
+            //     d.motor_id +
+            //     '</td>' +
+            //     '<td>' +
+            //     d.motor_name +
+            //     '</td>' +
+            //     '<td>' +
+            //     d.location +
+            //     '</td>' +
+            //     '<td>' +
+            //     d.ip_address +
+            //     '</td>' +
+            //     '<td class="speed-row"' + ' data-id=' + d.motor_id + '>' +
+            //     d.speed +
+            //     '</td>' +
+            //     "<td>" +
+            //     (d.connection_status === 1 ?
+            //             '<span' + ' data-id=' + d.motor_id + 'class="conn-state" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
+            //             : '<span' + ' data-id=' + d.motor_id + ' class="conn-state" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>'
+            //     ) +
+            //     "</td>" +
+            //     "<td>" +
+            //     (d.fault_status === 1 ?
+            //             '<span' + ' data-id=' + d.motor_id + 'class="fault-state" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
+            //             : '<span' + ' data-id=' + d.motor_id + ' class="fault-state" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>'
+            //     ) +
+            //     "</td>" +
+            //     "<td>" +
+            //     '<div class="d-inline-flex">' +
+            //     '<input type="text" class="form-control ' + 'motor-' + d.motor_id +'"' + 'style="width: 80px">' +
+            //     '<button' + ' data-motor-id=' + d.motor_id + ' type="button" class="btn btn-primary btn-sm button_start" style="font-size: 12px;padding-left: 12px; padding-right: 12px; padding-top: 1px; padding-bottom: 1px; margin-right: 4px;">Start</button>' +
+            //     '<button' + ' data-motor-id=' + d.motor_id + ' type="button" class="btn btn-danger btn-sm button_stop" style="font-size: 12px;padding-left: 12px; padding-right: 12px; padding-top: 1px; padding-bottom: 1px;">Stop</button>' +
+            //     '</div>'
+            // "</td>"
+            // "</tr>";
         });
-        jQuery("#table-motors").empty();
-        jQuery("#table-motors").append(motors_html);
+        // jQuery("#table-motors").empty();
+        // jQuery("#table-motors").append(motors_html);
+        data_table.draw();
 
         $('.button_start').click(function () {
             let motorId = $(this).data('motorId'), inputVal = Number($('.motor-'+motorId).val());
+            console.log(motorId);
             if(inputVal>0){
                 ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
                     'deviceId':motorId-1+101,
@@ -129,6 +195,7 @@
                 'parameter1': 0
             });
         });
+
 
         setInterval(() => {
             ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});
@@ -157,14 +224,28 @@
                     $(elem).text(motor_speeds[motor.machine_id + "_" + motor.motor_id] / 1000 + ' m/s');
                 }
             }
+
         });
         connRows.each((key, elem) => {
             let rowId = $(elem)[0].dataset.id, motor = motors.find(m => m.motor_id == rowId);
-            if (device_states[motor.machine_id + "_" + motor.motor_id] !== undefined) {
-                if (device_states[motor.machine_id + "_" + motor.motor_id]['device_state'] == 1) {
+
+            let inputActive = false;
+            if (motor.input_id > 0) {
+                if (inputs_info[motor.machine_id + '_' + motor.input_id]) {
+                    if ((input_states[motor.machine_id + '_' + motor.input_id]['input_state']) == inputs_info[motor.machine_id + '_' + motor.input_id]['active_state']) {
+                        inputActive = true;
+                    }
+                }
+            }
+            if(motor['device_number']>0){
+                if (device_states[motor.machine_id + "_" + motor['device_number']] !== undefined) {
+                    if (device_states[motor.machine_id + "_" + motor['device_number']]['device_state'] == 1) {
+                        $(elem).css('background-color', '#4fe21f');
+                    } else {
+                        $(elem).css('background-color', '#f43f5e');
+                    }
+                } else if(inputActive === true) {
                     $(elem).css('background-color', '#4fe21f');
-                } else {
-                    $(elem).css('background-color', '#f43f5e');
                 }
             }
         });
@@ -192,5 +273,7 @@
                 }
             }
         })
+
+
     });
 </script>
