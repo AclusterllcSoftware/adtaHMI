@@ -1,10 +1,10 @@
 <%- include('header', {currentMenu: 'maint-devices', pageTitle: 'Devices'}); %>
 <div class="row mt-3">
+
     <div class="col-lg-12">
-        <table class="table table-sm table-bordered table-striped">
+        <table class="table table-sm table-bordered table-striped" id="table_devices">
             <thead>
             <tr>
-                <th>Machine ID</th>
                 <th>Device ID</th>
                 <th>Device name</th>
                 <th>Device type</th>
@@ -12,7 +12,7 @@
                 <th>Status</th>
             </tr>
             </thead>
-            <tbody id="table-devices"></tbody>
+            <tbody></tbody>
         </table>
     </div>
 </div>
@@ -35,10 +35,12 @@
 <script src="js/jquery-bootstrap.js"></script>
 <script src="js/jquery.newsTicker.js"></script>
 <script src="js/daterangepicker/moment.min.js"></script>
+<script src="js/datatables/datatables.js"></script>
 <script src="js/nav.js"></script>
 
 <script>
     let basic_info = {};
+    let data_table;
 
     jQuery(document).ready(function () {
         jQuery("#ip_list_dropdown").change(function () {
@@ -52,6 +54,22 @@
             }
             ipcRenderer.send("get:views", selected_machine, "maint-devices");
         });
+
+        data_table = jQuery('#table_devices').DataTable({
+            dom: 'Bfrtip',
+            paging: false,
+            buttons: [
+            ],
+            "columns": [
+                null,
+                null,
+                { "orderable": false },
+                { "orderable": false },
+                { "orderable": false },
+            ],
+            "order": [],
+
+        });
     });
     ipcRenderer.on("render:maint-devices", function (e, data) {
         let devices = [], devices_html = '';
@@ -60,33 +78,43 @@
 
         devices.sort((a,b)=> a.device_id-b.device_id);
         devices.map(d => ({...d, states: 0})).forEach(d => {
-            devices_html += '<tr>' +
-                '<td>' +
-                d.machine_id +
-                '</td>' +
-                '<td>' +
-                d.device_id +
-                '</td>' +
-                '<td>' +
-                d.device_name +
-                '</td>' +
-                '<td>' +
-                d.device_type +
-                '</td>' +
-                '<td>' +
-                d.ip_address +
-                '</td>' +
-                "<td>" +
+            data_table.row.add([
+                d.device_id,
+                d.device_name,
+                d.device_type,
+                d.ip_address,
                 (d.state === 1 ?
                         '<span' + ' data-id=' + d.device_id + 'class="state-row" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
                         : '<span' + ' data-id=' + d.device_id + ' class="state-row" style="background-color: #f43f5e; width: 12px;height: 12px; display: inline-flex"></span>'
-                ) +
-                "</td>" +
-                "</tr>";
+                )
+            ]);
+            // devices_html += '<tr>' +
+            //     '<td>' +
+            //     d.machine_id +
+            //     '</td>' +
+            //     '<td>' +
+            //     d.device_id +
+            //     '</td>' +
+            //     '<td>' +
+            //     d.device_name +
+            //     '</td>' +
+            //     '<td>' +
+            //     d.device_type +
+            //     '</td>' +
+            //     '<td>' +
+            //     d.ip_address +
+            //     '</td>' +
+            //     "<td>" +
+            //     (d.state === 1 ?
+            //             '<span' + ' data-id=' + d.device_id + 'class="state-row" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
+            //             : '<span' + ' data-id=' + d.device_id + ' class="state-row" style="background-color: #f43f5e; width: 12px;height: 12px; display: inline-flex"></span>'
+            //     ) +
+            //     "</td>" +
+            //     "</tr>";
         });
-        jQuery("#table-devices").empty();
-        jQuery("#table-devices").append(devices_html);
-
+        // jQuery("#table-devices").empty();
+        // jQuery("#table-devices").append(devices_html);
+        data_table.draw()
         setInterval(() => {
             ipcRenderer.send("sendRequest", selected_machine,'getGeneralDevicesViewData', {});
         }, 1000);
