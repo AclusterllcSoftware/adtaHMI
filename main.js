@@ -444,6 +444,7 @@ function getHMISettings(){
 		,"cm_ip_address_input" :  store.get(project_prefix+"cm_address", "not_set")
 		,"detailed_active_alarm" : store.get(project_prefix+"detailed_active_alarm", "not_set")
 		,"motor_speed_unit" : store.get(project_prefix+"motor_speed_unit", "m_s")
+		,"general_layout" : store.get(project_prefix+"general_layout", "1")
 	};
 }
 ipcMain.handle('getStoreValue', (e) => {
@@ -468,6 +469,7 @@ ipcMain.on("saveSettings", function(e, settings_data) {
 		store.set(project_prefix+"detailed_active_alarm", "not_set");
 	}
 	store.set(project_prefix+"motor_speed_unit", settings_data['motor_speed_unit']);
+	store.set(project_prefix+"general_layout", settings_data['general_layout']);
 });
 
 ipcMain.handle('getCurrentUser', (event, key) => {
