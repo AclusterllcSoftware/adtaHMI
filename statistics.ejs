@@ -284,12 +284,13 @@
         let converted_shift_started_time = null, diff = null;
         shift_statistics = data_result['statistics'][0];
         shift_strating_time = shift_statistics['created_at_timestamp'];
-        $('#prod_start').text(`Production (started from ${moment(shift_strating_time * 1000).format('MMM D Y, H:mm')})`);
+        $('#prod_start').text(`Production (started from ${moment(shift_strating_time * 1000).format('MMM D Y, H:mm:ss')})`);
 
         populatePieTable(shift_statistics);
 
-        diff = update_period === 'Hourly' ? moment(shift_strating_time).minutes() : moment(shift_strating_time).minutes() % 3;
-        converted_shift_started_time = shift_strating_time - diff * 60;
+        diff = update_period === 'Hourly' ? moment(shift_strating_time*1000).minutes() : moment(shift_strating_time*1000).minutes() % 3;
+
+        converted_shift_started_time = shift_strating_time - diff * 60-moment(shift_strating_time*1000).seconds();
 
         end_time = moment().unix();
         start_time = moment().subtract(24, 'hours').unix();
@@ -442,7 +443,7 @@
                 total_read = statistics_result_per_minute[k]['total_read'];
 
             total_read = Number(total_read);
-            time_slot = Number(moment.unix(time_slot));
+            time_slot = Number(moment.unix(time_slot).add(1, 'minutes'));
 
             let tput_value = update_period === 'Hourly' ? total_read : 3600 / (60 / total_read); // Tput = 3600 / (period / number of products)
             tput_chart_data_min.push({
@@ -457,7 +458,7 @@
 
             total_read = Number(total_read);
             valid = Number(valid);
-            time_slot = Number(moment.unix(time_slot));
+            time_slot = Number(moment.unix(time_slot).add(3, 'minutes'));
 
             let bcr_read_rate = 0;
             if (total_read > 0) {
