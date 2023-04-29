@@ -307,7 +307,7 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
     async function loadAndGetDetailedActiveAlarmSettings() {
         let detailed_active_alarm_settings_value = await ipcRenderer.invoke('getSingleStoreValue', 'adta_detailed_active_alarm');
 
-        if(detailed_active_alarm_settings_value === "active") {
+        if(detailed_active_alarm_settings_value === "1") {
             jQuery("#active_alarms_ticker_container").hide();
             jQuery("#active_alarms_details_table").show();
         }

@@ -55,13 +55,6 @@ let nativeMenus = [
 		label: 'Help',
 		submenu: [
 			{
-				label: 'Diagonstic Tool',
-				click() {
-					let linkFile = "diagonstic.ejs";
-					mainWindow.loadFile(linkFile);
-				}
-			},
-			{
 				label: 'Settings',
 				click() {
 						mainWindow.loadFile("settings-page.ejs");
@@ -345,10 +338,8 @@ ipcMain.on("get:views", function(e, machineId, view_name) {
 			mainWindow.webContents.send("render:"+view_name, data);
 		}
 		else{
-			if(view_name != "diagonstics") {
-				let m = {"req" : view_name, "id" : machineId};
-				sendMessageToServer(JSON.stringify(m));
-			}
+			let m = {"req" : view_name, "id" : machineId};
+			sendMessageToServer(JSON.stringify(m));
 		}
 	}
 
@@ -440,9 +431,8 @@ function getHMISettings(){
 	return {
 		"ip_address_input" : store.get(project_prefix+"server_address", "not_set")
 		,"port_input" : store.get(project_prefix+"server_port", "not_set")
-		,"diagonstic_url" : store.get(project_prefix+"diagonstic_url", "not_set")
 		,"cm_ip_address_input" :  store.get(project_prefix+"cm_address", "not_set")
-		,"detailed_active_alarm" : store.get(project_prefix+"detailed_active_alarm", "not_set")
+		,"detailed_active_alarm" : store.get(project_prefix+"detailed_active_alarm", "0")
 		,"motor_speed_unit" : store.get(project_prefix+"motor_speed_unit", "m_s")
 		,"general_layout" : store.get(project_prefix+"general_layout", "1")
 	};
@@ -461,13 +451,7 @@ ipcMain.on("saveSettings", function(e, settings_data) {
 	store.set(project_prefix+"cm_address", settings_data['cm_ip_address_input']);
 	cmAddress = settings_data['cm_ip_address_input'];
 
-	store.set(project_prefix+"_diagonstic_url", settings_data['diagonstic_url']);
-	if (typeof settings_data['detailed_active_alarm'] !== 'undefined') {
-		store.set(project_prefix+"detailed_active_alarm", settings_data['detailed_active_alarm']);
-	}
-	else {
-		store.set(project_prefix+"detailed_active_alarm", "not_set");
-	}
+	store.set(project_prefix+"detailed_active_alarm", settings_data['detailed_active_alarm']);
 	store.set(project_prefix+"motor_speed_unit", settings_data['motor_speed_unit']);
 	store.set(project_prefix+"general_layout", settings_data['general_layout']);
 });

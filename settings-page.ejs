@@ -26,31 +26,39 @@
                             <small id="cmIpAddressHelp" class="form-text text-muted">CM IP Address</small>
                         </div>
                     </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Detailed Active Alarm</label>
+                            <select id="detailed_active_alarm" name="detailed_active_alarm" class="form-control">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Motor Speed Unit</label>
+                            <select id="motor_speed_unit" name="motor_speed_unit" class="form-control">
+                                <option value="m_s">m/s</option>
+                                <option value="ft_min">ft/min</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>General View layout</label>
+                            <select id="general_layout" name="general_layout" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="diagonstic_url">Diagonstic URL</label>
-                    <input type="text" class="form-control" id="diagonstic_url" name="diagonstic_url" aria-describedby="diagonsticURLHelp" placeholder="Diagonstic URL">
-                    <small id="diagonsticURLHelp" class="form-text text-muted">Diagonstic URL</small>
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="detailed_active_alarm" name="detailed_active_alarm" value="active">
-                    <label class="form-check-label" for="detailed_active_alarm">Detailed Active Alarm</label>
-                </div>
-                <div class="form-group">
-                    <label>Motor Speed Unit</label>
-                    <select id="motor_speed_unit" name="motor_speed_unit" class="form-control">
-                        <option value="m_s">m/s</option>
-                        <option value="ft_min">ft/min</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>General View layout</label>
-                    <select id="general_layout" name="general_layout" class="form-control">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
+
+
+
+
                 <button type="button" style="visibility: hidden;" id="button_save" class="btn btn-primary">Save</button>
                 <button type="button" style="display: none;" id="button_login" class="btn btn-primary">Login</button>
                 <button type="button" style="display: none;" id="button_logout" class="btn btn-primary">Logout</button>
@@ -77,18 +85,8 @@
         for (let key in settings_values) {
             let value = settings_values[key];
             let related_input_id = "#" + key;
-            if(key === 'detailed_active_alarm') {
-                if(value == "active") {
-                    jQuery(related_input_id).prop( "checked", true );
-                }
-                else {
-                    jQuery(related_input_id).prop( "checked", false );
-                }
-            }
-            else {
-                if(value != "not_set") {
-                    jQuery(related_input_id).val(value)
-                }
+            if(value != "not_set") {
+                jQuery(related_input_id).val(value)
             }
         }
     }
