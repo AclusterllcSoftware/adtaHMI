@@ -1,12 +1,5 @@
 <%- include('header', {currentMenu: 'general-view', pageTitle: 'General View'}); %>
-    <div class="row m-0 mt-1">
-        <div class="col-4" style="padding:0 150px;text-align: center;">
-			<%- include('resources/general-view-colors.svg') %>
-        </div>
-		<div class="col-8  position-relative" style="padding:0 500px 0 0;text-align: center;">
-			<%- include('resources/general-view.svg') %>
-            <%- include('components/general_view_common_gui.ejs') %>
-		</div>
+    <div id="general_layout" class="row">
     </div>
     <div class="row m-0">
         <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-2">
@@ -25,9 +18,9 @@ let basic_info={}
 
 
 jQuery(document).ready(function() {
-	$('[data-toggle="tooltip"]').tooltip();
+
     loadAndGetDetailedActiveAlarmSettings();//nav.js
-	
+
     jQuery("#ip_list_dropdown").change(function() {
         selected_machine = jQuery(this).val();
         if(selected_machine !== "") {
@@ -44,19 +37,23 @@ jQuery(document).ready(function() {
 
 ipcRenderer.on("render:general-view", function(e, data) {
     basic_info=data;
-    setBinsLabel(data['binsInfo']);//nav.js
-    setPhotoeyesLabel(data['inputsInfo']);//nav.js
-    setConveyorsLabel(data['conveyorsInfo']);//nav.js
+    $('#general_layout').load('general_layouts/'+basic_info['hmiSettings']['general_layout']+'/general.ejs',function (){
+        addCommandButtonsListener();//nav.js
+        $('[data-toggle="tooltip"]').tooltip();
+        setBinsLabel(data['binsInfo'],basic_info['hmiSettings']['general_layout']);//nav.js
+        setPhotoeyesLabel(data['inputsInfo']);//nav.js
+        setConveyorsLabel(data['conveyorsInfo']);//nav.js
 
-    $('.bin.cursor-pointer').on('click',function (){
-        let key=$(this).attr('bin-key');
-        //console.log(data['binsInfo'][key])
-        ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
+        $('.bin.cursor-pointer').on('click',function (){
+            let key=$(this).attr('bin-key');
+            //console.log(data['binsInfo'][key])
+            ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
+        })
+        ipcRenderer.send("sendRequest", selected_machine,'getGeneralViewData', {});//for fixing waiting 1sec
+        setInterval(() => {
+            ipcRenderer.send("sendRequest", selected_machine,'getGeneralViewData', {});
+        }, 1000);
     })
-    ipcRenderer.send("sendRequest", selected_machine,'getGeneralViewData', {});//for fixing waiting 1sec
-    setInterval(() => {
-        ipcRenderer.send("sendRequest", selected_machine,'getGeneralViewData', {});
-    }, 1000);
 });
 ipcRenderer.on("getGeneralViewData", function(e, data) {
     let machineId=data['machineId'];
@@ -64,9 +61,7 @@ ipcRenderer.on("getGeneralViewData", function(e, data) {
     setPhotoeyesStates(machineId,data['inputsStates'],basic_info['inputsInfo']);//nav.js
     setConveyorsStates(machineId,data['conveyorsStates'],basic_info['conveyorsInfo']);//nav.js
     setDoorsStates(machineId,data['inputsStates'],basic_info['doorsInfo']);//nav.js
-    //console.log(basic_info)
     setActiveAlarms(machineId,data['activeAlarms'],basic_info['alarmsInfo'])
-
 
 });
 </script>

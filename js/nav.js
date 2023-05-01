@@ -176,6 +176,9 @@ jQuery(document).ready(function() {
         ipcRenderer.send("change:link", link);
         return false;
     });
+
+});
+function addCommandButtonsListener(){
     $('.button-device-command').on('click',function (){
         ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
             'deviceId':$(this).attr('data-device-id'),
@@ -183,7 +186,7 @@ jQuery(document).ready(function() {
             'parameter1':$(this).attr('data-parameter1')
         });
     })
-    $('.button-device-command-press-release').on('mousedown',function (){
+    $('.button-device-command-press-release').on('click',function (){
         let device_id=$(this).attr('data-device-id');
         let command_start=$(this).attr('data-command-start');
         let command_end=$(this).attr('data-command-end');
@@ -208,7 +211,7 @@ jQuery(document).ready(function() {
             $(this).css('background-color','#27e22b');
         }
     });
-});
+}
 
 ipcRenderer.on("render:ip_list", function(e, ip_list_html, machine_list_from_server, maintenance_ip_list_from_server) {
     //console.log("IP List rendered : " + harcoded_cm_ip_address);
@@ -373,13 +376,36 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
     }
 
     //general view
-    function setBinsLabel(binsInfo){
+    function setBinsLabel(binsInfo,layoutNo){
+        console.log(layoutNo)
+        let num_bins=Object.keys(binsInfo).length-1;
+        let bin_width=0;
+        if(num_bins>0){
+            bin_width=Math.trunc(1500/Math.ceil(num_bins/2))
+        }
+        console.log(num_bins)
         for(let key in binsInfo){
-            if(binsInfo[key].gui_bin_id>0){
-                $('.bin[gui-bin-id='+binsInfo[key].gui_bin_id+'] .bin-label').text(binsInfo[key].bin_label);
-                $('.bin[gui-bin-id='+binsInfo[key].gui_bin_id+']').attr('bin-key',key);
+            if(binsInfo[key]['gui_bin_id']>0){
+                if(binsInfo[key]['gui_bin_id']!="999"){
+                    let binIndex=(Math.ceil(binsInfo[key]['gui_bin_id']/2));
+                    let posRect=0;
+                    let posText=0;
+                    if(layoutNo=="1")
+                    {
+                        posRect=201-1+(binIndex-1)*bin_width;
+                    }
+                    else {
+                        posRect=1650-(binIndex)*bin_width;
+                    }
+                    posText=posRect-20+(bin_width/2);
+                    $('.bin[gui-bin-id='+binsInfo[key]['gui_bin_id']+'] rect').attr('width',bin_width-10).attr('x',posRect)
+                    $('.bin[gui-bin-id='+binsInfo[key]['gui_bin_id']+'] text').attr('x',posText);
+                }
+                $('.bin[gui-bin-id='+binsInfo[key]['gui_bin_id']+'] .bin-label').text(binsInfo[key].bin_label);
+                $('.bin[gui-bin-id='+binsInfo[key]['gui_bin_id']+']').attr('bin-key',key).show();
             }
         }
+
     }
     function setBinsStates(machineId,binsStates,binsInfo){
         let bin_colors = {
