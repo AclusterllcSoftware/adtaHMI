@@ -65,12 +65,10 @@
     <rect style="fill: #e6e6e6;" x="0" y=".94" width="32.79" height="13.12" rx="4" ry="4"/>
     <path class="conveyor-fill status" d="M28.79,2c1.1,0,2,.9,2,2v5.12c0,1.1-.9,2-2,2H4c-1.1,0-2-.9-2-2V4c0-1.1,.9-2,2-2H28.79m0-2H4C1.79,0,0,1.79,0,4v5.12c0,2.21,1.79,4,4,4H28.79c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4h0Z"/>
   </g>
-
   <g transform="translate(1776,324) scale(-1,1)" class="conveyor" gui-conveyor-id="7" conveyor-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect style="fill: #e6e6e6;" x="0" y=".94" width="32.79" height="13.12" rx="4" ry="4"/>
     <path class="conveyor-fill status" d="M28.79,2c1.1,0,2,.9,2,2v5.12c0,1.1-.9,2-2,2H4c-1.1,0-2-.9-2-2V4c0-1.1,.9-2,2-2H28.79m0-2H4C1.79,0,0,1.79,0,4v5.12c0,2.21,1.79,4,4,4H28.79c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4h0Z"/>
   </g>
-
   <g transform="translate(1776,344) scale(-1,1)" class="conveyor" gui-conveyor-id="6" conveyor-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect style="fill: #e6e6e6;" x="0" y=".94" width="32.79" height="13.12" rx="4" ry="4"/>
     <path class="conveyor-fill status" d="M28.79,2c1.1,0,2,.9,2,2v5.12c0,1.1-.9,2-2,2H4c-1.1,0-2-.9-2-2V4c0-1.1,.9-2,2-2H28.79m0-2H4C1.79,0,0,1.79,0,4v5.12c0,2.21,1.79,4,4,4H28.79c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4h0Z"/>
@@ -121,127 +119,6 @@
     <path class="conveyor-fill status" d="M42.18,2c1.1,0,2,.9,2,2V27.8c0,1.1-.9,2-2,2H4c-1.1,0-2-.9-2-2V4c0-1.1,.9-2,2-2H42.18m0-2H4C1.79,0,0,1.79,0,4V27.8c0,2.21,1.79,4,4,4H42.18c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4h0Z"/>
   </g>
 
-  <g transform="translate(1795 10) scale(-1,1)" class="photoeye" gui-input-id="5" input-id="0" data-toggle="tooltip" data-html="true" title="">
-    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
-    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="54" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="62" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="70" y="0" width="3.6" height="12"></rect>
-  </g>
-  <g transform="translate(1795 237) scale(-1,1)" class="photoeye" gui-input-id="12" input-id="0" data-toggle="tooltip" data-html="true" title="">
-    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
-    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="54" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="62" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="70" y="0" width="3.6" height="12"></rect>
-  </g>
-  <g transform="translate(1790 294) scale(-1,1)" class="photoeye" gui-input-id="11" input-id="0" data-toggle="tooltip" data-html="true" title="">>
-    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
-    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
-  </g>
-  <g transform="translate(1790 314) scale(-1,1)" class="photoeye" gui-input-id="10" input-id="0" data-toggle="tooltip" data-html="true" title="">>
-    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
-    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
-  </g>
-  <g transform="translate(1790 334) scale(-1,1)" class="photoeye" gui-input-id="9" input-id="0" data-toggle="tooltip" data-html="true" title="">>
-    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
-    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
-  </g>
-  <g transform="translate(1790 354) scale(-1,1)" class="photoeye" gui-input-id="8" input-id="0" data-toggle="tooltip" data-html="true" title="">>
-    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
-    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
-  </g>
-  <g transform="translate(1790 374) scale(-1,1)" class="photoeye" gui-input-id="7" input-id="0" data-toggle="tooltip" data-html="true" title="">>
-    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
-    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
-  </g>
-  <g transform="translate(1790 396) scale(-1,1)" class="photoeye" gui-input-id="6" input-id="0" data-toggle="tooltip" data-html="true" title="">>
-    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
-    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
-  </g>
-  <g transform="translate(1790 445) scale(-1,1)" class="photoeye" gui-input-id="4" input-id="0" data-toggle="tooltip" data-html="true" title="">>
-    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
-    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
-  </g>
-  <g transform="translate(1702 530) rotate(-90)" class="photoeye" gui-input-id="3" input-id="0" data-toggle="tooltip" data-html="true" title="">>
-    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
-    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
-  </g>
-  <g transform="translate(122 530) rotate(-90)" class="photoeye" gui-input-id="2" input-id="0" data-toggle="tooltip" data-html="true" title="">>
-    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
-    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
-  </g>
-  <g transform="translate(92 530) rotate(-90)" class="photoeye" gui-input-id="13" input-id="0" data-toggle="tooltip" data-html="true" title="">>
-    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
-    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
-  </g>
-  <g transform="translate(47 530) rotate(-90)" class="photoeye" gui-input-id="1" input-id="0" data-toggle="tooltip" data-html="true" title="">
-    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
-    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
-    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
-  </g>
 
   <g class="cursor-pointer bin" gui-bin-id="1" bin-key="0_0">
     <rect class="bin-fill" x="1650" y="520" width="65" height="40" rx="4" ry="4"></rect>
@@ -403,11 +280,131 @@
     <rect class="bin-fill" x="1650" y="445" width="65" height="40" rx="4" ry="4"></rect>
     <text x="1663" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
   </g>
-
-
   <g class="bin" gui-bin-id="999" bin-key="0_0">
     <rect class="bin-fill" x="8" y="470" width="40" height="60" rx="4" ry="4"></rect>
     <text font-size="12" font-weight="700" fill="#404041" transform="translate(30,518) rotate(-90)" ><tspan class="bin-label"></tspan></text>
   </g>
 
+
+  <g transform="translate(1795 10) scale(-1,1)" class="photoeye" gui-input-id="5" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
+    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="54" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="62" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="70" y="0" width="3.6" height="12"></rect>
+  </g>
+  <g transform="translate(1795 237) scale(-1,1)" class="photoeye" gui-input-id="12" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
+    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="54" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="62" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="70" y="0" width="3.6" height="12"></rect>
+  </g>
+  <g transform="translate(1790 294) scale(-1,1)" class="photoeye" gui-input-id="11" input-id="0" data-toggle="tooltip" data-html="true" title="">>
+    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
+    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
+  </g>
+  <g transform="translate(1790 314) scale(-1,1)" class="photoeye" gui-input-id="10" input-id="0" data-toggle="tooltip" data-html="true" title="">>
+    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
+    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
+  </g>
+  <g transform="translate(1790 334) scale(-1,1)" class="photoeye" gui-input-id="9" input-id="0" data-toggle="tooltip" data-html="true" title="">>
+    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
+    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
+  </g>
+  <g transform="translate(1790 354) scale(-1,1)" class="photoeye" gui-input-id="8" input-id="0" data-toggle="tooltip" data-html="true" title="">>
+    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
+    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
+  </g>
+  <g transform="translate(1790 374) scale(-1,1)" class="photoeye" gui-input-id="7" input-id="0" data-toggle="tooltip" data-html="true" title="">>
+    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
+    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
+  </g>
+  <g transform="translate(1790 396) scale(-1,1)" class="photoeye" gui-input-id="6" input-id="0" data-toggle="tooltip" data-html="true" title="">>
+    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
+    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
+  </g>
+  <g transform="translate(1790 445) scale(-1,1)" class="photoeye" gui-input-id="4" input-id="0" data-toggle="tooltip" data-html="true" title="">>
+    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
+    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
+  </g>
+  <g transform="translate(1702 530) rotate(-90)" class="photoeye" gui-input-id="3" input-id="0" data-toggle="tooltip" data-html="true" title="">>
+    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
+    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
+  </g>
+  <g transform="translate(122 530) rotate(-90)" class="photoeye" gui-input-id="2" input-id="0" data-toggle="tooltip" data-html="true" title="">>
+    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
+    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
+  </g>
+  <g transform="translate(92 530) rotate(-90)" class="photoeye" gui-input-id="13" input-id="0" data-toggle="tooltip" data-html="true" title="">>
+    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
+    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
+  </g>
+  <g transform="translate(47 530) rotate(-90)" class="photoeye" gui-input-id="1" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
+    <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="30" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="38" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
+    <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
+  </g>
 </svg>

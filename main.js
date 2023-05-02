@@ -79,7 +79,7 @@ app.on('ready', function() {
     mainWindow = new BrowserWindow({
         width: 1920,
         height: 1080,
-        resizable: false,
+        resizable: true,
 		minimizable:true,
 		movable:true,
 		closable:true,
