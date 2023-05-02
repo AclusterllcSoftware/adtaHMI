@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg_general" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1850 610">
+  <defs>
+    <style>
+      .conveyor-fill{
+        fill:#e6e7e8;
+      }
+      .photoeye-fill{
+        fill:#CCC;
+      }
+      .bin-fill{
+        fill: #e6e7e8;
+      }
+      .bin{
+        display:none;
+      }
+      .cursor-pointer {
+        cursor:pointer;
+      }
+    </style>
+  </defs>
+
+  <g transform="translate(70,0)">
+    <rect style="fill: #f2f2f2;" x="43.1" y="7.38" width="8.43" height="6.56" rx="2.48" ry="2.48" transform="translate(36.66 57.98) rotate(-90)"/>
+    <path style="fill: #d0d2d3;" d="M0,10.78H37.48v.17c0,1.13-.92,2.05-2.05,2.05H2.05C.92,13,0,12.08,0,10.95v-.17H0Z"/>
+    <rect style="fill: #d0d2d3;" x="0" y="7.19" width="37.48" height="2.22"/>
+    <rect style="fill: #d0d2d3;" x="0" y="3.59" width="37.48" height="2.22"/>
+    <path style="fill: #d0d2d3;" d="M2.05,0H35.43C36.56,0,37.48,.92,37.48,2.05v.17H0v-.17C0,.92,.92,0,2.05,0Z"/>
+  </g>
+
+  <g transform="translate(65,20)">
+    <rect style="fill: #f2f2f2;" x="44.9" y="162.11" width="17.8" height="14.05" rx="3" ry="3" transform="translate(-115.34 222.93) rotate(-90)"/>
+    <rect style="fill: #f2f2f2;" x="44.9" y="98.39" width="17.8" height="14.05" rx="3" ry="3" transform="translate(-51.62 159.22) rotate(-90)"/>
+    <rect style="fill: #f2f2f2;" x="44.9" y="34.68" width="17.8" height="14.05" rx="3" ry="3" transform="translate(12.09 95.5) rotate(-90)"/>
+    <rect style="fill: #f2f2f2;" x="44.9" y="4.69" width="17.8" height="14.05" rx="3" ry="3" transform="translate(42.08 65.52) rotate(-90)"/>
+    <rect style="fill: #e6e6e6;" width="55.58" height="221.13" rx="4" ry="4"/>
+    <path style="fill: #999;" d="M46.66,218.49V2.66h4.27c1.1,0,2,.9,2,2V216.49c0,1.1-.9,2-2,2h-4.27Z"/>
+    <path style="fill: #999;" d="M8.92,218.49V2.66H4.66c-1.1,0-2,.9-2,2V216.49c0,1.1,.9,2,2,2h4.27Z"/>
+  </g>
+  <g transform="translate(65,20)" class="conveyor" gui-conveyor-id="10" conveyor-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect style="fill: transparent;" width="55.58" height="221.13" rx="4" ry="4"/>
+    <path class="conveyor-fill status" d="M51.58,2c1.1,0,2,.9,2,2V217.13c0,1.1-.9,2-2,2H4c-1.1,0-2-.9-2-2V4c0-1.1,.9-2,2-2H51.58m0-2H4C1.79,0,0,1.79,0,4V217.13c0,2.21,1.79,4,4,4H51.58c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4h0Z"/>
+  </g>
+
+  <g transform="translate(70,246)">
+    <rect style="fill: #f2f2f2;" x="40.53" y="32.33" width="15.93" height="14.05" rx="3" ry="3" transform="translate(9.13 87.86) rotate(-90)"/>
+    <rect style="fill: #e6e6e6;" y="-.03" width="44.98" height="51.07" rx="4" ry="4"/>
+    <line style="fill: none;stroke: #ccc;stroke-miterlimit: 10;" x1="40.7" y1="51.03" x2="40.7" y2="-.03"/>
+    <line style="fill: none;stroke: #ccc;stroke-miterlimit: 10;stroke-width: 2px;" x1="36.72" y1="51.03" x2="36.72" y2="-.03"/>
+    <line style="fill: none;stroke: #ccc;stroke-miterlimit: 10;" x1="32.75" y1="51.03" x2="32.75" y2="-.03"/>
+    <line style="fill: none;stroke: #ccc;stroke-miterlimit: 10;stroke-width: 2px;" x1="28.77" y1="51.03" x2="28.77" y2="-.03"/>
+    <line style="fill: none;stroke: #ccc;stroke-miterlimit: 10;" x1="24.8" y1="51.03" x2="24.8" y2="-.03"/>
+    <line style="fill: none;stroke: #ccc;stroke-miterlimit: 10;stroke-width: 2px;" x1="20.82" y1="51.03" x2="20.82" y2="-.03"/>
+    <line style="fill: none;stroke: #ccc;stroke-miterlimit: 10;" x1="16.85" y1="51.03" x2="16.85" y2="-.03"/>
+    <line style="fill: none;stroke: #ccc;stroke-miterlimit: 10;stroke-width: 2px;" x1="12.87" y1="51.03" x2="12.87" y2="-.03"/>
+    <line style="fill: none;stroke: #ccc;stroke-miterlimit: 10;" x1="8.9" y1="51.03" x2="8.9" y2="-.03"/>
+    <line style="fill: none;stroke: #ccc;stroke-miterlimit: 10;stroke-width: 2px;" x1="4.92" y1="51.03" x2="4.92" y2="-.03"/>
+  </g>
+  <g transform="translate(70,246)" class="conveyor" gui-conveyor-id="9" conveyor-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect style="fill: transparent;" y="-.03" width="44.98" height="51.07" rx="4" ry="4"/>
+    <path class="conveyor-fill status" d="M40.98,2c1.1,0,2,.9,2,2V47.07c0,1.1-.9,2-2,2H4c-1.1,0-2-.9-2-2V4c0-1.1,.9-2,2-2H40.98M40.98,0H4C1.79,0,0,1.79,0,4V47.07C0,49.28,1.79,51.07,4,51.07H40.98c2.21,0,4-1.79,4-4V4C44.98,1.79,43.18,0,40.98,0h0Z"/>
+  </g>
+
+  <g transform="translate(74,304)" class="conveyor" gui-conveyor-id="8" conveyor-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect style="fill: #e6e6e6;" x="0" y=".94" width="32.79" height="13.12" rx="4" ry="4"/>
+    <path class="conveyor-fill status" d="M28.79,2c1.1,0,2,.9,2,2v5.12c0,1.1-.9,2-2,2H4c-1.1,0-2-.9-2-2V4c0-1.1,.9-2,2-2H28.79m0-2H4C1.79,0,0,1.79,0,4v5.12c0,2.21,1.79,4,4,4H28.79c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4h0Z"/>
+  </g>
+  <g transform="translate(74,324)" class="conveyor" gui-conveyor-id="7" conveyor-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect style="fill: #e6e6e6;" x="0" y=".94" width="32.79" height="13.12" rx="4" ry="4"/>
+    <path class="conveyor-fill status" d="M28.79,2c1.1,0,2,.9,2,2v5.12c0,1.1-.9,2-2,2H4c-1.1,0-2-.9-2-2V4c0-1.1,.9-2,2-2H28.79m0-2H4C1.79,0,0,1.79,0,4v5.12c0,2.21,1.79,4,4,4H28.79c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4h0Z"/>
+  </g>
+
+  <g transform="translate(74,344)" class="conveyor" gui-conveyor-id="6" conveyor-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect style="fill: #e6e6e6;" x="0" y=".94" width="32.79" height="13.12" rx="4" ry="4"/>
+    <path class="conveyor-fill status" d="M28.79,2c1.1,0,2,.9,2,2v5.12c0,1.1-.9,2-2,2H4c-1.1,0-2-.9-2-2V4c0-1.1,.9-2,2-2H28.79m0-2H4C1.79,0,0,1.79,0,4v5.12c0,2.21,1.79,4,4,4H28.79c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4h0Z"/>
+  </g>
+
+  <g transform="translate(74,364)">
+    <rect style="fill: #f2f2f2;" x="47.79" y=".94" width="11.24" height="9.37" rx="3" ry="3" transform="translate(47.79 59.03) rotate(-90)"/>
+  </g>
+  <g transform="translate(74,364)" class="conveyor" gui-conveyor-id="5" conveyor-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect style="fill: #e6e6e6;" x="0" y=".94" width="32.79" height="13.12" rx="4" ry="4"/>
+    <path class="conveyor-fill status" d="M28.79,2c1.1,0,2,.9,2,2v5.12c0,1.1-.9,2-2,2H4c-1.1,0-2-.9-2-2V4c0-1.1,.9-2,2-2H28.79m0-2H4C1.79,0,0,1.79,0,4v5.12c0,2.21,1.79,4,4,4H28.79c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4h0Z"/>
+  </g>
+
+  <g transform="translate(41,382)">
+    <rect style="fill: none;stroke: #f2f2f2;stroke-miterlimit: 10;stroke-width: 4px;" x="31.86" y="-3.62" width="34.67" height="45.91" rx="6" ry="6" transform="translate(29.86 68.53) rotate(-90)"/>
+    <path style="fill: #e6e6e6;" d="M32.79,63.53V8.87c0-2.21,1.79-4,4-4h24.79c2.21,0,4,1.79,4,4V63.53H32.79Z"/>
+    <rect style="fill: #f2f2f2;" x="81.05" y="18.4" width="36.54" height="9.37" rx="3" ry="3" transform="translate(76.24 122.4) rotate(-90)"/>
+    <polyline style="fill: none;stroke: #e6e6e6;stroke-linecap: round;stroke-linejoin: round;" points="8.43 5.1 4.68 9.22 10.31 15.4"/>
+    <rect style="fill: #f2f2f2;" x="-6.09" y="27.77" width="36.54" height="9.37" rx="3" ry="3" transform="translate(-20.27 44.63) rotate(-90)"/>
+    <rect style="fill: #e6e6e6;" x="6.56" y="-3.62" width="2.81" height="15.93" rx="1.06" ry="1.06" transform="translate(3.62 12.31) rotate(-90)"/>
+  </g>
+  <g transform="translate(74,388)" class="conveyor" gui-conveyor-id="4" conveyor-id="0" data-toggle="tooltip" data-html="true" title="">
+    <path transform="translate(-33,-6)" style="fill: #e6e6e6;" d="M32.79,63.53V8.87c0-2.21,1.79-4,4-4h24.79c2.21,0,4,1.79,4,4V63.53H32.79Z"/>
+    <path class="conveyor-fill status" d="M28.79,2c1.1,0,2,.9,2,2V56.65H2V4c0-1.1,.9-2,2-2H28.79m0-2H4C1.79,0,0,1.79,0,4V58.65H32.79V4c0-2.21-1.79-4-4-4h0Z"/>
+  </g>
+
+  <g transform="translate(70,455)" class="conveyor" gui-conveyor-id="3" conveyor-id="0" data-toggle="tooltip" data-html="true" title="">
+    <path style="fill: #e6e6e6;" d="M67.23,29.05v38.18C30.1,67.23,0,37.13,0,0H38.18c0,16.04,13,29.05,29.05,29.05Z"/>
+    <path class="conveyor-fill status" d="M36.25,2c.99,15.53,13.45,27.99,28.98,28.98v34.22C30.85,64.16,3.07,36.38,2.03,2H36.25m1.94-2H0C0,37.13,30.1,67.23,67.23,67.23V29.05c-16.04,0-29.05-13-29.05-29.05h0Z"/>
+  </g>
+
+  <g transform="translate(145,472)">
+    <path style="fill: #f2f2f2;" d="M1594.87,59.51h-1.94c-.63,0-1.14-.51-1.14-1.14v-1.36c0-.63-.51-1.13-1.13-1.13h-.26c-.63,0-1.14-.51-1.14-1.14v-4.03c0-.63-.5-1.14-1.13-1.14h-4.93c-.62,0-1.13,.51-1.13,1.14v1.31c0,.63,.51,1.13,1.13,1.13h1.88c.63,0,1.14,.51,1.14,1.14v.45c0,.63-.51,1.14-1.14,1.14h-12.05c-.63,0-1.14-.51-1.14-1.14V10.6c0-.63,.51-1.13,1.14-1.13h7.91c.62,0,1.13,.5,1.13,1.13v.78c0,.62,.51,1.13,1.13,1.13h4.56c.62,0,1.13-.51,1.13-1.13V1.14c0-.63,.51-1.14,1.14-1.14h3.26c.46,0,.87,.28,1.05,.71l2.27,5.51V56.02c-.36,.18-.61,.55-.61,.99v1.36c0,.63-.5,1.14-1.13,1.14Z"/>
+    <rect style="fill: #f2f2f2;" x="-1.41" y="18.44" width="51.53" height="23.42" rx="4" ry="4" transform="translate(54.51 5.8) rotate(90)"/>
+    <path style="fill: #e6e6e6;" d="M0,18.87v24.36H1590.09c2.21,0,4-1.79,4-4V22.87c0-2.21-1.79-4-4-4H0Z"/>
+  </g>
+  <g transform="translate(145,490)" class="conveyor" gui-conveyor-id="2" conveyor-id="0" data-toggle="tooltip" data-html="true" title="">
+    <path style="fill: transparent;" transform="translate(0,-18)" d="M0,18.87v24.36H1590.09c2.21,0,4-1.79,4-4V22.87c0-2.21-1.79-4-4-4H0Z"/>
+    <path class="conveyor-fill status" d="M1590.09,2c1.1,0,2,.9,2,2V20.36c0,1.1-.9,2-2,2H2V2H1590.09M1590.09,0H0V24.36H1590.09c2.21,0,4-1.79,4-4V4C1594.09,1.79,1592.3,0,1590.09,0h0Z"/>
+  </g>
+
+  <g transform="translate(1745,475)">
+    <path style="fill: #f2f2f2;" d="M70.95,0h-17.56c-.63,0-1.13,.51-1.13,1.13V7.93c0,.63-.51,1.14-1.14,1.14h-16.6c-.62,0-1.13-.51-1.13-1.14v-1.73c0-.63-.51-1.14-1.13-1.14h-.09c-.62,0-1.13,.51-1.13,1.14v1.73c0,.63-.51,1.14-1.14,1.14h-11.56c-.63,0-1.14-.51-1.14-1.14v-1.73c0-.63-.51-1.14-1.13-1.14s-1.14,.51-1.14,1.14v1.73c0,.63-.5,1.14-1.13,1.14H3.9c-.63,0-1.14-.51-1.14-1.14V3.9c0-.63-.5-1.14-1.13-1.14H.53c-.19,0-.37-.05-.53-.14V52.42l2.3-5.59c.18-.42,.59-.7,1.05-.7H13.8c.63,0,1.13,.51,1.13,1.13v1.71c0,.63,.51,1.13,1.14,1.13s1.13-.5,1.13-1.13v-1.71c0-.62,.51-1.13,1.14-1.13h11.56c.63,0,1.14,.51,1.14,1.13v1.71c0,.63,.51,1.13,1.13,1.13h.09c.62,0,1.13-.5,1.13-1.13v-1.71c0-.62,.51-1.13,1.13-1.13h16.6c.63,0,1.14,.51,1.14,1.13v6.73c0,.62,.5,1.13,1.13,1.13h17.56c.63,0,1.14-.51,1.14-1.13V1.13c0-.62-.51-1.13-1.14-1.13Z"/>
+    <rect style="fill: #e6e6e6;" x="2.43" y="11.69" width="46.18" height="31.8" rx="4" ry="4"/>
+  </g>
+  <g transform="translate(1745,486)" class="conveyor" gui-conveyor-id="1" conveyor-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect style="fill: transparent;" transform="translate(0,-11)" x="2.43" y="11.69" width="46.18" height="31.8" rx="4" ry="4"/>
+    <path class="conveyor-fill status" d="M42.18,2c1.1,0,2,.9,2,2V27.8c0,1.1-.9,2-2,2H4c-1.1,0-2-.9-2-2V4c0-1.1,.9-2,2-2H42.18m0-2H4C1.79,0,0,1.79,0,4V27.8c0,2.21,1.79,4,4,4H42.18c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4h0Z"/>
+  </g>
+
+  <g class="cursor-pointer bin" gui-bin-id="1" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="2" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="3" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="4" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="5" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="6" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="7" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="8" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="9" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="10" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="11" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="12" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="13" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="14" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="15" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="16" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="17" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="18" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="19" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="20" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="21" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="22" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="23" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="24" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="25" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="26" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="27" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="28" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="29" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="30" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="31" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="32" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="33" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="34" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="35" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="36" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="37" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="38" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="39" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="40" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="bin" gui-bin-id="999" bin-key="0_0">
+    <rect class="bin-fill" x="1802" y="470" width="40" height="60" rx="4" ry="4"></rect>
+    <text font-size="12" font-weight="700" fill="#404041" transform="translate(1825,518) rotate(-90)" ><tspan class="bin-label"></tspan></text>
+  </g>
+
+
+
+  <g transform="translate(1785 495) rotate(-90)" class="device" gui-device-id="1" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(1773 495) rotate(-90)" class="device" gui-device-id="2" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(180 495) rotate(-90)" class="device" gui-device-id="3" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(1715 495) rotate(-90)" class="device" gui-device-id="4" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(165 530) rotate(-90)" class="device" gui-device-id="5" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(100 475) rotate(-90)" class="device" gui-device-id="6" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(130 500) rotate(-90)" class="device" gui-device-id="7" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(125 440)" class="device" gui-device-id="8" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(110 390)" class="device" gui-device-id="9" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(230 234) rotate(90)" class="device" gui-device-id="10" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <path class="status" style="stroke:#000; stroke-width:1px" transform="scale(1.3)" d="M166.61,114.682c-.842-1.128-4.079-5.619-4.079-7.931a4.08,4.08,0,1,1,8.159,0C170.69,109.064,167.452,113.554,166.61,114.682Z" />
+  </g>
+
+  <g transform="translate(105 455)" class="device" gui-device-id="11" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(185 430)" class="device" gui-device-id="12" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(275 385)" class="device" gui-device-id="13" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(245 385)" class="device" gui-device-id="14" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(355 385)" class="device" gui-device-id="15" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(385 385)" class="device" gui-device-id="16" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(408 385)" class="device" gui-device-id="17" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(438 385)" class="device" gui-device-id="18" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(477 385)" class="device" gui-device-id="19" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(505 385)" class="device" gui-device-id="20" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(545 385)" class="device" gui-device-id="21" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+  <g transform="translate(245 92)" class="device" gui-device-id="22" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+    <text class="gv-text" transform="translate(-4 -5)"><tspan x="0" y="0">AEG</tspan></text>
+  </g>
+  <g transform="translate(135 455)" class="device" gui-device-id="23" device-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
+    <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
+  </g>
+
+  <g transform="translate(40 455)" class="estop" gui-input-id="81" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect  x="0" y="0" width="15.5" height="15.5" style="fill:#f5ea14;stroke:#000000;stroke-width:1px;"/>
+    <circle class="status" cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#fff"/>
+  </g>
+  <g transform="translate(50 285)" class="estop" gui-input-id="82" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect x="0" y="0" width="15.5" height="15.5" style="fill:#f5ea14;stroke:#000000;stroke-width:1px;"/>
+    <circle class="status" cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#fff"/>
+  </g>
+  <g transform="translate(60 240)" class="estop" gui-input-id="83" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect x="0" y="0" width="15.5" height="15.5" style="fill:#f5ea14;stroke:#000000;stroke-width:1px;"/>
+    <circle class="status" cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#fff"/>
+  </g>
+  <g transform="translate(250 420)" class="estop" gui-input-id="84" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect x="0" y="0" width="15.5" height="15.5" style="fill:#f5ea14;stroke:#000000;stroke-width:1px;"/>
+    <circle class="status" cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#fff"/>
+  </g>
+  <g transform="translate(250 570)" class="estop" gui-input-id="85" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect x="0" y="0" width="15.5" height="15.5" style="fill:#f5ea14;stroke:#000000;stroke-width:1px;"/>
+    <circle class="status" cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#fff"/>
+  </g>
+  <g transform="translate(1800 450)" class="estop" gui-input-id="86" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect x="0" y="0" width="15.5" height="15.5" style="fill:#f5ea14;stroke:#000000;stroke-width:1px;"/>
+    <circle class="status" cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#fff"/>
+  </g>
+  <g transform="translate(20 410)" class="estop" gui-input-id="87" input-id="0" data-toggle="tooltip" data-html="true" title="">
+    <rect x="0" y="0" width="15.5" height="15.5" style="fill:#f5ea14;stroke:#000000;stroke-width:1px;"/>
+    <circle class="status" cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#fff"/>
+  </g>
+</svg>

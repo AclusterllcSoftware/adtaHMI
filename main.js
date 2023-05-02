@@ -80,9 +80,9 @@ app.on('ready', function() {
         width: 1920,
         height: 1080,
         resizable: false,
-		minimizable:false,
-		movable:false,
-		closable:false,
+		minimizable:true,
+		movable:true,
+		closable:true,
         webPreferences: {
 			nodeIntegration: true,
 			devTools: true

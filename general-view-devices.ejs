@@ -1,14 +1,11 @@
 <%- include('header', {currentMenu: 'general-view-devices', pageTitle: 'Devices'}); %>
-    <div class="row m-0 mt-1">
-        <div class="col-4" style="padding:0 150px;text-align: center;">
-			<%- include('resources/general-view-colors.svg') %>
-        </div>
-        <div class="col-8  position-relative" style="padding:0 500px 0 0;text-align: center;">
-			<%- include('resources/general-view-devices.svg') %>
-            <%- include('components/general_view_common_gui.ejs') %>
-		</div>
+    <div id="general_layout" class="row">
     </div>
     <div class="row m-0">
+        <div class="col-4">
+            <%- include('resources/general-view-devices.svg') %>
+
+        </div>
         <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-2">
             <%- include('components/active_alarm_content') %>
         </div>
@@ -25,7 +22,7 @@ let basic_info={}
 
 
 jQuery(document).ready(function() {
-	$('[data-toggle="tooltip"]').tooltip();
+
     loadAndGetDetailedActiveAlarmSettings();//nav.js
 	
     jQuery("#ip_list_dropdown").change(function() {
@@ -44,19 +41,24 @@ jQuery(document).ready(function() {
 
 ipcRenderer.on("render:general-view-devices", function(e, data) {
     basic_info=data;
-    setBinsLabel(data['binsInfo']);//nav.js
-    setEstopsLabel(data['inputsInfo']);//nav.js
-    setDevicesLabel(data['devicesInfo']);//nav.js
-    setConveyorsLabel(data['conveyorsInfo']);//nav.js
+    $('#general_layout').load('general_layouts/'+basic_info['hmiSettings']['general_layout']+'/general_devices.ejs',function (){
+        addCommandButtonsListener();//nav.js
+        $('[data-toggle="tooltip"]').tooltip();
 
-    $('.bin.cursor-pointer').on('click',function (){
-        let key=$(this).attr('bin-key');
-        ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
+        setBinsLabel(data['binsInfo'],basic_info['hmiSettings']['general_layout']);//nav.js
+        setEstopsLabel(data['inputsInfo']);//nav.js
+        setDevicesLabel(data['devicesInfo']);//nav.js
+        setConveyorsLabel(data['conveyorsInfo']);//nav.js
+
+        $('.bin.cursor-pointer').on('click',function (){
+            let key=$(this).attr('bin-key');
+            ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
+        })
+        ipcRenderer.send("sendRequest", selected_machine,'getGeneralDevicesViewData', {});//for fixing waiting 1sec
+        setInterval(() => {
+            ipcRenderer.send("sendRequest", selected_machine,'getGeneralDevicesViewData', {});
+        }, 1000);
     })
-    ipcRenderer.send("sendRequest", selected_machine,'getGeneralDevicesViewData', {});//for fixing waiting 1sec
-    setInterval(() => {
-        ipcRenderer.send("sendRequest", selected_machine,'getGeneralDevicesViewData', {});
-    }, 1000);
 });
 ipcRenderer.on("getGeneralDevicesViewData", function(e, data) {
     let machineId=data['machineId'];

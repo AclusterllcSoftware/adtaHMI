@@ -176,9 +176,11 @@ jQuery(document).ready(function() {
         ipcRenderer.send("change:link", link);
         return false;
     });
+    addCommandButtonsListener();
 
 });
 function addCommandButtonsListener(){
+    $('.button-device-command').off('click')
     $('.button-device-command').on('click',function (){
         ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
             'deviceId':$(this).attr('data-device-id'),
@@ -186,6 +188,7 @@ function addCommandButtonsListener(){
             'parameter1':$(this).attr('data-parameter1')
         });
     })
+    $('.button-device-command-press-release').off('click')
     $('.button-device-command-press-release').on('click',function (){
         let device_id=$(this).attr('data-device-id');
         let command_start=$(this).attr('data-command-start');
