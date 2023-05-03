@@ -263,6 +263,7 @@
     ipcRenderer.on("getMaintViewData", function (e, data) {
         let paramValues = Object.values(data['parameterValues']), allRows = [],
             counterValues= Object.values(data['countersCurrentValue']), allCounterRows=[];
+
         allRows = $('.params-value');
         allCounterRows = $('.counter-class-value');
         $(allRows).each((key, elem) => {
@@ -278,8 +279,8 @@
         })
         if(counterValues.length >0){
             $(allCounterRows).each((key, elem)=> {
-                let rowId = $(elem)[0].dataset.id, counterData = counterValues.find(d => d.counter_id == rowId);
-                $(elem).text(counterData.value);
+                let rowId = $(elem)[0].dataset.id, counterData = counterValues[rowId];
+                $(elem).text(counterData);
             })
         }
 
