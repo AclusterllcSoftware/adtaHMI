@@ -364,8 +364,9 @@
         let shift_statistics = data_result['statistics'][0];
         let shift_strating_time = shift_statistics['created_at_timestamp'],
             converted_shift_started_time = null, diff = null;
-        diff = moment(shift_strating_time).minutes();
-        converted_shift_started_time = shift_strating_time - diff*60;
+        diff = moment(shift_strating_time*1000).minutes();
+
+        converted_shift_started_time = shift_strating_time - diff*60-moment(shift_strating_time*1000).seconds();
         end_time = moment().unix();
         start_time = moment().subtract(24, 'hours').unix();
         if ((moment().unix() - moment(converted_shift_started_time)) / 3600 <= 24) {
