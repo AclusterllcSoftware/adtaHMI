@@ -54,8 +54,70 @@
 <div class="row mt-4">
     <div class="col-lg-12 mt-4" id="new-volume-chart" style="height: 450px;">New Volume</div>
 </div>
+<div class="row mt-5">
+    <div class="col-lg-12 d-flex">
+        <table class="table table-sm table-bordered" style="white-space: nowrap; max-width: fit-content">
+            <thead>
+            <tr id="shift-table-left-head">
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody id="shift-left-table">
+            <tr>
+                <td>Total Inducted</td>
+            </tr>
+            <tr>
+                <td>Total good diverts</td>
+            </tr>
+            <tr>
+                <td>Total machine error packages</td>
+            </tr>
+            <tr>
+                <td>Total non-machine error packages</td>
+            </tr>
+            <tr>
+                <td>Lost of communication</td>
+            </tr>
+            <tr>
+                <td>Avg. Length</td>
+            </tr>
+            <tr>
+                <td>Avg. Gap</td>
+            </tr>
+            <tr>
+                <td>Good scan</td>
+            </tr>
+            <tr>
+                <td>No Read</td>
+            </tr>
+            <tr>
+                <td>No code</td>
+            </tr>
+            <tr>
+                <td>Multiple read</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <thead>
+            <tr id="shift-table-head">
+                <th colspan="2">Shift date</th>
+            </tr>
+            </thead>
+            <tbody id="shift-table">
+            <tr>
+                <td>123</td>
+                <td>100%</td>
+                <td>456</td>
+                <td>100%</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 </div>
+
 <%- include('footer', {currentMenu: 'statistics-shift-wise'}); %>
 <script src="js/jquery-bootstrap.js"></script>
 <script src="js/datatables/datatables.js"></script>
@@ -200,6 +262,16 @@
         });
     });
     ipcRenderer.on('render:statistics-shift-wise', function (e, basic_info) {
+        let s_data = {
+            total_read: {label: 'Total inducted', data: []},
+            good: {label: 'Total good diverts', data: []},
+            machine_error: {label: 'Total machine error packages', data: []},
+            non_machine_error: {label: 'Total non-machine error packages', data: []},
+            lost_comm: {label: 'Lost of communication', data: []},
+            avg_length: {label: 'Avg. length', data: []},
+            avg_gap: {label: 'Avg. gap', data: []},
+
+        };
         console.log(basic_info);
         Object.values(basic_info['scsInfo']).forEach(v => {
             scs_data["sc" + v.value] = {
@@ -210,7 +282,7 @@
             };
         });
         end_time = moment().unix();
-        start_time = moment().subtract(2, 'days').unix();
+        start_time = moment().subtract(6, 'days').unix();
         ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsCounter', {
             'from_timestamp': start_time,
             'to_timestamp': end_time
@@ -223,7 +295,7 @@
         }, 60000);
     });
     ipcRenderer.on('getStatisticsCounter', function (e, data_result) {
-        let statistics_result = data_result['statistics'];
+        let statistics_result = data_result['statistics'], shift_data = {};
         console.log(data_result);
         let volume_chart_data = Object.keys(scs_data).map(key => ({
             name: scs_data[key].label,
@@ -241,8 +313,17 @@
                 d.total += Number(statistics_result[k][d["code"]]);
                 d.data.push([time_slot, Number(statistics_result[k][d["code"]])]);
             });
+            shift_data[time_slot]={
+                total_read: {label: 'Total inducted', value: 0},
+                good: {label: 'Total good diverts', value: 0},
+                machine_error: {label: 'Total machine error packages', value: 0},
+                non_machine_error: {label: 'Total non-machine error packages', value: 0},
+                lost_comm: {label: 'Lost of communication', value: 0},
+                avg_length: {label: 'Avg. length', value: 0},
+                avg_gap: {label: 'Avg. gap', value: 0},
+            }
         }
-
+console.log(shift_data)
         volume_chart_data.sort((a, b) => a.total - b.total);
         new Highcharts.chart('new-volume-chart', {
             chart: {
