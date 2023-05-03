@@ -267,8 +267,15 @@
         allCounterRows = $('.counter-class-value');
         $(allRows).each((key, elem) => {
             let rowId = $(elem)[0].dataset.id, paramData = paramValues.find(d => d.param_id == rowId);
-            console.log(paramData);
-            $(elem).text(paramData.value);
+            console.log(paramData.param_id);
+            if(paramData.param_id == 60 || paramData.param_id == 61) {
+                $(elem).text(paramData.value+ ' ms');
+            } else if(paramData.param_id == 62){
+                $(elem).text(paramData.value+ ' mm');
+            } else {
+                $(elem).text(paramData.value);
+            }
+
         })
         if(counterValues.length >0){
             $(allCounterRows).each((key, elem)=> {
