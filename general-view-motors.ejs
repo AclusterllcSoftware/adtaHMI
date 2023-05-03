@@ -1,77 +1,5 @@
 <%- include('header', {currentMenu: 'general-view-motors', pageTitle: 'Motors'}); %>
-    <div class="row m-0 mt-1">
-        <div class="col-4" style="padding:0 150px;text-align: center;">
-			<%- include('resources/general-view-colors.svg') %>
-        </div>
-        <div class="col-8  position-relative" style="padding:0 500px 0 0;text-align: center;">
-			<%- include('resources/general-view-motors.svg') %>
-            <%- include('components/general_view_common_gui.ejs') %>
-            <div id="motor-details" class="position-absolute" style="width: 350px;height:270px;top:162px;left:255px; border: 1px solid black;display: none;z-index: 2;background-color: white;">
-                <table class="table" style="margin: 0">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <span>Cnx</span>
-                                <svg height="20" width="20">
-                                    <circle id="cnx_status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#fff"></circle>
-                                </svg></td>
-                            <td>
-                                <span>Faulted</span>
-                                <svg height="20" width="20">
-                                    <circle id="faulted_status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#fff"></circle>
-                                </svg></td>
-                            <td class="text-right">
-                                <button id="close" class="button-3d button-rectangle cursor-pointer" style="width: 25px;height: 25px;padding: 0;" >
-                                    <svg  style="vertical-align: inherit;" height="25" width="25">
-                                        <line x1="5" y1="5" x2="20" y2="20" style="stroke:#fff;stroke-width:2" />
-                                        <line x1="20" y1="5" x2="5" y2="20" style="stroke:#fff;stroke-width:2" />
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div style="padding:0px 20px;">
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td id="motor_name">-</td>
-                                <td id="location">-</td>
-                            </tr>
-                            <tr>
-                                <td id="ip_address">-</td>
-                                <td id="current_speed">-</td>
-                            </tr>
-                            <tr id="tr_speed">
-                                <td colspan="2">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Set Speed</span>
-                                        </div>
-                                        <input id="speed" type="text" class="form-control text-right float_positive" value="0">
-                                        <div class="input-group-append">
-                                            <span id="label_speed_input_unit" class="input-group-text">./.</span>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="command_buttons_container" style="padding:0px 20px;">
-                    <table class="table table-sm table-borderless">
-                        <tbody>
-                        <tr>
-                            <td><button id="button-motor-start" class="button-3d button-rectangle">Start</button></td>
-                            <td ><button id="button-motor-stop" class="button-3d button-rectangle">Stop</button></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="speed_error" class="text-danger" style="display: none;">Invalid Speed.Range[min: <span id="speed_min"></span> max: <span id="speed_max"></span>]</div>
-            </div>
-
-		</div>
+    <div id="general_layout" class="row">
     </div>
     <div class="row m-0">
         <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-2">
@@ -92,7 +20,7 @@ let machine_mode=0;
 
 
 jQuery(document).ready(function() {
-	$('[data-toggle="tooltip"]').tooltip();
+
     loadAndGetDetailedActiveAlarmSettings();//nav.js
 	
     jQuery("#ip_list_dropdown").change(function() {
@@ -123,6 +51,25 @@ function setMotorDetailsView(){
 }
 ipcRenderer.on("render:general-view-motors", function(e, data) {
     basic_info=data;
+    $('#general_layout').load('general_layouts/'+basic_info['hmiSettings']['general_layout']+'/general_motors.ejs',function (){
+        addCommandButtonsListener();//nav.js
+        $('[data-toggle="tooltip"]').tooltip();
+
+        setBinsLabel(data['binsInfo'],basic_info['hmiSettings']['general_layout']);//nav.js
+        setConveyorsLabel(data['conveyorsInfo']);//nav.js
+        setMotorsLabel(data['motorsInfo']);//nav.js
+
+        $('.bin.cursor-pointer').on('click',function (){
+            let key=$(this).attr('bin-key');
+            ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
+        })
+
+        ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});//for fixing waiting 1sec
+        setInterval(() => {
+            ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});
+        }, 1000);
+    })
+
     if(basic_info['hmiSettings']['motor_speed_unit']=='ft_min'){
         $('#motor-details #label_speed_input_unit').html('ft/min')
     }
@@ -130,16 +77,16 @@ ipcRenderer.on("render:general-view-motors", function(e, data) {
         $('#motor-details #label_speed_input_unit').html('m/s')
     }
 
-    setBinsLabel(data['binsInfo']);//nav.js
-    setEstopsLabel(data['inputsInfo']);//nav.js
-    setDevicesLabel(data['devicesInfo']);//nav.js
-    setConveyorsLabel(data['conveyorsInfo']);//nav.js
-    setMotorsLabel(data['motorsInfo']);//nav.js
+    // setBinsLabel(data['binsInfo']);//nav.js
+    // setEstopsLabel(data['inputsInfo']);//nav.js
+    // setDevicesLabel(data['devicesInfo']);//nav.js
+    // setConveyorsLabel(data['conveyorsInfo']);//nav.js
+    // setMotorsLabel(data['motorsInfo']);//nav.js
 
-    $('.bin.cursor-pointer').on('click',function (){
-        let key=$(this).attr('bin-key');
-        ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
-    })
+    // $('.bin.cursor-pointer').on('click',function (){
+    //     let key=$(this).attr('bin-key');
+    //     ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
+    // })
     $('.motor.cursor-pointer').on('click',function (){
         let motorsInfo=data['motorsInfo']
         let motor_id=$(this).attr('motor-id');
@@ -198,10 +145,10 @@ ipcRenderer.on("render:general-view-motors", function(e, data) {
             });
         }
     })
-    ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});//for fixing waiting 1sec
-    setInterval(() => {
-        ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});
-    }, 1000);
+    // ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});//for fixing waiting 1sec
+    // setInterval(() => {
+    //     ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});
+    // }, 1000);
 });
 ipcRenderer.on("getGeneralMotorsViewData", function(e, data) {
     if(data['machineMode']!=machine_mode){
