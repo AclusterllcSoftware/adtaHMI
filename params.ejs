@@ -4,10 +4,11 @@
         <div class="px-1 py-2 border border-light" style="display: inline-block">
             <span class="mr-2 px-2" id="site_name"></span>
             <span class="mr-2 px-2 " id="machine_name"></span>
-            <span id="install_date">Install Date: -</span>
+            <span>Install Date: <span id="install_date"></span></span>
         </div>
     </div>
-    <div class="col-lg-12">
+    <div class="col-lg-9">
+        <h3>Threshold Parameters</h3>
         <table class="table table-sm table-bordered table-striped">
             <thead>
             <tr>
@@ -18,8 +19,89 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody id="table-parameters"></tbody>
+            <tbody id="table-parameters-threshold"></tbody>
         </table>
+        <h3>Timeout Parameters</h3>
+        <table class="table table-sm table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Parameter ID</th>
+                <th>Description</th>
+                <th>Value</th>
+                <th>Unit</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="table-parameters-timeout"></tbody>
+        </table>
+    </div>
+    <div class="col-lg-3">
+        <h4>Barcode</h4>
+        <table class="table table-sm table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Description</th>
+                <th>Value</th>
+                <th>Unit</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="table-barcode_param"></tbody>
+        </table>
+        <h4>Calibration</h4>
+        <table class="table table-sm table-bordered table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Power Turn Entry Pe</th>
+                <th>Reject Pe</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Package 1</td>
+                    <td data-id="1" class="counter-class-value"></td>
+                    <td data-id="6" class="counter-class-value"></td>
+                </tr>
+                <tr>
+                    <td>Package 2</td>
+                    <td data-id="2" class="counter-class-value"></td>
+                    <td data-id="7" class="counter-class-value"></td>
+                </tr>
+                <tr>
+                    <td>Package 3</td>
+                    <td data-id="3" class="counter-class-value"></td>
+                    <td data-id="8" class="counter-class-value"></td>
+                </tr>
+                <tr>
+                    <td>Package 4</td>
+                    <td data-id="4" class="counter-class-value"></td>
+                    <td data-id="9" class="counter-class-value"></td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered table-striped">
+            <thead>
+
+            </thead>
+            <tbody>
+            <tr>
+                <td>Power Turn Tracking Window</td>
+                <td data-id="60" class='params-value'></td>
+                <td data-id="61" class='params-value'></td>
+            </tr>
+            <tr>
+                <td>Reject Position</td>
+                <td data-id="62" class='params-value'></td>
+                <td>&nbsp;</td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="text-align: end"><button id="calibration-button" class="button-device-command button-3d button-rectangle"
+                     data-device-id="87"
+                     data-command="0"
+                     data-parameter1="0">Calibrate
+            </button></div>
     </div>
 </div>
 </div>
@@ -31,7 +113,7 @@
 <script src="js/nav.js"></script>
 
 <script>
-    let basic_info = {};
+    let basic_info = {}, current_user = {};
 
     jQuery(document).ready(function () {
         jQuery("#ip_list_dropdown").change(function () {
@@ -48,43 +130,109 @@
             //     ipcRenderer.send("get:views", selected_machine, "params");
             // }, 60000)
         });
+        jQuery('#calibration-button').hide();
     });
     ipcRenderer.on("render:params", function (e, data) {
-        let parameters = [], table_html = '', current_user = null, machine_info;
+        let parameters = [], table_html_threshold = '', table_html_timeout = '', current_user = null, machine_info,
+            barcode_param = null, barcode_html='';
         basic_info = data;
-
         machine_info= basic_info['machinesInfo'][selected_machine];
+        current_user = basic_info['currentUser'];
         $('#site_name').text(machine_info['site_name']);
         $('#machine_name').text(machine_info['machine_name']);
-
+        $('#install_date').text(moment(machine_info['install_at_timestamp']*1000).format('MMM D Y, H:mm:ss'))
         current_user = basic_info['currentUser'];
+        if (current_user.role == 1) {
+            $('#calibration-button').show();
+        }
         parameters = Object.values(basic_info['parametersInfo']);
-        parameters.forEach(i => {
-            table_html +=
+        barcode_param = parameters.find(f=> Number(f.param_id) === 50);
+        if(barcode_param) {
+            barcode_html =
                 "<tr>" +
                 "<td>" +
-                i.param_id +
+                barcode_param.description +
+                "</td>" +
+                "<td data-id=" + barcode_param.param_id + " class='params-value'>" +
+                barcode_param.value +
                 "</td>" +
                 "<td>" +
-                i.description +
-                "</td>" +
-                "<td data-id=" + i.param_id + " class='params-value'>" +
-                i.value +
+                barcode_param.unit +
                 "</td>" +
                 "<td>" +
-                i.unit +
-                "</td>" +
-                "<td>" +
-                ((current_user.role == 1 || current_user.role == 2) ?
+                ((current_user.role == 1) ?
                         '<form class="d-flex form-params"> <input type="text" class="form-control" name="c_value"> ' +
-                        '<input class="params-id" type="hidden" name="params_id" value='+ i.param_id +'>'+
-                        '<button type="submit" class="btn btn-primary button_params" >Change</button> </form>' : ''
+                        '<input class="params-id" type="hidden" name="params_id" value='+ barcode_param.param_id +'>'+
+                        '<button type="submit" class="btn btn-primary button_params" >Change</button> </form>' :
+                        '<form class="d-flex form-params"> <input readonly type="text" class="form-control" name="c_value"> ' +
+                        '<input class="params-id" type="hidden" name="params_id" value='+ barcode_param.param_id +'>'+
+                        '<button disabled type="submit" class="btn btn-primary button_params" >Change</button> </form>'
                 )
                 +
                 "</td></tr>";
+            jQuery("#table-barcode_param").empty();
+            jQuery("#table-barcode_param").append(barcode_html);
+        }
+        parameters.forEach(i => {
+            if(i.param_id>=1 && i.param_id <= 19) {
+                table_html_threshold +=
+                    "<tr>" +
+                    "<td>" +
+                    i.param_id +
+                    "</td>" +
+                    "<td>" +
+                    i.description +
+                    "</td>" +
+                    "<td data-id=" + i.param_id + " class='params-value'>" +
+                    i.value +
+                    "</td>" +
+                    "<td>" +
+                    i.unit +
+                    "</td>" +
+                    "<td>" +
+                    ((current_user.role == 1 || current_user.role == 2) ?
+                            '<form class="d-flex form-params"> <input type="text" class="form-control" name="c_value"> ' +
+                            '<input class="params-id" type="hidden" name="params_id" value='+ i.param_id +'>'+
+                            '<button type="submit" class="btn btn-primary button_params" >Change</button> </form>' :
+                            '<form class="d-flex form-params"> ' +
+                            '<input class="params-id" type="hidden" name="params_id" value='+ i.param_id +'>'+
+                            ' </form>'
+                    )
+                    +
+                    "</td></tr>";
+            }
+            if(i.param_id>=20 && i.param_id <= 49) {
+                table_html_timeout +=
+                    "<tr>" +
+                    "<td>" +
+                    i.param_id +
+                    "</td>" +
+                    "<td>" +
+                    i.description +
+                    "</td>" +
+                    "<td data-id=" + i.param_id + " class='params-value'>" +
+                    i.value +
+                    "</td>" +
+                    "<td>" +
+                    i.unit +
+                    "</td>" +
+                    "<td>" +
+                    ((current_user.role == 1 || current_user.role == 2) ?
+                            '<form class="d-flex form-params"> <input type="text" class="form-control" name="c_value"> ' +
+                            '<input class="params-id" type="hidden" name="params_id" value='+ i.param_id +'>'+
+                            '<button type="submit" class="btn btn-primary button_params" >Change</button> </form>' :
+                            '<form class="d-flex form-params"> ' +
+                            '<input class="params-id" type="hidden" name="params_id" value='+ i.param_id +'>'+
+                            ' </form>'
+                    )
+                    +
+                    "</td></tr>";
+            }
         });
-        jQuery("#table-parameters").empty();
-        jQuery("#table-parameters").append(table_html);
+        jQuery("#table-parameters-threshold").empty();
+        jQuery("#table-parameters-threshold").append(table_html_threshold);
+        jQuery("#table-parameters-timeout").empty();
+        jQuery("#table-parameters-timeout").append(table_html_timeout);
         // jQuery('.form-params>.params-id').each(function (index, element) {
         //     $(element).val(Number(parameters[index]['id']));
         // });
@@ -113,16 +261,22 @@
         }, 1000);
     });
     ipcRenderer.on("getMaintViewData", function (e, data) {
-        console.log(data);
-        let paramValues = Object.values(data['parameterValues']), allRows = [];
-        console.log(paramValues);
+        let paramValues = Object.values(data['parameterValues']), allRows = [],
+            counterValues= Object.values(data['countersCurrentValue']), allCounterRows=[];
         allRows = $('.params-value');
+        allCounterRows = $('.counter-class-value');
         $(allRows).each((key, elem) => {
             let rowId = $(elem)[0].dataset.id, paramData = paramValues.find(d => d.param_id == rowId);
             console.log(paramData);
             $(elem).text(paramData.value);
         })
-        console.log();
+        if(counterValues.length >0){
+            $(allCounterRows).each((key, elem)=> {
+                let rowId = $(elem)[0].dataset.id, counterData = counterValues.find(d => d.counter_id == rowId);
+                $(elem).text(counterData.value);
+            })
+        }
+
 
     });
 </script>
