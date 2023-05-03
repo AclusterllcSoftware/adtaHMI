@@ -46,7 +46,7 @@ function setMotorDetailsView(){
     else{
         $('#motor-details #tr_speed').show();
         $('#motor-details #command_buttons_container').show();
-        $('#motor-details').css('height','270').css('top','105px');
+        $('#motor-details').css('height','270');
     }
 }
 ipcRenderer.on("render:general-view-motors", function(e, data) {
