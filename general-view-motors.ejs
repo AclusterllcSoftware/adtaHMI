@@ -64,91 +64,74 @@ ipcRenderer.on("render:general-view-motors", function(e, data) {
             ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
         })
 
+        if(basic_info['hmiSettings']['motor_speed_unit']=='ft_min'){
+            $('#motor-details #label_speed_input_unit').html('ft/min')
+        }
+        else{
+            $('#motor-details #label_speed_input_unit').html('m/s')
+        }
+        $('.motor.cursor-pointer').on('click',function (){
+            let motorsInfo=data['motorsInfo']
+            let motor_id=$(this).attr('motor-id');
+            motorIdForDetailsView=motor_id;
+            setMotorDetailsView();
+            $('#motor-details #speed_error').hide();
+            $('#motor-details #motor_name').html(motorsInfo[selected_machine+'_'+motor_id]['motor_name'])
+            $('#motor-details #location').html(motorsInfo[selected_machine+'_'+motor_id]['location'])
+            $('#motor-details #ip_address').html(motorsInfo[selected_machine+'_'+motor_id]['ip_address'])
+            $('#motor-details #current_speed').html('-')
+            $('#motor-details').show();
+        })
+        $('#motor-details #close').on('click',function (){
+            $('#motor-details').hide();
+        })
+        $('#motor-details  #button-motor-start').on('click',function (){
+            if(machine_mode==1){
+                let motorInfo=basic_info['motorsInfo'][selected_machine+'_'+motorIdForDetailsView];
+                let speed;
+                let speed_min;
+                let speed_max;
+                if(basic_info['hmiSettings']['motor_speed_unit']=='ft_min'){
+                    speed=$('#motor-details #speed').val()*5.08;
+                    speed_min=motorInfo['speed_min']/5.08;
+                    speed_max=motorInfo['speed_max']/5.08;
+                }
+                else{
+                    speed=$('#motor-details #speed').val()*1000;
+                    speed_min=motorInfo['speed_min']/1000;
+                    speed_max=motorInfo['speed_max']/1000;
+                }
+                speed=parseInt(speed);
+
+                if(speed<motorInfo['speed_min'] || speed>motorInfo['speed_max']){
+                    $('#motor-details #speed_max').text(speed_max.toFixed(2))
+                    $('#motor-details #speed_min').text(speed_min.toFixed(2))
+                    $('#motor-details #speed_error').show();
+                }
+                else{
+                    $('#motor-details #speed_error').hide();
+                    ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
+                        'deviceId':motorIdForDetailsView-1+101,
+                        'command':1,
+                        'parameter1':speed
+                    });
+                }
+            }
+        })
+        $('#motor-details  #button-motor-stop').on('click',function (){
+            if(machine_mode==1) {
+                ipcRenderer.send("sendRequest", selected_machine, 'sendDeviceCommand', {
+                    'deviceId': motorIdForDetailsView - 1 + 101,
+                    'command': 0,
+                    'parameter1': 0
+                });
+            }
+        })
         ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});//for fixing waiting 1sec
         setInterval(() => {
             ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});
         }, 1000);
     })
-
-    if(basic_info['hmiSettings']['motor_speed_unit']=='ft_min'){
-        $('#motor-details #label_speed_input_unit').html('ft/min')
-    }
-    else{
-        $('#motor-details #label_speed_input_unit').html('m/s')
-    }
-
-    // setBinsLabel(data['binsInfo']);//nav.js
-    // setEstopsLabel(data['inputsInfo']);//nav.js
-    // setDevicesLabel(data['devicesInfo']);//nav.js
-    // setConveyorsLabel(data['conveyorsInfo']);//nav.js
-    // setMotorsLabel(data['motorsInfo']);//nav.js
-
-    // $('.bin.cursor-pointer').on('click',function (){
-    //     let key=$(this).attr('bin-key');
-    //     ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
-    // })
-    $('.motor.cursor-pointer').on('click',function (){
-        let motorsInfo=data['motorsInfo']
-        let motor_id=$(this).attr('motor-id');
-        motorIdForDetailsView=motor_id;
-        setMotorDetailsView();
-        $('#motor-details #speed_error').hide();
-        $('#motor-details #motor_name').html(motorsInfo[selected_machine+'_'+motor_id]['motor_name'])
-        $('#motor-details #location').html(motorsInfo[selected_machine+'_'+motor_id]['location'])
-        $('#motor-details #ip_address').html(motorsInfo[selected_machine+'_'+motor_id]['ip_address'])
-        $('#motor-details #current_speed').html('-')
-        $('#motor-details').show();
-    })
-    $('#motor-details #close').on('click',function (){
-
-        $('#motor-details').hide();
-    })
-    $('#motor-details  #button-motor-start').on('click',function (){
-        if(machine_mode==1){
-            let motorInfo=basic_info['motorsInfo'][selected_machine+'_'+motorIdForDetailsView];
-            let speed;
-            let speed_min;
-            let speed_max;
-            if(basic_info['hmiSettings']['motor_speed_unit']=='ft_min'){
-                speed=$('#motor-details #speed').val()*5.08;
-                speed_min=motorInfo['speed_min']/5.08;
-                speed_max=motorInfo['speed_max']/5.08;
-            }
-            else{
-                speed=$('#motor-details #speed').val()*1000;
-                speed_min=motorInfo['speed_min']/1000;
-                speed_max=motorInfo['speed_max']/1000;
-            }
-            speed=parseInt(speed);
-
-            if(speed<motorInfo['speed_min'] || speed>motorInfo['speed_max']){
-                $('#motor-details #speed_max').text(speed_max.toFixed(2))
-                $('#motor-details #speed_min').text(speed_min.toFixed(2))
-                $('#motor-details #speed_error').show();
-            }
-            else{
-                $('#motor-details #speed_error').hide();
-                ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
-                    'deviceId':motorIdForDetailsView-1+101,
-                    'command':1,
-                    'parameter1':speed
-                });
-            }
-        }
-    })
-    $('#motor-details  #button-motor-stop').on('click',function (){
-        if(machine_mode==1) {
-            ipcRenderer.send("sendRequest", selected_machine, 'sendDeviceCommand', {
-                'deviceId': motorIdForDetailsView - 1 + 101,
-                'command': 0,
-                'parameter1': 0
-            });
-        }
-    })
-    // ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});//for fixing waiting 1sec
-    // setInterval(() => {
-    //     ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});
-    // }, 1000);
 });
 ipcRenderer.on("getGeneralMotorsViewData", function(e, data) {
     if(data['machineMode']!=machine_mode){
