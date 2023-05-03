@@ -434,7 +434,7 @@ function getHMISettings(){
 		,"cm_ip_address_input" :  store.get(project_prefix+"cm_address", "not_set")
 		,"detailed_active_alarm" : store.get(project_prefix+"detailed_active_alarm", "0")
 		,"motor_speed_unit" : store.get(project_prefix+"motor_speed_unit", "m_s")
-		,"general_layout" : store.get(project_prefix+"general_layout", "1")
+		,"general_layout" : store.get(project_prefix+"general_layout", "2")
 	};
 }
 ipcMain.handle('getStoreValue', (e) => {
