@@ -321,7 +321,7 @@
     <rect class="status" x="0" y="0" width="19.914" height="9.863" style="fill:#e6e6e6"/>
     <path d="M0,0v10h20v-10h-20Zm.686,9.318v-8.636h17.94l-17.393,8.636h-.547Z"/>
   </g>
-  <g transform="translate(285 310)" class="device" gui-device-id="10" device-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(-125 310)" class="device" gui-device-id="10" device-id="0" data-toggle="tooltip" data-html="true" title="">
     <path class="status" style="stroke:#000; stroke-width:1px" transform="scale(1.3)" d="M166.61,114.682c-.842-1.128-4.079-5.619-4.079-7.931a4.08,4.08,0,1,1,8.159,0C170.69,109.064,167.452,113.554,166.61,114.682Z" />
   </g>
 
