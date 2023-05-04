@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="svg_general_colors" data-name="General Colors" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 420 165">
+<svg id="svg_general_colors" data-name="General Colors" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 90">
   <defs>
     <style>
       .photoeye-off {
@@ -46,31 +46,48 @@
     </g>
   </g>
   <g transform="translate(100 0)">
+
+    <g transform="translate(0 15)">
+      <rect x="3" y="3" width="80" height="20" rx="2.5" ry="2.5" style="fill:#f00;stroke:#f00;stroke-width:3px;"/>
+      <text class="gv-text" transform="translate(12 16)"><tspan x="0" y="0">Jam/Faulted</tspan></text>
+    </g>
+    <g transform="translate(0 40)">
+      <rect x="3" y="3" width="80" height="20" rx="2.5" ry="2.5" style="fill:#c55a11;stroke:#c55a11;stroke-width:3px;"/>
+      <text class="gv-text" transform="translate(18 16)"><tspan x="0" y="0">Manual</tspan></text>
+    </g>
+    <g transform="translate(0 65)">
+      <rect x="3" y="3" width="80" height="20" rx="2.5" ry="2.5" style="fill:#ccc;stroke:#ccc;stroke-width:3px;"/>
+      <text class="gv-text" transform="translate(18 16)"><tspan x="0" y="0">Inactive</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(200 0)">
     <text class="gv-text gv-header" transform="translate(0 11)"><tspan x="0" y="0">Conveyor</tspan></text>
     <g transform="translate(0 15)">
       <rect x="3" y="3" width="80" height="20" rx="2.5" ry="2.5" style="fill:#fff;stroke:#27e22b;stroke-width:3px;"/>
       <text class="gv-text" transform="translate(18 16)"><tspan x="0" y="0">Running</tspan></text>
     </g>
-    <g transform="translate(0 46)">
+    <g transform="translate(0 40)">
       <rect x="3" y="3" width="80" height="20" rx="2.5" ry="2.5" style="fill:#fff;stroke:#ccc;stroke-width:3px;"/>
       <text class="gv-text" transform="translate(18 16)"><tspan x="0" y="0">Stopped</tspan></text>
     </g>
-    <g transform="translate(0 77)">
+    <g transform="translate(0 65)">
       <rect x="3" y="3" width="80" height="20" rx="2.5" ry="2.5" style="fill:#fff;stroke:#ff0000;stroke-width:3px;"/>
       <text class="gv-text" transform="translate(18 16)"><tspan x="0" y="0">Faulted</tspan></text>
     </g>
-    <g transform="translate(0 108)">
+  </g>
+  <g transform="translate(300 0)">
+    <g transform="translate(0 15)">
       <rect x="3" y="3" width="80" height="20" rx="2.5" ry="2.5" style="fill:#fff;stroke:#ffc000;stroke-width:3px;"/>
       <text class="gv-text" transform="translate(18 16)"><tspan x="0" y="0">Jammed</tspan></text>
     </g>
-    <g transform="translate(0 139)">
+    <g transform="translate(0 40)">
       <rect x="3" y="3" width="80" height="20" rx="2.5" ry="2.5" style="fill:#fff;stroke:#87cefa;stroke-width:3px;"/>
       <text class="gv-text" transform="translate(18 16)"><tspan x="0" y="0">Eco Mng</tspan></text>
     </g>
   </g>
-  <g transform="translate(200 0)">
+  <g transform="translate(400 0)">
     <text class="gv-text gv-header" transform="translate(0 11)"><tspan x="0" y="0">Photoeye</tspan></text>
-    <g transform="translate(0 25)">
+    <g transform="translate(0 20)">
       <polygon class="photoeye-off" points="12 6 0 0 0 12 12 6"/>
       <rect class="photoeye-off" x="14" y="5" width="3.2" height="3.2"/>
       <rect class="photoeye-off" x="20" y="5" width="3.2" height="3.2"/>
@@ -80,7 +97,7 @@
       <rect class="photoeye-off" x="44" y="0" width="3.6" height="12"/>
       <text  class="gv-text" x="55" y="10" >Blocked</text>
     </g>
-    <g transform="translate(0 55)">
+    <g transform="translate(0 45)">
       <polygon class="photoeye-on" points="12 6 0 0 0 12 12 6"/>
       <rect class="photoeye-on" x="14" y="5" width="3.2" height="3.2"/>
       <rect class="photoeye-on" x="20" y="5" width="3.2" height="3.2"/>
@@ -91,21 +108,21 @@
       <text class="gv-text"  x="55" y="10" >Unblocked</text>
     </g>
   </g>
-  <g transform="translate(200 95)">
+  <g transform="translate(530 0)">
     <text class="gv-text gv-header" transform="translate(0 11)"><tspan x="0" y="0">Estop</tspan></text>
     <g transform="translate(0 21)">
       <rect x="0" y="0" width="15.5" height="15.5" style="fill:#f5ea14;stroke:#000000;stroke-width:1px;"/>
       <circle cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#00ff00" />
       <text class="gv-text" transform="translate(20 12)"><tspan x="0" y="0">Ok</tspan></text>
     </g>
-    <g transform="translate(0 46)">
+    <g transform="translate(0 45)">
       <rect x="0" y="0" width="15.5" height="15.5" style="fill:#f5ea14;stroke:#000000;stroke-width:1px;"/>
       <circle cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#ff0000" />
       <text class="gv-text" transform="translate(20 12)"><tspan x="0" y="0">Pressed</tspan></text>
     </g>
 
   </g>
-  <g transform="translate(330 0)">
+  <g transform="translate(610 0)">
     <text class="gv-text gv-header" transform="translate(0 11)"><tspan x="0" y="0">Motor</tspan></text>
     <g transform="translate(0 23)">
       <circle cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#fff" />
@@ -124,7 +141,7 @@
     </g>
 
   </g>
-  <g transform="translate(330 105)">
+  <g transform="translate(700 0)">
     <text class="gv-text gv-header" transform="translate(0 11)"><tspan x="0" y="0">Device</tspan></text>
     <g transform="translate(0 23)">
       <rect x="0" y="0" width="19.914" height="9.863" style="fill:#27e22b"/>
@@ -137,5 +154,4 @@
       <text class="gv-text" transform="translate(25 12)"><tspan x="0" y="0">Comm Nok</tspan></text>
     </g>
   </g>
-
 </svg>

@@ -37,18 +37,6 @@ const Store = require('electron-store');
 const store = new Store();
 
 let mainWindow;
-const createModal = (page_url, width, height) => {
-	let modal = new BrowserWindow({
-		width: width,
-		height: height,
-		modal: true
-	})
-
-	modal.loadURL(page_url)
-
-	return modal;
-  
-}
 
 let nativeMenus = [
 	{
@@ -88,13 +76,8 @@ app.on('ready', function() {
 			devTools: true
         }
     });
-
-    /* mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, "main-window.html"),
-        protocol: 'file:',
-        slashes: true
-	})); */
-	
+	let hmiSettings=getHMISettings()
+	ejse.data('system_general_layout_no',hmiSettings['general_layout_no'])
 	mainWindow.loadFile('general-view.ejs');
 
 });
@@ -434,7 +417,7 @@ function getHMISettings(){
 		,"cm_ip_address_input" :  store.get(project_prefix+"cm_address", "not_set")
 		,"detailed_active_alarm" : store.get(project_prefix+"detailed_active_alarm", "0")
 		,"motor_speed_unit" : store.get(project_prefix+"motor_speed_unit", "m_s")
-		,"general_layout" : store.get(project_prefix+"general_layout", "2")
+		,"general_layout_no" : store.get(project_prefix+"general_layout_no", "2")
 	};
 }
 ipcMain.handle('getStoreValue', (e) => {
@@ -453,7 +436,8 @@ ipcMain.on("saveSettings", function(e, settings_data) {
 
 	store.set(project_prefix+"detailed_active_alarm", settings_data['detailed_active_alarm']);
 	store.set(project_prefix+"motor_speed_unit", settings_data['motor_speed_unit']);
-	store.set(project_prefix+"general_layout", settings_data['general_layout']);
+	store.set(project_prefix+"general_layout_no", settings_data['general_layout_no']);
+	ejse.data('system_general_layout_no',settings_data['general_layout_no'])
 });
 
 ipcMain.handle('getCurrentUser', (event, key) => {
