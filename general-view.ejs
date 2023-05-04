@@ -1,5 +1,9 @@
 <%- include('header', {currentMenu: 'general-view', pageTitle: 'General View'}); %>
-    <div id="general_layout" class="row">
+    <div class="row">
+        <div class="col-12">
+            <%- include('general_layouts/'+system_general_layout_no+'/general.svg') %>
+            <%- include('general_layouts/'+system_general_layout_no+'/common_html.ejs') %>
+        </div>
     </div>
     <div class="row m-0">
         <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2 mt-2">
@@ -18,7 +22,7 @@ let basic_info={}
 
 
 jQuery(document).ready(function() {
-
+    $('[data-toggle="tooltip"]').tooltip();
     loadAndGetDetailedActiveAlarmSettings();//nav.js
 
     jQuery("#ip_list_dropdown").change(function() {
@@ -37,23 +41,18 @@ jQuery(document).ready(function() {
 
 ipcRenderer.on("render:general-view", function(e, data) {
     basic_info=data;
-    $('#general_layout').load('general_layouts/'+basic_info['hmiSettings']['general_layout']+'/general.ejs',function (){
-        addCommandButtonsListener();//nav.js
-        $('[data-toggle="tooltip"]').tooltip();
-        setBinsLabel(data['binsInfo'],basic_info['hmiSettings']['general_layout']);//nav.js
-        setPhotoeyesLabel(data['inputsInfo']);//nav.js
-        setConveyorsLabel(data['conveyorsInfo']);//nav.js
+    setBinsLabel(data['binsInfo'],basic_info['hmiSettings']['general_layout']);//nav.js
+    setPhotoeyesLabel(data['inputsInfo']);//nav.js
+    setConveyorsLabel(data['conveyorsInfo']);//nav.js
 
-        $('.bin.cursor-pointer').on('click',function (){
-            let key=$(this).attr('bin-key');
-            //console.log(data['binsInfo'][key])
-            ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
-        })
-        ipcRenderer.send("sendRequest", selected_machine,'getGeneralViewData', {});//for fixing waiting 1sec
-        setInterval(() => {
-            ipcRenderer.send("sendRequest", selected_machine,'getGeneralViewData', {});
-        }, 1000);
+    $('.bin.cursor-pointer').on('click',function (){
+        let key=$(this).attr('bin-key');
+        ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
     })
+    ipcRenderer.send("sendRequest", selected_machine,'getGeneralViewData', {});//for fixing waiting 1sec
+    setInterval(() => {
+        ipcRenderer.send("sendRequest", selected_machine,'getGeneralViewData', {});
+    }, 1000);
 });
 ipcRenderer.on("getGeneralViewData", function(e, data) {
     let machineId=data['machineId'];
