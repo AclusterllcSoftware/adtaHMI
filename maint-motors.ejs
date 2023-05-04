@@ -19,6 +19,7 @@
 <!--    </div>-->
 </div>
 <div class="row mt-3">
+    <div class="text-danger text-center col-lg-12" id="error-message">Value is not in the max and min range</div>
     <div class="col-lg-12">
         <table class="table table-sm table-bordered table-striped" id="motor_table">
             <thead>
@@ -68,6 +69,7 @@
     let machine_mode;
 
     jQuery(document).ready(function () {
+        $('#error-message').hide();
         jQuery("#ip_list_dropdown").change(function () {
             selected_machine = jQuery(this).val();
             if (selected_machine !== "") {
@@ -116,7 +118,7 @@
             fault_status: 0,
         })).forEach(d => {
             data_table.row.add([
-                d.motor_id,
+                '<span style="padding-right: 4px">'+d.motor_id+'</span>',
                 d.motor_name,
                 d.location,
                 d.ip_address,
@@ -177,10 +179,10 @@
         data_table.draw();
 
         $('.button_start').click(function () {
+            $('#error-message').hide();
             let motorId = $(this).data('motorId'), inputVal = Number($('.motor-'+motorId).val()),
                 selected_motor= motors.find(m=> m.motor_id == motorId);
 
-            console.log(selected_motor)
             if(motor_speed_unit =='ft_min'){
                 inputVal = inputVal *5.08;
             } else {
@@ -189,6 +191,7 @@
             inputVal = parseInt(inputVal);
 
             if(inputVal<selected_motor['speed_min'] || inputVal>selected_motor['speed_max']){
+                $('#error-message').show();
                 return;
             } else {
                 ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
