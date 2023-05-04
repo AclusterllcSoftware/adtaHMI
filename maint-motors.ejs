@@ -23,13 +23,13 @@
         <table class="table table-sm table-bordered table-striped" id="motor_table">
             <thead>
             <tr>
-                <th>Motor ID</th>
+                <th width="65px" style="text-align: right">Motor ID</th>
                 <th>Motor name</th>
                 <th>Motor location</th>
                 <th>IP Address</th>
                 <th>Speed</th>
-                <th>Connection Status</th>
-                <th>Fault</th>
+                <th width="130px">Connection Status</th>
+                <th width="130px">Fault</th>
                 <th></th>
             </tr>
             </thead>
@@ -86,7 +86,7 @@
             buttons: [
                ],
             "columns": [
-                null,
+                { "orderable": true, className: 'text-right' },
                 null,
                 null,
                 { "orderable": false },
