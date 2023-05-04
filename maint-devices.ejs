@@ -2,14 +2,14 @@
 <div class="row mt-3">
 
     <div class="col-lg-12">
-        <table class="table table-sm table-bordered table-striped" id="table_devices">
+        <table class="table table-sm table-bordered table-striped" id="table_devices" style="table-layout: fixed">
             <thead>
             <tr>
-                <th>Device ID</th>
+                <th width="6%">Device ID</th>
                 <th>Device name</th>
-                <th>Device type</th>
-                <th>IP Address</th>
-                <th>Status</th>
+                <th width="5%" style="text-align: right">Device type</th>
+                <th width="8%">IP Address</th>
+                <th width="3%" style="text-align: center">Status</th>
             </tr>
             </thead>
             <tbody></tbody>
@@ -63,7 +63,7 @@
             "columns": [
                 null,
                 null,
-                { "orderable": false },
+                { "orderable": false, className: "text-right" },
                 { "orderable": false },
                 { "orderable": false },
             ],
@@ -78,14 +78,17 @@
 
         devices.sort((a,b)=> a.device_id-b.device_id);
         devices.map(d => ({...d, states: 0})).forEach(d => {
+            if(Number(d.gui_device_id) <= 0){
+                return
+            }
             data_table.row.add([
                 d.device_id,
                 d.device_name,
                 d.device_type,
                 d.ip_address,
                 (d.state === 1 ?
-                        '<span' + ' data-id=' + d.device_id + 'class="state-row" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
-                        : '<span' + ' data-id=' + d.device_id + ' class="state-row" style="background-color: #f43f5e; width: 12px;height: 12px; display: inline-flex"></span>'
+                        '<span' + ' data-id=' + d.device_id + 'class="state-row" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex; text-align: center"></span>'
+                        : '<span' + ' data-id=' + d.device_id + ' class="state-row" style="background-color: #f43f5e; width: 12px;height: 12px; display: inline-flex; text-align: center"></span>'
                 )
             ]);
             // devices_html += '<tr>' +
