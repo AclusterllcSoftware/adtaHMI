@@ -65,6 +65,7 @@
 <script>
     let basic_info = {}, motors = [], motor_speed_unit = '', inputs_info = [];
     let data_table;
+    let machine_mode;
 
     jQuery(document).ready(function () {
         jQuery("#ip_list_dropdown").change(function () {
@@ -103,6 +104,7 @@
         console.log(data)
         let motors_html = '';
         basic_info = data;
+
         motor_speed_unit = basic_info['hmiSettings']['motor_speed_unit'];
         inputs_info = basic_info['inputsInfo'];
         motors = Object.values(basic_info['motorsInfo']);
@@ -127,7 +129,7 @@
                         '<span' + ' data-id=' + d.motor_id + 'class="fault-state" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
                         : '<span' + ' data-id=' + d.motor_id + ' class="fault-state" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>'
                 ),
-                '<div class="d-inline-flex">' +
+                '<div class="d-inline-flex speed_control_input">' +
                 '<input type="text" class="form-control ' + 'motor-' + d.motor_id +'"' + 'style="width: 80px">' +
                 '<button' + ' data-motor-id=' + d.motor_id + ' type="button" class="btn btn-primary btn-sm button_start" style="font-size: 12px;padding-left: 12px; padding-right: 12px; padding-top: 1px; padding-bottom: 1px; margin-right: 4px;">Start</button>' +
                 '<button' + ' data-motor-id=' + d.motor_id + ' type="button" class="btn btn-danger btn-sm button_stop" style="font-size: 12px;padding-left: 12px; padding-right: 12px; padding-top: 1px; padding-bottom: 1px;">Stop</button>' +
@@ -175,13 +177,24 @@
         data_table.draw();
 
         $('.button_start').click(function () {
-            let motorId = $(this).data('motorId'), inputVal = Number($('.motor-'+motorId).val());
-            console.log(motorId);
-            if(inputVal>0){
+            let motorId = $(this).data('motorId'), inputVal = Number($('.motor-'+motorId).val()),
+                selected_motor= motors.find(m=> m.motor_id == motorId);
+
+            console.log(selected_motor)
+            if(motor_speed_unit =='ft_min'){
+                inputVal = inputVal *5.08;
+            } else {
+                inputVal= inputVal*1000;
+            }
+            inputVal = parseInt(inputVal);
+
+            if(inputVal<selected_motor['speed_min'] || inputVal>selected_motor['speed_max']){
+                return;
+            } else {
                 ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
                     'deviceId':motorId-1+101,
                     'command':1,
-                    'parameter1':inputVal*1000
+                    'parameter1':inputVal
                 });
                 $('.motor-'+motorId).val('')
             }
@@ -207,6 +220,12 @@
 
         let motor_speeds = data['motorsCurrentSpeed'], device_states = data['devicesStates'],
             input_states = data['inputsStates'], activeAlarms = data['activeAlarms'];
+        machine_mode=data['machineMode'];
+
+        if(machine_mode!=1){
+            $('.speed_control_input').children().hide();
+        }
+
         let activeAlarmsStates = {};
         for (let i in activeAlarms) {
             let activeAlarm = activeAlarms[i];
