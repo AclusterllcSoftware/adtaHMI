@@ -7,41 +7,41 @@
             <span>Install Date: <span id="install_date"></span></span>
         </div>
     </div>
-    <div class="col-lg-9">
+    <div class="col-lg-6">
         <h3>Threshold Parameters</h3>
-        <table class="table table-sm table-bordered table-striped">
+        <table class="table table-sm table-bordered table-striped table-thres-time">
             <thead>
             <tr>
-                <th>Parameter ID</th>
+                <th width="11%" style="text-align: center">Parameter ID</th>
                 <th>Description</th>
-                <th>Value</th>
-                <th>Unit</th>
-                <th></th>
+                <th width="6%" style="text-align: right">Value</th>
+                <th width="8%">Unit</th>
+                <th width="25%"></th>
             </tr>
             </thead>
             <tbody id="table-parameters-threshold"></tbody>
         </table>
         <h3>Timeout Parameters</h3>
-        <table class="table table-sm table-bordered table-striped">
+        <table class="table table-sm table-bordered table-striped table-thres-time">
             <thead>
             <tr>
-                <th>Parameter ID</th>
+                <th width="11%" style="text-align: center">Parameter ID</th>
                 <th>Description</th>
-                <th>Value</th>
-                <th>Unit</th>
-                <th></th>
+                <th width="6%" style="text-align: right">Value</th>
+                <th width="8%">Unit</th>
+                <th width="25%"></th>
             </tr>
             </thead>
             <tbody id="table-parameters-timeout"></tbody>
         </table>
     </div>
-    <div class="col-lg-3">
-        <h4>Barcode</h4>
+    <div class="col-lg-6">
+        <h4 class="pt-4" style="margin-bottom: 12px">Barcode</h4>
         <table class="table table-sm table-bordered table-striped">
             <thead>
             <tr>
                 <th>Description</th>
-                <th>Value</th>
+                <th style="text-align: right">Value</th>
                 <th>Unit</th>
                 <th></th>
             </tr>
@@ -49,63 +49,69 @@
             <tbody id="table-barcode_param"></tbody>
         </table>
         <h4>Calibration</h4>
-        <table class="table table-sm table-bordered table-striped">
+        <table class="table table-sm table-bordered table-striped" style="table-layout: fixed">
             <thead>
             <tr>
                 <th></th>
-                <th>Power Turn Entry Pe</th>
-                <th>Reject Pe</th>
+                <th style="text-align: right" width="22%">Power Turn Entry Pe</th>
+                <th style="text-align: right" width="22%">Reject Pe</th>
             </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Package 1</td>
-                    <td data-id="1" class="counter-class-value"></td>
-                    <td data-id="6" class="counter-class-value"></td>
-                </tr>
-                <tr>
-                    <td>Package 2</td>
-                    <td data-id="2" class="counter-class-value"></td>
-                    <td data-id="7" class="counter-class-value"></td>
-                </tr>
-                <tr>
-                    <td>Package 3</td>
-                    <td data-id="3" class="counter-class-value"></td>
-                    <td data-id="8" class="counter-class-value"></td>
-                </tr>
-                <tr>
-                    <td>Package 4</td>
-                    <td data-id="4" class="counter-class-value"></td>
-                    <td data-id="9" class="counter-class-value"></td>
-                </tr>
+            <tr>
+                <td>Package 1</td>
+                <td data-id="1" class="counter-class-value" style="text-align: right"></td>
+                <td data-id="6" class="counter-class-value" style="text-align: right"></td>
+            </tr>
+            <tr>
+                <td>Package 2</td>
+                <td data-id="2" class="counter-class-value" style="text-align: right"></td>
+                <td data-id="7" class="counter-class-value" style="text-align: right"></td>
+            </tr>
+            <tr>
+                <td>Package 3</td>
+                <td data-id="3" class="counter-class-value" style="text-align: right"></td>
+                <td data-id="8" class="counter-class-value" style="text-align: right"></td>
+            </tr>
+            <tr>
+                <td>Package 4</td>
+                <td data-id="4" class="counter-class-value" style="text-align: right"></td>
+                <td data-id="9" class="counter-class-value" style="text-align: right"></td>
+            </tr>
             </tbody>
         </table>
-        <table class="table table-sm table-bordered table-striped">
+        <table class="table table-sm table-bordered table-striped" style="table-layout: fixed">
             <thead>
 
             </thead>
             <tbody>
             <tr>
                 <td>Power Turn Tracking Window</td>
-                <td data-id="60" class='params-value'></td>
-                <td data-id="61" class='params-value'></td>
+                <td data-id="60" class='params-value' style="text-align: right" width="22%"></td>
+                <td data-id="61" class='params-value' style="text-align: right" width="22%"></td>
             </tr>
             <tr>
                 <td>Reject Position</td>
-                <td data-id="62" class='params-value'></td>
+                <td data-id="62" class='params-value' style="text-align: right" width="22%"></td>
                 <td>&nbsp;</td>
             </tr>
             </tbody>
         </table>
-        <div style="text-align: end"><button id="calibration-button" class="button-device-command button-3d button-rectangle"
-                     data-device-id="87"
-                     data-command="0"
-                     data-parameter1="0">Calibrate
-            </button></div>
+        <div style="text-align: end">
+            <button id="calibration-button" class="button-device-command button-3d button-rectangle"
+                    data-device-id="87"
+                    data-command="0"
+                    data-parameter1="0">Calibrate
+            </button>
+        </div>
     </div>
 </div>
 </div>
-
+<style>
+    .table-thres-time {
+        table-layout: fixed;
+    }
+</style>
 <%- include('footer', {currentMenu: 'params'}); %>
 <script src="js/jquery-bootstrap.js"></script>
 <script src="js/jquery.newsTicker.js"></script>
@@ -134,26 +140,26 @@
     });
     ipcRenderer.on("render:params", function (e, data) {
         let parameters = [], table_html_threshold = '', table_html_timeout = '', current_user = null, machine_info,
-            barcode_param = null, barcode_html='';
+            barcode_param = null, barcode_html = '';
         basic_info = data;
-        machine_info= basic_info['machinesInfo'][selected_machine];
+        machine_info = basic_info['machinesInfo'][selected_machine];
         current_user = basic_info['currentUser'];
         $('#site_name').text(machine_info['site_name']);
         $('#machine_name').text(machine_info['machine_name']);
-        $('#install_date').text(moment(machine_info['install_at_timestamp']*1000).format('MMM D Y, H:mm:ss'))
+        $('#install_date').text(moment(machine_info['install_at_timestamp'] * 1000).format('MMM D Y, H:mm:ss'))
         current_user = basic_info['currentUser'];
         if (current_user.role == 1) {
             $('#calibration-button').show();
         }
         parameters = Object.values(basic_info['parametersInfo']);
-        barcode_param = parameters.find(f=> Number(f.param_id) === 50);
-        if(barcode_param) {
+        barcode_param = parameters.find(f => Number(f.param_id) === 50);
+        if (barcode_param) {
             barcode_html =
                 "<tr>" +
                 "<td>" +
                 barcode_param.description +
                 "</td>" +
-                "<td data-id=" + barcode_param.param_id + " class='params-value'>" +
+                "<td style=\"text-align: right\" data-id=" + barcode_param.param_id + " class='params-value'>" +
                 barcode_param.value +
                 "</td>" +
                 "<td>" +
@@ -162,10 +168,10 @@
                 "<td>" +
                 ((current_user.role == 1) ?
                         '<form class="d-flex form-params"> <input type="text" class="form-control" name="c_value"> ' +
-                        '<input class="params-id" type="hidden" name="params_id" value='+ barcode_param.param_id +'>'+
+                        '<input class="params-id" type="hidden" name="params_id" value=' + barcode_param.param_id + '>' +
                         '<button type="submit" class="btn btn-primary button_params" >Change</button> </form>' :
                         '<form class="d-flex form-params"> <input readonly type="text" class="form-control" name="c_value"> ' +
-                        '<input class="params-id" type="hidden" name="params_id" value='+ barcode_param.param_id +'>'+
+                        '<input class="params-id" type="hidden" name="params_id" value=' + barcode_param.param_id + '>' +
                         '<button disabled type="submit" class="btn btn-primary button_params" >Change</button> </form>'
                 )
                 +
@@ -174,16 +180,16 @@
             jQuery("#table-barcode_param").append(barcode_html);
         }
         parameters.forEach(i => {
-            if(i.param_id>=1 && i.param_id <= 19) {
+            if (i.param_id >= 1 && i.param_id <= 19) {
                 table_html_threshold +=
                     "<tr>" +
-                    "<td>" +
+                    "<td style='text-align: center'>" +
                     i.param_id +
                     "</td>" +
                     "<td>" +
                     i.description +
                     "</td>" +
-                    "<td data-id=" + i.param_id + " class='params-value'>" +
+                    "<td style='text-align: right' data-id=" + i.param_id + " class='params-value'>" +
                     i.value +
                     "</td>" +
                     "<td>" +
@@ -192,25 +198,25 @@
                     "<td>" +
                     ((current_user.role == 1 || current_user.role == 2) ?
                             '<form class="d-flex form-params"> <input type="text" class="form-control" name="c_value"> ' +
-                            '<input class="params-id" type="hidden" name="params_id" value='+ i.param_id +'>'+
+                            '<input class="params-id" type="hidden" name="params_id" value=' + i.param_id + '>' +
                             '<button type="submit" class="btn btn-primary button_params" >Change</button> </form>' :
                             '<form class="d-flex form-params"> ' +
-                            '<input class="params-id" type="hidden" name="params_id" value='+ i.param_id +'>'+
+                            '<input class="params-id" type="hidden" name="params_id" value=' + i.param_id + '>' +
                             ' </form>'
                     )
                     +
                     "</td></tr>";
             }
-            if(i.param_id>=20 && i.param_id <= 49) {
+            if (i.param_id >= 20 && i.param_id <= 49) {
                 table_html_timeout +=
                     "<tr>" +
-                    "<td>" +
+                    "<td style='text-align: center'>" +
                     i.param_id +
                     "</td>" +
                     "<td>" +
                     i.description +
                     "</td>" +
-                    "<td data-id=" + i.param_id + " class='params-value'>" +
+                    "<td style='text-align: right' data-id=" + i.param_id + " class='params-value'>" +
                     i.value +
                     "</td>" +
                     "<td>" +
@@ -219,10 +225,10 @@
                     "<td>" +
                     ((current_user.role == 1 || current_user.role == 2) ?
                             '<form class="d-flex form-params"> <input type="text" class="form-control" name="c_value"> ' +
-                            '<input class="params-id" type="hidden" name="params_id" value='+ i.param_id +'>'+
+                            '<input class="params-id" type="hidden" name="params_id" value=' + i.param_id + '>' +
                             '<button type="submit" class="btn btn-primary button_params" >Change</button> </form>' :
                             '<form class="d-flex form-params"> ' +
-                            '<input class="params-id" type="hidden" name="params_id" value='+ i.param_id +'>'+
+                            '<input class="params-id" type="hidden" name="params_id" value=' + i.param_id + '>' +
                             ' </form>'
                     )
                     +
@@ -262,27 +268,25 @@
     });
     ipcRenderer.on("getMaintViewData", function (e, data) {
         let paramValues = Object.values(data['parameterValues']), allRows = [],
-            counterValues= Object.values(data['countersCurrentValue']), allCounterRows=[];
-
+            allCounterRows = [], counterValues = data['countersCurrentValue'];
         allRows = $('.params-value');
         allCounterRows = $('.counter-class-value');
         $(allRows).each((key, elem) => {
             let rowId = $(elem)[0].dataset.id, paramData = paramValues.find(d => d.param_id == rowId);
-            if(paramData.param_id == 60 || paramData.param_id == 61) {
-                $(elem).text(paramData.value+ ' ms');
-            } else if(paramData.param_id == 62){
-                $(elem).text(paramData.value+ ' mm');
+            if (paramData.param_id == 60 || paramData.param_id == 61) {
+                $(elem).text(paramData.value + ' ms');
+            } else if (paramData.param_id == 62) {
+                $(elem).text(paramData.value + ' mm');
             } else {
                 $(elem).text(paramData.value);
             }
 
         })
-        if(counterValues.length >0){
-            $(allCounterRows).each((key, elem)=> {
-                let rowId = $(elem)[0].dataset.id, counterData = counterValues[rowId];
-                $(elem).text(counterData);
-            })
-        }
+
+        $(allCounterRows).each((key, elem) => {
+            let rowId = $(elem)[0].dataset.id, counterData = counterValues[selected_machine + '_' + Number(rowId)];
+            $(elem).text(counterData);
+        })
 
 
     });
