@@ -286,131 +286,131 @@
   </g>
 
 
-  <g transform="translate(55 470)" class="motor cursor-pointer" gui-motor-id="1" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(1779 470)" class="motor cursor-pointer" gui-motor-id="1" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(130 470)" class="motor cursor-pointer" gui-motor-id="2" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(1704 470)" class="motor cursor-pointer" gui-motor-id="2" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1710 465)" class="motor cursor-pointer" gui-motor-id="3" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(124 465)" class="motor cursor-pointer" gui-motor-id="3" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1780 430)" class="motor cursor-pointer" gui-motor-id="4" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(54 430)" class="motor cursor-pointer" gui-motor-id="4" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1780 363)" class="motor cursor-pointer" gui-motor-id="5" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(54 363)" class="motor cursor-pointer" gui-motor-id="5" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1780 343)" class="motor cursor-pointer" gui-motor-id="6" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(54 343)" class="motor cursor-pointer" gui-motor-id="6" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1780 323)" class="motor cursor-pointer" gui-motor-id="7" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(54 323)" class="motor cursor-pointer" gui-motor-id="7" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1780 303)" class="motor cursor-pointer" gui-motor-id="8" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(54 303)" class="motor cursor-pointer" gui-motor-id="8" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1715 280)" class="motor cursor-pointer" gui-motor-id="9" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(119 280)" class="motor cursor-pointer" gui-motor-id="9" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1731 204) scale(.85)" class="motor cursor-pointer" gui-motor-id="10" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(103 204) scale(.85)" class="motor cursor-pointer" gui-motor-id="10" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1748 197) scale(.85)" class="motor cursor-pointer" gui-motor-id="11" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(86 197) scale(.85)" class="motor cursor-pointer" gui-motor-id="11" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1770 225) scale(.85)" class="motor cursor-pointer" gui-motor-id="12" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(66 225) scale(.85)" class="motor cursor-pointer" gui-motor-id="12" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1731 175) scale(.85)" class="motor cursor-pointer" gui-motor-id="13" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(103 175) scale(.85)" class="motor cursor-pointer" gui-motor-id="13" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1748 168) scale(.85)" class="motor cursor-pointer" gui-motor-id="14" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(86 168) scale(.85)" class="motor cursor-pointer" gui-motor-id="14" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1770 188) scale(.85)" class="motor cursor-pointer" gui-motor-id="15" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(66 188) scale(.85)" class="motor cursor-pointer" gui-motor-id="15" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1731 145) scale(.85)" class="motor cursor-pointer" gui-motor-id="16" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(103 145) scale(.85)" class="motor cursor-pointer" gui-motor-id="16" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1748 138) scale(.85)" class="motor cursor-pointer" gui-motor-id="17" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(86 138) scale(.85)" class="motor cursor-pointer" gui-motor-id="17" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1770 151) scale(.85)" class="motor cursor-pointer" gui-motor-id="18" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(66 151) scale(.85)" class="motor cursor-pointer" gui-motor-id="18" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1731 116) scale(.85)" class="motor cursor-pointer" gui-motor-id="19" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(103 116) scale(.85)" class="motor cursor-pointer" gui-motor-id="19" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1748 109) scale(.85)" class="motor cursor-pointer" gui-motor-id="20" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(86 109) scale(.85)" class="motor cursor-pointer" gui-motor-id="20" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1770 114) scale(.85)" class="motor cursor-pointer" gui-motor-id="21" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(66 114) scale(.85)" class="motor cursor-pointer" gui-motor-id="21" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1731 87) scale(.85)" class="motor cursor-pointer" gui-motor-id="22" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(103 87) scale(.85)" class="motor cursor-pointer" gui-motor-id="22" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1748 80) scale(.85)" class="motor cursor-pointer" gui-motor-id="23" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(86 80) scale(.85)" class="motor cursor-pointer" gui-motor-id="23" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1770 69) scale(.85)" class="motor cursor-pointer" gui-motor-id="24" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(66 69) scale(.85)" class="motor cursor-pointer" gui-motor-id="24" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1731 58) scale(.85)" class="motor cursor-pointer" gui-motor-id="25" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(103 58) scale(.85)" class="motor cursor-pointer" gui-motor-id="25" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1748 51) scale(.85)" class="motor cursor-pointer" gui-motor-id="26" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(86 51) scale(.85)" class="motor cursor-pointer" gui-motor-id="26" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1770 39) scale(.85)" class="motor cursor-pointer" gui-motor-id="27" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(66 39) scale(.85)" class="motor cursor-pointer" gui-motor-id="27" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1731 29) scale(.85)" class="motor cursor-pointer" gui-motor-id="28" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(103 29) scale(.85)" class="motor cursor-pointer" gui-motor-id="28" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1748 22) scale(.85)" class="motor cursor-pointer" gui-motor-id="29" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(86 22) scale(.85)" class="motor cursor-pointer" gui-motor-id="29" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1748 225) scale(.85)" class="motor cursor-pointer" gui-motor-id="30" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(86 225) scale(.85)" class="motor cursor-pointer" gui-motor-id="30" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(1702 522)" class="motor cursor-pointer" gui-motor-id="31" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(132 522)" class="motor cursor-pointer" gui-motor-id="31" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
-  <g transform="translate(90 470)" class="motor cursor-pointer" gui-motor-id="32" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(1744 470)" class="motor cursor-pointer" gui-motor-id="32" motor-id="0" data-toggle="tooltip" data-html="true" title="">
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
