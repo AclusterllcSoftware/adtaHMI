@@ -11,7 +11,7 @@
       .bin-fill{
         fill: #e6e7e8;
       }
-      .bin{
+      .bin,.photoeye{
         display:none;
       }
       .cursor-pointer {

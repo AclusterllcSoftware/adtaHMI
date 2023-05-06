@@ -439,7 +439,7 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
         for(let key in inputsInfo){
             let inputInfo=inputsInfo[key];
             if(inputInfo.gui_input_id>0 && (inputInfo.input_type==0)&& (inputInfo.device_type==0)&& (inputInfo.device_number==0) ){
-                $('.photoeye[gui-input-id='+inputInfo.gui_input_id+']').attr('input-id',inputInfo.input_id).attr('data-original-title',inputInfo.electrical_name+'<br>'+inputInfo.description);
+                $('.photoeye[gui-input-id='+inputInfo.gui_input_id+']').attr('input-id',inputInfo.input_id).attr('data-original-title',inputInfo.electrical_name+'<br>'+inputInfo.description).show();
             }
         }
     }
