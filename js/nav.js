@@ -527,7 +527,7 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
         for(let key in motorsInfo){
             let motorInfo=motorsInfo[key];
             if(motorInfo['gui_motor_id']>0){
-                $('.motor[gui-motor-id='+motorInfo["gui_motor_id"]+']').attr('motor-id',motorInfo["motor_id"]).attr('data-original-title',motorInfo['motor_name']+'<br>'+motorInfo['ip_address']+'<br>Loc: '+motorInfo['location']);
+                $('.motor[gui-motor-id='+motorInfo["gui_motor_id"]+']').attr('motor-id',motorInfo["motor_id"]).attr('data-original-title',motorInfo['motor_name']+'<br>'+motorInfo['ip_address']+'<br>Loc: '+motorInfo['location']).show();
             }
         }
     }

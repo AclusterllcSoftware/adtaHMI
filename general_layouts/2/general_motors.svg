@@ -11,7 +11,7 @@
       .bin-fill{
       fill: #e6e7e8;
       }
-      .conveyor, .conveyor-bg, .bin{
+      .conveyor, .conveyor-bg, .bin, .motor{
       display:none;
       }
       .cursor-pointer {
