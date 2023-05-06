@@ -464,7 +464,8 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
         for(let key in conveyorsInfo){
             let conveyorInfo=conveyorsInfo[key];
             if(conveyorInfo.gui_conveyor_id){
-                $('.conveyor[gui-conveyor-id='+conveyorInfo.gui_conveyor_id+']').attr('conveyor-id',conveyorInfo.conveyor_id).attr('data-original-title',conveyorInfo.conveyor_name);
+                $('.conveyor[gui-conveyor-id='+conveyorInfo.gui_conveyor_id+']').attr('conveyor-id',conveyorInfo.conveyor_id).attr('data-original-title',conveyorInfo.conveyor_name).show();
+                $('.conveyor-bg[gui-conveyor-id='+conveyorInfo.gui_conveyor_id+']').show();
             }
         }
     }
