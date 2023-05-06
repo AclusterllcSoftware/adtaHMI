@@ -195,6 +195,11 @@ function addCommandButtonsListener(){
         let command_end=$(this).attr('data-command-end');
         let parameter1=$(this).attr('data-parameter1');
         let started=$(this).attr('data-started');//data-started is not set in the gui
+        let startedColor=$(this).attr('data-started-color');
+        if(!startedColor){
+            startedColor='#27e22b';
+        }
+
         if(started==1){
             ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
                 'deviceId':device_id,
@@ -211,7 +216,7 @@ function addCommandButtonsListener(){
                 'parameter1':parameter1
             });
             $(this).attr('data-started',1);
-            $(this).css('background-color','#27e22b');
+            $(this).css('background-color',startedColor);
         }
     });
 }
