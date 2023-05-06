@@ -380,7 +380,14 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
 
     //general view
     function setBinsLabel(binsInfo,layoutNo){
-        let num_bins=Object.keys(binsInfo).length-1;
+        let num_bins=0;
+        for(let key in binsInfo){
+            if(binsInfo[key]['gui_bin_id']!="999"){
+                if(parseInt(binsInfo[key]['gui_bin_id'])>num_bins){
+                    num_bins=binsInfo[key]['gui_bin_id'];
+                }
+            }
+        }
         let bin_width=0;
         if(num_bins>0){
             bin_width=Math.trunc(1500/Math.ceil(num_bins/2))
