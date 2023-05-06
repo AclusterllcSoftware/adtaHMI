@@ -480,7 +480,7 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
         for(let key in devicesInfo){
             let deviceInfo=devicesInfo[key];
             if(deviceInfo['gui_device_id']>0 ){
-                $('.device[gui-device-id='+deviceInfo["gui_device_id"]+']').attr('device-id',deviceInfo["device_id"]).attr('data-original-title',deviceInfo['device_name']+'<br>'+deviceInfo['ip_address']);
+                $('.device[gui-device-id='+deviceInfo["gui_device_id"]+']').attr('device-id',deviceInfo["device_id"]).attr('data-original-title',deviceInfo['device_name']+'<br>'+deviceInfo['ip_address']).show();
             }
         }
     }
@@ -502,7 +502,7 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
         for(let key in inputsInfo){
             let inputInfo=inputsInfo[key];
             if((inputInfo['input_type']==3) && inputInfo['gui_input_id']>0 &&  (inputInfo['device_type']==0) && (inputInfo['device_number']==0) ){
-                $('.estop[gui-input-id='+inputInfo["gui_input_id"]+']').attr('input-id',inputInfo["input_id"]).attr('data-original-title',inputInfo['electrical_name']+'<br>'+inputInfo['description']);
+                $('.estop[gui-input-id='+inputInfo["gui_input_id"]+']').attr('input-id',inputInfo["input_id"]).attr('data-original-title',inputInfo['electrical_name']+'<br>'+inputInfo['description']).show();
             }
         }
     }
