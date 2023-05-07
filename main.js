@@ -81,6 +81,11 @@ app.on('ready', function() {
 	mainWindow.loadFile('general-view.ejs');
 
 });
+app.on('window-all-closed', () => {
+	let m = {"req" : 'changeMode', "machineId" : currentConnectedMachine,'params': {'mode':0}};//force to set auto mode
+	sendMessageToServer(JSON.stringify(m));
+	app.quit()
+})
 
 //Processing socket processes
 let previouslyConnected = 0;
