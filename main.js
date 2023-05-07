@@ -188,7 +188,7 @@ function processReceivedJsonObjects(jsonObjects) {
 					'getStatisticsBins','getStatisticsBinsHourly','getStatisticsBinsCounter',
 					'getGeneralViewData','getGeneralDevicesViewData','getGeneralMotorsViewData','getGeneralBinDetailsViewData',
 					'getAlarmsViewData','getAlarmsHistory','getProductsHistory','getAlarmsHitList',
-					'getMaintViewData','getParamsViewData','changeCurrentUserPassword','getCommonStatus'
+					'getMaintViewData','getParamsViewData','changeCurrentUserPassword','getCommonStatus','getIoOutputStates'
 				].includes(resType)){
 				mainWindow.webContents.send(resType, jsonObj);
 			}

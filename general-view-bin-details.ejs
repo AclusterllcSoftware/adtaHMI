@@ -3,25 +3,25 @@
 		<div class="col-12 position-relative" style="padding:0 550px;text-align: center;">
 			<%- include('resources/bin-details.svg') %>
             <div id="container-button-bin-manual" class="position-absolute" style="right: 950px;top:255px;z-index: 1;display: none;">
-                <button class="button-bin-command button-device-command button-3d button-round button-bin-manual d-block mb-4" data-device-id="0" data-command="1" data-parameter1="0">Manual</button>
+                <button class="button-bin-command button-device-command button-3d button-round button-bin-manual mb-4" data-device-id="0" data-command="1" data-parameter1="0">Manual</button>
             </div>
             <div id="container-button-bin-auto" class="position-absolute" style="right: 950px;top:255px;z-index: 1;display: none;">
-                <button class="button-bin-command button-device-command button-3d button-round button-bin-auto d-block mb-4"  data-device-id="0" data-command="2" data-parameter1="0">Auto</button>
+                <button class="button-bin-command button-device-command button-3d button-round button-bin-auto mb-4"  data-device-id="0" data-command="2" data-parameter1="0">Auto</button>
             </div>
             <div id="container-button-bin-jog-raise" class="position-absolute" style="right: 400px;top:310px;z-index: 1;display: none;">
-                <button class="button-bin-command button-device-command-press-release button-3d button-rectangle button-bin-jog-raise d-block mb-4" style="background-color: darkgray;" data-device-id="0" data-command-start="4" data-command-end="3" data-parameter1="0">Jog Raise</button>
+                <button id="button-bin-jog-raise" class="button-bin-command button-3d button-rectangle mb-4" style="background-color: darkgray;" data-device-id="0" data-command-start="4" data-command-end="3" data-parameter1="0">Jog Raise</button>
             </div>
             <div id="container-button-bin-jog-lower" class="position-absolute" style="right: 400px;top:470px;z-index: 1;display: none;">
-                <button class="button-bin-command button-device-command-press-release button-3d button-rectangle button-bin-jog-lower d-block mb-4" style="background-color: darkgray;" data-device-id="0" data-command-start="6" data-command-end="5" data-parameter1="0">Jog Lower</button>
+                <button id="button-bin-jog-lower" class="button-bin-command button-3d button-rectangle mb-4" style="background-color: darkgray;" data-device-id="0" data-command-start="6" data-command-end="5" data-parameter1="0">Jog Lower</button>
             </div>
             <div id="container-button-bin-fault-reset" class="position-absolute" style="right: 970px;top:575px;z-index: 1;">
-                <button class="button-bin-command button-device-command button-3d button-rectangle button-bin-fault-reset d-block mb-4" data-device-id="0" data-command="0" data-parameter1="0">Fault Reset</button>
+                <button class="button-bin-command button-device-command button-3d button-rectangle button-bin-fault-reset mb-4" data-device-id="0" data-command="0" data-parameter1="0">Fault Reset</button>
             </div>
             <div id="container-button-bin-enable" class="position-absolute" style="right: 670px;top:575px;z-index: 1;display: none;">
-                <button class="button-bin-command button-device-command button-3d button-rectangle button-bin-enable d-block mb-4" data-device-id="0" data-command="8" data-parameter1="0">Enable</button>
+                <button class="button-bin-command button-device-command button-3d button-rectangle button-bin-enable mb-4" data-device-id="0" data-command="8" data-parameter1="0">Enable</button>
             </div>
             <div id="container-button-bin-disable" class="position-absolute" style="right: 670px;top:575px;z-index: 1;display: none;">
-                <button class="button-bin-command button-device-command button-3d button-rectangle button-bin-enable d-block mb-4" style="background-color: darkgray;" data-device-id="0" data-command="7" data-parameter1="0">Disable</button>
+                <button class="button-bin-command button-device-command button-3d button-rectangle button-bin-enable mb-4" style="background-color: darkgray;" data-device-id="0" data-command="7" data-parameter1="0">Disable</button>
             </div>
 		</div>
     </div>
@@ -33,19 +33,7 @@
 <script src="js/nav.js"></script>
 
 <script>
-    jQuery(document).ready(function() {
-        jQuery("#ip_list_dropdown").change(function() {
-            selected_machine = jQuery(this).val();
-            if(selected_machine !== "") {
-                let selected_machine_name = machine_list[selected_machine];
-                jQuery("#display_machine_name").text(selected_machine_name);
-            }
-            else {
-                jQuery("#display_machine_name").text("Select a machine");
-                selected_machine = 0;
-            }
-        });
-    });
+
     let currentBinInfo={};
     let currentBinInputs={};
     let currentUser={};
@@ -61,12 +49,94 @@
         }
         $('.button-bin-command').attr('data-device-id',(201+(currentBinInfo['bin_id']-1)))
         $('[data-toggle="tooltip"]').tooltip();
+
+        //removed document ready
+        jQuery("#ip_list_dropdown").change(function() {
+            selected_machine = jQuery(this).val();
+            if(selected_machine !== "") {
+                let selected_machine_name = machine_list[selected_machine];
+                jQuery("#display_machine_name").text(selected_machine_name);
+                ipcRenderer.send("sendRequest", selected_machine,'getIoOutputStates', {});
+            }
+            else {
+                jQuery("#display_machine_name").text("Select a machine");
+                selected_machine = 0;
+            }
+        });
+
+    });
+    ipcRenderer.on("getIoOutputStates", function(e, data) {
+        let jogRaiseState=0;
+        let jogLowerState=0;
+        if(data['ioOutputStates'][selected_machine+"_"+currentBinInfo['jog_raise_id']]){
+
+            jogRaiseState=data['ioOutputStates'][selected_machine+"_"+currentBinInfo['jog_raise_id']]['state'];
+        }
+        if(data['ioOutputStates'][selected_machine+"_"+currentBinInfo['jog_lower_id']]){
+            jogLowerState=data['ioOutputStates'][selected_machine+"_"+currentBinInfo['jog_lower_id']]['state'];
+        }
+        let startedColor='#27e22b';
+        //both 0 no need to take care
+        if(jogRaiseState==1){
+            $("#button-bin-jog-raise").show();
+            $("#button-bin-jog-lower").hide();
+            $("#button-bin-jog-raise").attr('data-started',1);
+            $("#button-bin-jog-raise").css('background-color',startedColor);
+
+        }
+        if(jogLowerState==1){
+            $("#button-bin-jog-raise").hide();
+            $("#button-bin-jog-lower").show();
+            $("#button-bin-jog-lower").attr('data-started',1);
+            $("#button-bin-jog-lower").css('background-color',startedColor);
+        }
+        $(document).on('click', '#button-bin-jog-raise,#button-bin-jog-lower', function () {
+
+            let id=$(this).attr('id');
+            let device_id=$(this).attr('data-device-id');
+            let command_start=$(this).attr('data-command-start');
+            let command_end=$(this).attr('data-command-end');
+            let parameter1=$(this).attr('data-parameter1');
+            let started=$(this).attr('data-started');//data-started is not set in the gui
+
+            if(started==1){
+                ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
+                    'deviceId':device_id,
+                    'command':command_end,
+                    'parameter1':parameter1
+                });
+                $(this).attr('data-started',0);
+                $(this).css('background-color','darkgray');
+                $("#button-bin-jog-raise").show();
+                $("#button-bin-jog-lower").show();
+            }
+            else{
+                ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
+                    'deviceId':device_id,
+                    'command':command_start,
+                    'parameter1':parameter1
+                });
+                $(this).attr('data-started',1);
+                $(this).css('background-color',startedColor);
+                if(id=='button-bin-jog-raise'){
+                    $("#button-bin-jog-lower").hide();
+                }
+                else{
+                    $("#button-bin-jog-raise").hide();
+                }
+            }
+
+        });
+
+
+
         setInterval(() => {
             ipcRenderer.send("sendRequest", selected_machine,'getGeneralBinDetailsViewData', {
                 'sort_manager_id':currentBinInfo['sort_manager_id']
             });
         }, 1000);
-    });
+    })
+
 
     ipcRenderer.on("getGeneralBinDetailsViewData", function(e, data) {
         let machineId=data['machineId'];
