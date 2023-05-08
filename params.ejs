@@ -22,18 +22,20 @@
             <tbody id="table-parameters-threshold"></tbody>
         </table>
         <h3>Timeout Parameters</h3>
-        <table class="table table-sm table-bordered table-striped table-thres-time">
-            <thead>
-            <tr>
-                <th width="109px" style="text-align: center">Parameter ID</th>
-                <th>Description</th>
-                <th width="54px" style="text-align: right">Value</th>
-                <th width="72px">Unit</th>
-                <th width="228px"></th>
-            </tr>
-            </thead>
-            <tbody id="table-parameters-timeout"></tbody>
-        </table>
+        <div style="display: block; overflow-y: auto; height: 370px">
+            <table class="table table-sm table-bordered table-striped table-thres-time table-v-scroll">
+                <thead>
+                <tr class="thead-row">
+                    <th width="109px" style="text-align: center">Parameter ID</th>
+                    <th>Description</th>
+                    <th width="54px" style="text-align: right">Value</th>
+                    <th width="72px">Unit</th>
+                    <th width="228px"></th>
+                </tr>
+                </thead>
+                <tbody id="table-parameters-timeout"></tbody>
+            </table>
+        </div>
     </div>
     <div class="col-lg-6">
         <h4 class="pt-4" style="margin-bottom: 12px">Barcode</h4>
@@ -111,6 +113,12 @@
     .table-thres-time {
         table-layout: fixed;
     }
+    .table-v-scroll{
+        position: relative;
+    }
+    .table-striped > thead > tr > th {
+        background-color: #e2e8f0;
+    }
 </style>
 <%- include('footer', {currentMenu: 'params'}); %>
 <script src="js/jquery-bootstrap.js"></script>
@@ -137,6 +145,7 @@
             // }, 60000)
         });
         jQuery('#calibration-button').hide();
+        $('.thead-row').children().css({position: 'sticky', top:0});
     });
     ipcRenderer.on("render:params", function (e, data) {
         let parameters = [], table_html_threshold = '', table_html_timeout = '', current_user = null, machine_info,
