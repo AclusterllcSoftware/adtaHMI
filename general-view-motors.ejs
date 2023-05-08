@@ -3,7 +3,7 @@
         <div class="col-12">
             <%- include('general_layouts/'+system_general_layout_no+'/general_motors.svg') %>
             <%- include('general_layouts/'+system_general_layout_no+'/common_html.ejs') %>
-            <div id="motor-details" class="position-absolute" style="width: 350px;height:270px;top:125px;left:750px; border: 2px solid black;border-radius: 10px;display: none;z-index: 2;background-color: white;">
+            <div id="motor-details" class="position-absolute" style="width: 350px;height:270px;top:200px;left:750px; border: 2px solid black;border-radius: 10px;display: none;z-index: 2;background-color: white;">
                 <%- include('general_layouts/general_motor_details.ejs') %>
             </div>
         </div>
@@ -54,7 +54,7 @@ function setMotorDetailsView(){
     else{
         $('#motor-details #tr_speed').show();
         $('#motor-details #command_buttons_container').show();
-        $('#motor-details').css('height','270');
+        $('#motor-details').css('height','240px');
     }
 }
 ipcRenderer.on("render:general-view-motors", function(e, data) {
