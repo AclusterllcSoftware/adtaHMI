@@ -54,7 +54,7 @@
 <div class="row mt-4">
     <div class="col-lg-12 mt-4" id="new-volume-chart" style="height: 450px;">New Volume</div>
 </div>
-<div class="row mt-5">
+<div class="row mt-5" id="shift-wise-table" style="display: none">
     <div class="col-lg-12 d-flex">
         <table class="table table-sm table-bordered" style="white-space: nowrap; max-width: fit-content">
             <thead>
@@ -98,7 +98,7 @@
             </tr>
             </tbody>
         </table>
-        <table class="table table-sm table-bordered">
+        <table class="table table-sm table-bordered" style="table-layout: fixed">
             <thead>
             <tr id="shift-table-head">
                 <th colspan="2">Shift date</th>
@@ -295,7 +295,22 @@
         }, 60000);
     });
     ipcRenderer.on('getStatisticsCounter', function (e, data_result) {
-        let statistics_result = data_result['statistics'], shift_data = {};
+        let statistics_result = data_result['statistics'], shift_data = {
+            total_read: {label: 'Total inducted', values: []},
+            good: {label: 'Total good diverts', values: []},
+            machine_error: {label: 'Total machine error packages', values: []},
+            non_machine_error: {label: 'Total non-machine error packages', values: []},
+            lost_comm: {label: 'Lost of communication', values: []},
+            avg_length: {label: 'Avg. length', values: []},
+            avg_gap: {
+                label: 'Avg. gap', values: [],
+            },
+            good_scan: {label: 'Good scan', values: []},
+            no_read: {label: 'No read', values: []},
+            no_code: {label: 'No code', values: []},
+            mult_read: {label: 'Multiple read', values: []},
+            time_slots: []
+        };
         console.log(data_result);
         let volume_chart_data = Object.keys(scs_data).map(key => ({
             name: scs_data[key].label,
@@ -306,24 +321,62 @@
         }));
 
         for (k in statistics_result) {
-            let time_slot = statistics_result[k]['created_at_timestamp'];
+            console.log(statistics_result)
+            let time_slot = statistics_result[k]['created_at_timestamp'], machine_errors = 0, non_machine_errors = 0;
+            ['sc1', 'sc3', 'sc4', 'sc6', 'sc9', 'sc14', 'sc16', 'sc17', 'sc21'].forEach(m_key => {
+                machine_errors += statistics_result[k][m_key]
+            });
+            ['sc5', 'sc7', 'sc8', 'sc10', 'sc12', 'sc18'].forEach(m_key => {
+                non_machine_errors += statistics_result[k][m_key]
+            })
+
             time_slot = Number(moment.unix(time_slot));
 
             volume_chart_data.forEach(d => {
                 d.total += Number(statistics_result[k][d["code"]]);
                 d.data.push([time_slot, Number(statistics_result[k][d["code"]])]);
             });
-            shift_data[time_slot]={
-                total_read: {label: 'Total inducted', value: 0},
-                good: {label: 'Total good diverts', value: 0},
-                machine_error: {label: 'Total machine error packages', value: 0},
-                non_machine_error: {label: 'Total non-machine error packages', value: 0},
-                lost_comm: {label: 'Lost of communication', value: 0},
-                avg_length: {label: 'Avg. length', value: 0},
-                avg_gap: {label: 'Avg. gap', value: 0},
-            }
+            shift_data['time_slots'].push(moment(time_slot).format('MMM D Y, H:mm:ss'));
+            shift_data['total_read']['values'].push(statistics_result[k]['total_read'], statistics_result[k]['total_read'] == 0 ? '0%' : '100%')
+            shift_data['good']['values'].push(statistics_result[k]['sc0'], statistics_result[k]['total_read'] == 0 ? '0%' : (statistics_result[k]['sc0'] * 100 / statistics_result[k]['total_read']).toFixed(2))
+            shift_data['machine_error']['values'].push(machine_errors, statistics_result[k]['total_read'] == 0 ? '0%' : (machine_errors*100 / statistics_result[k]['total_read']).toFixed(2))
+            shift_data['non_machine_error']['values'].push(non_machine_errors, statistics_result[k]['total_read'] == 0 ? '0%' : (non_machine_errors*100 / statistics_result[k]['total_read']).toFixed(2))
+            shift_data['lost_comm']['values'].push(0, 0)
+            shift_data['avg_length']['values'].push(statistics_result[k]['total_good_length'] > 0 ?
+                (statistics_result[k]['sum_length'] * 100 / statistics_result[k]['total_good_length']).toFixed(0) : 0, '-')
+            shift_data['avg_gap']['values'].push(statistics_result[k]['total_good_gap'] > 0 ?
+                (statistics_result[k]['sum_gap'] * 100 / statistics_result[k]['total_good_gap']).toFixed(0) : 0, '-')
+            shift_data['good_scan']['values'].push(statistics_result[k]['valid'],
+                statistics_result[k]['total_read'] == 0 ? '0%' : (statistics_result[k]['valid'] *100 / statistics_result[k]['total_read']).toFixed(2))
+            shift_data['no_read']['values'].push(statistics_result[k]['no_read'],
+                statistics_result[k]['total_read'] == 0 ? '0%' : (statistics_result[k]['no_read'] *100 / statistics_result[k]['total_read']).toFixed(2))
+            shift_data['no_code']['values'].push(statistics_result[k]['no_code'],
+                statistics_result[k]['total_read'] == 0 ? '0%' : (statistics_result[k]['no_code'] *100 / statistics_result[k]['total_read']).toFixed(2))
+            shift_data['mult_read']['values'].push(statistics_result[k]['multiple_read'],
+                statistics_result[k]['total_read'] == 0 ? '0%' : (statistics_result[k]['multiple_read'] *100 / statistics_result[k]['total_read']).toFixed(2))
         }
-console.log(shift_data)
+
+        let shift_table_html = '', shift_table_head_html='';
+        shift_data['time_slots'].forEach(t=> {
+            shift_table_head_html+='<th colspan="2">'+t+'</th>'
+        })
+        for (k in shift_data) {
+            if (k === 'time_slots') continue;
+            let row = shift_data[k];
+            shift_table_html += '<tr>'
+            row['values'].forEach(v => {
+                shift_table_html += '<td>' + v + '</td>'
+            })
+            shift_table_html += '</tr>'
+        }
+
+        $('#shift-table').empty()
+        $('#shift-table').append(shift_table_html)
+        $('#shift-table-head').empty()
+        $('#shift-table-head').append(shift_table_head_html)
+        if(shift_data.time_slots.length >0){
+            $('#shift-wise-table').show()
+        }
         volume_chart_data.sort((a, b) => a.total - b.total);
         new Highcharts.chart('new-volume-chart', {
             chart: {
