@@ -66,10 +66,10 @@
     <div class="col-lg-6">
         <div class="row">
             <div class="col-lg-12 pl-0" id="pie-chart" style="height: 408px;">PIE Chart</div>
-            <div class="col-lg-12" id="sc-table" style="display: none;">
-                <table class="table table-sm table-bordered">
+            <div class="col-lg-12" id="sc-table" style="display: none; overflow-y: auto; height: 406px">
+                <table class="table table-sm table-bordered table-v-scroll">
                     <thead id="sc-table-head">
-                    <tr>
+                    <tr class="thead-row">
                         <th width="50%">SC Summary</th>
                         <th width="10%"></th>
                         <th width="10%"></th>
@@ -87,6 +87,12 @@
 </div>
 
 <style type="text/css">
+    .table-v-scroll{
+        position: relative;
+    }
+    .table-v-scroll > thead > tr > th {
+        background-color: #e2e8f0;
+    }
     #sctooltip {
         position: fixed;
         display: none;
@@ -264,6 +270,7 @@
             ipcRenderer.send("get:views", selected_machine, "statistics");
         });
         jQuery('#reset-button').hide();
+        $('.thead-row').children().css({position: 'sticky', top:0});
     });
 
     ipcRenderer.on('render:statistics', function (e, basic_info) {
