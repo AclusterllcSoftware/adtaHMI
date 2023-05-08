@@ -1,4 +1,5 @@
 body {
+    user-select: none;
     border-top: 3px #0461ac solid;
 }
 

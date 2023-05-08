@@ -131,12 +131,16 @@ ipcRenderer.on("render:general-view-motors", function(e, data) {
             });
         }
     })
+    ipcRenderer.send("sendRequest", selected_machine,'getIoOutputStates', {});
+
+});
+ipcRenderer.on("getIoOutputStates", function(e, data) {
+    setTestButtonsStatus(data['ioOutputStates']);
     ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});//for fixing waiting 1sec
     setInterval(() => {
         ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});
     }, 1000);
-
-});
+})
 ipcRenderer.on("getGeneralMotorsViewData", function(e, data) {
     if(data['machineMode']!=machine_mode){
         machine_mode=data['machineMode'];
