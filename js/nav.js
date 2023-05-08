@@ -195,6 +195,11 @@ function addCommandButtonsListener(){
         let command_end=$(this).attr('data-command-end');
         let parameter1=$(this).attr('data-parameter1');
         let started=$(this).attr('data-started');//data-started is not set in the gui
+        let startedColor=$(this).attr('data-started-color');
+        if(!startedColor){
+            startedColor='#27e22b';
+        }
+
         if(started==1){
             ipcRenderer.send("sendRequest", selected_machine,'sendDeviceCommand', {
                 'deviceId':device_id,
@@ -211,7 +216,7 @@ function addCommandButtonsListener(){
                 'parameter1':parameter1
             });
             $(this).attr('data-started',1);
-            $(this).css('background-color','#27e22b');
+            $(this).css('background-color',startedColor);
         }
     });
 }
@@ -379,8 +384,27 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
     }
 
     //general view
+    function setTestButtonsStatus(ioOutputStates){
+        console.log(ioOutputStates[selected_machine+"_49"]);
+        if(ioOutputStates[selected_machine+"_49"] && ioOutputStates[selected_machine+"_49"]['state']==1){
+            $("#btn-test-red-light").attr('data-started',1).css('background-color',$("#btn-test-red-light").attr('data-started-color'));
+        }
+        if(ioOutputStates[selected_machine+"_50"] && ioOutputStates[selected_machine+"_50"]['state']==1){
+            $("#btn-test-amber-light").attr('data-started',1).css('background-color',$("#btn-test-amber-light").attr('data-started-color'));
+        }
+        if(ioOutputStates[selected_machine+"_51"] && ioOutputStates[selected_machine+"_51"]['state']==1){
+            $("#btn-test-blue-light").attr('data-started',1).css('background-color',$("#btn-test-blue-light").attr('data-started-color'));
+        }
+    }
     function setBinsLabel(binsInfo,layoutNo){
-        let num_bins=Object.keys(binsInfo).length-1;
+        let num_bins=0;
+        for(let key in binsInfo){
+            if(binsInfo[key]['gui_bin_id']!="999"){
+                if(parseInt(binsInfo[key]['gui_bin_id'])>num_bins){
+                    num_bins=binsInfo[key]['gui_bin_id'];
+                }
+            }
+        }
         let bin_width=0;
         if(num_bins>0){
             bin_width=Math.trunc(1500/Math.ceil(num_bins/2))
@@ -427,7 +451,7 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
         for(let key in inputsInfo){
             let inputInfo=inputsInfo[key];
             if(inputInfo.gui_input_id>0 && (inputInfo.input_type==0)&& (inputInfo.device_type==0)&& (inputInfo.device_number==0) ){
-                $('.photoeye[gui-input-id='+inputInfo.gui_input_id+']').attr('input-id',inputInfo.input_id).attr('data-original-title',inputInfo.electrical_name+'<br>'+inputInfo.description);
+                $('.photoeye[gui-input-id='+inputInfo.gui_input_id+']').attr('input-id',inputInfo.input_id).attr('data-original-title',inputInfo.electrical_name+'<br>'+inputInfo.description).show();
             }
         }
     }
@@ -452,7 +476,8 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
         for(let key in conveyorsInfo){
             let conveyorInfo=conveyorsInfo[key];
             if(conveyorInfo.gui_conveyor_id){
-                $('.conveyor[gui-conveyor-id='+conveyorInfo.gui_conveyor_id+']').attr('conveyor-id',conveyorInfo.conveyor_id).attr('data-original-title',conveyorInfo.conveyor_name);
+                $('.conveyor[gui-conveyor-id='+conveyorInfo.gui_conveyor_id+']').attr('conveyor-id',conveyorInfo.conveyor_id).attr('data-original-title',conveyorInfo.conveyor_name).show();
+                $('.conveyor-bg[gui-conveyor-id='+conveyorInfo.gui_conveyor_id+']').show();
             }
         }
     }
@@ -467,7 +492,7 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
         for(let key in devicesInfo){
             let deviceInfo=devicesInfo[key];
             if(deviceInfo['gui_device_id']>0 ){
-                $('.device[gui-device-id='+deviceInfo["gui_device_id"]+']').attr('device-id',deviceInfo["device_id"]).attr('data-original-title',deviceInfo['device_name']+'<br>'+deviceInfo['ip_address']);
+                $('.device[gui-device-id='+deviceInfo["gui_device_id"]+']').attr('device-id',deviceInfo["device_id"]).attr('data-original-title',deviceInfo['device_name']+'<br>'+deviceInfo['ip_address']).show();
             }
         }
     }
@@ -489,7 +514,7 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
         for(let key in inputsInfo){
             let inputInfo=inputsInfo[key];
             if((inputInfo['input_type']==3) && inputInfo['gui_input_id']>0 &&  (inputInfo['device_type']==0) && (inputInfo['device_number']==0) ){
-                $('.estop[gui-input-id='+inputInfo["gui_input_id"]+']').attr('input-id',inputInfo["input_id"]).attr('data-original-title',inputInfo['electrical_name']+'<br>'+inputInfo['description']);
+                $('.estop[gui-input-id='+inputInfo["gui_input_id"]+']').attr('input-id',inputInfo["input_id"]).attr('data-original-title',inputInfo['electrical_name']+'<br>'+inputInfo['description']).show();
             }
         }
     }
@@ -514,7 +539,7 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
         for(let key in motorsInfo){
             let motorInfo=motorsInfo[key];
             if(motorInfo['gui_motor_id']>0){
-                $('.motor[gui-motor-id='+motorInfo["gui_motor_id"]+']').attr('motor-id',motorInfo["motor_id"]).attr('data-original-title',motorInfo['motor_name']+'<br>'+motorInfo['ip_address']+'<br>Loc: '+motorInfo['location']);
+                $('.motor[gui-motor-id='+motorInfo["gui_motor_id"]+']').attr('motor-id',motorInfo["motor_id"]).attr('data-original-title',motorInfo['motor_name']+'<br>'+motorInfo['ip_address']+'<br>Loc: '+motorInfo['location']).show();
             }
         }
     }

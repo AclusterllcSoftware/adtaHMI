@@ -3,7 +3,7 @@
         <div class="col-12">
             <%- include('general_layouts/'+system_general_layout_no+'/general_motors.svg') %>
             <%- include('general_layouts/'+system_general_layout_no+'/common_html.ejs') %>
-            <div id="motor-details" class="position-absolute" style="width: 350px;height:270px;top:125px;left:750px; border: 2px solid black;border-radius: 10px;display: none;z-index: 2;background-color: white;">
+            <div id="motor-details" class="position-absolute" style="width: 350px;height:225px;top:200px;left:750px; border: 2px solid #2780E3;border-radius: 10px;display: none;z-index: 2;background-color: white;">
                 <%- include('general_layouts/general_motor_details.ejs') %>
             </div>
         </div>
@@ -48,13 +48,12 @@ function setMotorDetailsView(){
     if(machine_mode!=1){
         $('#motor-details #tr_speed').hide();
         $('#motor-details #command_buttons_container').hide();
-        $('#motor-details').css('height','135px');
-
+        $('#motor-details').css('height','115px');
     }
     else{
         $('#motor-details #tr_speed').show();
         $('#motor-details #command_buttons_container').show();
-        $('#motor-details').css('height','270');
+        $('#motor-details').css('height','225px');
     }
 }
 ipcRenderer.on("render:general-view-motors", function(e, data) {
@@ -131,12 +130,16 @@ ipcRenderer.on("render:general-view-motors", function(e, data) {
             });
         }
     })
+    ipcRenderer.send("sendRequest", selected_machine,'getIoOutputStates', {});
+
+});
+ipcRenderer.on("getIoOutputStates", function(e, data) {
+    setTestButtonsStatus(data['ioOutputStates']);
     ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});//for fixing waiting 1sec
     setInterval(() => {
         ipcRenderer.send("sendRequest", selected_machine,'getGeneralMotorsViewData', {});
     }, 1000);
-
-});
+})
 ipcRenderer.on("getGeneralMotorsViewData", function(e, data) {
     if(data['machineMode']!=machine_mode){
         machine_mode=data['machineMode'];

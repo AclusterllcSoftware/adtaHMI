@@ -50,12 +50,15 @@ ipcRenderer.on("render:general-view-devices", function(e, data) {
         let key=$(this).attr('bin-key');
         ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
     })
+    ipcRenderer.send("sendRequest", selected_machine,'getIoOutputStates', {});
+});
+ipcRenderer.on("getIoOutputStates", function(e, data) {
+    setTestButtonsStatus(data['ioOutputStates']);
     ipcRenderer.send("sendRequest", selected_machine,'getGeneralDevicesViewData', {});//for fixing waiting 1sec
     setInterval(() => {
         ipcRenderer.send("sendRequest", selected_machine,'getGeneralDevicesViewData', {});
     }, 1000);
-
-});
+})
 ipcRenderer.on("getGeneralDevicesViewData", function(e, data) {
     let machineId=data['machineId'];
     setBinsStates(machineId,data['binsStates'],basic_info['binsInfo']);//nav.js

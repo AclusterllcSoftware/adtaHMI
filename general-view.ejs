@@ -41,7 +41,7 @@ jQuery(document).ready(function() {
 
 ipcRenderer.on("render:general-view", function(e, data) {
     basic_info=data;
-    setBinsLabel(data['binsInfo'],basic_info['hmiSettings']['general_layout']);//nav.js
+    setBinsLabel(data['binsInfo'],basic_info['hmiSettings']['general_layout_no']);//nav.js
     setPhotoeyesLabel(data['inputsInfo']);//nav.js
     setConveyorsLabel(data['conveyorsInfo']);//nav.js
 
@@ -49,11 +49,15 @@ ipcRenderer.on("render:general-view", function(e, data) {
         let key=$(this).attr('bin-key');
         ipcRenderer.send("render:general-view-bin-details", selected_machine,key);
     })
+    ipcRenderer.send("sendRequest", selected_machine,'getIoOutputStates', {});
+});
+ipcRenderer.on("getIoOutputStates", function(e, data) {
+    setTestButtonsStatus(data['ioOutputStates']);
     ipcRenderer.send("sendRequest", selected_machine,'getGeneralViewData', {});//for fixing waiting 1sec
     setInterval(() => {
         ipcRenderer.send("sendRequest", selected_machine,'getGeneralViewData', {});
     }, 1000);
-});
+})
 ipcRenderer.on("getGeneralViewData", function(e, data) {
     let machineId=data['machineId'];
     setBinsStates(machineId,data['binsStates'],basic_info['binsInfo']);//nav.js

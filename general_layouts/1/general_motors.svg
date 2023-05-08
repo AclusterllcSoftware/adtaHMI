@@ -11,7 +11,7 @@
       .bin-fill{
       fill: #e6e7e8;
       }
-      .bin{
+      .conveyor, .conveyor-bg, .bin, .motor{
       display:none;
       }
       .cursor-pointer {
@@ -20,7 +20,7 @@
     </style>
   </defs>
 
-  <g transform="translate(70,0)">
+  <g transform="translate(70,0)" class="conveyor-bg" gui-conveyor-id="10">
     <rect style="fill: #f2f2f2;" x="43.1" y="7.38" width="8.43" height="6.56" rx="2.48" ry="2.48" transform="translate(36.66 57.98) rotate(-90)"/>
     <path style="fill: #d0d2d3;" d="M0,10.78H37.48v.17c0,1.13-.92,2.05-2.05,2.05H2.05C.92,13,0,12.08,0,10.95v-.17H0Z"/>
     <rect style="fill: #d0d2d3;" x="0" y="7.19" width="37.48" height="2.22"/>
@@ -28,7 +28,7 @@
     <path style="fill: #d0d2d3;" d="M2.05,0H35.43C36.56,0,37.48,.92,37.48,2.05v.17H0v-.17C0,.92,.92,0,2.05,0Z"/>
   </g>
 
-  <g transform="translate(65,20)">
+  <g transform="translate(65,20)" class="conveyor-bg" gui-conveyor-id="10">
     <rect style="fill: #f2f2f2;" x="44.9" y="162.11" width="17.8" height="14.05" rx="3" ry="3" transform="translate(-115.34 222.93) rotate(-90)"/>
     <rect style="fill: #f2f2f2;" x="44.9" y="98.39" width="17.8" height="14.05" rx="3" ry="3" transform="translate(-51.62 159.22) rotate(-90)"/>
     <rect style="fill: #f2f2f2;" x="44.9" y="34.68" width="17.8" height="14.05" rx="3" ry="3" transform="translate(12.09 95.5) rotate(-90)"/>
@@ -42,7 +42,7 @@
     <path class="conveyor-fill status" d="M51.58,2c1.1,0,2,.9,2,2V217.13c0,1.1-.9,2-2,2H4c-1.1,0-2-.9-2-2V4c0-1.1,.9-2,2-2H51.58m0-2H4C1.79,0,0,1.79,0,4V217.13c0,2.21,1.79,4,4,4H51.58c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4h0Z"/>
   </g>
 
-  <g transform="translate(70,246)">
+  <g transform="translate(70,246)" class="conveyor-bg" gui-conveyor-id="9">
     <rect style="fill: #f2f2f2;" x="40.53" y="32.33" width="15.93" height="14.05" rx="3" ry="3" transform="translate(9.13 87.86) rotate(-90)"/>
     <rect style="fill: #e6e6e6;" y="-.03" width="44.98" height="51.07" rx="4" ry="4"/>
     <line style="fill: none;stroke: #ccc;stroke-miterlimit: 10;" x1="40.7" y1="51.03" x2="40.7" y2="-.03"/>
@@ -74,7 +74,7 @@
     <path class="conveyor-fill status" d="M28.79,2c1.1,0,2,.9,2,2v5.12c0,1.1-.9,2-2,2H4c-1.1,0-2-.9-2-2V4c0-1.1,.9-2,2-2H28.79m0-2H4C1.79,0,0,1.79,0,4v5.12c0,2.21,1.79,4,4,4H28.79c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4h0Z"/>
   </g>
 
-  <g transform="translate(74,364)">
+  <g transform="translate(74,364)" class="conveyor-bg" gui-conveyor-id="5">
     <rect style="fill: #f2f2f2;" x="47.79" y=".94" width="11.24" height="9.37" rx="3" ry="3" transform="translate(47.79 59.03) rotate(-90)"/>
   </g>
   <g transform="translate(74,364)" class="conveyor" gui-conveyor-id="5" conveyor-id="0" data-toggle="tooltip" data-html="true" title="">
@@ -82,7 +82,7 @@
     <path class="conveyor-fill status" d="M28.79,2c1.1,0,2,.9,2,2v5.12c0,1.1-.9,2-2,2H4c-1.1,0-2-.9-2-2V4c0-1.1,.9-2,2-2H28.79m0-2H4C1.79,0,0,1.79,0,4v5.12c0,2.21,1.79,4,4,4H28.79c2.21,0,4-1.79,4-4V4c0-2.21-1.79-4-4-4h0Z"/>
   </g>
 
-  <g transform="translate(41,382)">
+  <g transform="translate(41,382)" class="conveyor-bg" gui-conveyor-id="4">
     <rect style="fill: none;stroke: #f2f2f2;stroke-miterlimit: 10;stroke-width: 4px;" x="31.86" y="-3.62" width="34.67" height="45.91" rx="6" ry="6" transform="translate(29.86 68.53) rotate(-90)"/>
     <path style="fill: #e6e6e6;" d="M32.79,63.53V8.87c0-2.21,1.79-4,4-4h24.79c2.21,0,4,1.79,4,4V63.53H32.79Z"/>
     <rect style="fill: #f2f2f2;" x="81.05" y="18.4" width="36.54" height="9.37" rx="3" ry="3" transform="translate(76.24 122.4) rotate(-90)"/>
@@ -100,7 +100,7 @@
     <path class="conveyor-fill status" d="M36.25,2c.99,15.53,13.45,27.99,28.98,28.98v34.22C30.85,64.16,3.07,36.38,2.03,2H36.25m1.94-2H0C0,37.13,30.1,67.23,67.23,67.23V29.05c-16.04,0-29.05-13-29.05-29.05h0Z"/>
   </g>
 
-  <g transform="translate(145,472)">
+  <g transform="translate(145,472)" class="conveyor-bg" gui-conveyor-id="2">
     <path style="fill: #f2f2f2;" d="M1594.87,59.51h-1.94c-.63,0-1.14-.51-1.14-1.14v-1.36c0-.63-.51-1.13-1.13-1.13h-.26c-.63,0-1.14-.51-1.14-1.14v-4.03c0-.63-.5-1.14-1.13-1.14h-4.93c-.62,0-1.13,.51-1.13,1.14v1.31c0,.63,.51,1.13,1.13,1.13h1.88c.63,0,1.14,.51,1.14,1.14v.45c0,.63-.51,1.14-1.14,1.14h-12.05c-.63,0-1.14-.51-1.14-1.14V10.6c0-.63,.51-1.13,1.14-1.13h7.91c.62,0,1.13,.5,1.13,1.13v.78c0,.62,.51,1.13,1.13,1.13h4.56c.62,0,1.13-.51,1.13-1.13V1.14c0-.63,.51-1.14,1.14-1.14h3.26c.46,0,.87,.28,1.05,.71l2.27,5.51V56.02c-.36,.18-.61,.55-.61,.99v1.36c0,.63-.5,1.14-1.13,1.14Z"/>
     <rect style="fill: #f2f2f2;" x="-1.41" y="18.44" width="51.53" height="23.42" rx="4" ry="4" transform="translate(54.51 5.8) rotate(90)"/>
     <path style="fill: #e6e6e6;" d="M0,18.87v24.36H1590.09c2.21,0,4-1.79,4-4V22.87c0-2.21-1.79-4-4-4H0Z"/>
@@ -110,7 +110,7 @@
     <path class="conveyor-fill status" d="M1590.09,2c1.1,0,2,.9,2,2V20.36c0,1.1-.9,2-2,2H2V2H1590.09M1590.09,0H0V24.36H1590.09c2.21,0,4-1.79,4-4V4C1594.09,1.79,1592.3,0,1590.09,0h0Z"/>
   </g>
 
-  <g transform="translate(1745,475)">
+  <g transform="translate(1745,475)" class="conveyor-bg" gui-conveyor-id="1">
     <path style="fill: #f2f2f2;" d="M70.95,0h-17.56c-.63,0-1.13,.51-1.13,1.13V7.93c0,.63-.51,1.14-1.14,1.14h-16.6c-.62,0-1.13-.51-1.13-1.14v-1.73c0-.63-.51-1.14-1.13-1.14h-.09c-.62,0-1.13,.51-1.13,1.14v1.73c0,.63-.51,1.14-1.14,1.14h-11.56c-.63,0-1.14-.51-1.14-1.14v-1.73c0-.63-.51-1.14-1.13-1.14s-1.14,.51-1.14,1.14v1.73c0,.63-.5,1.14-1.13,1.14H3.9c-.63,0-1.14-.51-1.14-1.14V3.9c0-.63-.5-1.14-1.13-1.14H.53c-.19,0-.37-.05-.53-.14V52.42l2.3-5.59c.18-.42,.59-.7,1.05-.7H13.8c.63,0,1.13,.51,1.13,1.13v1.71c0,.63,.51,1.13,1.14,1.13s1.13-.5,1.13-1.13v-1.71c0-.62,.51-1.13,1.14-1.13h11.56c.63,0,1.14,.51,1.14,1.13v1.71c0,.63,.51,1.13,1.13,1.13h.09c.62,0,1.13-.5,1.13-1.13v-1.71c0-.62,.51-1.13,1.13-1.13h16.6c.63,0,1.14,.51,1.14,1.13v6.73c0,.62,.5,1.13,1.13,1.13h17.56c.63,0,1.14-.51,1.14-1.13V1.13c0-.62-.51-1.13-1.14-1.13Z"/>
     <rect style="fill: #e6e6e6;" x="2.43" y="11.69" width="46.18" height="31.8" rx="4" ry="4"/>
   </g>

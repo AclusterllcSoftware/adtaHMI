@@ -81,6 +81,11 @@ app.on('ready', function() {
 	mainWindow.loadFile('general-view.ejs');
 
 });
+app.on('window-all-closed', () => {
+	let m = {"req" : 'changeMode', "machineId" : currentConnectedMachine,'params': {'mode':0}};//force to set auto mode
+	sendMessageToServer(JSON.stringify(m));
+	app.quit()
+})
 
 //Processing socket processes
 let previouslyConnected = 0;
@@ -188,7 +193,7 @@ function processReceivedJsonObjects(jsonObjects) {
 					'getStatisticsBins','getStatisticsBinsHourly','getStatisticsBinsCounter',
 					'getGeneralViewData','getGeneralDevicesViewData','getGeneralMotorsViewData','getGeneralBinDetailsViewData',
 					'getAlarmsViewData','getAlarmsHistory','getProductsHistory','getAlarmsHitList',
-					'getMaintViewData','getParamsViewData','changeCurrentUserPassword','getCommonStatus'
+					'getMaintViewData','getParamsViewData','changeCurrentUserPassword','getCommonStatus','getIoOutputStates'
 				].includes(resType)){
 				mainWindow.webContents.send(resType, jsonObj);
 			}
