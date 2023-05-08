@@ -21,21 +21,24 @@
 <div class="row mt-3">
     <div class="text-danger text-center col-lg-12" id="error-message">Value is not in the max and min range</div>
     <div class="col-lg-12">
-        <table class="table table-sm table-bordered table-striped" id="motor_table">
-            <thead>
-            <tr>
-                <th width="75px" style="text-align: right">Motor ID</th>
-                <th>Motor name</th>
-                <th>Motor location</th>
-                <th>IP Address</th>
-                <th>Speed</th>
-                <th width="130px">Connection Status</th>
-                <th width="130px">Fault</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody id="motor_table"></tbody>
-        </table>
+        <div style="display: block; overflow-y: auto; height: 550px; overflow-x: auto; position: relative">
+            <table class="table table-sm table-bordered table-striped" id="motor_table">
+                <thead>
+                <tr class="thead-row">
+                    <th width="75px" style="text-align: right">Motor ID</th>
+                    <th>Motor name</th>
+                    <th>Motor location</th>
+                    <th>IP Address</th>
+                    <th>Speed</th>
+                    <th width="130px">Connection Status</th>
+                    <th width="130px">Fault</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="motor_table"></tbody>
+            </table>
+
+        </div>
     </div>
 </div>
 </div>
@@ -51,6 +54,10 @@
     .table-striped > thead > tr > th {
         background-color: #e2e8f0;
     }
+    .table-striped {
+        position: relative;
+    }
+
 </style>
 <%- include('footer', {currentMenu: 'maint-motors'}); %>
 
@@ -100,6 +107,7 @@
             "order": [],
 
         });
+        $('.thead-row').children().css({position: 'sticky', top:0});
     });
     ipcRenderer.on("render:maint-motors", function (e, data) {
         data_table.clear().search( '' ).columns().search( '' ).draw();
