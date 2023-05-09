@@ -385,7 +385,6 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
 
     //general view
     function setTestButtonsStatus(ioOutputStates){
-        console.log(ioOutputStates[selected_machine+"_49"]);
         if(ioOutputStates[selected_machine+"_49"] && ioOutputStates[selected_machine+"_49"]['state']==1){
             $("#btn-test-red-light").attr('data-started',1).css('background-color',$("#btn-test-red-light").attr('data-started-color'));
         }
