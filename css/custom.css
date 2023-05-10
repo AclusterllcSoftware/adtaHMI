@@ -239,3 +239,6 @@ button.button-rectangle{
     background-color: #4274D7;
     color: #fff;
 }
+#button-bin-jog-lower:active, #button-bin-jog-raise:active {
+    background-color: #4d80ff !important;
+}
