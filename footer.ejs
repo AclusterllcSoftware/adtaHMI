@@ -14,12 +14,13 @@
         <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'statistics-shift-wise' ? 'active' : '' %>"  href="#" data-link="statistics-shift-wise">Shift wise</a>
       </div>
     <%}
-    else if (['maint', 'params','maint-motors','maint-devices'].includes(currentMenu)) {%>
+    else if (['maint', 'params','maint-motors','maint-devices', 'maint-sort'].includes(currentMenu)) {%>
       <div class="main-area flex-grow-1">
           <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'maint' ? 'active' : '' %>"  href="#" data-link="maint">IOs</a>
           <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'params' ? 'active' : '' %>"  href="#" data-link="params">Params</a>
           <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'maint-devices' ? 'active' : '' %>"  href="#" data-link="maint-devices">Devices</a>
           <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'maint-motors' ? 'active' : '' %>"  href="#" data-link="maint-motors">Motors</a>
+          <a class="btn btn-outline-primary btn-footer <%= currentMenu === 'maint-sort' ? 'active' : '' %>"  href="#" data-link="maint-sort">Sort</a>
       </div>
       <%}%>
 </footer>
