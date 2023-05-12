@@ -179,6 +179,24 @@ jQuery(document).ready(function() {
     addCommandButtonsListener();
 
 });
+$('.button-3d').on('mousedown',function (){
+    console.log('mousedown 3d')
+    let ele=$(this);
+    ele.addClass('down')
+    $(document).one('mouseup',function (){
+        console.log('mouseup3d')
+        ele.removeClass('down')
+    })
+})
+$('.button-3d').on('touchstart',function (){
+    console.log('touchstart 3d')
+    let ele=$(this);
+    ele.addClass('down')
+    $(document).one('touchend',function (){
+        console.log('touchend 3d')
+        ele.removeClass('down')
+    })
+})
 function addCommandButtonsListener(){
     $('.button-device-command').off('click')
     $('.button-device-command').on('click',function (){
@@ -385,7 +403,6 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
 
     //general view
     function setTestButtonsStatus(ioOutputStates){
-        console.log(ioOutputStates[selected_machine+"_49"]);
         if(ioOutputStates[selected_machine+"_49"] && ioOutputStates[selected_machine+"_49"]['state']==1){
             $("#btn-test-red-light").attr('data-started',1).css('background-color',$("#btn-test-red-light").attr('data-started-color'));
         }

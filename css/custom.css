@@ -198,7 +198,7 @@ button.button-3d{
     box-shadow: 0 8px 4px darkslategray;
     background-color: #27e22b;
 }
-button.button-3d:active {
+button.button-3d.down {
     /*background-color: #4d80ff;*/
     box-shadow: 0 0 2px darkslategray;
     transform: translateY(5px);
@@ -238,4 +238,7 @@ button.button-rectangle{
     font-size: 20px;
     background-color: #4274D7;
     color: #fff;
+}
+#button-bin-jog-lower.down, #button-bin-jog-raise.down {
+    background-color: #4d80ff !important;
 }
