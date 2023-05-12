@@ -27,9 +27,14 @@
             }
             ipcRenderer.send("get:views", selected_machine, "maint-sort");
         });
+        $('#btn-sort').hide();
     });
 
-    ipcRenderer.on("render:maint-devices", function (e, data) {
+    ipcRenderer.on("render:maint-sort", function (e, data) {
+        let current_user = data['currentUser'];
+        if(current_user.role==1|| current_user.role==2){
+            $('#btn-sort').show()
+        }
         ipcRenderer.send("sendRequest", selected_machine,'getIoOutputStates', {});
         setInterval(() => {
             ipcRenderer.send("sendRequest", selected_machine,'getIoOutputStates', {});
