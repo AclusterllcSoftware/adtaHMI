@@ -276,7 +276,7 @@
     ipcRenderer.on('render:statistics', function (e, basic_info) {
         console.log(basic_info);
         current_user = basic_info['currentUser'];
-        if (current_user.role == 1 || current_user.role == 2) {
+        if (current_user.role == 1 || current_user.role == 2 || current_user.role==3) {
             $('#reset-button').show();
         }
         Object.values(basic_info['scsInfo']).forEach(v => {

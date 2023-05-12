@@ -2,7 +2,7 @@
 
 <div class="row mt-3">
     <button id="btn-sort" class="button-device-command-press-release button-3d button-rectangle"
-            style="font-size: 14px;background-color: darkgray;" data-device-id="82"
+            style="font-size: 14px;background-color: darkgray;" data-device-id="88"
             data-command-start="0" data-command-end="1" data-parameter1="0">Enable Sort</button>
 </div>
 </div>
@@ -27,9 +27,14 @@
             }
             ipcRenderer.send("get:views", selected_machine, "maint-sort");
         });
+        $('#btn-sort').hide();
     });
 
-    ipcRenderer.on("render:maint-devices", function (e, data) {
+    ipcRenderer.on("render:maint-sort", function (e, data) {
+        let current_user = data['currentUser'];
+        if(current_user.role ===1 || current_user.role==2){
+            $('#btn-sort').show();
+        }
         ipcRenderer.send("sendRequest", selected_machine,'getIoOutputStates', {});
         setInterval(() => {
             ipcRenderer.send("sendRequest", selected_machine,'getIoOutputStates', {});
