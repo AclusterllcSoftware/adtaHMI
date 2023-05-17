@@ -430,7 +430,7 @@ ipcMain.handle('getStoreValue', (e) => {
 });
 ipcMain.on("saveSettings", function(e, settings_data) {
 	let project_prefix='adta_';
-	store.set(project_prefix+"_server_address", settings_data['ip_address_input']);
+	store.set(project_prefix+"server_address", settings_data['ip_address_input']);
 	host = settings_data['ip_address_input'];
 
 	store.set(project_prefix+"server_port", settings_data['port_input']);
