@@ -1,9 +1,36 @@
 <%- include('header', {currentMenu: 'maint-sort', pageTitle: 'Sort'}); %>
 
 <div class="row mt-3">
-    <button id="btn-sort" class="button-device-command-press-release button-3d button-rectangle"
-            style="font-size: 14px;background-color: darkgray;" data-device-id="88" data-started-color="#4d80ff"
-            data-command-start="0" data-command-end="1" data-parameter1="0">Enable Sort</button>
+    <div class="col-lg-12">
+        <button id="btn-sort" class="button-device-command-press-release button-3d button-rectangle"
+                 style="font-size: 14px;background-color: darkgray; display: none" data-device-id="88" data-started-color="#4d80ff"
+                 data-command-start="0" data-command-end="1" data-parameter1="0">Enable Fan Sort</button></div>
+    <div class="mt-5 col-lg-12" id="singulator" style="display: none">
+        <h3>Singulator</h3>
+        <button id="singulator-start" class="button-device-command button-3d button-rectangle"
+                data-device-id="89"
+                data-command="0"
+                data-parameter1="0">Start
+        </button>
+        <button id="singulator-stop" class="button-device-command button-3d button-rectangle"
+                data-device-id="89"
+                data-command="1"
+                data-parameter1="0">Stop
+        </button>
+    </div>
+    <div class="mt-5 col-lg-12" id="gapper" style="display: none">
+        <h3>Gapper</h3>
+        <button id="gapper-start" class="button-device-command button-3d button-rectangle"
+                data-device-id="89"
+                data-command="2"
+                data-parameter1="0">Start
+        </button>
+        <button id="gapper-stop" class="button-device-command button-3d button-rectangle"
+                data-device-id="89"
+                data-command="3"
+                data-parameter1="0">Stop
+        </button>
+    </div>
 </div>
 </div>
 
@@ -27,13 +54,15 @@
             }
             ipcRenderer.send("get:views", selected_machine, "maint-sort");
         });
-        $('#btn-sort').hide();
+
     });
 
     ipcRenderer.on("render:maint-sort", function (e, data) {
         let current_user = data['currentUser'];
         if(current_user.role==1|| current_user.role==2){
             $('#btn-sort').show()
+            $('#singulator').show()
+            $('#gapper').show()
         }
         ipcRenderer.send("sendRequest", selected_machine,'getIoOutputStates', {});
         setInterval(() => {
