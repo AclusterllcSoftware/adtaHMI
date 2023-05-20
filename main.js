@@ -63,9 +63,9 @@ app.on('ready', function() {
         width: 1920,
         height: 1080,
         resizable: false,
-		minimizable:true,
-		movable:true,
-		closable:true,
+		minimizable:false,
+		movable:false,
+		closable:false,
         webPreferences: {
 			nodeIntegration: true,
 			devTools: true
@@ -102,6 +102,9 @@ let unRegisteredUser={'id':0,'name':'Amazon Operator','role':0}
 let currentUser=unRegisteredUser;
 
 function logoutUser() {
+	mainWindow.resizable=false;
+	mainWindow.minimizable=false;
+	mainWindow.movable=false;
 	mainWindow.closable=false;
 	let m = {"req" : 'changeMode', "machineId" : currentConnectedMachine,'params': {'mode':0}};//force to set auto mode
 	sendMessageToServer(JSON.stringify(m));
@@ -208,6 +211,9 @@ function processReceivedJsonObjects(jsonObjects) {
 						}
 					});
 					if(currentUser['role']==1){
+						mainWindow.movable=true;
+						mainWindow.minimizable=true;
+						mainWindow.resizable=true;
 						nativeMenus[1]={
 							label: 'Dev Tools',
 							click() {
