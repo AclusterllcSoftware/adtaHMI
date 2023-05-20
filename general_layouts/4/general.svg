@@ -407,7 +407,7 @@
     <rect class="photoeye-fill status" x="46" y="5" width="3.2" height="3.2"></rect>
     <rect class="photoeye-fill status" x="54" y="0" width="3.6" height="12"></rect>
   </g>
-  <g transform="translate(1790 251) scale(-1,1) rotate(20)" class="photoeye" gui-input-id="14" input-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(1720 260) scale(-1,1) rotate(160)" class="photoeye" gui-input-id="14" input-id="0" data-toggle="tooltip" data-html="true" title="">
     <polygon class="photoeye-fill status" points="12 6 0 0 0 12 12 6"></polygon>
     <rect class="photoeye-fill status" x="14" y="5" width="3.2" height="3.2"></rect>
     <rect class="photoeye-fill status" x="22" y="5" width="3.2" height="3.2"></rect>
