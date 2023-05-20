@@ -432,7 +432,7 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
                     let binIndex=(Math.ceil(binsInfo[key]['gui_bin_id']/2));
                     let posRect=0;
                     let posText=0;
-                    if(layoutNo=="1")
+                    if((layoutNo=="1")||(layoutNo=="3"))
                     {
                         posRect=201-1+(binIndex-1)*bin_width;
                     }
