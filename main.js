@@ -47,15 +47,10 @@ let nativeMenus = [
 				click() {
 						mainWindow.loadFile("settings-page.ejs");
 				}
-			},
-			{
-				label: 'Dev Tools',
-				click() {
-					mainWindow.webContents.openDevTools();
-				}
 			}
 		]
-	}
+	},
+
 ];
 
 let menu = Menu.buildFromTemplate(nativeMenus)
@@ -111,6 +106,8 @@ function logoutUser() {
 	let m = {"req" : 'changeMode', "machineId" : currentConnectedMachine,'params': {'mode':0}};//force to set auto mode
 	sendMessageToServer(JSON.stringify(m));
 	nativeMenus[0].submenu.pop();
+	delete(nativeMenus[1])
+
 	menu = Menu.buildFromTemplate(nativeMenus);
 	Menu.setApplicationMenu(menu);
 	currentUser=unRegisteredUser;
@@ -210,6 +207,14 @@ function processReceivedJsonObjects(jsonObjects) {
 							logoutUser();
 						}
 					});
+					if(currentUser['role']==1){
+						nativeMenus[1]={
+							label: 'Dev Tools',
+							click() {
+								mainWindow.webContents.openDevTools();
+							}
+						}
+					}
 					menu = Menu.buildFromTemplate(nativeMenus);
 					Menu.setApplicationMenu(menu);
 				}
