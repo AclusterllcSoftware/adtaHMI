@@ -47,15 +47,10 @@ let nativeMenus = [
 				click() {
 						mainWindow.loadFile("settings-page.ejs");
 				}
-			},
-			{
-				label: 'Dev Tools',
-				click() {
-					mainWindow.webContents.openDevTools();
-				}
 			}
 		]
-	}
+	},
+
 ];
 
 let menu = Menu.buildFromTemplate(nativeMenus)
@@ -68,9 +63,9 @@ app.on('ready', function() {
         width: 1920,
         height: 1080,
         resizable: false,
-		minimizable:true,
-		movable:true,
-		closable:true,
+		minimizable:false,
+		movable:false,
+		closable:false,
         webPreferences: {
 			nodeIntegration: true,
 			devTools: true
@@ -107,10 +102,15 @@ let unRegisteredUser={'id':0,'name':'Amazon Operator','role':0}
 let currentUser=unRegisteredUser;
 
 function logoutUser() {
+	mainWindow.resizable=false;
+	mainWindow.minimizable=false;
+	mainWindow.movable=false;
 	mainWindow.closable=false;
 	let m = {"req" : 'changeMode', "machineId" : currentConnectedMachine,'params': {'mode':0}};//force to set auto mode
 	sendMessageToServer(JSON.stringify(m));
 	nativeMenus[0].submenu.pop();
+	delete(nativeMenus[1])
+
 	menu = Menu.buildFromTemplate(nativeMenus);
 	Menu.setApplicationMenu(menu);
 	currentUser=unRegisteredUser;
@@ -210,6 +210,17 @@ function processReceivedJsonObjects(jsonObjects) {
 							logoutUser();
 						}
 					});
+					if(currentUser['role']==1){
+						mainWindow.movable=true;
+						mainWindow.minimizable=true;
+						mainWindow.resizable=true;
+						nativeMenus[1]={
+							label: 'Dev Tools',
+							click() {
+								mainWindow.webContents.openDevTools();
+							}
+						}
+					}
 					menu = Menu.buildFromTemplate(nativeMenus);
 					Menu.setApplicationMenu(menu);
 				}
