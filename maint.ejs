@@ -85,11 +85,11 @@
 <script src="js/jquery.newsTicker.js"></script>
 <script src="js/daterangepicker/moment.min.js"></script>
 <script src="js/nav.js"></script>
+
 <script>
     let basic_info = {}, boards = [], input_boards = [], selected_input_board = null, board_ios = [],
         selected_inputs = [], output_boards = [], selected_output_board = null,
         selected_outputs = [];
-
     jQuery(document).ready(function () {
         jQuery("#ip_list_dropdown").change(function () {
             selected_machine = jQuery(this).val();
@@ -115,15 +115,14 @@
             updateOutputs();
             ipcRenderer.send("get:views", selected_machine, "maint");
         });
-
-    });
+    })
 
     ipcRenderer.on("render:maint", function (e, data) {
-        let outputs_table_html = '', output_options_html = '',input_options_html = '';
+        let outputs_table_html = '', output_options_html = '', input_options_html = '';
         basic_info = data;
         boards = Object.values(basic_info['boardsInfo']);
-        input_boards = boards.filter(b => b.board_type == 0).sort((a,b) => Number(a.board_id) - Number(b.board_id));
-        output_boards = boards.filter(b => b.board_type == 1).sort((a,b) => Number(a.board_id) - Number(b.board_id));
+        input_boards = boards.filter(b => b.board_type == 0).sort((a, b) => Number(a.board_id) - Number(b.board_id));
+        output_boards = boards.filter(b => b.board_type == 1).sort((a, b) => Number(a.board_id) - Number(b.board_id));
         board_ios = Object.values(basic_info['board_iosInfo']);
 
         if (selected_input_board == null) {
@@ -137,25 +136,25 @@
         }
         input_boards.forEach(b => {
             if (b.id == selected_input_board.id) {
-                input_options_html += '<option selected ' + 'value='+b.id+'>' + b.id+' -- '+ b.description+ ' -- '+ b.location + '</option>';
+                input_options_html += '<option selected ' + 'value=' + b.board_id + '>' + b.id + ' -- ' + b.description + ' -- ' + b.location + '</option>';
             } else {
-                input_options_html += '<option '+ 'value='+b.id+'>' + b.id+' -- '+ b.description+ ' -- '+ b.location + '</option>';
+                input_options_html += '<option ' + 'value=' + b.board_id + '>' + b.id + ' -- ' + b.description + ' -- ' + b.location + '</option>';
             }
 
         });
 
         output_boards.forEach(b => {
             if (b.id == selected_output_board.id) {
-                output_options_html += '<option selected ' + 'value='+b.id+'>' + b.id+' -- '+ b.description+ ' -- '+ b.location + '</option>';
+                output_options_html += '<option selected ' + 'value=' + b.board_id + '>' + b.id + ' -- ' + b.description + ' -- ' + b.location + '</option>';
             } else {
-                output_options_html += '<option '+ 'value='+b.id+'>' + b.id+' -- '+ b.description+ ' -- '+ b.location + '</option>';
+                output_options_html += '<option ' + 'value=' + b.board_id + '>' + b.id + ' -- ' + b.description + ' -- ' + b.location + '</option>';
             }
         });
         jQuery('#update_input_board').empty();
         jQuery('#update_input_board').html(input_options_html);
         jQuery('#update_output_board').empty();
         jQuery('#update_output_board').html(output_options_html);
-console.log('outputs',selected_outputs)
+        console.log('outputs',selected_outputs)
         selected_outputs.map(s=> ({...s,state:0})).forEach(i => {
             outputs_table_html +=
                 "<tr>" +
@@ -220,7 +219,8 @@ console.log('outputs',selected_outputs)
         setInterval(() => {
             ipcRenderer.send("sendRequest", selected_machine,'getMaintViewData', {});
         }, 1000);
-    });
+
+    })
 
     ipcRenderer.on("getMaintViewData", function (e, data) {
 
@@ -271,8 +271,6 @@ console.log('outputs',selected_outputs)
                 "</td>" + "</tr>";
         });
 
-
-
         jQuery("#table-inputs").empty();
         jQuery("#table-inputs").append(inputs_table_html);
 
@@ -280,14 +278,15 @@ console.log('outputs',selected_outputs)
 
     });
 
-
     function updateInputs() {
-        selected_inputs = board_ios.filter(b => b.board_id == selected_input_board.id);
+        selected_inputs = board_ios.filter(b => b.board_id == selected_input_board.board_id);
 
     }
 
     function updateOutputs() {
-        selected_outputs = board_ios.filter(b => b.board_id == selected_output_board.id);
+        console.log(selected_input_board)
+
+        selected_outputs = board_ios.filter(b => b.board_id == selected_output_board.board_id);
 
     }
 </script>
