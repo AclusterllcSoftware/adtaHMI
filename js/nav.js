@@ -424,7 +424,13 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
         }
         let bin_width=0;
         if(num_bins>0){
-            bin_width=Math.trunc(1500/Math.ceil(num_bins/2))
+            if(layoutNo=="5"){
+                bin_width=Math.trunc(1120/Math.ceil(num_bins/2))
+            }
+            else{
+                bin_width=Math.trunc(1500/Math.ceil(num_bins/2))
+            }
+
         }
         for(let key in binsInfo){
             if(binsInfo[key]['gui_bin_id']>0){
@@ -435,6 +441,9 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
                     if((layoutNo=="1")||(layoutNo=="3"))
                     {
                         posRect=201-1+(binIndex-1)*bin_width;
+                    }
+                    else if(layoutNo==5){
+                        posRect=1280-(binIndex)*bin_width;
                     }
                     else {
                         posRect=1650-(binIndex)*bin_width;
