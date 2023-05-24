@@ -136,18 +136,18 @@
         }
         input_boards.forEach(b => {
             if (b.id == selected_input_board.id) {
-                input_options_html += '<option selected ' + 'value=' + b.board_id + '>' + b.id + ' -- ' + b.description + ' -- ' + b.location + '</option>';
+                input_options_html += '<option selected ' + 'value=' + b.board_id + '>' + b.board_id + ' -- ' + b.description + ' -- ' + b.location + '</option>';
             } else {
-                input_options_html += '<option ' + 'value=' + b.board_id + '>' + b.id + ' -- ' + b.description + ' -- ' + b.location + '</option>';
+                input_options_html += '<option ' + 'value=' + b.board_id + '>' + b.board_id + ' -- ' + b.description + ' -- ' + b.location + '</option>';
             }
 
         });
 
         output_boards.forEach(b => {
             if (b.id == selected_output_board.id) {
-                output_options_html += '<option selected ' + 'value=' + b.board_id + '>' + b.id + ' -- ' + b.description + ' -- ' + b.location + '</option>';
+                output_options_html += '<option selected ' + 'value=' + b.board_id + '>' + b.board_id + ' -- ' + b.description + ' -- ' + b.location + '</option>';
             } else {
-                output_options_html += '<option ' + 'value=' + b.board_id + '>' + b.id + ' -- ' + b.description + ' -- ' + b.location + '</option>';
+                output_options_html += '<option ' + 'value=' + b.board_id + '>' + b.board_id + ' -- ' + b.description + ' -- ' + b.location + '</option>';
             }
         });
         jQuery('#update_input_board').empty();
