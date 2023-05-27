@@ -41,7 +41,7 @@ jQuery(document).ready(function() {
 
 ipcRenderer.on("render:general-view-devices", function(e, data) {
     basic_info=data;
-    setBinsLabel(data['binsInfo'],basic_info['hmiSettings']['general_layout']);//nav.js
+    setBinsLabel(data['binsInfo'],basic_info['hmiSettings']['general_layout_no']);//nav.js
     setEstopsLabel(data['inputsInfo']);//nav.js
     setDevicesLabel(data['devicesInfo']);//nav.js
     setConveyorsLabel(data['conveyorsInfo']);//nav.js
