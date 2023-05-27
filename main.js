@@ -238,34 +238,39 @@ function processReceivedJsonObjects(jsonObjects) {
 	});
 }
 
-let chunk = "";
-const DELIMITER = (';#;#;');
-let dataReceiveCount=0;
+let buffer = "";
+const startTag="<begin>";
+const endTag="</begin>";
 function dataEventHandler(data) {
-	dataReceiveCount++;
-	let jsonData;
-	let jsonObjects;
-	chunk += data.toString(); // Add string on the end of the variable 'chunk'
-    let d_index = chunk.indexOf(DELIMITER); // Find the delimiter
-	//logger.debug('[DATA RECEIVED]['+dataReceiveCount+'] '+data.toString());
-
-    // While loop to keep going until no delimiter can be found
-    while (d_index > -1) {
-        try {
-            jsonData = chunk.substring(0,d_index); // Create string up until the delimiter
-			//jsonObjects = JSON.parse(jsonData); // Parse the current string
-			jsonObjects = JSON.parse('[' + jsonData.replace(/\}\s*\{/g, '},{') + ']')
-            processReceivedJsonObjects(jsonObjects); // Function that does something with the current chunk of valid json.
-			dataReceiveCount=0;
-		}catch(er) {
-			console.log("Error happened in main again");
-			console.log(jsonData);
-			logger.error("[INVALID DATA] "+jsonData)
+	buffer += data.toString(); // Add string on the end of the variable 'chunk'
+	let startPos=buffer.indexOf(startTag);
+	let endPos=buffer.indexOf(endTag);
+	while (startPos>-1 && endPos>-1){
+		if(startPos>0){
+			logger.warn("[START_POS_ERROR] Message did not started with begin");
+			logger.warn("[MESSAGE]"+buffer);
 		}
-		
-        chunk = chunk.substring(d_index+DELIMITER.length); // Cuts off the processed chunk
-        d_index = chunk.indexOf(DELIMITER); // Find the new delimiter
-    }
+		if(startPos>endPos){
+			logger.warn("[END_POS_ERROR] End tag found before start tag.");
+			logger.warn("[MESSAGE]"+buffer);
+			buffer=buffer.substring(startPos);
+		}
+		else{
+			let messageString=buffer.substring(startPos+startTag.length,endPos);
+			try {
+				//let jo = JSON.parse(messageString.replace(/\}\s*\{/g, '},{') )
+				let jo = JSON.parse('[' + messageString.replace(/\}\s*\{/g, '},{') + ']')
+				processReceivedJsonObjects(jo);
+			}
+			catch (er) {
+				console.log("Failed to convert Json");
+				logger.error("[INVALID_DATA] "+messageString)
+			}
+			buffer=buffer.substring(endPos+endTag.length);
+		}
+		startPos=buffer.indexOf(startTag);
+		endPos=buffer.indexOf(endTag);
+	}
 }
 
 function endEventHandler() {
@@ -313,7 +318,7 @@ client.on('close',   closeEventHandler);
 function sendMessageToServer(msg) {
 	if(alreadyConnected){
 		//send message only when connected
-		client.write(msg);
+		client.write(startTag+msg+endTag);
 	}
 }
 
