@@ -153,6 +153,7 @@
     let machine_mode = 9, end_time = null, start_time = null, filter_sorting_code = null;
 
     let sorting_codes = {}, current_page = 1, total_records = null, per_page = 500;
+    let binsBySortManger={}
 
     function load_hour_minute_dropdowns() {
         let hours_html, minutes_html;
@@ -354,6 +355,10 @@
     //console.log(destination_to_bin);
 
     ipcRenderer.on("render:token", function (e, basic_info) {
+        for(let key in basic_info['binsInfo']){
+            let binInfo=basic_info['binsInfo'][key];
+            binsBySortManger[binInfo['sort_manager_id']]=binInfo;
+        }
         sorting_codes = basic_info['scsInfo'];
         for (let k in sorting_codes) {
             let sc = sorting_codes[k];
@@ -379,7 +384,6 @@
         let total_pages = 0, page_html = '';
         data_table.clear().search('').columns().search('').draw();
 
-        console.log(data_result);
         current_page = data_result['page'], total_records = data_result['totalRecords'];
         total_pages = Math.ceil(Number(total_records / data_result['per_page']));
 
@@ -387,7 +391,6 @@
         let packages_result = data_result['products'], table_html = '', products = [];
 
         if (filter_sorting_code !== null && filter_sorting_code !== 'na') {
-            console.log(filter_sorting_code);
             packages_result = packages_result.filter(f => f.reason == Number(filter_sorting_code));
         }
         for (let k in packages_result) {
@@ -396,9 +399,9 @@
             let mail_id = Number(related_package_info['mail_id']),
                 length = Number(related_package_info['length']),
                 sorting_code = related_package_info['reason'],
-                destination = Number(related_package_info['destination']),
+                destination =binsBySortManger[related_package_info['destination']]?binsBySortManger[related_package_info['destination']]['bin_label']:'-',
                 timestamp = related_package_info['created_at_timestamp'],
-                final_destination = Number(related_package_info['final_destination']),
+                final_destination =binsBySortManger[related_package_info['final_destination']]?binsBySortManger[related_package_info['final_destination']]['bin_label']:'-',
                 barcode1_string = related_package_info['barcode1_string'];
 
 
