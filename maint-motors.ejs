@@ -19,7 +19,7 @@
     <!--    </div>-->
 </div>
 <div class="row mt-3">
-    <div class="text-danger text-center col-lg-12" id="error-message">Value is not in the max and min range</div>
+    <div class="text-danger text-center col-lg-12" id="error-message" style="display: none;">Value is not in the max and min range</div>
     <div class="col-lg-12">
         <div style="display: block; overflow-y: auto; height: 770px; overflow-x: auto; position: relative">
             <table class="table table-sm table-bordered table-striped" id="motor_table">
@@ -30,6 +30,7 @@
                     <th>Motor location</th>
                     <th>IP Address</th>
                     <th>Speed</th>
+                    <th>Nominal Speed</th>
                     <th width="130px">Connection Status</th>
                     <th width="130px">Fault</th>
                     <th></th>
@@ -103,6 +104,7 @@
                 {"orderable": false},
                 {"orderable": false},
                 {"orderable": false},
+                {"orderable": false},
                 {"orderable": false}
             ],
             "order": [],
@@ -127,12 +129,14 @@
             connection_status: 0,
             fault_status: 0,
         })).forEach(d => {
+            console.log(d)
             data_table.row.add([
                 '<span style="padding-right: 4px">' + d.motor_id + '</span>',
                 d.motor_name,
                 d.location,
                 d.ip_address,
                 '<span class="speed-row" data-id=' + d.motor_id + '>' + d.speed + '</span>',
+                (motor_speed_unit=='ft_min')?(d.nominal_speed*d.coeff/5.08/5.08).toFixed(2)+' ft/min':(d.nominal_speed/1000*d.coeff/1000).toFixed(2)+' m/s',
                 (d.connection_status === 1 ?
                         '<span' + ' data-id=' + d.motor_id + 'class="conn-state" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
                         : '<span' + ' data-id=' + d.motor_id + ' class="conn-state" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>'
