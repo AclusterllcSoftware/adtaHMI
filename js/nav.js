@@ -272,7 +272,22 @@ ipcRenderer.on("getCommonStatus", function(e, data) {
     else {
         jQuery("#status-circle").css("color", "#32CD32");
     }
-    changeMachineNameBg(data['machineMode'])
+
+    let currentMachineMode=data['machineMode'];
+    changeMachineNameBg(currentMachineMode)
+    
+    if(currentMachineMode==0){
+        $('#global_button_manual_mode_active').show();
+        $('#global_button_manual_mode_deactive').hide();
+    }
+    else if(currentMachineMode==1){
+        $('#global_button_manual_mode_active').hide();
+        $('#global_button_manual_mode_deactive').show();
+    }
+    else{
+        $('#global_button_manual_mode_active').hide();
+        $('#global_button_manual_mode_deactive').hide();
+    }
 
     $('#header-alarm-id-1').hide();
     $('#header-alarm-id-40').css('background-color','#00FF00');
@@ -297,10 +312,20 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
     let currentUser=await getCurrentUser();
     if((currentUser['role']>0)&&(currentUser['role']<4)){
         jQuery("#menu-maint").show();
+        $('#global_mode_buttons_container').show();
     }
     else{
         jQuery("#menu-maint").hide();
+        $('#global_mode_buttons_container').hide();
     }
+    jQuery("#global_button_manual_mode_active").click( function() {
+        $('#global_button_manual_mode_active').hide();
+        ipcRenderer.send("sendRequest", selected_machine,'changeMode', {'mode':1});
+    });
+    jQuery("#global_button_manual_mode_deactive").click( function() {
+        $('#global_button_manual_mode_deactive').hide();
+        ipcRenderer.send("sendRequest", selected_machine,'changeMode', {'mode':0});
+    });
     if(currentUser['role']>0){
         jQuery("#menu-login").hide();
         jQuery("#menu-logout").show();
