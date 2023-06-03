@@ -7,8 +7,15 @@
     npm install --save-dev electron-packager
     or 
     npm install electron-packager -g
+# compress the built app folder
+    https://github.com/electron/asar
+    npm install --g @electron/asar
+    or
+    npm install -g asar
+
 # build command for current os
     npx electron-packager .
+    npx electron-packager . --asar
 # high cart
         https://api.highcharts.com/highcharts/title
 # moment
