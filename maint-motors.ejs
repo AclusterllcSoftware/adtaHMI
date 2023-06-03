@@ -114,7 +114,7 @@
     });
     ipcRenderer.on("render:maint-motors", function (e, data) {
         data_table.clear().search('').columns().search('').draw();
-        console.log(data)
+
         let motors_html = '';
         basic_info = data;
         let current_user = data['currentUser'];
@@ -129,7 +129,6 @@
             connection_status: 0,
             fault_status: 0,
         })).forEach(d => {
-            console.log(d)
             data_table.row.add([
                 '<span style="padding-right: 4px">' + d.motor_id + '</span>',
                 d.motor_name,
