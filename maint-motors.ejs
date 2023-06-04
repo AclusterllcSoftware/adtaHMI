@@ -31,7 +31,7 @@
                     <th>IP Address</th>
                     <th>Speed</th>
                     <th>Nominal Speed</th>
-                    <th width="130px">Connection Status</th>
+                    <th width="150px">Connection Status</th>
                     <th width="130px">Fault</th>
                     <th></th>
                 </tr>
@@ -247,6 +247,9 @@
 
         if (machine_mode != 1) {
             $('.speed_control_input').children().hide();
+        }
+        else{
+            $('.speed_control_input').children().show();
         }
 
         let activeAlarmsStates = {};
