@@ -121,6 +121,7 @@ function logoutUser() {
 function makeConnection () {
 	if(alreadyConnected == 0) {
 		//console.log(port + " - " + host);
+		logger.info(new Date().toString(),":Connecting with Host="+host+" Port="+port);
 		if((port != "not_set") && (host != "not_set")) {
 			client.connect(port, host);
 		}
@@ -142,6 +143,7 @@ function getStoredValue(key_name) {
 
 function connectEventHandler() {
 	//console.log('connected');
+	logger.info(new Date().toString(),":Connected with JavaServer");
 	alreadyConnected = 1;
 	retrying = false;
 	mainWindow.webContents.send("render:server_connected");
@@ -292,6 +294,9 @@ function errorEventHandler(err) {
 }
 
 function closeEventHandler () {
+	if(alreadyConnected==1){
+		logger.error(new Date().toString(),":Disconnected from JavaServer. Host="+host+" Port="+port);
+	}
 	//have to handle it
 	mainWindow.webContents.send("render:server_disconnected");
 	// console.log('close');
