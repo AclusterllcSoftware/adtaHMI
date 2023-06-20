@@ -237,6 +237,13 @@ function processReceivedJsonObjects(jsonObjects) {
 				mainWindow.webContents.send("render:induct", inductResult);
 			}
 		}
+		else{
+			//new version
+			if(jsonObj['request'] != undefined){
+				mainWindow.webContents.send(jsonObj['request'],jsonObj);
+			}
+
+		}
 	});
 }
 
@@ -512,3 +519,10 @@ ipcMain.on('render:statistics-bins-detail-single', function (e, view_data) {
 		mainWindow.webContents.send('render:statistics-bins-detail-single', view_data);
 	});
 });
+
+//update includes
+ipcMain.on("sendRequestToServer", function(e, responseName,params,requestData=[]) {
+	params['machine_id']=currentConnectedMachine;
+	console.log(requestData,params)
+	sendMessageToServer(JSON.stringify({"req" :responseName,'params':params,"requestData":requestData}));
+})
