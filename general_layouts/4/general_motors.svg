@@ -414,4 +414,8 @@
     <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
     <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
   </g>
+  <g transform="translate(1731 20) scale(.85)" class="motor cursor-pointer" gui-motor-id="33" motor-id="0" data-toggle="tooltip" data-html="true" title="">
+    <circle class="status" cx="8.75" cy="8.75" r="7.304" stroke="black" stroke-width="1" fill="#e6e6e6" />
+    <path d="M8.75,.75c-4.411,0-8,3.589-8,8s3.589,8,8,8,8-3.589,8-8-3.589-8-8-8Zm-7.304,8c0-4.028,3.277-7.305,7.304-7.305,2.014,0,3.84,.82,5.162,2.142l-10.325,10.325c-1.323-1.322-2.142-3.148-2.142-5.162Z"/>
+  </g>
 </svg>
