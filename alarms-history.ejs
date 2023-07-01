@@ -265,32 +265,16 @@
             "order": [],
             initComplete: function () {
                 this.api().columns().every(function () {
-                    var column = this;
-
+                    let column = this;
                     if (column.index() === 2 || column.index() === 3) {
-                        let select_txt = "";
-                        let select_id = "";
-                        if (column.index() === 2) {
-                            select_txt = "Select class";
-                            select_id = "class_filter";
-                        } else {
-                            select_txt = "Select location";
-                            select_id = "location_filter";
-                        }
-
-                        //$(column.header()).append("<br>")
-                        var select = jQuery('<select class="form-control form-control-sm d-inline-block" id="' + select_id + '"><option value="">' + select_txt + '</option></select>').appendTo($(column.footer()).empty()).on('change', function () {
-                            var val = jQuery.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-
-                            column.search(val ? '^' + val + '$' : '', true, false).draw();
-                        });
-                    } //else if (column.index() === 0) {
-                    //$(column.header()).append("<br>")
-                    //var select = jQuery('<input type="text" id="daterange" class="form-control form-control-sm d-inline-block">').appendTo( $(column.footer()).empty() );
-                    //}
-
+                        $('<select class="form-control form-control-sm d-inline-block" id="filter_'+ column.index() +'"><option value="">Select '+ column.footer().textContent +'</option></select>')
+                            .appendTo( $(column.footer()).empty() )
+                            .on('change', function () {
+                                if (column.search() !== this.value) {
+                                    column.search(this.value).draw();
+                                }
+                            });
+                    }
                 });
             }
         });
@@ -331,63 +315,6 @@
             'from_timestamp': start_time,
             'to_timestamp': end_time,
         });
-        // machine_mode = machine_mode_from_server;
-        // changeMachineNameBg(machine_mode);
-        //console.log("Mode: ", machine_mode);
-        //console.log(alarms_history_result);
-        //console.log(alarms_data_result);
-
-
-        //for (let k in alarms_result) {
-        // alarms_history_result.forEach(function(history_row){
-        //
-        //     let related_alarm_type = history_row['at'],
-        //     related_alarm_id = history_row['aid'],
-        //     related_machine_id = history_row['mid'],
-        //     related_active_timestamp = history_row['t'],
-        //     related_inactive_timestamp = history_row['i'],
-        //     related_duration = history_row['duration'];
-        //
-        //     related_active_timestamp = timeConverter(related_active_timestamp);
-        //
-        //     let combo_id = related_machine_id + "" + related_alarm_id + "" + related_alarm_type;
-        //     let related_alarm_data = alarms_data_result[combo_id];
-        //
-        //     data_table.row.add( [
-        //         related_active_timestamp,
-        //         secondsToDhms(related_duration),
-        //         alarm_class_to_names[related_alarm_data['alarm_class']],
-        //         related_alarm_data['location'],
-        //         related_alarm_data['description'],
-        //         related_alarm_data['variable_name']
-        //     ] ).draw( false );
-        //
-        //     //jQuery("#active_alarm_tbody").append(tr_html);
-        // });
-
-        // data_table.columns().every(function () {
-        //     var column = this;
-        //
-        //     if (column.index() === 2 || column.index() === 3) {
-        //         let select_txt = "";
-        //         let select_id = "";
-        //         if(column.index() === 2) {
-        //             select_txt = "Select class";
-        //             select_id = "#class_filter";
-        //         } else {
-        //             select_txt = "Select location";
-        //             select_id = "#location_filter";
-        //         }
-        //
-        //         let select = $(select_id);
-        //         column.data().unique().sort().each(function (d, j) {
-        //             //console.log(d);
-        //             select.append('<option value="' + d + '">' + d + '</option>')
-        //         });
-        //     }
-        // });
-        //
-        // jQuery("#head-loader").html('Alarms History');
     });
 
     ipcRenderer.on("getAlarmsHistory", function (e, data_result) {
@@ -395,8 +322,8 @@
         console.log(data_result);
         current_page = data_result['page'], total_records = data_result['totalRecords'];
         total_pages = Math.ceil(Number(total_records / data_result['per_page']));
-        data_table.clear().search('').columns().search('').draw();
         let alarms_history_result = data_result['alarms'];
+        //jQuery("#active_alarm_tbody").empty();
         data_table.clear().search('').columns().search('').draw();
 
         alarms_history_result.forEach(function (history_row) {
@@ -430,6 +357,17 @@
         } else {
             page_html += '<li class="page-item"><button class="page-link page-prev" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button></li>';
         }
+        data_table.columns().every(function () {
+            let column = this;
+            if (column.index() === 2 || column.index() === 3) {
+                let select = $('#filter_'+column.index());
+                select.children().not(':first').remove();
+                select.find('option').not(':first').remove()
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            }
+        });
         data_table.draw();
         if (total_pages > 6) {
             if (current_page >= 5 && current_page + 4 < total_pages) {

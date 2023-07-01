@@ -241,62 +241,20 @@
             ],
             initComplete: function () {
                 this.api().columns().every(function () {
-                    var column = this;
-
+                    let column = this;
                     if (column.index() === 3 || column.index() === 4) {
-                        let select_txt = "";
-                        let select_id = "";
-                        if(column.index() === 3) {
-                            select_txt = "Select class";
-                            select_id = "class_filter";
-                        } else {
-                            select_txt = "Select location";
-                            select_id = "location_filter";
-                        }
-
-                        //$(column.header()).append("<br>")
-                        var select = jQuery('<select class="form-control form-control-sm d-inline-block" id="'+ select_id +'"><option value="">'+ select_txt +'</option></select>').appendTo( $(column.footer()).empty() ).on('change', function () {
-                            var val = jQuery.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-
-                            column.search(val ? '^' + val + '$' : '', true, false).draw();
-                        });
+                        $('<select class="form-control form-control-sm d-inline-block" id="filter_'+ column.index() +'"><option value="">Select '+ column.footer().textContent +'</option></select>')
+                            .appendTo( $(column.footer()).empty() )
+                            .on('change', function () {
+                                if (column.search() !== this.value) {
+                                    column.search(this.value).draw();
+                                }
+                            });
                     }
-                    // else if (column.index() === 0) {
-                    //     //$(column.header()).append("<br>")
-                    //     var select = jQuery('<input type="text" id="daterange" class="form-control form-control-sm d-inline-block">').appendTo( $(column.footer()).empty() );
-                    // }
-
                 });
             }
         });
     });
-    // Date range filter
-    minDateFilter = "";
-    maxDateFilter = "";
-
-    $.fn.dataTableExt.afnFiltering.push(
-        function(oSettings, aData, iDataIndex) {
-            if (typeof aData._date == 'undefined') {
-                aData._date = new Date(aData[0]).getTime();
-            }
-
-            if (minDateFilter && !isNaN(minDateFilter)) {
-                if (aData._date < minDateFilter) {
-                    return false;
-                }
-            }
-
-            if (maxDateFilter && !isNaN(maxDateFilter)) {
-                if (aData._date > maxDateFilter) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-    );
 
     ipcRenderer.on("render:alarms-hitlist-view", function (e, basic_info) {
         alarms_info = basic_info['alarmsInfo'];
@@ -309,6 +267,8 @@
     ipcRenderer.on("getAlarmsHitList", function (e, data_result) {
 
         let alarms_history=Object.values(data_result['alarms']);
+        //jQuery("#active_alarm_tbody").empty();
+        data_table.clear().draw();
 
         alarms_history.forEach(function (history_row) {
             let related_alarm_type = history_row['alarm_type'],
@@ -340,28 +300,17 @@
 
         });
         data_table.columns().every(function () {
-            var column = this;
-
+            let column = this;
             if (column.index() === 3 || column.index() === 4) {
-                let select_txt = "";
-                let select_id = "";
-                if(column.index() === 3) {
-                    select_txt = "Select class";
-                    select_id = "#class_filter";
-                } else if(column.index() === 4) {
-                    select_txt = "Select location";
-                    select_id = "#location_filter";
-                }
-
-                let select = $(select_id);
+                let select = $('#filter_'+column.index());
+                select.children().not(':first').remove();
+                select.find('option').not(':first').remove()
                 column.data().unique().sort().each(function (d, j) {
                     select.append('<option value="' + d + '">' + d + '</option>')
                 });
             }
         });
-
         data_table.draw();
-
         jQuery("#head-loader").html('Alarms Hit List');
     });
 </script>
