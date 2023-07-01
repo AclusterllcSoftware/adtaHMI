@@ -88,75 +88,24 @@ jQuery(document).ready(function() {
             { "orderable": false },
             { "orderable": false },
         ],
+        "pageLength": 20,
         "order": [],
         initComplete: function () {
             this.api().columns().every(function () {
-                var column = this;
-                
+                let column = this;
                 if (column.index() === 2 || column.index() === 3) {
-                    let select_txt = "";
-                    let select_id = "";
-                    if(column.index() === 2) {
-                        select_txt = "Select class";
-                        select_id = "class_filter";
-                    } else {
-                        select_txt = "Select location";
-                        select_id = "location_filter";
-                    }
-
-                    //$(column.header()).append("<br>")
-                    var select = jQuery('<select class="form-control form-control-sm d-inline-block" id="'+ select_id +'"><option value="">'+ select_txt +'</option></select>').appendTo( $(column.footer()).empty() ).on('change', function () {
-                        var val = jQuery.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
-        
-                        column.search(val ? '^' + val + '$' : '', true, false).draw();
+                    $('<select class="form-control form-control-sm d-inline-block" id="filter_'+ column.index() +'"><option value="">Select '+ column.footer().textContent +'</option></select>')
+                        .appendTo( $(column.footer()).empty() )
+                        .on('change', function () {
+                            if (column.search() !== this.value) {
+                                column.search(this.value).draw();
+                            }
                     });
-                } else if (column.index() === 0) {
-                    //$(column.header()).append("<br>")
-                    var select = jQuery('<input type="text" id="daterange" class="form-control form-control-sm d-inline-block">').appendTo( $(column.footer()).empty() );
                 }
-        
             });
         }
     });
-
-    jQuery("#daterange").daterangepicker({
-        drops: "up"
-    }, function(start, end, label) {
-        //console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-        minDateFilter = new Date(start).getTime();
-        maxDateFilter = new Date(end).getTime();
-        //console.log("A new date selection was made: " + minDateFilter + ' to ' + maxDateFilter);
-        data_table.draw();
-    });
 });
-
-// Date range filter
-minDateFilter = "";
-maxDateFilter = "";
-
-$.fn.dataTableExt.afnFiltering.push(
-    function(oSettings, aData, iDataIndex) {
-        if (typeof aData._date == 'undefined') {
-            aData._date = new Date(aData[0]).getTime();
-        }
-
-        if (minDateFilter && !isNaN(minDateFilter)) {
-            if (aData._date < minDateFilter) {
-                return false;
-            }
-        }
-
-        if (maxDateFilter && !isNaN(maxDateFilter)) {
-            if (aData._date > maxDateFilter) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-);
 let basic_info={}
 ipcRenderer.on("render:alarms-view", function(e, data) {
     basic_info=data;
@@ -193,22 +142,12 @@ ipcRenderer.on("getAlarmsViewData", function(e,data) {
     }
 
     data_table.columns().every(function () {
-        var column = this;
-        
+        let column = this;
         if (column.index() === 2 || column.index() === 3) {
-            let select_txt = "";
-            let select_id = "";
-            if(column.index() === 2) {
-                select_txt = "Select class";
-                select_id = "#class_filter";
-            } else {
-                select_txt = "Select location";
-                select_id = "#location_filter";
-            }
-            
-            let select = $(select_id);
+            let select = $('#filter_'+column.index());
+            select.children().not(':first').remove();
+            select.find('option').not(':first').remove()
             column.data().unique().sort().each(function (d, j) {
-                //console.log(d);
                 select.append('<option value="' + d + '">' + d + '</option>')
             });
         }
