@@ -1,7 +1,20 @@
 <%- include('header', {currentMenu: 'alarms', pageTitle: 'Alarms'}); %>
     <div class="row m-0 mt-2">
-        <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
+        <div class="col-lg-1 pt-0 pb-0 pl-2 pr-2">
             <h2>Alarms</h2>
+        </div>
+        <div class="col-lg-1 pt-0 pb-0 pl-2 pr-2">
+            <div class="form-check pt-2 pb-2 pl-2 pr-2">
+                <input class="form-check-input" type="checkbox" id="chk_refresh_disable">
+                <label class="form-check-label" for="chk_refresh_disable">Disable Refresh</label>
+            </div>
+        </div>
+    </div>
+    <div class="row m-0 mt-2">
+
+        <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
+
+
             <table class="table table-sm table-bordered" id="alarm_table">
                 <thead>
                 <tr>
@@ -154,6 +167,9 @@ ipcRenderer.on("render:alarms-view", function(e, data) {
 
 });
 ipcRenderer.on("getAlarmsViewData", function(e,data) {
+    if ($('#chk_refresh_disable').is(":checked")) {
+        return;
+    }
     let alarmsInfo=basic_info['alarmsInfo']
     let activeAlarms = data['activeAlarms'];
     let now_time=moment().unix();
