@@ -58,7 +58,7 @@
             let shift_starting_time_round = shift_starting_time - diff * 60- moment(shift_starting_time*1000).seconds();
 
             let requestData=[
-                {'name':'statistics_bins','params':{'from_timestamp': shift_starting_time_round,'to_timestamp': to_timestamp,'bin_id':bin['bin_id'],'per_page':240}},
+                {'name':'statistics_bins','params':{'from_timestamp': shift_starting_time_round,'to_timestamp': to_timestamp,'bin_id':bin['bin_id'],'per_page':160}},
             ];
             ipcRenderer.send("sendRequestToServer", "getStatisticsBins",{},requestData);//send request now
         }
@@ -88,7 +88,7 @@
                 type: "column",
             },
             title: {
-                text: "Hourly - Detail",
+                text: "3 min Details",
             },
             xAxis: {
                 type: "datetime",
