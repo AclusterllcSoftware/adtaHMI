@@ -1,15 +1,22 @@
 <%- include('header', {currentMenu: 'statistics', pageTitle: 'Statistics'}); %>
 
 <div class="row m-0 mt-1">
-    <div class="col-lg-3">
-            <span class="badge badge-pill badge-light">
-                <select id="update_period" class="pt-2 pb-2 pl-2 pr-2"
-                        style="border:0;background-color: #f8f9fa; font-weight: bold; font-size: 12px;">
-                    <option selected>Every 3 minutes</option>
-                    <option>Hourly</option>
-                </select>
-            </span>
+    <div class="col-lg-2">
+        <span class="badge badge-pill badge-light">
+            <select id="update_period" class="pt-2 pb-2 pl-2 pr-2"
+                    style="border:0;background-color: #f8f9fa; font-weight: bold; font-size: 12px;">
+                <option selected>Every 3 minutes</option>
+                <option>Hourly</option>
+            </select>
+        </span>
     </div>
+    <div class="col-lg-1">
+        <div class="form-check pt-2 pb-2 pl-2 pr-2">
+            <input class="form-check-input" type="checkbox" id="chk_refresh_disable">
+            <label class="form-check-label" for="chk_refresh_disable">Disable Refresh</label>
+        </div>
+    </div>
+
 </div>
 <div class="row mt-2">
     <div class="col-lg-6" id="bcr-chart" style="height: 280px;">BCR Chart</div>
@@ -448,6 +455,9 @@
     }
 
     function populateChart(statistics_result = {}, statistics_result_per_minute = {}) {
+        if ($('#chk_refresh_disable').is(":checked")) {
+            return;
+        }
         let bcr_chart_data = [], tput_chart_data = [], tput_chart_data_min = [];
 
         for (k in statistics_result_per_minute) {
@@ -488,7 +498,6 @@
                 y: tput_value
             });
         }
-
         // bcr_chart.series[0].setData(bcr_chart_data, false);
         // bcr_chart.redraw();
         new Highcharts.chart('bcr-chart', {
