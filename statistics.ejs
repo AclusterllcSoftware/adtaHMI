@@ -459,8 +459,9 @@
             return;
         }
         let bcr_chart_data = [], tput_chart_data = [], tput_chart_data_min = [];
+        let now=moment().unix();
 
-        for (k in statistics_result_per_minute) {
+        for (let k in statistics_result_per_minute) {
 
             let time_slot = statistics_result_per_minute[k]['created_at_timestamp'],
                 total_read = statistics_result_per_minute[k]['total_read'];
@@ -468,13 +469,15 @@
             total_read = Number(total_read);
             time_slot = Number(moment.unix(time_slot).add(1, 'minutes'));
 
-            let tput_value = update_period === 'Hourly' ? total_read : 3600 / (60 / total_read); // Tput = 3600 / (period / number of products)
+            //let tput_value = update_period === 'Hourly' ? total_read : 3600 / (60 / total_read); // Tput = 3600 / (period / number of products)
+            let diff=now-statistics_result_per_minute[k]['created_at_timestamp'];
+            let tput_value=((diff>0 && diff<60)?total_read*(3600/diff):total_read*60)
             tput_chart_data_min.push({
                 x: time_slot,
                 y: tput_value
             });
         }
-        for (k in statistics_result) {
+        for (let k in statistics_result) {
             let time_slot = statistics_result[k]['created_at_timestamp'],
                 total_read = statistics_result[k]['total_read'],
                 valid = statistics_result[k]['valid'];
@@ -492,14 +495,20 @@
                 x: time_slot,
                 y: bcr_read_rate
             });
-            let tput_value = update_period === 'Hourly' ? total_read : 3600 / (180 / total_read); // Tput = 3600 / (period / number of products)
+            //let tput_value = update_period === 'Hourly' ? total_read : 3600 / (180 / total_read); // Tput = 3600 / (period / number of products)
+            let tput_value=0;
+            let diff=now-statistics_result[k]['created_at_timestamp'];
+            if(update_period==='Hourly'){
+                tput_value=((diff>0 && diff<3600)?total_read*(3600/diff):total_read)
+            }
+            else{
+                tput_value=((diff>0 && diff<180)?total_read*(3600/diff):total_read*20)
+            }
             tput_chart_data.push({
                 x: time_slot,
                 y: tput_value
             });
         }
-        // bcr_chart.series[0].setData(bcr_chart_data, false);
-        // bcr_chart.redraw();
         new Highcharts.chart('bcr-chart', {
             plotOptions: {
                 series: {
@@ -700,7 +709,5 @@
                     },
                 ]
         });
-        // tput_chart.series[0].setData(tput_chart_data, false);
-        // tput_chart.redraw();
     }
 </script>
