@@ -118,7 +118,19 @@ function getIPAddress() {
 
     return '0.0.0.0';
 }
-
+function getPaginationHtml(totalRecords,per_page,page){
+    let page_total=(per_page>0)?Math.ceil(totalRecords/per_page):1;
+    let html='<div class="row"><div class="col-12"><ul class="pagination float-right"><li class="page-item'+(page<2?' disabled':'')+'"  data-page="-"><button class="page-link">Previous</button></li>';
+    for(let i=1;i<=page_total;i++){
+        html+='<li class="page-item'+(page==i?' active':'')+'" data-page="'+i+'"><button class="page-link">'+i+'</button></li>';
+        if(((i%35)==0)&&((i+4)<page_total)){
+            html+='<li class="page-item'+(page>=page_total?' disabled':'')+'"  data-page="+"><button class="page-link">Next</button></li></ul></div></div>';
+            html+='<div class="row"><div class="col-12"><ul class="pagination float-right"><li class="page-item'+(page<2?' disabled':'')+'"  data-page="-"><button class="page-link">Previous</button></li>';
+        }
+    }
+    html+='<li class="page-item'+(page>=page_total?' disabled':'')+'"  data-page="+"><button class="page-link">Next</button></li></ul></div></div>';
+    return html;
+}
 function changeMachineNameBg(mode) {
     if(mode === 1) {
         jQuery("#display_machine_name").removeClass("machine-mode-zero").addClass("machine-mode-one");

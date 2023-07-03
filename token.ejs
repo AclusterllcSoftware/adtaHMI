@@ -1,95 +1,92 @@
 <%- include('header', {currentMenu: 'token', pageTitle: 'Token'}); %>
-<a id="top-to-button"></a>
-<div class="row m-0 mt-2">
-    <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
-        <h2 id="head-loader">Token</h2>
+<div class="row">
+    <div class="col-lg-12" >
+        <span style="font-size: 1.875rem">Token</span>
+        <img id="system_loading" style="display: none;" src="resources/loading.gif" alt="Loading">
     </div>
 </div>
-<div class="row m-0 mt-2">
-    <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
-        <form>
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="form-row" id="alert-div" style="display:none;">
-                        <div class="col-md-12" id="alert-div-area"></div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <h5>From</h5>
-                        </div>
-                        <div class="col-md-4">
-                            <h5>To</h5>
-                        </div>
-                        <div class="col-md-4">
+<div class="row">
+    <div class="col-md-10">
+        <div class="alert alert-warning alert-dismissible fade show" id="alert_message_container" role="alert" style="display: none;">
+            <p class="mb-0" id="alert_message"></p>
+            <button type="button" class="close alert-close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+</div>
 
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="from_date" placeholder="From date">
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="from_date_hour"></select>
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="from_date_minute"></select>
-                        </div>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="to_date" placeholder="To date">
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="to_date_hour"></select>
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="to_date_minute"></select>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="custom-select" id="filter_sorting_code">
-                                <option value="na">Sorting code...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button type="button" class="btn btn-primary" id="filter_submit_btn2">Filter</button>
-                            <input type="hidden" id="start_timestamp2">
-                            <input type="hidden" id="end_timestamp2">
-                        </div>
 
-                    </div>
-                </div>
-
+<div class="row">
+    <div class="col-md-3"><h5>From</h5></div>
+    <div class="col-md-3"><h5>To</h5></div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-6 pr-0">
+                <input type="text" class="form-control" id="from_date" placeholder="From date">
             </div>
-        </form>
+            <div class="col-md-3 pl-1 pr-0">
+                <select class="form-control" id="from_date_hour"></select>
+            </div>
+            <div class="col-md-3 pl-1 pr-0">
+                <select class="form-control" id="from_date_minute"></select>
+            </div>
+        </div>
     </div>
-    <div class="pl-2 mt-3 mb-3">
-        <label for="no_of_rows" class="mr-1">No of rows</label>
-        <span class="badge badge-pill badge-light">
-            <select id="no_of_rows" class="pt-2 pb-2 pl-2 pr-2"
-                    style="border:0;background-color: #f8f9fa; font-weight: bold; font-size: 12px;">
-                <option value="500">500</option>
-                <option value="1000">1000</option>
-                <option value="1500">1500</option>
-            </select>
-        </span>
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-6 pr-0">
+                <input type="text" class="form-control" id="to_date" placeholder="To date">
+            </div>
+            <div class="col-md-3 pl-1 pr-0">
+                <select class="form-control" id="to_date_hour"></select>
+            </div>
+            <div class="col-md-3 pl-1 pr-0">
+                <select class="form-control" id="to_date_minute"></select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1 pr-0">
+        <select class="form-control" id="filter_sorting_code">
+            <option value="-1">Sorting code...</option>
+        </select>
+    </div>
+    <div class="col-md-4 pr-0">
+        <div class="row">
+            <label class="col-md-2 col-form-label pr-0" for="per_page">No of rows</label>
+            <div class="col-md-2 pl-1 pr-0">
+                <select class="form-control" id="per_page">
+                    <option value="500">500</option>
+                    <option value="1000">1000</option>
+                    <option value="1500">1500</option>
+                </select>
+            </div>
+            <div class="col-md-4 pr-0">
+                <input type="text" class="form-control" id="text_search_barcode" placeholder="Search Barcode"/>
+            </div>
+            <div class="col-md-2 pr-0">
+                <button type="button" class="btn btn-primary" id="button_filter">Filter</button>
+            </div>
+        </div>
     </div>
 </div>
-<div class="row m-0 mt-2">
-    <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
-        <div style="overflow-y: auto; display: block; height: 610px">
-        <table class="table table-sm table-bordered" id="token_table">
+<div class="row mt-2">
+    <div class="col-12">
+        <table class="table table-sm table-bordered" id="table_datatable">
             <thead>
             <tr>
-                <th width="20%">Timestamp</th>
-                <th width="12%">PLC Id</th>
-                <th width="10%">Length</th>
-                <th width="12%">Barcode1</th>
-                <th width="10%">SortedCode</th>
-                <th width="12%">Destination</th>
-                <th width="12%">FinalDestination</th>
+                <th>Timestamp</th>
+                <th>PLC Id</th>
+                <th>Length</th>
+                <th>Barcode1</th>
+                <th>SortedCode</th>
+                <th>Destination</th>
+                <th>FinalDestination</th>
             </tr>
             </thead>
-            <tbody id="package_list_tbody">
-
-            </tbody>
+            <tbody></tbody>
             <tfoot>
             <tr>
                 <th>Timestamp</th>
@@ -102,43 +99,14 @@
             </tr>
             </tfoot>
         </table>
-        </div>
-        <nav class="pt-1" id="page-nav">
-            <ul class="pagination justify-content-end" id="page-wrapper">
-
-            </ul>
-        </nav>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-12" id="pagination_container">
     </div>
 </div>
 </div>
-<style>
-    #top-to-button {
-        bottom: 72px !important;
-    }
 
-    #loading {
-        display: inline-block;
-        width: 50px;
-        height: 50px;
-        border: 3px solid rgba(255, 255, 255, .3);
-        border-radius: 50%;
-        border-top-color: #fff;
-        animation: spin 1s ease-in-out infinite;
-        -webkit-animation: spin 1s ease-in-out infinite;
-    }
-
-    @keyframes spin {
-        to {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-
-    @-webkit-keyframes spin {
-        to {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-</style>
 <%- include('footer', {currentMenu: 'token'}); %>
 <script src="js/jquery-bootstrap.js"></script>
 <script src="js/datatables/datatables.js"></script>
@@ -152,139 +120,58 @@
     let data_table;
     let machine_mode = 9, end_time = null, start_time = null, filter_sorting_code = null;
 
-    let sorting_codes = {}, current_page = 1, total_records = null, per_page = 500;
+    let sorting_codes = {}, total_records = null, per_page = 500;
+
+    ///////////
+    let basic_info={}
     let binsBySortManger={}
+    let current_page=1;
+    let dataTable= $('#table_datatable').DataTable({
+        //dom: 'Bifrtp',
+        dom: '<Bif>rtp',
+        paging: false,
+        searching: false,
+        buttons: [
+            {
+                extend: 'csv',
+                fieldSeparator: ";",
+                text: 'Export'
+            }],
+        // order:[[3,'asc']],
+        order:[],//no ordering default was first column
+        scrollY: 400,
+        "columns": [
+            {},
+            {className: "text-right"},
+            {},
+            {},
+            {},
+            {},
+            {},
+        ],
 
-    function load_hour_minute_dropdowns() {
-        let hours_html, minutes_html;
-        for (var i = 0; i < 24; i++) {
-            let v = i;
-            if (i < 10) {
-                v = "0" + i;
-            }
-            hours_html += '<option value="' + v + '">' + v + '</option>';
-        }
-
-        for (var i = 0; i < 60; i++) {
-            let v = i;
-            if (i < 10) {
-                v = "0" + i;
-            }
-            minutes_html += '<option value="' + v + '">' + v + '</option>';
-        }
-
-        jQuery("#from_date_hour").html(hours_html);
-        jQuery("#from_date_minute").html(minutes_html);
-        jQuery("#to_date_hour").html(hours_html);
-        jQuery("#to_date_minute").html(minutes_html);
-    }
-
-    function destination_to_bin(d) {
-        let vd = d;
-        if (d < 10) {
-            if (d == 0) {
-                vd = "02";
-            } else {
-                vd = "0" + d;
-            }
-        }
-
-        return vd;
-    }
-
+    });
     jQuery(document).ready(function () {
-
-        load_hour_minute_dropdowns();
-
-        var top_to_btn = $('#top-to-button');
-
-        $(window).scroll(function () {
-            if ($(window).scrollTop() > 300) {
-                top_to_btn.addClass('show');
-            } else {
-                top_to_btn.removeClass('show');
-            }
-        });
-        $('#no_of_rows').val(per_page);
-
-        top_to_btn.on('click', function (e) {
-            e.preventDefault();
-            $('html, body').animate({scrollTop: 0}, '300');
-        });
-
-        jQuery("#filter_submit_btn2").click(function () {
-            let date_ok = 1;
-            let from_date = jQuery("#from_date").val();
-            let from_date_hour = jQuery("#from_date_hour").val();
-            let from_date_minute = jQuery("#from_date_minute").val();
-
-            let to_date = jQuery("#to_date").val();
-            let to_date_hour = jQuery("#to_date_hour").val();
-            let to_date_minute = jQuery("#to_date_minute").val();
-
-            if (from_date.trim().length === 0) {
-                date_ok = 0;
-            }
-
-            if (to_date.trim().length === 0) {
-                date_ok = 0;
-            }
-
-            if (date_ok === 0) {
-                jQuery("#alert-div-area").empty();
-                let alert_div_html = '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
-                    '<strong id="alert-div-text">Please select dates correctly</strong>' +
-                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                    '<span aria-hidden="true">&times;</span>' +
-                    '</button>' +
-                    '</div>';
-                jQuery("#alert-div-area").html(alert_div_html);
-                jQuery("#alert-div").show();
-            } else {
-                let from_date_time = from_date + " " + from_date_hour + ":" + from_date_minute;
-                let to_date_time = to_date + " " + to_date_hour + ":" + to_date_minute;
-
-                var from_timestamp = moment(from_date_time, "M-D-YYYY HH:mm").unix();
-                var to_timestamp = moment(to_date_time, "M/D/YYYY HH:mm").unix();
-                if (from_timestamp > to_timestamp) {
-                    jQuery("#alert-div-area").empty();
-                    let alert_div_html = '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
-                        '<strong id="alert-div-text">Please select date times correctly</strong>' +
-                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                        '<span aria-hidden="true">&times;</span>' +
-                        '</button>' +
-                        '</div>';
-                    jQuery("#alert-div-area").html(alert_div_html);
-                    jQuery("#alert-div").show();
-
-                } else {
-                    jQuery("#alert-div").hide();
-                    filter_sorting_code = jQuery("#filter_sorting_code").val();
-                    // ipcRenderer.send("get:filtered_package_list", selected_machine, from_timestamp, to_timestamp, filter_sorting_code);
-                    start_time= from_timestamp;
-                    end_time= to_timestamp;
-                    ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
-                        'page': 1,
-                        'per_page': per_page,
-                        'from_timestamp': from_timestamp,
-                        'to_timestamp': to_timestamp,
-                    });
-                }
-
-            }
-
-        });
-
-        jQuery("#from_date").datepicker({
+        for (let i = 0; i < 24; i++) {
+            let option= '<option value="' +(i<10?'0':'')+ i + '">' + (i<10?'0':'')+i+ '</option>';
+            $("#from_date_hour").append(option);
+            $("#to_date_hour").append(option);
+        }
+        for (let i = 0; i < 60; i++) {
+            let option= '<option value="' +(i<10?'0':'')+ i + '">' + (i<10?'0':'')+i+ '</option>';
+            $("#from_date_minute").append(option);
+            $("#to_date_minute").append(option);
+        }
+        $("#from_date").datepicker({
             autoclose: true,
-            format: 'mm-dd-yyyy'
+            format: 'mm-dd-yyyy',
+            orientation: "bottom right"
         });
-
-        jQuery("#to_date").datepicker({
+        $("#to_date").datepicker({
             autoclose: true,
-            format: 'mm-dd-yyyy'
+            format: 'mm-dd-yyyy',
+            orientation: "bottom right",
         });
-
         jQuery("#ip_list_dropdown").change(function () {
             selected_machine = jQuery(this).val();
 
@@ -295,292 +182,130 @@
                 jQuery("#display_machine_name").text("Select a machine");
                 selected_machine = 0;
             }
-
-            // for (let k in sorting_codes) {
-            //     jQuery("#filter_sorting_code").append('<option value="' + k + '">' + k + '</option>');
-            // }
-            ipcRenderer.send("status:ActiveAlarms", selected_machine);
             ipcRenderer.send("get:views", selected_machine, "token");
         });
 
-        data_table = jQuery('#token_table').DataTable({
-            dom: 'Bifrtp',
-            paging: false,
-            buttons: [
-                {
-                    extend: 'csv',
-                    fieldSeparator: ";",
-                    text: 'Export'
-                }],
-            "columns": [
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-            ],
-            "order": [],
-        });
-
-        $('#no_of_rows').change(function () {
-            let selected_option = $(this).val();
-            per_page = Number(selected_option);
-            ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
-                'page': 1,
-                'per_page': per_page,
-                'from_timestamp': start_time,
-                'to_timestamp': end_time,
-            });
-        });
-
-
     });
-    /* let destination_to_bin = {};
-    for (let d=0; d < 54; d++) {
-        let vd = d;
-        if(d < 10) {
-            if(d == 0) {
-                vd = "02";
-            } else {
-                vd = "0" + d;
-            }
-        }
-
-        destination_to_bin[d] = vd;
-    } */
-
-
-    //console.log(destination_to_bin);
-
-    ipcRenderer.on("render:token", function (e, basic_info) {
+    $(document).on('click','.alert-close',function (event){
+        $(this).parent().hide()
+    })
+    ipcRenderer.on("render:token", function (e, data) {
+        basic_info=data;
         for(let key in basic_info['binsInfo']){
-            let binInfo=basic_info['binsInfo'][key];
-            binsBySortManger[binInfo['sort_manager_id']]=binInfo;
+            let bin=basic_info['binsInfo'][key];
+            binsBySortManger[bin['sort_manager_id']]=bin;
         }
-        sorting_codes = basic_info['scsInfo'];
-        for (let k in sorting_codes) {
-            let sc = sorting_codes[k];
-            jQuery("#filter_sorting_code").append('<option value="' + sc.value + '">' + sc.label + '</option>');
+        for(let key in basic_info['scsInfo']){
+            let sc=basic_info['scsInfo'][key];
+            $("#filter_sorting_code").append('<option value="' + sc.value + '">' + sc.label + '</option>');
         }
-        ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsCounterLast', {});
-
+        let requestData=[
+            {'name':'statistics_counter','params':{'per_page':1}},
+        ];
+        ipcRenderer.send("sendRequestToServer", "getStatisticsCounterLast",{},requestData);//send request now
     });
-    ipcRenderer.on('getStatisticsCounterLast', function (e, data_result) {
-        shift_statistics = data_result['statistics'][0];
-        shift_strating_time = shift_statistics['created_at_timestamp'];
-        end_time = moment().unix();
-        start_time = shift_strating_time;
-        ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
-            'page': 1,
-            'per_page': per_page,
-            'from_timestamp': start_time,
-            'to_timestamp': end_time,
-        });
-    });
-
-    ipcRenderer.on("getProductsHistory", function (e, data_result) {
-        let total_pages = 0, page_html = '';
-        data_table.clear().search('').columns().search('').draw();
-
-        current_page = data_result['page'], total_records = data_result['totalRecords'];
-        total_pages = Math.ceil(Number(total_records / data_result['per_page']));
-
-        console.log(total_pages);
-        let packages_result = data_result['products'], table_html = '', products = [];
-
-        if (filter_sorting_code !== null && filter_sorting_code !== 'na') {
-            packages_result = packages_result.filter(f => f.reason == Number(filter_sorting_code));
+    ipcRenderer.on("getStatisticsCounterLast", function(e, jsonObject) {
+        if(jsonObject['data']['statistics_counter']['records'].length>0){
+            let startDate=moment(jsonObject['data']['statistics_counter']['records'][0]['created_at_timestamp']*1000);
+            $('#from_date_hour').val((startDate.hour()<10?"0":"")+startDate.hour())
+            $('#from_date_minute').val((startDate.minute()<10?"0":"")+startDate.minute())
+            $('#from_date').datepicker('update', startDate.format('MM-DD-YYYY'));
+            current_page=1;
+            $('#button_filter').trigger('click')
         }
-        for (let k in packages_result) {
-            let related_package_info = packages_result[k];
-
-            let mail_id = Number(related_package_info['mail_id']),
-                length = Number(related_package_info['length']),
-                sorting_code = related_package_info['reason'],
-                destination =binsBySortManger[related_package_info['destination']]?binsBySortManger[related_package_info['destination']]['bin_label']:'-',
-                timestamp = related_package_info['created_at_timestamp'],
-                final_destination =binsBySortManger[related_package_info['final_destination']]?binsBySortManger[related_package_info['final_destination']]['bin_label']:'-',
-                barcode1_string = related_package_info['barcode1_string'];
-
-
-            timestamp = moment.unix(timestamp).format("MMM D Y, H:mm:ss")
-
-            // let destination_txt = destination_to_bin(destination);
-            // let final_destination_txt = destination_to_bin(final_destination);
-
-            //sorting_code_txt = sorting_codes[sorting_code];
-            sorting_code_txt = '';
-            for (k in sorting_codes) {
-                let sc = sorting_codes[k];
-                if (sc.value == sorting_code) {
-                    sorting_code_txt = sc.label;
-                }
-            }
-
-            //console.log("ts: " + timestamp + " m: " + mail_id + " l: " + length + " b_s: "+ barcode_string + " r_c: " + reject_code + " s_c: " + sorting_code_txt + " ds: " + destination_txt + " fds: " + final_destination_txt);
-
-            // <th>Timestamp</th>
-            // <th>MailId</th>
-            // <th>Length</th>
-            // <th>RejectCode</th>
-            // <th>SortedCode</th>
-            // <th>Destination</th>
-            // <th>FinalDestination</th>
-            // table_html+='<tr>' +
-            //     '<td>' + timestamp + '</td>' +
-            //     '<td>' + mail_id + '</td>' +
-            //     '<td>' + length + '</td>' +
-            //     '<td>' + barcode1_string + '</td>' +
-            //     '<td>' + sorting_code_txt + '</td>' +
-            //     '<td>' + destination + '</td>' +
-            //     '<td>' + final_destination + '</td>' +
-            //     '</tr>';
-            // products.push({timestamp,
-            //     mail_id,
-            //     length,
-            //     barcode1_string,
-            //     sorting_code_txt,
-            //     destination,
-            //     final_destination});
-            data_table.row.add([
-                timestamp,
-                mail_id,
-                length,
-                barcode1_string,
-                sorting_code_txt,
-                destination,
-                final_destination
+        else{
+            let error_message = "<b>Please Contact with admin. No Schedule found</b>";
+            $("#alert_message").html(error_message);
+            $("#alert_message_container").show();
+        }
+    })
+    ipcRenderer.on("getProductsHistory", function(e, jsonObject) {
+        console.log(jsonObject)
+        $('#system_loading').hide()
+        for(let key in jsonObject['data']['products_history']['records']){
+            let record=jsonObject['data']['products_history']['records'][key]
+            dataTable.row.add([
+                moment.unix(record['created_at_timestamp']).format("MMM D Y, H:mm:ss"),
+                record['mail_id'],
+                record['length'],
+                record['barcode1_string'],
+                basic_info['scsInfo'][record['reason']]?basic_info['scsInfo'][record['reason']]['label']:'-',
+                binsBySortManger[record['destination']]?binsBySortManger[record['destination']]['bin_label']:'-',
+                binsBySortManger[record['final_destination']]?binsBySortManger[record['final_destination']]['bin_label']:'-',
             ]);
         }
+        dataTable.draw();
+        let params=jsonObject['data']['products_history']['params'];
+        let totalRecords=jsonObject['data']['products_history']['totalRecords'];
+        $('#pagination_container').html(getPaginationHtml(totalRecords,params['per_page'],params['page']))
 
-        if (current_page == 1) {
-            page_html += '<li class="page-item disabled"><button class="page-link page-prev" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button></li>';
-        } else {
-            page_html += '<li class="page-item"><button class="page-link page-prev" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button></li>';
+        $('#table_datatable_info').html('Showing '+((params['page']-1) * params['per_page']+1)+' to '+((params['page']* params['per_page'])>totalRecords?totalRecords:(params['page']* params['per_page']))+' of '+totalRecords+' entries');
+
+    })
+    $(document).on('change','#per_page',function (event){
+        current_page=1;
+        filterProduct();
+    })
+    $(document).on('click','#button_filter',function (event){
+        current_page=1;
+        filterProduct();
+    })
+    $(document).on('click','#pagination_container .page-item:not(".disabled")',function (event){
+        let page=$(this).attr('data-page')
+        if(page=='-' && current_page>1){
+            current_page--;
         }
-
-        // for (let i=1;i<=total_pages;i++){
-        //     page_html+=`<li class="page-item"><a class="page-link" href="#">${i}</a></li>`;
-        // }
-
-        // products.forEach(p=> {
-        //     data_table.row.add([
-        //         p.timestamp,
-        //         p.mail_id,
-        //         p.length,
-        //         p.barcode1_string,
-        //         p.sorting_code_txt,
-        //         p.destination,
-        //         p.final_destination
-        //     ]);
-        // })
-
-        data_table.draw();
-        if (total_pages > 6) {
-            if (current_page >= 5 && current_page + 4 < total_pages) {
-                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${1} href="#">1</button></li>`;
-                page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
-                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${current_page - 1} href="#">${current_page - 1}</button></li>`;
-                page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${current_page} href="#">${current_page}</button></li>`;
-                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${current_page + 1} href="#">${current_page + 1}</button></li>`;
-                page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
-                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${total_pages} href="#">${total_pages}</button></li>`;
-            } else if (current_page >= 5 && current_page + 4 >= total_pages) {
-                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${1} href="#">1</button></li>`;
-                page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
-                for (let p = total_pages - 4; p <= total_pages; p++) {
-                    if (p == current_page) {
-                        page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                    } else {
-                        page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                    }
+        else if(page=='+'){
+            current_page++;
+        }
+        else
+        {
+            current_page=page;
+        }
+        filterProduct();
+    })
+    function filterProduct(){
+        $("#alert_message_container").hide();
+        let from_timestamp = moment($('#from_date').val()+" "+$("#from_date_hour").val()+":"+$("#from_date_minute").val(), "MM-DD-YYYY HH:mm").unix();
+        let to_timestamp = moment($('#to_date').val()+" "+$("#to_date_hour").val()+":"+$("#to_date_minute").val(), "MM-DD-YYYY HH:mm").unix();
+        let requestData = [
+            {
+                'name': 'products_history',
+                'params': {
+                    'reason': $('#filter_sorting_code').val(),
+                    'per_page': $('#per_page').val(),
+                    'search_barcode': $('#text_search_barcode').val(),
+                    "page": current_page
                 }
-
-            } else {
-                for (let p = 1; p <= 5; p++) {
-                    if (p == current_page) {
-                        page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                    } else {
-                        page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                    }
-                }
-                page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
-                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${total_pages} href="#">${total_pages}</button></li>`;
-            }
-        } else {
-            for (let p = 1; p <= total_pages; p++) {
-                if (p == current_page) {
-                    page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                } else {
-                    page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                }
+            },
+        ];
+        let error_message='';
+        if(Number.isInteger(from_timestamp)){
+            requestData[0]['params']['from_timestamp']=from_timestamp;
+            if($('#from_date').val()==''){
+                error_message+="No From Date Selected.";
             }
         }
-        if (current_page == total_pages) {
-            page_html += '<li class="page-item disabled"><button class="page-link page-next" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></button></li>';
-        } else {
-            page_html += '<li class="page-item"><button class="page-link page-next" href="#" aria-label="Previous"><span aria-hidden="true">&raquo;</span></button></li>';
+        else{
+            error_message+="Invalid From Date";
         }
-        $('#page-wrapper').empty();
-        $('#page-wrapper').append(page_html);
-
-        $('.page-btn').click(function (e) {
-            if (current_page !== Number($(this).data('pageNo'))) {
-                ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
-                    'page': Number($(this).data('pageNo')),
-                    'per_page': per_page,
-                    'from_timestamp': start_time,
-                    'to_timestamp': end_time,
-                });
+        if(Number.isInteger(to_timestamp)){
+            requestData[0]['params']['to_timestamp']=to_timestamp;
+            if($('#to_date').val()==''){
+                error_message+="No To Date Selected.";
             }
-        });
-        $('.page-prev').click(function (e) {
-            ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
-                'page': current_page - 1,
-                'per_page': per_page,
-                'from_timestamp': start_time,
-                'to_timestamp': end_time,
-            });
-        });
-        $('.page-next').click(function (e) {
-            ipcRenderer.send("sendRequest", selected_machine, 'getProductsHistory', {
-                'page': current_page + 1,
-                'per_page': per_page,
-                'from_timestamp': start_time,
-                'to_timestamp': end_time,
-            });
-        });
-        $('#token_table_info').html(`Showing ${(current_page * per_page) - (per_page - 1)} to ${current_page * per_page > total_records ? total_records : current_page * per_page} of ${total_records} entries`);
-
-
-        /* data_table.columns().every(function () {
-            var column = this;
-
-            if (column.index() === 3 || column.index() === 4) {
-                let select_txt = "";
-                let select_id = "";
-                if(column.index() === 3) {
-                    select_txt = "Select reject code";
-                    select_id = "#reject_code_filter";
-                    jQuery(select_id).empty().append('<option value="">'+ select_txt +'</option>').val('');
-                } else {
-                    select_txt = "Select sorting code";
-                    select_id = "#sorting_code_filter";
-                    jQuery(select_id).empty().append('<option value="">'+ select_txt +'</option>').val('');
-                }
-
-                let select = $(select_id);
-                column.data().unique().sort().each(function (d, j) {
-                    //console.log(d);
-                    select.append('<option value="' + d + '">' + d + '</option>')
-                });
-            }
-        }); */
-
-        // jQuery("#head-loader").html('Packages');
-    });
+        }
+        if(error_message==''){
+            $('#system_loading').show()
+            dataTable.clear().search('').draw();
+            console.log(requestData)
+            ipcRenderer.send("sendRequestToServer", "getProductsHistory", {}, requestData);
+        }
+        else{
+            $("#alert_message").html(error_message);
+            $("#alert_message_container").show();
+        }
+    }
 
 </script>
 </body>
