@@ -56,27 +56,27 @@
                         <tbody>
                         <tr>
                             <td>Incline Entry pe</td>
-                            <td data-counter-id="20" style="text-align: right"></td>
+                            <td data-counter-id="20" class="counter-value" style="text-align: right"></td>
                         </tr>
                         <tr>
                             <td>Power Turn Entry Pe</td>
-                            <td data-counter-id="21" style="text-align: right"></td>
+                            <td data-counter-id="21" class="counter-value" style="text-align: right"></td>
                         </tr>
                         <tr>
                             <td>Induct Pe</td>
-                            <td data-counter-id="22" style="text-align: right"></td>
+                            <td data-counter-id="22" class="counter-value" style="text-align: right"></td>
                         </tr>
                         <tr>
                             <td>Sorter Exit Pe</td>
-                            <td data-counter-id="23" style="text-align: right"></td>
+                            <td data-counter-id="23" class="counter-value" style="text-align: right"></td>
                         </tr>
                         <tr>
                             <td>Brushroller Jam Pe</td>
-                            <td data-counter-id="24" style="text-align: right"></td>
+                            <td data-counter-id="24" class="counter-value" style="text-align: right"></td>
                         </tr>
                         <tr>
                             <td>Reject Pe</td>
-                            <td data-counter-id="25" style="text-align: right"></td>
+                            <td data-counter-id="25" class="counter-value" style="text-align: right"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -85,6 +85,31 @@
                             data-command="0"
                             data-parameter1="0">Reset Counter
                     </button>
+                </div>
+                <div class="col-12 mt-5">
+                    <h4>Intralox S04 Timing</h4>
+                    <table class="table table-sm table-bordered table-striped" style="table-layout: fixed">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th style="width:22%;text-align: center;">Value(ms)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Min</td>
+                            <td data-counter-id="26" class="counter-value" style="text-align: right"></td>
+                        </tr>
+                        <tr>
+                            <td>Current</td>
+                            <td data-counter-id="27" class="counter-value" style="text-align: right"></td>
+                        </tr>
+                        <tr>
+                            <td>Max</td>
+                            <td data-counter-id="28" class="counter-value" style="text-align: right"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -131,7 +156,7 @@
     })
     ipcRenderer.on("getMaintViewData", function(e, data) {
         let ioOutputStates = data['ioOutputStates'];
-        let countersCurrentValue = data['countersCurrentValue']
+        let counterData = data['countersCurrentValue']
 
         if(ioOutputStates[selected_machine+"_52"] && ioOutputStates[selected_machine+"_52"]['state']==1){
             $('#btn_fansrot_enable').hide();
@@ -141,14 +166,21 @@
             $('#btn_fansrot_enable').show();
             $("#btn_fansrot_diable").hide();
         }
-        for(let key in countersCurrentValue){
-            if(key.indexOf(selected_machine+"_")==0){
-                let id=key.substring((selected_machine+"_").length);
-                $('[data-counter-id='+id+']').text(countersCurrentValue[key]);
-                //$('td[data-counter-id='+id+']').text(countersCurrentValue[key]);
+        $('.counter-value').each((index, elem) => {
+            let counter_id=$(elem).attr('data-counter-id');
+            if(counterData[selected_machine+'_'+counter_id]!=undefined){
+                $(elem).text(counterData[selected_machine+'_'+counter_id])
             }
+        })
 
-        }
+        // for(let key in countersCurrentValue){
+        //     if(key.indexOf(selected_machine+"_")==0){
+        //         let id=key.substring((selected_machine+"_").length);
+        //         $('[data-counter-id='+id+']').text(countersCurrentValue[key]);
+        //         //$('td[data-counter-id='+id+']').text(countersCurrentValue[key]);
+        //     }
+        //
+        // }
 
 
     })
