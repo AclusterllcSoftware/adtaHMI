@@ -347,7 +347,7 @@ ipcMain.on("get:views", function(e, machineId, view_name) {
 		mainWindow.webContents.send("render:"+view_name, basic_info);
 	}
 	else if(machineId!=0){
-		if(['statistics','statistics-hourly','statistics-bins-detail'
+		if(['statistics','statistics-hourly','statistics-bins-detail','statistics-oee'
 			,'general-view','general-view-devices','general-view-motors'
 			,'alarms-view','alarms-history-view','alarms-hitlist-view',
 			'token','maint','maint-devices','maint-motors','params','sorting-code-detail','statistics-shift-wise', 'maint-sort'].includes(view_name)){
