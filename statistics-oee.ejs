@@ -167,6 +167,7 @@
 <script src="js/nav.js"></script>
 <script>
     let basic_info={}
+    let oee_states={0:'Estop',1:'Faulted',2:'Blocked',3:'Idle',4:'Init',5:'Running'}
     jQuery(document).ready(function () {
         jQuery("#ip_list_dropdown").change(function () {
             selected_machine = jQuery(this).val();
@@ -194,13 +195,14 @@
         ipcRenderer.send("sendRequestToServer", "getStatisticsOeeData",{},requestData);
     }
     ipcRenderer.on("getStatisticsOeeData", function(e, jsonObject) {
-        console.log(jsonObject)
         if(jsonObject['data']['statistics_oee']['records'].length>0){
             let oeeInfo=jsonObject['data']['statistics_oee']['records'][0];
-            oeeInfo['cal_availability']='0.00';
-            oeeInfo['cal_quality']='0.00';
-            oeeInfo['cal_performance']='0.00';
-            oeeInfo['cal_oee']='0.00';
+            oeeInfo['current_state']=oee_states[oeeInfo['current_state']]
+            oeeInfo['cal_availability']= (+oeeInfo['tot_sec_blocked']) + (+oeeInfo['tot_sec_estop']) + (+oeeInfo['tot_sec_fault']) + (+oeeInfo['tot_sec_run'])
+            oeeInfo['cal_availability']= (+oeeInfo['cal_availability'])>0? ((+oeeInfo['tot_sec_run'])/oeeInfo['cal_availability']).toFixed(2):'0';
+            oeeInfo['cal_quality']= (+oeeInfo['packages_inducted'])>0?((+oeeInfo['successful_divert_packages'])/(+oeeInfo['packages_inducted'])).toFixed(2):'0';
+            oeeInfo['cal_performance']= (+oeeInfo['tot_sec_run'])>0?((+oeeInfo['packages_inducted']) * (+oeeInfo['max_3min_tput'])/(+oeeInfo['tot_sec_run'])).toFixed(2):'0';
+            oeeInfo['cal_oee']= ((+oeeInfo['cal_availability']) * (+oeeInfo['cal_quality']) * (+oeeInfo['cal_performance'])).toFixed(2)
             $('.oee-value').each((index, elem) => {
                 let oee_name=$(elem).attr('data-oee-name');
                 if(oeeInfo[oee_name]!=undefined){
