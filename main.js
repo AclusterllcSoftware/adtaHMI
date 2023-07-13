@@ -12,8 +12,10 @@ let loggerConfig={
 	"appenders": {
 		"everything": {
 			"type": "file",
-			"filename":"logs/"+("0" +  d.getFullYear()+ "_" + ("0"+(d.getMonth()+1)).slice(-2) + "_" +("0" + d.getDate()).slice(-2)+"_" + ("0" + d.getHours()).slice(-2) + "_" + ("0" + d.getMinutes()).slice(-2)+ "_" + ("0" + d.getSeconds()).slice(-2))+'/logger.log',
+			// "filename":"logs/"+("0" +  d.getFullYear()+ "_" + ("0"+(d.getMonth()+1)).slice(-2) + "_" +("0" + d.getDate()).slice(-2)+"_" + ("0" + d.getHours()).slice(-2) + "_" + ("0" + d.getMinutes()).slice(-2)+ "_" + ("0" + d.getSeconds()).slice(-2))+'/logger.log',
+			"filename":'logs/logger.log',
 			"maxLogSize":"10M",
+			"backups":10,
 			"layout":{
 				"type": "pattern",
 				"pattern": "[%d] [%5.5p] %m"
@@ -25,7 +27,7 @@ let loggerConfig={
 	}
 }
 log4js.configure(loggerConfig);
-
+logger.info("HMI Started.");
 
 var client = new net.Socket();
 var crypto = require('crypto');
@@ -121,7 +123,7 @@ function logoutUser() {
 function makeConnection () {
 	if(alreadyConnected == 0) {
 		//console.log(port + " - " + host);
-		logger.info(new Date().toString(),":Connecting with Host="+host+" Port="+port);
+		logger.info("Connecting with Host="+host+" Port="+port);
 		if((port != "not_set") && (host != "not_set")) {
 			client.connect(port, host);
 		}
@@ -143,7 +145,7 @@ function getStoredValue(key_name) {
 
 function connectEventHandler() {
 	//console.log('connected');
-	logger.info(new Date().toString(),":Connected with JavaServer");
+	logger.info("Connected with JavaServer");
 	alreadyConnected = 1;
 	retrying = false;
 	mainWindow.webContents.send("render:server_connected");
@@ -302,7 +304,7 @@ function errorEventHandler(err) {
 
 function closeEventHandler () {
 	if(alreadyConnected==1){
-		logger.error(new Date().toString(),":Disconnected from JavaServer. Host="+host+" Port="+port);
+		logger.error("Disconnected from JavaServer. Host="+host+" Port="+port);
 	}
 	//have to handle it
 	mainWindow.webContents.send("render:server_disconnected");
@@ -524,6 +526,6 @@ ipcMain.on('render:statistics-bins-detail-single', function (e, data) {
 //update includes
 ipcMain.on("sendRequestToServer", function(e, responseName,params,requestData=[]) {
 	params['machine_id']=currentConnectedMachine;
-	console.log(requestData,params)
+	//console.log(requestData,params)
 	sendMessageToServer(JSON.stringify({"req" :responseName,'params':params,"requestData":requestData}));
 })
