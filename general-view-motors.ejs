@@ -172,31 +172,35 @@ ipcRenderer.on("getGeneralMotorsViewData", function(e, data) {
 
     for(let key in motorsInfo){
         let motorInfo=motorsInfo[key]
-        let inputActive=false;
-        let alarmActive=false;
-        let cnx='#fff';//not present
+        let cnx_status='#fff';
+        let status='#e6e6e6';
+        let faulted_status='#fff';
         if(motorInfo['input_id']>0){
-            if(inputsInfo[selected_machine+'_'+motorInfo['input_id']]){
+            if(inputsInfo[selected_machine+'_'+motorInfo['input_id']] !=undefined){
                 if((inputsStates[selected_machine+'_'+motorInfo['input_id']]['input_state'])==inputsInfo[selected_machine+'_'+motorInfo['input_id']]['active_state']){
-                    inputActive=true;
+                    status='#27e22b';
+                    faulted_status='#27e22b';
                 }
             }
         }
         if(motorInfo['alarm_id']>0){
-            if(activeAlarmsStates[selected_machine+'_'+motorInfo['alarm_id']+'_'+motorInfo['alarm_type']]){
-                alarmActive=true;
+            if(activeAlarmsStates[selected_machine+'_'+motorInfo['alarm_id']+'_'+motorInfo['alarm_type']] !=undefined){
+                status='#f00';
+                faulted_status='#f00';
             }
         }
         if(motorInfo['device_number']>0){
-            if(devicesStates[selected_machine+'_'+motorInfo['device_number']]){
+            if(devicesStates[selected_machine+'_'+motorInfo['device_number']] !=undefined){
                 if(devicesStates[[selected_machine+'_'+motorInfo['device_number']]]['device_state']==1){
-                    cnx='#27e22b';//connected
+                    cnx_status='#27e22b';//connected
                 }
                 else{
-                    cnx='#f00';//not connnected
+                    cnx_status='#f00';
+                    status='#f00';
                 }
             }
         }
+        $('.motor[motor-id='+motorInfo["motor_id"]+'] .status').css('fill',status);
         if(motorIdForDetailsView==motorInfo["motor_id"]){
             if(basic_info['hmiSettings']['motor_speed_unit']=='ft_min'){
                 $('#motor-details #current_speed').html((motorsCurrentSpeed[selected_machine+'_'+motorIdForDetailsView]/5.08).toFixed(2)+ ' ft/min')
@@ -204,30 +208,8 @@ ipcRenderer.on("getGeneralMotorsViewData", function(e, data) {
             else{
                 $('#motor-details #current_speed').html(motorsCurrentSpeed[selected_machine+'_'+motorIdForDetailsView]/1000+ ' m/s')
             }
-            $('#motor-details #cnx_status').css('fill',cnx);
-        }
-        if(cnx=='#f00' || alarmActive){
-            $('.motor[motor-id='+motorInfo["motor_id"]+'] .status').css('fill','#f00');
-            if(alarmActive){
-                if(motorIdForDetailsView==motorInfo["motor_id"]){
-                    $('#motor-details #faulted_status').css('fill','#f00');
-                }
-            }
-        }
-        else{
-            if(inputActive==1){
-                $('.motor[motor-id='+motorInfo["motor_id"]+'] .status').css('fill','#27e22b');
-                if(motorIdForDetailsView==motorInfo["motor_id"]){
-                    $('#motor-details #faulted_status').css('fill','#27e22b');
-                }
-            }
-            else{
-                $('.motor[motor-id='+motorInfo["motor_id"]+'] .status').css('fill','#fff');
-                if(motorIdForDetailsView==motorInfo["motor_id"]){
-                    $('#motor-details #faulted_status').css('fill','#fff');
-                }
-            }
-
+            $('#motor-details #cnx_status').css('fill',cnx_status);
+            $('#motor-details #faulted_status').css('fill',faulted_status);
         }
     }
 });
