@@ -1,47 +1,38 @@
 <%- include('header', {currentMenu: 'maint-motors', pageTitle: 'Motors'}); %>
-<div class="row mt-3">
-    <!--    <div class="col-lg-12">-->
-    <!--        <table class="table table-sm table-bordered table-striped">-->
-    <!--            <thead>-->
-    <!--            <tr>-->
-    <!--                <th>Motor ID</th>-->
-    <!--                <th>Motor name</th>-->
-    <!--                <th>Motor location</th>-->
-    <!--                <th>IP Address</th>-->
-    <!--                <th>Speed</th>-->
-    <!--                <th>Connection Status</th>-->
-    <!--                <th>Fault</th>-->
-    <!--                <th></th>-->
-    <!--            </tr>-->
-    <!--            </thead>-->
-    <!--            <tbody id="table-motors"></tbody>-->
-    <!--        </table>-->
-    <!--    </div>-->
-</div>
-<div class="row mt-3">
-    <div class="text-danger text-center col-lg-12" id="error-message" style="display: none;">Value is not in the max and min range</div>
-    <div class="col-lg-12">
-        <div style="display: block; overflow-y: auto; height: 770px; overflow-x: auto; position: relative">
-            <table class="table table-sm table-bordered table-striped" id="motor_table">
-                <thead>
-                <tr class="thead-row">
-                    <th width="75px" style="text-align: right">Motor ID</th>
-                    <th>Motor name</th>
-                    <th>Motor location</th>
-                    <th>IP Address</th>
-                    <th>Speed</th>
-                    <th>Nominal Speed</th>
-                    <th width="150px">Connection Status</th>
-                    <th width="130px">Fault</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody id="motor_table"></tbody>
-            </table>
-
+<div class="row mt-2">
+    <div class="col-12">
+        <div class="alert alert-warning alert-dismissible fade show text-center" id="alert_message_container" role="alert" style="display: none;">
+            <p class="mb-0" id="alert_message">Invalid Speed.Range[min: <span id="speed_min"></span> max: <span id="speed_max"></span>]</p>
+            <button type="button" class="close alert-close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     </div>
 </div>
+
+<div class="row mt-2">
+    <div class="col-12">
+        <div style="display: block; overflow-y: auto; height: 770px; overflow-x: auto; position: relative">
+        <table class="table table-sm table-bordered table-striped" id="table_motor">
+            <thead>
+            <tr>
+                <th style="width: 75px;">Motor ID</th>
+                <th style="">Motor name</th>
+                <th style="">Motor location</th>
+                <th style="">IP Address</th>
+                <th style="">Speed</th>
+                <th style="">Nominal Speed</th>
+                <th style="width: 150px;">Connection Status</th>
+                <th style="width: 135px;">Fault</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
 </div>
 <style>
     .table-striped > tbody > tr:nth-child(even) > td {
@@ -54,10 +45,7 @@
 
     .table-striped > thead > tr > th {
         background-color: #e2e8f0;
-    }
-
-    .table-striped {
-        position: relative;
+        z-index: 10;
     }
 
 </style>
@@ -73,12 +61,30 @@
 
 
 <script>
-    let basic_info = {}, motors = [], motor_speed_unit = '', inputs_info = [];
-    let data_table;
-    let machine_mode;
+    let basic_info = {};
+    let dataTable = jQuery('#table_motor').DataTable({
+        dom: 'Bfrtip',
+        paging: false,
+        searching: false,
+        info: false,
+        buttons: [],
+        order: [[0, 'asc']],
+        //scrollY: 710,
+        "columns": [
+            {"orderable": true, className: 'text-right',order:'asc'},
+            null,
+            null,
+            {"orderable": false},
+            {"orderable": false,className: 'text-right'},
+            {"orderable": false,className: 'text-right'},
+            {"orderable": false},
+            {"orderable": false},
+            {"orderable": false}
+        ],
+    });
 
     jQuery(document).ready(function () {
-        $('#error-message').hide();
+        console.log("document loaded")
         jQuery("#ip_list_dropdown").change(function () {
             selected_machine = jQuery(this).val();
             if (selected_machine !== "") {
@@ -90,154 +96,154 @@
             }
             ipcRenderer.send("get:views", selected_machine, "maint-motors");
         });
-
-        data_table = jQuery('#motor_table').DataTable({
-            dom: 'Bfrtip',
-            paging: false,
-            info: false,
-            buttons: [],
-            "columns": [
-                {"orderable": true, className: 'text-right'},
-                null,
-                null,
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false}
-            ],
-            "order": [],
-
-        });
-        $('.thead-row').children().css({position: 'sticky', top: 0});
+        $('#table_motor > thead > tr > th').css({position: 'sticky', top: 0});
     });
     ipcRenderer.on("render:maint-motors", function (e, data) {
-        data_table.clear().search('').columns().search('').draw();
-
-        let motors_html = '';
+        dataTable.clear().search('').columns().search('').draw();
         basic_info = data;
-        let current_user = data['currentUser'];
+        let motor_speed_unit = basic_info['hmiSettings']['motor_speed_unit'];
+        //inputs_info = basic_info['inputsInfo'];
+        let motors = Object.values(basic_info['motorsInfo']);
+        motors.forEach(record => {
+            dataTable.row.add([
+                record['motor_id'],
+                record['motor_name'],
+                record['location'],
+                record['ip_address'],
+                '<span class="motor-speed" data-motor-id="'+record['motor_id']+'">-</span>',
+                (motor_speed_unit=='ft_min')?(record['nominal_speed']*record['coeff']/5.08/1000).toFixed(2)+' ft/min':(record['nominal_speed']/1000*record['coeff']/1000).toFixed(2)+' m/s',
+                '<span class="motor_cnx_status" data-motor-id="'+record['motor_id']+'" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>',
+                '<span class="motor_faulted_status" data-motor-id="'+record['motor_id']+'" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>',
+                [1,2,3].includes(basic_info['currentUser']['role'])?
+                    '<div class="input-group input_motor_speed_container" style="width: 200px;display:none;">' +
+                    '<input data-motor-id="'+record['motor_id']+'" type="text" class="float_positive form-control input_motor_speed">' +
+                    '<div class="input-group-append">' +
+                    '<button data-motor-id="'+record['motor_id']+'" class="btn btn-primary btn-sm button_motor_start">Start</button>' +
+                    '<button data-motor-id="'+record['motor_id']+'" class="btn btn-danger btn-sm button_motor_stop ml-1">Stop</button>' +
+                    '</div>' +
+                    '</div>':''
+            ]);
+        })
+        dataTable.draw();
+        $(document).on('click','.button_motor_start',function (event){
+            let motor_id = $(this).attr('data-motor-id');
+            let motor=basic_info['motorsInfo'][selected_machine+'_'+motor_id];
+            if(motor!=undefined){
+                let speedInput=$('.input_motor_speed[data-motor-id='+motor_id+']').val();
+                let speed;
+                let speed_min;
+                let speed_max;
 
-        motor_speed_unit = basic_info['hmiSettings']['motor_speed_unit'];
-        inputs_info = basic_info['inputsInfo'];
-        motors = Object.values(basic_info['motorsInfo']);
-        motors.sort((a, b) => a.device_id - b.device_id);
-        motors.map(d => ({
-            ...d,
-            speed: '0 m/s',
-            connection_status: 0,
-            fault_status: 0,
-        })).forEach(d => {
-            data_table.row.add([
-                '<span style="padding-right: 4px">' + d.motor_id + '</span>',
-                d.motor_name,
-                d.location,
-                d.ip_address,
-                '<span class="speed-row" data-id=' + d.motor_id + '>' + d.speed + '</span>',
-                (motor_speed_unit=='ft_min')?(d.nominal_speed*d.coeff/5.08/1000).toFixed(2)+' ft/min':(d.nominal_speed/1000*d.coeff/1000).toFixed(2)+' m/s',
-                (d.connection_status === 1 ?
-                        '<span' + ' data-id=' + d.motor_id + 'class="conn-state" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
-                        : '<span' + ' data-id=' + d.motor_id + ' class="conn-state" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>'
-                ),
-                (d.fault_status === 1 ?
-                        '<span' + ' data-id=' + d.motor_id + 'class="fault-state" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
-                        : '<span' + ' data-id=' + d.motor_id + ' class="fault-state" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>'
-                ),
-                ((current_user.role == 1 || current_user.role==2 || current_user.role==3) ? '<div class="d-inline-flex speed_control_input">' +
-                        '<input type="text" class="form-control ' + 'motor-' + d.motor_id + '"' + 'style="width: 80px">' +
-                        '<button' + ' data-motor-id=' + d.motor_id + ' type="button" class="btn btn-primary btn-sm button_start" style="font-size: 12px;padding-left: 12px; padding-right: 12px; padding-top: 1px; padding-bottom: 1px; margin-right: 4px;">Start</button>' +
-                        '<button' + ' data-motor-id=' + d.motor_id + ' type="button" class="btn btn-danger btn-sm button_stop" style="font-size: 12px;padding-left: 12px; padding-right: 12px; padding-top: 1px; padding-bottom: 1px;">Stop</button>' +
-                        '</div>' :
-                        '<div class="d-inline-flex speed_control_input" style="display: none">' +
-                        '<input type="hidden" class="form-control ' + 'motor-' + d.motor_id + '"' + 'style="width: 80px">' +
-                        '<button' + ' data-motor-id=' + d.motor_id + ' type="button" disabled class="btn btn-primary btn-sm button_start" style="font-size: 12px;padding-left: 12px; padding-right: 12px; padding-top: 1px; padding-bottom: 1px; margin-right: 4px;">Start</button>' +
-                        '<button' + ' data-motor-id=' + d.motor_id + ' type="button" disabled class="btn btn-danger btn-sm button_stop" style="font-size: 12px;padding-left: 12px; padding-right: 12px; padding-top: 1px; padding-bottom: 1px;">Stop</button>' +
-                        '</div>'
-                )
-
-            ])
-            // motors_html += '<tr>' +
-            //     '<td>' +
-            //     d.motor_id +
-            //     '</td>' +
-            //     '<td>' +
-            //     d.motor_name +
-            //     '</td>' +
-            //     '<td>' +
-            //     d.location +
-            //     '</td>' +
-            //     '<td>' +
-            //     d.ip_address +
-            //     '</td>' +
-            //     '<td class="speed-row"' + ' data-id=' + d.motor_id + '>' +
-            //     d.speed +
-            //     '</td>' +
-            //     "<td>" +
-            //     (d.connection_status === 1 ?
-            //             '<span' + ' data-id=' + d.motor_id + 'class="conn-state" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
-            //             : '<span' + ' data-id=' + d.motor_id + ' class="conn-state" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>'
-            //     ) +
-            //     "</td>" +
-            //     "<td>" +
-            //     (d.fault_status === 1 ?
-            //             '<span' + ' data-id=' + d.motor_id + 'class="fault-state" style="background-color: #4fe21f; width: 12px;height: 12px; display: inline-flex"></span>'
-            //             : '<span' + ' data-id=' + d.motor_id + ' class="fault-state" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>'
-            //     ) +
-            //     "</td>" +
-            //     "<td>" +
-            //     '<div class="d-inline-flex">' +
-            //     '<input type="text" class="form-control ' + 'motor-' + d.motor_id +'"' + 'style="width: 80px">' +
-            //     '<button' + ' data-motor-id=' + d.motor_id + ' type="button" class="btn btn-primary btn-sm button_start" style="font-size: 12px;padding-left: 12px; padding-right: 12px; padding-top: 1px; padding-bottom: 1px; margin-right: 4px;">Start</button>' +
-            //     '<button' + ' data-motor-id=' + d.motor_id + ' type="button" class="btn btn-danger btn-sm button_stop" style="font-size: 12px;padding-left: 12px; padding-right: 12px; padding-top: 1px; padding-bottom: 1px;">Stop</button>' +
-            //     '</div>'
-            // "</td>"
-            // "</tr>";
-        });
-        // jQuery("#table-motors").empty();
-        // jQuery("#table-motors").append(motors_html);
-        data_table.draw();
-
-        $('.button_start').click(function () {
-            $('#error-message').hide();
-            let motorId = $(this).data('motorId'), inputVal = Number($('.motor-' + motorId).val()),
-                selected_motor = motors.find(m => m.motor_id == motorId);
-
-            if (motor_speed_unit == 'ft_min') {
-                inputVal = inputVal * 5.08;
-            } else {
-                inputVal = inputVal * 1000;
+                if (motor_speed_unit == 'ft_min') {
+                    speed = speedInput * 5.08;
+                    speed_min=motor['speed_min']/5.08;
+                    speed_max=motor['speed_max']/5.08;
+                } else {
+                    speed = speedInput * 1000;
+                    speed_min=motor['speed_min']/1000;
+                    speed_max=motor['speed_max']/1000;
+                }
+                speed=parseInt(speed);
+                if(speed<motor['speed_min'] || speed>motor['speed_max']){
+                    $('#alert_message #speed_max').text(speed_max.toFixed(2))
+                    $('#alert_message #speed_min').text(speed_min.toFixed(2))
+                    $('#alert_message_container').show();
+                }
+                else{
+                    $('#alert_message_container').hide();
+                    ipcRenderer.send("sendRequest", selected_machine, 'sendDeviceCommand', {
+                        'deviceId':(+motor_id+100),
+                        'command':1,
+                        'parameter1':speed
+                    });
+                }
             }
-            inputVal = parseInt(inputVal);
-
-            if (inputVal < selected_motor['speed_min'] || inputVal > selected_motor['speed_max']) {
-                $('#error-message').show();
-                return;
-            } else {
-                ipcRenderer.send("sendRequest", selected_machine, 'sendDeviceCommand', {
-                    'deviceId': motorId - 1 + 101,
-                    'command': 1,
-                    'parameter1': inputVal
-                });
-                $('.motor-' + motorId).val('')
-            }
-        });
-        $('.button_stop').click(function () {
-            let motorId = $(this).data('motorId');
-            console.log(motorId);
+        })
+        $(document).on('click','.button_motor_stop',function (event){
+            let motor_id = $(this).attr('data-motor-id');
             ipcRenderer.send("sendRequest", selected_machine, 'sendDeviceCommand', {
-                'deviceId': motorId - 1 + 101,
+                'deviceId':(+motor_id+100),
                 'command': 0,
                 'parameter1': 0
             });
-        });
-
-
-        setInterval(() => {
-            ipcRenderer.send("sendRequest", selected_machine, 'getGeneralMotorsViewData', {});
-        }, 1000);
-        ipcRenderer.send("sendRequest", selected_machine, 'getGeneralMotorsViewData', {});
+        })
+        requestPageData();
+        setInterval(() => {requestPageData()}, 1000);
     });
+    function requestPageData(){
+        let requestData=[
+            {'name':'machine_mode','params':{}},
+            {'name':'motors_current_speed','params':{}},
+            {'name':'input_states','params':{}},
+            {'name':'active_alarms','params':{}},
+            {'name':'device_states','params':{}}
+        ];
+        ipcRenderer.send("sendRequestToServer", "getMaintMotorData",{},requestData);
+    }
+    ipcRenderer.on("getMaintMotorData", function (e, jsonObject) {
+        let machine_id=jsonObject['params']['machine_id'];
+        if(jsonObject['data']['machine_mode'] == 1) {
+            $('.input_motor_speed_container').show();
+        }
+        else{
+            $('.input_motor_speed_container').hide();
+        }
+
+        let motor_speeds = jsonObject['data']['motors_current_speed']
+        let motor_speed_unit = basic_info['hmiSettings']['motor_speed_unit'];
+
+        let input_states=jsonObject['data']['input_states']
+        let device_states=jsonObject['data']['device_states']
+        let active_alarms={};
+        jsonObject['data']['active_alarms'].forEach(alarm => {
+            active_alarms[alarm['alarm_id']+'_'+alarm['alarm_type']]=1;
+        })
+        let inputs=basic_info['inputsInfo']
+        let motors = Object.values(basic_info['motorsInfo']);
+        motors.forEach(motor => {
+            if(motor_speeds[machine_id+'_'+motor['motor_id']]!=undefined){
+                if (motor_speed_unit == 'ft_min') {
+                    $('.motor-speed[data-motor-id='+motor["motor_id"]+']').text((motor_speeds[machine_id+'_'+motor['motor_id']]/ 5.08).toFixed(2) + ' ft/min');
+                }
+                else {
+                    $('.motor-speed[data-motor-id='+motor["motor_id"]+']').text((motor_speeds[machine_id+'_'+motor['motor_id']]/ 1000).toFixed(2) + ' m/s');
+                }
+            }
+
+            let cnx_status='#9e9e9e';
+            let status='#9e9e9e';
+            let faulted_status='#9e9e9e';
+            if(motor['input_id']>0){
+                if(inputs[machine_id+'_'+motor['input_id']] !=undefined){
+                    if((input_states[machine_id+'_'+motor['input_id']]['input_state'])==inputs[machine_id+'_'+motor['input_id']]['active_state']){
+                        status='#27e22b';
+                        faulted_status='#27e22b';
+                    }
+                }
+            }
+            if(motor['alarm_id']>0){
+                if(active_alarms[motor['alarm_id']+'_'+motor['alarm_type']]!=undefined){
+                    status='#f00';
+                    faulted_status='#f00';
+                }
+            }
+            if(motor['device_number']>0){
+                if(device_states[machine_id+'_'+motor['device_number']]!=undefined){
+                    if(device_states[[machine_id+'_'+motor['device_number']]]['device_state']==1){
+                        cnx_status='#27e22b';//connected
+                    }
+                    else{
+                        cnx_status='#f00';
+                        status='#f00';
+                    }
+                }
+            }
+            //$('.motor_status[data-motor-id='+motor["motor_id"]+']').css('background-color',status);
+            $('.motor_cnx_status[data-motor-id='+motor["motor_id"]+']').css('background-color',cnx_status);
+            $('.motor_faulted_status[data-motor-id='+motor["motor_id"]+']').css('background-color',faulted_status);
+        })
+
+    })
 
     ipcRenderer.on("getGeneralMotorsViewData", function (e, data) {
 
@@ -257,67 +263,69 @@
             let activeAlarm = activeAlarms[i];
             activeAlarmsStates[selected_machine + '_' + activeAlarm['alarm_id'] + '_' + activeAlarm['alarm_type']] = 1;
         }
+        //console.log(motors)
 
-        let speedRows = jQuery('.speed-row'), connRows = jQuery('.conn-state'),
-            faultRows = jQuery('.fault-state');
-        speedRows.each((key, elem) => {
-            let rowId = $(elem)[0].dataset.id, motor = motors.find(m => m.motor_id == rowId);
-            if (motor_speeds[motor.machine_id + "_" + motor.motor_id] !== undefined) {
-                if (motor_speed_unit == 'ft_min') {
-                    $(elem).text((motor_speeds[motor.machine_id + "_" + motor.motor_id] / 5.08).toFixed(2) + ' ft/min');
-                } else {
-                    $(elem).text(motor_speeds[motor.machine_id + "_" + motor.motor_id] / 1000 + ' m/s');
-                }
-            }
-
-        });
-        connRows.each((key, elem) => {
-            let rowId = $(elem)[0].dataset.id, motor = motors.find(m => m.motor_id == rowId);
-
-            let inputActive = false;
-            if (motor.input_id > 0) {
-                if (inputs_info[motor.machine_id + '_' + motor.input_id]) {
-                    if ((input_states[motor.machine_id + '_' + motor.input_id]['input_state']) == inputs_info[motor.machine_id + '_' + motor.input_id]['active_state']) {
-                        inputActive = true;
-                    }
-                }
-            }
-            if (motor['device_number'] > 0) {
-                if (device_states[motor.machine_id + "_" + motor['device_number']] !== undefined) {
-                    if (device_states[motor.machine_id + "_" + motor['device_number']]['device_state'] == 1) {
-                        $(elem).css('background-color', '#4fe21f');
-                    } else {
-                        $(elem).css('background-color', '#f43f5e');
-                    }
-                } else if (inputActive === true) {
-                    $(elem).css('background-color', '#4fe21f');
-                }
-            }
-        });
-        faultRows.each((key, elem) => {
-            let rowId = $(elem)[0].dataset.id, motor = motors.find(m => m.motor_id == rowId);
-            let inputActive = false;
-            let alarmActive = false;
-            if (motor.input_id > 0) {
-                if (inputs_info[motor.machine_id + '_' + motor.input_id]) {
-                    if ((input_states[motor.machine_id + '_' + motor.input_id]['input_state']) == inputs_info[motor.machine_id + '_' + motor.input_id]['active_state']) {
-                        inputActive = true;
-                    }
-                }
-            }
-            if (motor.alarm_id > 0) {
-                if (activeAlarmsStates[selected_machine + '_' + motor.alarm_id + '_' + motor.alarm_type]) {
-                    alarmActive = true;
-                }
-            }
-            if (alarmActive) {
-                $(elem).css('background-color', '#f43f5e');
-            } else {
-                if (inputActive == 1) {
-                    $(elem).css('background-color', '#4fe21f');
-                }
-            }
-        })
+        // let speedRows = jQuery('.speed-row'), connRows = jQuery('.conn-state'),
+        //     faultRows = jQuery('.fault-state');
+        // speedRows.each((key, elem) => {
+        //     let rowId = $(elem)[0].dataset.id, motor = motors.find(m => m.motor_id == rowId);
+        //     if (motor_speeds[motor.machine_id + "_" + motor.motor_id] !== undefined) {
+        //         if (motor_speed_unit == 'ft_min') {
+        //             $(elem).text((motor_speeds[motor.machine_id + "_" + motor.motor_id] / 5.08).toFixed(2) + ' ft/min');
+        //         } else {
+        //             $(elem).text(motor_speeds[motor.machine_id + "_" + motor.motor_id] / 1000 + ' m/s');
+        //         }
+        //     }
+        //
+        // });
+        // connRows.each((key, elem) => {
+        //     let rowId = $(elem)[0].dataset.id, motor = motors.find(m => m.motor_id == rowId);
+        //
+        //     let inputActive = false;
+        //     if (motor.input_id > 0) {
+        //         if (inputs_info[motor.machine_id + '_' + motor.input_id]) {
+        //             if ((input_states[motor.machine_id + '_' + motor.input_id]['input_state']) == inputs_info[motor.machine_id + '_' + motor.input_id]['active_state']) {
+        //                 inputActive = true;
+        //             }
+        //         }
+        //     }
+        //     if (motor['device_number'] > 0) {
+        //         if (device_states[motor.machine_id + "_" + motor['device_number']] !== undefined) {
+        //             if (device_states[motor.machine_id + "_" + motor['device_number']]['device_state'] == 1) {
+        //                 $(elem).css('background-color', '#4fe21f');
+        //             } else {
+        //                 $(elem).css('background-color', '#f43f5e');
+        //             }
+        //         } else if (inputActive === true) {
+        //             $(elem).css('background-color', '#4fe21f');
+        //         }
+        //     }
+        //     //else show #9e9e9e default color no device
+        // });
+        // faultRows.each((key, elem) => {
+        //     let rowId = $(elem)[0].dataset.id, motor = motors.find(m => m.motor_id == rowId);
+        //     let inputActive = false;
+        //     let alarmActive = false;
+        //     if (motor.input_id > 0) {
+        //         if (inputs_info[motor.machine_id + '_' + motor.input_id]) {
+        //             if ((input_states[motor.machine_id + '_' + motor.input_id]['input_state']) == inputs_info[motor.machine_id + '_' + motor.input_id]['active_state']) {
+        //                 inputActive = true;
+        //             }
+        //         }
+        //     }
+        //     if (motor.alarm_id > 0) {
+        //         if (activeAlarmsStates[selected_machine + '_' + motor.alarm_id + '_' + motor.alarm_type]) {
+        //             alarmActive = true;
+        //         }
+        //     }
+        //     if (alarmActive) {
+        //         $(elem).css('background-color', '#f43f5e');
+        //     } else {
+        //         if (inputActive == 1) {
+        //             $(elem).css('background-color', '#4fe21f');
+        //         }
+        //     }
+        // })
 
 
     });
