@@ -82,7 +82,9 @@
             {"orderable": false}
         ],
     });
-
+    $(document).on('click','.alert-close',function (event){
+        $(this).parent().hide()
+    })
     jQuery(document).ready(function () {
         console.log("document loaded")
         jQuery("#ip_list_dropdown").change(function () {
