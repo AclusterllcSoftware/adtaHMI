@@ -1,118 +1,57 @@
 <%- include('header', {currentMenu: 'statistics-shift-wise', pageTitle: 'Shiftwise'}); %>
-
-<div class="row m-0 mt-1">
-    <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
-        <form>
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="form-row" id="alert-div" style="display:none;">
-                        <div class="col-md-12" id="alert-div-area"></div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <h5>From</h5>
-                        </div>
-                        <div class="col-md-4">
-                            <h5>To</h5>
-                        </div>
-                        <div class="col-md-4">
-
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="from_date" placeholder="From date">
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="from_date_hour"></select>
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="from_date_minute"></select>
-                        </div>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="to_date" placeholder="To date">
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="to_date_hour"></select>
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="to_date_minute"></select>
-                        </div>
-                        <div class="col-md-2">
-                            <button type="button" class="btn btn-primary" id="filter_submit_btn2">Filter</button>
-                            <input type="hidden" id="start_timestamp2">
-                            <input type="hidden" id="end_timestamp2">
-                        </div>
-                        <div class="col-md-2">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
+<div class="row">
+    <div class="col-md-10">
+        <div class="alert alert-warning alert-dismissible fade show" id="alert_message_container" role="alert" style="display: none;">
+            <p class="mb-0" id="alert_message"></p>
+            <button type="button" class="close alert-close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     </div>
 </div>
-<div class="row mt-4">
-    <div class="col-lg-12 mt-4" id="new-volume-chart" style="height: 450px;">New Volume</div>
+<div class="row">
+    <div class="col-md-3"><h5>From</h5></div>
+    <div class="col-md-3"><h5>To</h5></div>
 </div>
-<div class="row mt-5" id="shift-wise-table" style="display: none">
-    <div class="col-lg-12 d-flex">
-        <table class="table table-sm table-bordered" style="white-space: nowrap; max-width: fit-content">
-            <thead>
-            <tr id="shift-table-left-head">
-                <th>&nbsp;</th>
-            </tr>
-            </thead>
-            <tbody id="shift-left-table">
-            <tr>
-                <td>Total Inducted</td>
-            </tr>
-            <tr>
-                <td>Total good diverts</td>
-            </tr>
-            <tr>
-                <td>Total machine error packages</td>
-            </tr>
-            <tr>
-                <td>Total non-machine error packages</td>
-            </tr>
-            <tr>
-                <td>Lost of communication</td>
-            </tr>
-            <tr>
-                <td>Avg. Length</td>
-            </tr>
-            <tr>
-                <td>Avg. Gap</td>
-            </tr>
-            <tr>
-                <td>Good scan</td>
-            </tr>
-            <tr>
-                <td>No Read</td>
-            </tr>
-            <tr>
-                <td>No code</td>
-            </tr>
-            <tr>
-                <td>Multiple read</td>
-            </tr>
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered" style="table-layout: fixed">
-            <thead>
-            <tr id="shift-table-head">
-                <th colspan="2">Shift date</th>
-            </tr>
-            </thead>
-            <tbody id="shift-table">
-            <tr>
-                <td>123</td>
-                <td>100%</td>
-                <td>456</td>
-                <td>100%</td>
-            </tr>
-            </tbody>
-        </table>
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-6 pr-0">
+                <input type="text" class="form-control" id="from_date" placeholder="From date">
+            </div>
+            <div class="col-md-3 pl-1 pr-0">
+                <select class="form-control" id="from_date_hour"></select>
+            </div>
+            <div class="col-md-3 pl-1 pr-0">
+                <select class="form-control" id="from_date_minute"></select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-6 pr-0">
+                <input type="text" class="form-control" id="to_date" placeholder="To date">
+            </div>
+            <div class="col-md-3 pl-1 pr-0">
+                <select class="form-control" id="to_date_hour"></select>
+            </div>
+            <div class="col-md-3 pl-1 pr-0">
+                <select class="form-control" id="to_date_minute"></select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 pr-0">
+        <div class="row">
+            <div class="col-md-2 pr-0">
+                <button type="button" class="btn btn-primary" id="button_filter">Filter</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-12" id="container_datatable">
+<!--        <div style="display: block; overflow-y: auto; height: 750px; overflow-x: auto; position: relative;" >-->
+<!--        </div>-->
     </div>
 </div>
 
@@ -127,129 +66,30 @@
 <script src="js/jquery.newsTicker.js"></script>
 <script src="js/nav.js"></script>
 <script>
-    const Highcharts = require('highcharts/highstock')
-    require('highcharts/modules/exporting')(Highcharts);
-    require('highcharts/modules/export-data')(Highcharts);
-
-    const sc_color_codes = {
-        'sc0': '#34d399',
-        'sc1': '#38bdf8',
-        'sc3': '#fb923c',
-        'sc4': '#e879f9',
-        'sc5': '#818cf8',
-        'sc6': '#c084fc',
-        'sc7': '#2dd4bf',
-        'sc8': '#292524',
-        'sc9': '#facc15',
-        'sc10': '#a3e635',
-        'sc12': '#0891b2',
-        'sc14': '#dc2626',
-        'sc16': '#c026d3',
-        'sc17': '#7e22ce',
-        'sc18': '#a1a1aa',
-        'sc21': '#fde047',
-    };
-
-    function load_hour_minute_dropdowns() {
-        let hours_html, minutes_html;
-        for (var i = 0; i < 24; i++) {
-            let v = i;
-            if (i < 10) {
-                v = "0" + i;
-            }
-            hours_html += '<option value="' + v + '">' + v + '</option>';
-        }
-
-        for (var i = 0; i < 60; i++) {
-            let v = i;
-            if (i < 10) {
-                v = "0" + i;
-            }
-            minutes_html += '<option value="' + v + '">' + v + '</option>';
-        }
-
-        jQuery("#from_date_hour").html(hours_html);
-        jQuery("#from_date_minute").html(minutes_html);
-        jQuery("#to_date_hour").html(hours_html);
-        jQuery("#to_date_minute").html(minutes_html);
-    }
-
-    let scs_data = {}, start_time = null, end_time = null;
-
+    let basic_info={}
+    let intervalForGetStatisticsCounters;
     jQuery(document).ready(function () {
-        load_hour_minute_dropdowns();
-        jQuery("#filter_submit_btn2").click(function () {
-            let date_ok = 1;
-            let from_date = jQuery("#from_date").val();
-            let from_date_hour = jQuery("#from_date_hour").val();
-            let from_date_minute = jQuery("#from_date_minute").val();
-
-            let to_date = jQuery("#to_date").val();
-            let to_date_hour = jQuery("#to_date_hour").val();
-            let to_date_minute = jQuery("#to_date_minute").val();
-
-            if (from_date.trim().length === 0) {
-                date_ok = 0;
-            }
-
-            if (to_date.trim().length === 0) {
-                date_ok = 0;
-            }
-
-            if (date_ok === 0) {
-                jQuery("#alert-div-area").empty();
-                let alert_div_html = '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
-                    '<strong id="alert-div-text">Please select dates correctly</strong>' +
-                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                    '<span aria-hidden="true">&times;</span>' +
-                    '</button>' +
-                    '</div>';
-                jQuery("#alert-div-area").html(alert_div_html);
-                jQuery("#alert-div").show();
-            } else {
-                let from_date_time = from_date + " " + from_date_hour + ":" + from_date_minute;
-                let to_date_time = to_date + " " + to_date_hour + ":" + to_date_minute;
-
-                var from_timestamp = moment(from_date_time, "M-D-YYYY HH:mm").unix();
-                var to_timestamp = moment(to_date_time, "M/D/YYYY HH:mm").unix();
-                if (from_timestamp > to_timestamp) {
-                    jQuery("#alert-div-area").empty();
-                    let alert_div_html = '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
-                        '<strong id="alert-div-text">Please select date times correctly</strong>' +
-                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                        '<span aria-hidden="true">&times;</span>' +
-                        '</button>' +
-                        '</div>';
-                    jQuery("#alert-div-area").html(alert_div_html);
-                    jQuery("#alert-div").show();
-
-                } else {
-                    jQuery("#alert-div").hide();
-                    filter_sorting_code = jQuery("#filter_sorting_code").val();
-                    // ipcRenderer.send("get:filtered_package_list", selected_machine, from_timestamp, to_timestamp, filter_sorting_code);
-                    start_time = from_timestamp;
-                    end_time = to_timestamp;
-                    ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsCounter', {
-                        'from_timestamp': start_time,
-                        'to_timestamp': end_time
-                    });
-                }
-
-            }
-
-        });
-
-        jQuery("#from_date").datepicker({
+        for (let i = 0; i < 24; i++) {
+            let option= '<option value="' +(i<10?'0':'')+ i + '">' + (i<10?'0':'')+i+ '</option>';
+            $("#from_date_hour").append(option);
+            $("#to_date_hour").append(option);
+        }
+        for (let i = 0; i < 60; i++) {
+            let option= '<option value="' +(i<10?'0':'')+ i + '">' + (i<10?'0':'')+i+ '</option>';
+            $("#from_date_minute").append(option);
+            $("#to_date_minute").append(option);
+        }
+        $("#from_date").datepicker({
             autoclose: true,
-            format: 'mm-dd-yyyy'
+            format: 'mm-dd-yyyy',
+            orientation: "bottom right"
         });
-
-        jQuery("#to_date").datepicker({
+        $("#to_date").datepicker({
             autoclose: true,
-            format: 'mm-dd-yyyy'
+            format: 'mm-dd-yyyy',
+            orientation: "bottom right",
         });
-        // machine slection
-        jQuery("#ip_list_dropdown").change(function () {
+        $("#ip_list_dropdown").change(function () {
             selected_machine = jQuery(this).val();
             if (selected_machine !== "") {
                 let selected_machine_name = machine_list[selected_machine];
@@ -260,203 +100,160 @@
             }
             ipcRenderer.send("get:views", selected_machine, "statistics-shift-wise");
         });
+
     });
-    ipcRenderer.on('render:statistics-shift-wise', function (e, basic_info) {
-        let s_data = {
-            total_read: {label: 'Total inducted', data: []},
-            good: {label: 'Total good diverts', data: []},
-            machine_error: {label: 'Total machine error packages', data: []},
-            non_machine_error: {label: 'Total non-machine error packages', data: []},
-            lost_comm: {label: 'Lost of communication', data: []},
-            avg_length: {label: 'Avg. length', data: []},
-            avg_gap: {label: 'Avg. gap', data: []},
-
-        };
-        console.log(basic_info);
-        Object.values(basic_info['scsInfo']).forEach(v => {
-            scs_data["sc" + v.value] = {
-                code: "sc" + v.value,
-                color: sc_color_codes["sc" + v.value],
-                value: 0,
-                label: v.label
-            };
-        });
-        end_time = moment().unix();
-        start_time = moment().subtract(6, 'days').unix();
-        ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsCounter', {
-            'from_timestamp': start_time,
-            'to_timestamp': end_time
-        });
-        setInterval(() => {
-            ipcRenderer.send("sendRequest", selected_machine, 'getStatisticsCounter', {
-                'from_timestamp': start_time,
-                'to_timestamp': end_time
-            });
-        }, 60000);
+    ipcRenderer.on("render:statistics-shift-wise", function (e, data) {
+        basic_info=data;
+        $('#from_date').datepicker('update', moment().subtract(6, 'days').format('MM-DD-YYYY'));
+        $('#button_filter').trigger('click')
     });
-    ipcRenderer.on('getStatisticsCounter', function (e, data_result) {
-        let statistics_result = data_result['statistics'], shift_data = {
-            total_read: {label: 'Total inducted', values: []},
-            good: {label: 'Total good diverts', values: []},
-            machine_error: {label: 'Total machine error packages', values: []},
-            non_machine_error: {label: 'Total non-machine error packages', values: []},
-            lost_comm: {label: 'Lost of communication', values: []},
-            avg_length: {label: 'Avg. length', values: []},
-            avg_gap: {
-                label: 'Avg. gap', values: [],
-            },
-            good_scan: {label: 'Good scan', values: []},
-            no_read: {label: 'No read', values: []},
-            no_code: {label: 'No code', values: []},
-            mult_read: {label: 'Multiple read', values: []},
-            time_slots: []
-        };
-        console.log(data_result);
-        let volume_chart_data = Object.keys(scs_data).map(key => ({
-            name: scs_data[key].label,
-            color: scs_data[key].color,
-            code: scs_data[key].code,
-            data: [],
-            total: 0
-        }));
-
-        for (k in statistics_result) {
-            console.log(statistics_result)
-            let time_slot = statistics_result[k]['created_at_timestamp'], machine_errors = 0, non_machine_errors = 0;
-            ['sc1', 'sc3', 'sc4', 'sc6', 'sc9', 'sc14', 'sc16', 'sc17', 'sc21'].forEach(m_key => {
-                machine_errors += statistics_result[k][m_key]
-            });
-            ['sc5', 'sc7', 'sc8', 'sc10', 'sc12', 'sc18'].forEach(m_key => {
-                non_machine_errors += statistics_result[k][m_key]
-            })
-
-            time_slot = Number(moment.unix(time_slot));
-
-            volume_chart_data.forEach(d => {
-                d.total += Number(statistics_result[k][d["code"]]);
-                d.data.push([time_slot, Number(statistics_result[k][d["code"]])]);
-            });
-            shift_data['time_slots'].push(moment(time_slot).format('MMM D Y, H:mm:ss'));
-            shift_data['total_read']['values'].push(statistics_result[k]['total_read'], statistics_result[k]['total_read'] == 0 ? '0%' : '100%')
-            shift_data['good']['values'].push(statistics_result[k]['sc0'], statistics_result[k]['total_read'] == 0 ? '0%' : (statistics_result[k]['sc0'] * 100 / statistics_result[k]['total_read']).toFixed(2))
-            shift_data['machine_error']['values'].push(machine_errors, statistics_result[k]['total_read'] == 0 ? '0%' : (machine_errors*100 / statistics_result[k]['total_read']).toFixed(2))
-            shift_data['non_machine_error']['values'].push(non_machine_errors, statistics_result[k]['total_read'] == 0 ? '0%' : (non_machine_errors*100 / statistics_result[k]['total_read']).toFixed(2))
-            shift_data['lost_comm']['values'].push(0, 0)
-            shift_data['avg_length']['values'].push(statistics_result[k]['total_good_length'] > 0 ?
-                (statistics_result[k]['sum_length'] * 100 / statistics_result[k]['total_good_length']).toFixed(0) : 0, '-')
-            shift_data['avg_gap']['values'].push(statistics_result[k]['total_good_gap'] > 0 ?
-                (statistics_result[k]['sum_gap'] * 100 / statistics_result[k]['total_good_gap']).toFixed(0) : 0, '-')
-            shift_data['good_scan']['values'].push(statistics_result[k]['valid'],
-                statistics_result[k]['total_read'] == 0 ? '0%' : (statistics_result[k]['valid'] *100 / statistics_result[k]['total_read']).toFixed(2))
-            shift_data['no_read']['values'].push(statistics_result[k]['no_read'],
-                statistics_result[k]['total_read'] == 0 ? '0%' : (statistics_result[k]['no_read'] *100 / statistics_result[k]['total_read']).toFixed(2))
-            shift_data['no_code']['values'].push(statistics_result[k]['no_code'],
-                statistics_result[k]['total_read'] == 0 ? '0%' : (statistics_result[k]['no_code'] *100 / statistics_result[k]['total_read']).toFixed(2))
-            shift_data['mult_read']['values'].push(statistics_result[k]['multiple_read'],
-                statistics_result[k]['total_read'] == 0 ? '0%' : (statistics_result[k]['multiple_read'] *100 / statistics_result[k]['total_read']).toFixed(2))
-        }
-
-        let shift_table_html = '', shift_table_head_html='';
-        shift_data['time_slots'].forEach(t=> {
-            shift_table_head_html+='<th colspan="2">'+t+'</th>'
-        })
-        for (k in shift_data) {
-            if (k === 'time_slots') continue;
-            let row = shift_data[k];
-            shift_table_html += '<tr>'
-            row['values'].forEach(v => {
-                shift_table_html += '<td>' + v + '</td>'
-            })
-            shift_table_html += '</tr>'
-        }
-
-        $('#shift-table').empty()
-        $('#shift-table').append(shift_table_html)
-        $('#shift-table-head').empty()
-        $('#shift-table-head').append(shift_table_head_html)
-        if(shift_data.time_slots.length >0){
-            $('#shift-wise-table').show()
-        }
-        volume_chart_data.sort((a, b) => a.total - b.total);
-        new Highcharts.chart('new-volume-chart', {
-            chart: {
-                type: 'column',
-                animation: Highcharts.svg, // don't animate in old IE
-                marginRight: 10,
-                borderColor: '#D3D3D3',
-                borderWidth: 1
-            },
-            time: {
-                useUTC: false
-            },
-            title: {
-                text: 'Volume'
-            },
-            accessibility: {
-                announceNewData: {
-                    enabled: true,
-                    minAnnounceInterval: 15000,
-                    announcementFormatter: function (allSeries, newSeries, newPoint) {
-                        if (newPoint) {
-                            return 'New point added. Value: ' + newPoint.y;
-                        }
-                        return false;
-                    }
+    $(document).on('click','#button_filter',function (event){
+        filterShift();
+    })
+    function filterShift(){
+        $("#alert_message_container").hide();
+        let from_timestamp = moment($('#from_date').val()+" "+$("#from_date_hour").val()+":"+$("#from_date_minute").val(), "MM-DD-YYYY HH:mm").unix();
+        let to_timestamp = moment($('#to_date').val()+" "+$("#to_date_hour").val()+":"+$("#to_date_minute").val(), "MM-DD-YYYY HH:mm").unix();
+        let requestData = [
+            {
+                'name': 'statistics_counter',
+                'params': {
                 }
             },
-            xAxis: {
-                type: 'datetime',
-                tickInterval: 1000 * 60 * 60
-            },
+        ];
+        let error_message='';
+        if(Number.isInteger(from_timestamp)){
+            requestData[0]['params']['from_timestamp']=from_timestamp;
+            if($('#from_date').val()==''){
+                error_message+="No From Date Selected.";
+            }
+        }
+        else{
+            error_message+="Invalid From Date";
+        }
+        if(Number.isInteger(to_timestamp)){
+            requestData[0]['params']['to_timestamp']=to_timestamp;
+            if($('#to_date').val()==''){
+                error_message+="No To Date Selected.";
+            }
+        }
 
-            yAxis: {
-                title: {
-                    text: null
+        if(error_message==''){
+                if(intervalForGetStatisticsCounters !=undefined){
+                    clearInterval(intervalForGetStatisticsCounters);
+                }
+                //$('#system_loading').show()
+                //dataTable.clear().search('').draw();
+                ipcRenderer.send("sendRequestToServer", "getStatisticsCounters", {}, requestData);
+                intervalForGetStatisticsCounters=setInterval(() => {
+                    ipcRenderer.send("sendRequestToServer", "getStatisticsCounters", {}, requestData);
+                }, 60000);
+        }
+        else{
+            $("#alert_message").html(error_message);
+            $("#alert_message_container").show();
+        }
+    }
+    ipcRenderer.on("getStatisticsCounters", function(e, jsonObject) {
+        //$('#system_loading').hide()
+        //console.log(jsonObject)
+        $('#container_datatable').html('');
+        let shifts=jsonObject['data']['statistics_counter']['records']
+
+        if(shifts.length>0){
+            let ths=[]
+            let tds={
+                total_read: {label: 'Total inducted', values: []},
+                good: {label: 'Total good diverts', values: []},
+                machine_error: {label: 'Total machine error packages', values: []},
+                non_machine_error: {label: 'Total non-machine error packages', values: []},
+                lost_comm: {label: 'Lost of communication', values: []},
+                avg_length: {label: 'Avg. length', values: []},
+                avg_gap: {
+                    label: 'Avg. gap', values: [],
                 },
-                tickInterval: 10,
-                tickWidth: 1,
-                tickLength: 5,
-                min: 0
-            },
-            // tooltip: {
-            //     headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            //     pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            //         '<td style="padding:0"><b>{point.y} </b></td></tr>',
-            //     footerFormat: '</table>',
-            //     shared: true,
-            //     useHTML: true
-            // },
-            tooltip: {
-                formatter: function () {
-                    return '<b>' + moment(this.x).format("YYYY-MM-DD") + '</b><br/>' +
-                        this.series.name + ': ' + this.y + '<br/>' +
-                        'Total: ' + this.point.stackTotal;
+                good_scan: {label: 'Good scan', values: []},
+                no_read: {label: 'No read', values: []},
+                no_code: {label: 'No code', values: []},
+                multiple_read: {label: 'Multiple read', values: []},
+            }
+            let scs=Object.values(basic_info['scsInfo']);
+            scs.forEach(sc => {
+                tds['sc'+sc['value']]={label:sc['label'],values:[]}
+                //scs_data.push(sc);
+                // scs_data["sc" + v.value] = {
+                //     code: "sc" + v.value,
+                //     color: sc_color_codes["sc" + v.value],
+                //     value: 0,
+                //     label: v.label
+                // };
+            });
+            console.log(tds)
+
+            shifts.forEach(shift => {
+                ths.push(moment.unix(shift['created_at_timestamp']).format('MMM D Y, H:mm:ss'));
+
+                let machine_errors = 0, non_machine_errors = 0,total_scs_count=0;
+                ['sc1', 'sc3', 'sc4', 'sc6', 'sc9', 'sc14', 'sc16', 'sc17', 'sc21'].forEach(m_key => {
+                    machine_errors += (+shift[m_key])
+                });
+                ['sc5', 'sc7', 'sc8', 'sc10', 'sc12', 'sc18'].forEach(m_key => {
+                    non_machine_errors += (+shift[m_key])
+                })
+                tds['total_read']['values'].push(shift['total_read'], shift['total_read'] > 0 ? '100.00%' : '0.00%')
+                tds['good']['values'].push(shift['sc0'], shift['total_read'] > 0 ? (shift['sc0'] * 100 / shift['total_read']).toFixed(2)+'%':'0.00%')
+                tds['machine_error']['values'].push(machine_errors, shift['total_read'] > 0 ? (machine_errors*100 / shift['total_read']).toFixed(2)+'%':'0.00%')
+                tds['non_machine_error']['values'].push(non_machine_errors, shift['total_read'] > 0 ? (non_machine_errors*100 / shift['total_read']).toFixed(2)+'%':'0.00%')
+                tds['lost_comm']['values'].push(0, 0)//TODO
+                tds['avg_length']['values'].push(shift['total_good_length'] > 0 ? (shift['sum_length'] * 100 / shift['total_good_length']).toFixed(2)+'%':'0.00%','-')//TODO
+                tds['avg_gap']['values'].push(shift['total_good_gap'] > 0 ? (shift['sum_gap'] * 100 / shift['total_good_gap']).toFixed(2)+'%':'0.00%','-')//TODO
+                tds['good_scan']['values'].push(shift['valid'],shift['total_read'] > 0 ? (shift['valid'] *100 / shift['total_read']).toFixed(2)+'%':'0.00%')
+                tds['no_read']['values'].push(shift['no_read'],shift['total_read'] > 0 ? (shift['no_read'] *100 / shift['total_read']).toFixed(2)+'%':'0.00%')
+                tds['no_code']['values'].push(shift['no_code'],shift['total_read'] > 0 ? (shift['no_code'] *100 / shift['total_read']).toFixed(2)+'%':'0.00%')
+                tds['multiple_read']['values'].push(shift['multiple_read'],shift['total_read'] > 0 ? (shift['multiple_read'] *100 / shift['total_read']).toFixed(2)+'%':'0.00%')
+                scs.forEach(sc => {
+                    tds['sc'+sc['value']]['values'].push(shift['sc'+sc['value']],shift['total_read'] > 0 ? (shift['sc'+sc['value']] *100 / shift['total_read']).toFixed(2)+'%':'0.00%')
+                })
+            })
+
+            let th_html='<th></th>';
+            let td_first_html='<td style="background-color: #FFFFFF; width: 230px"></td>';
+
+            ths.forEach(th => {
+                th_html+='<th></th><th></th>';
+                td_first_html+='<td class="text-center" colspan="2" style="background-color: #FFFFFF;font-weight: bold;">'+th+'</td><td style="display: none;">'+th+'</td>';
+            })
+            let table_html='<table class="table table-sm table-bordered" id="table_datatable">' +
+                '<thead style="display: none;"><tr>'+th_html+'</tr></thead>' +
+                '<tbody><tr>'+td_first_html+'</tr></tbody>' +
+                '</table>';
+            $('#container_datatable').html(table_html);
+            let dataTable= $('#table_datatable').DataTable({
+                //dom: 'Bifrtp',
+                dom: '<Bf>rtp',
+                paging: false,
+                searching: false,
+                buttons: [
+                    {
+                        extend: 'csv',
+                        fieldSeparator: ";",
+                        text: 'Export'
+                    }],
+                // order:[[3,'asc']],
+                //order:[],//no ordering default was first column
+                ordering: false,
+            });
+            //$('#table_datatable > tbody > tr:first td').css({position: 'sticky', top: 0});
+            for(let key in tds){
+                let td=tds[key];
+                let row=[];
+                row.push(td['label'])
+                for(let i=0;i<td['values'].length;i++){
+                    row.push('<div style="text-align: right;">'+td['values'][i]+'</div>')
                 }
-            },
-            legend: {
-                enabled: true
-            },
-            plotOptions: {
-                column: {
-                    stacking: 'normal'
-                }
-            },
-            exporting: {
-                enabled: true,
-                buttons: {
-                    contextButton: {
-                        menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
-                    }
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: volume_chart_data.map(d => ({
-                name: d.name,
-                color: d.color,
-                data: d.data
-            }))
-        });
-    });
+                dataTable.row.add(row);
+            }
+            dataTable.draw();
+        }
+    })
 </script>
