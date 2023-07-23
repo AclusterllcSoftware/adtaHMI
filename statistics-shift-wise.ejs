@@ -48,6 +48,9 @@
         </div>
     </div>
 </div>
+<div class="row mt-4">
+    <div class="col-lg-12 mt-4" id="highchart_volume" style="height: 450px;">New Volume</div>
+</div>
 <div class="row mt-2">
     <div class="col-12" id="container_datatable">
 <!--        <div style="display: block; overflow-y: auto; height: 750px; overflow-x: auto; position: relative;" >-->
@@ -66,6 +69,27 @@
 <script src="js/jquery.newsTicker.js"></script>
 <script src="js/nav.js"></script>
 <script>
+    const Highcharts = require('highcharts/highstock')
+    require('highcharts/modules/exporting')(Highcharts);
+    require('highcharts/modules/export-data')(Highcharts);
+    const sc_color_codes = {
+        'sc0': '#34d399',
+        'sc1': '#38bdf8',
+        'sc3': '#fb923c',
+        'sc4': '#e879f9',
+        'sc5': '#818cf8',
+        'sc6': '#c084fc',
+        'sc7': '#2dd4bf',
+        'sc8': '#292524',
+        'sc9': '#facc15',
+        'sc10': '#a3e635',
+        'sc12': '#0891b2',
+        'sc14': '#dc2626',
+        'sc16': '#c026d3',
+        'sc17': '#7e22ce',
+        'sc18': '#a1a1aa',
+        'sc21': '#fde047',
+    };
     let basic_info={}
     let intervalForGetStatisticsCounters;
     jQuery(document).ready(function () {
@@ -178,18 +202,17 @@
                 multiple_read: {label: 'Multiple read', values: []},
             }
             let scs=Object.values(basic_info['scsInfo']);
+            let highchart_volume_data=[]
             scs.forEach(sc => {
                 tds['sc'+sc['value']]={label:sc['label'],values:[]}
-                //scs_data.push(sc);
-                // scs_data["sc" + v.value] = {
-                //     code: "sc" + v.value,
-                //     color: sc_color_codes["sc" + v.value],
-                //     value: 0,
-                //     label: v.label
-                // };
+                highchart_volume_data.push({
+                    name:sc['label'],
+                    color:sc_color_codes['sc'+sc['value']],
+                    data:[],
+                    total:0,
+                    code: "sc" + +sc['value'],
+                })
             });
-            console.log(tds)
-
             shifts.forEach(shift => {
                 ths.push(moment.unix(shift['created_at_timestamp']).format('MMM D Y, H:mm:ss'));
 
@@ -211,9 +234,18 @@
                 tds['no_read']['values'].push(shift['no_read'],shift['total_read'] > 0 ? (shift['no_read'] *100 / shift['total_read']).toFixed(2)+'%':'0.00%')
                 tds['no_code']['values'].push(shift['no_code'],shift['total_read'] > 0 ? (shift['no_code'] *100 / shift['total_read']).toFixed(2)+'%':'0.00%')
                 tds['multiple_read']['values'].push(shift['multiple_read'],shift['total_read'] > 0 ? (shift['multiple_read'] *100 / shift['total_read']).toFixed(2)+'%':'0.00%')
+                let total_sc=0;
+                highchart_volume_data.forEach(d => {
+                    total_sc+=(+shift[d['code']])
+                    d['total'] += (+shift[d['code']])
+                    d['data'].push([shift['created_at_timestamp']*1000, (+shift[d['code']])]);
+                });
+
+                //may be change bellow
                 scs.forEach(sc => {
-                    tds['sc'+sc['value']]['values'].push(shift['sc'+sc['value']],shift['total_read'] > 0 ? (shift['sc'+sc['value']] *100 / shift['total_read']).toFixed(2)+'%':'0.00%')
+                    tds['sc'+sc['value']]['values'].push(shift['sc'+sc['value']],total_sc > 0 ? (shift['sc'+sc['value']] *100 / total_sc).toFixed(2)+'%':'0.00%')
                 })
+
             })
 
             let th_html='<th></th>';
@@ -254,6 +286,93 @@
                 dataTable.row.add(row);
             }
             dataTable.draw();
+            highchart_volume_data.sort((a, b) => a['total'] - b['total']);
+            new Highcharts.chart('highchart_volume', {
+                chart: {
+                    type: 'column',
+                    animation: Highcharts.svg, // don't animate in old IE
+                    marginRight: 10,
+                    borderColor: '#D3D3D3',
+                    borderWidth: 1
+                },
+                time: {
+                    useUTC: false
+                },
+                title: {
+                    text: 'Volume'
+                },
+                accessibility: {
+                    announceNewData: {
+                        enabled: true,
+                        minAnnounceInterval: 15000,
+                        announcementFormatter: function (allSeries, newSeries, newPoint) {
+                            if (newPoint) {
+                                return 'New point added. Value: ' + newPoint.y;
+                            }
+                            return false;
+                        }
+                    }
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickInterval: 1000 * 60 * 60
+                },
+
+                yAxis: {
+                    title: {
+                        text: null
+                    },
+                    tickInterval: 10,
+                    tickWidth: 1,
+                    tickLength: 5,
+                    min: 0
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + moment(this.x).format("YYYY-MM-DD") + '</b><br/>' +
+                            this.series.name + ': ' + this.y + '<br/>' +
+                            'Total: ' + this.point.stackTotal;
+                    }
+                },
+                legend: {
+                    enabled: true
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal'
+                    }
+                },
+                exporting: {
+                    enabled: true,
+                    buttons: {
+                        contextButton: {
+                            menuItems: ['downloadCSV', 'separator', 'downloadPDF', 'downloadPNG']
+                        }
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: highchart_volume_data.map(d => ({
+                    name: d.name,
+                    color: d.color,
+                    data: d.data
+                }))
+                // series: [
+                //     {
+                //         name:"shaiful",
+                //         color:"#ff0000",
+                //         data:[100,200]
+                //
+                //     },
+                //     {
+                //         name:"shaiful2",
+                //         color:"#00ff00",
+                //         data:[100,200]
+                //
+                //     }
+                // ]
+            });
         }
     })
 </script>
