@@ -65,6 +65,9 @@
     .switch.switch-round span:before {
         border-radius: 50%;
     }
+    .bg-light-blue{
+        /*background-color:#bfdbfe;*/
+    }
 </style>
 <script src="js/jquery-bootstrap.js"></script>
 <script src="js/jquery.newsTicker.js"></script>
@@ -73,7 +76,16 @@
 
 <script>
 let basic_info={}
+$('#switch_legend_production').change(function () {
+    if ($(this).is(":checked")) {
+        $('#svg_general_colors').hide();
+        $('#container_production').show();
+    } else {
+        $('#svg_general_colors').show();
+        $('#container_production').hide();
 
+    }
+});
 
 jQuery(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
