@@ -12,63 +12,7 @@
     </div>
 </div>
 <%- include('footer', {currentMenu: 'general-view'}); %>
-<style>
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 48px;
-        height: 24px;
-    }
-    .switch > input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-    .switch > span {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-    .switch > span:before {
-        position: absolute;
-        content: "";
-        height: 20px;
-        width: 20px;
-        left: 1px;
-        bottom: 2px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
 
-    .switch > input:checked + span {
-        background-color: #2196F3;
-    }
-    .switch > input:focus + span {
-        box-shadow: 0 0 1px #2196F3;
-    }
-    /*For click animation*/
-    .switch > input:checked + span:before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
-    }
-    .switch.switch-round span {
-        border-radius: 15px;
-    }
-    .switch.switch-round span:before {
-        border-radius: 50%;
-    }
-    .bg-light-blue{
-        /*background-color:#bfdbfe;*/
-    }
-</style>
 <script src="js/jquery-bootstrap.js"></script>
 <script src="js/jquery.newsTicker.js"></script>
 <script src="js/daterangepicker/moment.min.js"></script>
@@ -131,6 +75,8 @@ ipcRenderer.on("getGeneralViewData", function(e, data) {
     setConveyorsStates(machineId,data['conveyorsStates'],basic_info['conveyorsInfo']);//nav.js
     setDoorsStates(machineId,data['inputsStates'],basic_info['doorsInfo']);//nav.js
     setActiveAlarms(machineId,data['activeAlarms'],basic_info['alarmsInfo'])
+    setStatisticsCounter(data['statistics_counter'])
+    setStatisticsOee(data['statistics_oee'])
 
 });
 </script>

@@ -648,4 +648,88 @@ ipcRenderer.on("link:changed", async function(e, ip_list_html, machine_list_from
 
         }
 }
+    function setStatisticsCounter(statistics_counter){
+        if(statistics_counter.length>0){
+            let shiftInfo=statistics_counter[0];
+            let machine_errors = 0, non_machine_errors = 0
+            Object.keys(shiftInfo).forEach(s_key => {
+                if (['sc1', 'sc3', 'sc4', 'sc6', 'sc9', 'sc14', 'sc16', 'sc17', 'sc21'].includes(s_key)) {
+                    machine_errors += Number(shiftInfo[s_key]);
+                }
+                if (['sc5', 'sc7', 'sc8', 'sc10', 'sc12', 'sc18'].includes(s_key)) {
+                    non_machine_errors += Number(shiftInfo[s_key]);
+                }
+                // if (Object.keys(scs_data).includes(s_key)) {
+                //     total_scs_value += data[s_key];
+                //     scs_data[s_key].value = data[s_key];
+                // }
+            });
+
+            let production_data = {
+                total_read: {label: 'Total inducted', count: 0},
+                sc0: {label: 'Total good diverts', count: 0},
+                machine_error: {label: 'Total machine error packages', count: 0},
+                non_machine_error: {label: 'Total non-machine error packages', count: 0},
+            };
+            production_data['total_read']['count'] = shiftInfo['total_read'];
+            production_data['sc0']['count'] = shiftInfo['sc0'];
+            production_data['machine_error']['count'] = machine_errors;
+            production_data['non_machine_error']['count'] = non_machine_errors;
+            $('#table_production tbody').empty();
+            Object.keys(production_data).forEach(key => {
+                let html = '<tr>' + '<td>' + production_data[key]['label'] + '</td>' +
+                    '<td class="text-right">' + production_data[key]['count'] + '</td>' +
+                    '<td class="text-right">' + (shiftInfo['total_read'] > 0 ? (production_data[key]['count'] * 100 / shiftInfo['total_read']).toFixed(2) : '0') + '%' + '</td>'
+                    + '</tr>';
+                $('#table_production tbody').append(html)
+            });
+
+            let scanner_data = {
+                valid: {label: 'Good scan', count: 0},
+                no_read: {label: 'No read', count: 0},
+                no_code: {label: 'No code', count: 0},
+                multiple_read: {label: 'Multiple read', count: 0},
+            };
+            scanner_data['valid']['count'] = shiftInfo['valid']
+            scanner_data['no_read']['count'] = shiftInfo['no_read']
+            scanner_data['no_code']['count'] = shiftInfo['no_code']
+            scanner_data['multiple_read']['count'] = shiftInfo['multiple_read']
+
+            $('#table_scanner tbody').empty();
+            Object.keys(scanner_data).forEach(key => {
+                let html = '<tr>' + '<td>' + scanner_data[key]['label'] + '</td>' +
+                    '<td class="text-right">' + scanner_data[key]['count'] + '</td>' +
+                    '<td class="text-right">' + (shiftInfo['total_read'] > 0 ? (scanner_data[key]['count'] * 100 / shiftInfo['total_read']).toFixed(2) : 0) + '%' + '</td>'
+                    + '</tr>';
+                $('#table_scanner tbody').append(html)
+            });
+        }
+
+    }
+    function setStatisticsOee(statistics_oee){
+        if(statistics_oee.length>0){
+            let oeeInfo=statistics_oee[0];
+            let oee_data = {
+                cal_availability: {label: 'Availability'},
+                cal_quality: {label: 'Quality'},
+                cal_performance: {label: 'Performance'},
+                cal_oee: {label: 'OEE'},
+            };
+
+            oeeInfo['cal_availability']= (+oeeInfo['tot_sec_blocked']) + (+oeeInfo['tot_sec_estop']) + (+oeeInfo['tot_sec_fault']) + (+oeeInfo['tot_sec_run'])
+            oeeInfo['cal_availability']= (+oeeInfo['cal_availability'])>0? ((+oeeInfo['tot_sec_run'])/oeeInfo['cal_availability']).toFixed(2):'0';
+            oeeInfo['cal_quality']= (+oeeInfo['packages_inducted'])>0?((+oeeInfo['successful_divert_packages'])/(+oeeInfo['packages_inducted'])).toFixed(2):'0';
+            oeeInfo['cal_performance']= (+oeeInfo['tot_sec_run'])>0?((+oeeInfo['packages_inducted']) * (+oeeInfo['max_3min_tput'])/(+oeeInfo['tot_sec_run'])).toFixed(2):'0';
+            oeeInfo['cal_oee']= ((+oeeInfo['cal_availability']) * (+oeeInfo['cal_quality']) * (+oeeInfo['cal_performance'])).toFixed(2)
+
+            $('#table_oee tbody').empty();
+            Object.keys(oee_data).forEach(key => {
+                let html = '<tr>' + '<td>' + oee_data[key]['label'] + '</td>' +
+                    '<td class="text-right">' + oeeInfo[key] + '</td>' +
+                    + '</tr>';
+                $('#table_oee tbody').append(html)
+            });
+        }
+    }
+
 
