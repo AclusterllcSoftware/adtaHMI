@@ -150,6 +150,8 @@ ipcRenderer.on("getGeneralMotorsViewData", function(e, data) {
     setConveyorsStates(machineId,data['conveyorsStates'],basic_info['conveyorsInfo']);//nav.js
     setDoorsStates(machineId,data['inputsStates'],basic_info['doorsInfo']);//nav.js
     setActiveAlarms(machineId,data['activeAlarms'],basic_info['alarmsInfo'])//nav.js
+    setStatisticsCounter(data['statistics_counter'])//nav.js
+    setStatisticsOee(data['statistics_oee'])//nav.js
 
     let motorsInfo=basic_info['motorsInfo'];
     let inputsInfo=basic_info['inputsInfo'];

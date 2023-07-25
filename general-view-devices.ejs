@@ -67,6 +67,8 @@ ipcRenderer.on("getGeneralDevicesViewData", function(e, data) {
     setDevicesStates(machineId,data['devicesStates'],basic_info['devicesInfo']);//nav.js
     setDoorsStates(machineId,data['inputsStates'],basic_info['doorsInfo']);//nav.js
     setActiveAlarms(machineId,data['activeAlarms'],basic_info['alarmsInfo'])//nav.js
+    setStatisticsCounter(data['statistics_counter'])//nav.js
+    setStatisticsOee(data['statistics_oee'])//nav.js
 
 });
 </script>

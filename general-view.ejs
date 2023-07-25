@@ -74,9 +74,9 @@ ipcRenderer.on("getGeneralViewData", function(e, data) {
     setPhotoeyesStates(machineId,data['inputsStates'],basic_info['inputsInfo']);//nav.js
     setConveyorsStates(machineId,data['conveyorsStates'],basic_info['conveyorsInfo']);//nav.js
     setDoorsStates(machineId,data['inputsStates'],basic_info['doorsInfo']);//nav.js
-    setActiveAlarms(machineId,data['activeAlarms'],basic_info['alarmsInfo'])
-    setStatisticsCounter(data['statistics_counter'])
-    setStatisticsOee(data['statistics_oee'])
+    setActiveAlarms(machineId,data['activeAlarms'],basic_info['alarmsInfo'])//nav.js
+    setStatisticsCounter(data['statistics_counter'])//nav.js
+    setStatisticsOee(data['statistics_oee'])//nav.js
 
 });
 </script>
