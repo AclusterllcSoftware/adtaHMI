@@ -107,24 +107,26 @@
         //inputs_info = basic_info['inputsInfo'];
         let motors = Object.values(basic_info['motorsInfo']);
         motors.forEach(record => {
-            dataTable.row.add([
-                record['motor_id'],
-                record['motor_name'],
-                record['location'],
-                record['ip_address'],
-                '<span class="motor-speed" data-motor-id="'+record['motor_id']+'">-</span>',
-                (motor_speed_unit=='ft_min')?(record['nominal_speed']*record['coeff']/5.08/1000).toFixed(2)+' ft/min':(record['nominal_speed']/1000*record['coeff']/1000).toFixed(2)+' m/s',
-                '<span class="motor_cnx_status" data-motor-id="'+record['motor_id']+'" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>',
-                '<span class="motor_faulted_status" data-motor-id="'+record['motor_id']+'" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>',
-                [1,2,3].includes(basic_info['currentUser']['role'])?
-                    '<div class="input-group input_motor_speed_container" style="width: 200px;display:none;">' +
-                    '<input data-motor-id="'+record['motor_id']+'" type="text" class="float_positive form-control input_motor_speed">' +
-                    '<div class="input-group-append">' +
-                    '<button data-motor-id="'+record['motor_id']+'" class="btn btn-primary btn-sm button_motor_start">Start</button>' +
-                    '<button data-motor-id="'+record['motor_id']+'" class="btn btn-danger btn-sm button_motor_stop ml-1">Stop</button>' +
-                    '</div>' +
-                    '</div>':''
-            ]);
+            if(record['gui_motor_id']>0) {
+                dataTable.row.add([
+                    record['motor_id'],
+                    record['motor_name'],
+                    record['location'],
+                    record['ip_address'],
+                    '<span class="motor-speed" data-motor-id="' + record['motor_id'] + '">-</span>',
+                    (motor_speed_unit == 'ft_min') ? (record['nominal_speed'] * record['coeff'] / 5.08 / 1000).toFixed(2) + ' ft/min' : (record['nominal_speed'] / 1000 * record['coeff'] / 1000).toFixed(2) + ' m/s',
+                    '<span class="motor_cnx_status" data-motor-id="' + record['motor_id'] + '" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>',
+                    '<span class="motor_faulted_status" data-motor-id="' + record['motor_id'] + '" style="background-color: #9e9e9e; width: 12px;height: 12px; display: inline-flex"></span>',
+                    [1, 2, 3].includes(basic_info['currentUser']['role']) ?
+                        '<div class="input-group input_motor_speed_container" style="width: 200px;display:none;">' +
+                        '<input data-motor-id="' + record['motor_id'] + '" type="text" class="float_positive form-control input_motor_speed">' +
+                        '<div class="input-group-append">' +
+                        '<button data-motor-id="' + record['motor_id'] + '" class="btn btn-primary btn-sm button_motor_start">Start</button>' +
+                        '<button data-motor-id="' + record['motor_id'] + '" class="btn btn-danger btn-sm button_motor_stop ml-1">Stop</button>' +
+                        '</div>' +
+                        '</div>' : ''
+                ]);
+            }
         })
         dataTable.draw();
         $(document).on('click','.button_motor_start',function (event){
