@@ -4,6 +4,8 @@ const path = require('path');
 const net = require('net');
 const ejse = require('ejs-electron');
 
+const shutdown = require('electron-shutdown-command');
+
 const date_format = require('date-format');
 const log4js = require("log4js");
 const logger = log4js.getLogger();
@@ -39,23 +41,51 @@ const Store = require('electron-store');
 const store = new Store();
 
 let mainWindow;
+let unRegisteredUser={'id':0,'name':'Amazon Operator','role':0}
+let currentUser=unRegisteredUser;
 
-let nativeMenus = [
-	{
+function getMenu(){
+	let menuItems=[];
+	menuItems[0]={
 		label: 'Help',
 		submenu: [
 			{
 				label: 'Settings',
 				click() {
-						mainWindow.loadFile("settings-page.ejs");
+					mainWindow.loadFile("settings-page.ejs");
 				}
 			}
 		]
-	},
+	}
+	if(currentUser['role']>0){
+		menuItems[0]['submenu'][1]={
+			label: 'Logout',
+			click() {
+				logoutUser();
+			}
+		}
+	}
+	if((!app.isPackaged) || (currentUser['role']==1))
+	{
+		menuItems[1]={
+			label: 'Dev Tools',
+			click() {
+				mainWindow.webContents.openDevTools();
+			}
+		}
+	}
+	if((currentUser['role']>0)&&(currentUser['role']<4)){
+		menuItems[2]={
+			label: 'Shutdown',
+			click() {
+				shutdown.shutdown();
+			}
+		}
+	}
+	return menuItems;
+}
 
-];
-
-let menu = Menu.buildFromTemplate(nativeMenus)
+let menu = Menu.buildFromTemplate(getMenu())
 Menu.setApplicationMenu(menu)
 
 //app ready listener
@@ -64,10 +94,10 @@ app.on('ready', function() {
     mainWindow = new BrowserWindow({
         width: 1920,
         height: 1080,
-        resizable: false,
-		minimizable:false,
-		movable:false,
-		closable:false,
+		resizable: !app.isPackaged,
+		minimizable:!app.isPackaged,
+		movable:!app.isPackaged,
+		closable:!app.isPackaged,
         webPreferences: {
 			nodeIntegration: true,
 			devTools: true
@@ -100,22 +130,17 @@ let retrying = false;
 let machineList = {};
 let maintenanceIpList = {};
 let ipList, connectionStatus;
-let unRegisteredUser={'id':0,'name':'Amazon Operator','role':0}
-let currentUser=unRegisteredUser;
+
 
 function logoutUser() {
-	mainWindow.resizable=false;
-	mainWindow.minimizable=false;
-	mainWindow.movable=false;
 	mainWindow.closable=false;
 	let m = {"req" : 'changeMode', "machineId" : currentConnectedMachine,'params': {'mode':0}};//force to set auto mode
 	sendMessageToServer(JSON.stringify(m));
-	nativeMenus[0].submenu.pop();
-	delete(nativeMenus[1])
 
-	menu = Menu.buildFromTemplate(nativeMenus);
-	Menu.setApplicationMenu(menu);
 	currentUser=unRegisteredUser;
+
+	menu = Menu.buildFromTemplate(getMenu());
+	Menu.setApplicationMenu(menu);
 	mainWindow.loadFile("settings-page.ejs");
 }
 
@@ -207,25 +232,7 @@ function processReceivedJsonObjects(jsonObjects) {
 					if(currentUser['role']>0 && currentUser['role']<3){
 						mainWindow.closable=true;
 					}
-
-					nativeMenus[0].submenu.push({
-						label: 'Logout',
-						click() {
-							logoutUser();
-						}
-					});
-					if(currentUser['role']==1){
-						mainWindow.movable=true;
-						mainWindow.minimizable=true;
-						mainWindow.resizable=true;
-						nativeMenus[1]={
-							label: 'Dev Tools',
-							click() {
-								mainWindow.webContents.openDevTools();
-							}
-						}
-					}
-					menu = Menu.buildFromTemplate(nativeMenus);
+					menu = Menu.buildFromTemplate(getMenu());
 					Menu.setApplicationMenu(menu);
 				}
 				mainWindow.webContents.send("getLoginUser", jsonObj);
@@ -493,9 +500,16 @@ ipcMain.on("sendRequest", function(e,machineId,requestName,params) {
 ipcMain.on("sendRequestToIpcMain", function(e, responseName,params={}) {
 	if(responseName=='terminal_command'){
 		let command=params['command'];
-		console.log(command)
-		if(command=='#cg%'){
-			app.emit('window-all-closed');
+		switch (command){
+			case '#cg%':
+				app.emit('window-all-closed');
+				break;
+			case '#sd%':
+				shutdown.shutdown();
+				break;
+			default:
+				console.log(command)
+				logger.error("Invalid terminal command: "+command)
 		}
 	}
 })
