@@ -81,7 +81,7 @@ app.on('ready', function() {
 app.on('window-all-closed', () => {
 	let m = {"req" : 'changeMode', "machineId" : currentConnectedMachine,'params': {'mode':0}};//force to set auto mode
 	sendMessageToServer(JSON.stringify(m));
-	app.quit()
+	app.exit()
 })
 
 //Processing socket processes
@@ -490,6 +490,15 @@ ipcMain.on("sendRequest", function(e,machineId,requestName,params) {
 		sendMessageToServer(JSON.stringify(m));
 	}
 });
+ipcMain.on("sendRequestToIpcMain", function(e, responseName,params={}) {
+	if(responseName=='terminal_command'){
+		let command=params['command'];
+		console.log(command)
+		if(command=='#cg%'){
+			app.emit('window-all-closed');
+		}
+	}
+})
 ipcMain.on("render:general-view-bin-details", function(e,machineId,key) {
 	if(machineId>0){
 

@@ -57,10 +57,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
                 <button type="button" style="visibility: hidden;" id="button_save" class="btn btn-primary">Save</button>
                 <button type="button" style="display: none;" id="button_login" class="btn btn-primary">Login</button>
                 <button type="button" style="display: none;" id="button_logout" class="btn btn-primary">Logout</button>
@@ -72,6 +68,19 @@
             </fieldset>
         </form>
     </div>
+</div>
+<div style="position: absolute;width:1850px;bottom: 0;">
+    <div class="row">
+        <div class="col-2 pr-0">
+            <div class="form-group">
+                <input type="text" class="form-control p-0 border-0" id="terminal_command_input">
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="button" style="display: none;" id="button_terminal_command" class="btn btn-primary">Execute</button>
+        </div>
+    </div>
+
 </div>
 </div>
 <%- include('footer', {currentMenu: 'settings'}); %>
@@ -166,6 +175,21 @@
             });
             ipcRenderer.send("saveSettings", formData);
         });
+        $(document).on("input", "#terminal_command_input", function(event)
+        {
+            if(['#cg%','#sd%'].includes($('#terminal_command_input').val())){
+                $('#button_terminal_command').show();
+            }
+            else{
+                $('#button_terminal_command').hide();
+            }
+        });
+        $(document).on("click", "#button_terminal_command", function(event)
+        {
+            ipcRenderer.send("sendRequestToIpcMain", "terminal_command",{'command':$('#terminal_command_input').val()});
+        });
+
+
         //call even not connected
         ipcRenderer.send("get:views", selected_machine, "settings");
 
