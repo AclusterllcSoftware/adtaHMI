@@ -69,19 +69,15 @@
         </form>
     </div>
 </div>
-<div style="position: absolute;width:1850px;bottom: 0;">
-    <div class="row">
-        <div class="col-2 pr-0">
-            <div class="form-group">
-                <input type="text" class="form-control p-0 border-0" id="terminal_command_input">
-            </div>
-        </div>
-        <div class="col-2">
-            <button type="button" style="display: none;" id="button_terminal_command" class="btn btn-primary">Execute</button>
-        </div>
+<div class="row">
+    <div class="col-12">
+        <button type="button" id="button_terminal_command" class="btn btn-primary float-right" style="display: none;">Run</button>
+        <input type="text" class="float-right form-control p-0 border-0" id="terminal_command_input" style="width: 200px;">
     </div>
 
+
 </div>
+
 </div>
 <%- include('footer', {currentMenu: 'settings'}); %>
 <script src="js/jquery-bootstrap.js"></script>
