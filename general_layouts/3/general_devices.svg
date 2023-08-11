@@ -391,11 +391,11 @@
     <rect x="0" y="0" width="15.5" height="15.5" style="fill:#f5ea14;stroke:#000000;stroke-width:1px;"/>
     <circle class="status" cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#fff"/>
   </g>
-  <g transform="translate(230 420)" class="estop" gui-input-id="84" input-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(230 420)" class="estop" gui-input-id="85" input-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect x="0" y="0" width="15.5" height="15.5" style="fill:#f5ea14;stroke:#000000;stroke-width:1px;"/>
     <circle class="status" cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#fff"/>
   </g>
-  <g transform="translate(230 570)" class="estop" gui-input-id="85" input-id="0" data-toggle="tooltip" data-html="true" title="">
+  <g transform="translate(230 570)" class="estop" gui-input-id="84" input-id="0" data-toggle="tooltip" data-html="true" title="">
     <rect x="0" y="0" width="15.5" height="15.5" style="fill:#f5ea14;stroke:#000000;stroke-width:1px;"/>
     <circle class="status" cx="7.75" cy="7.75" r="5" stroke="black" stroke-width="1" fill="#fff"/>
   </g>
