@@ -61,7 +61,7 @@
     </div>
     <div class="col-lg-6">
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchPie">
+            <input class="form-check-input" type="checkbox" role="switch" id="switchPie" checked>
             <label class="form-check-label" for="switchPie">Pie Chart</label>
         </div>
     </div>
@@ -235,29 +235,26 @@
         multiple_read: {label: 'Multiple read', value: 0, percentage:0},
         lost_comm: {label: 'Lost of communication', value: 0, percentage:0},
     };
-
-    jQuery(document).ready(function () {
-        // pie->table switch
-        jQuery('#switchPie').prop('checked', showPie);
-        if (showPie) {
+    jQuery('#switchPie').change(function () {
+        showPie = $(this).is(":checked");
+        if ($(this).is(":checked")) {
             $('#pie-chart').show();
             $('#sc-table').hide();
+            ipcRenderer.send("sendRequestToIpcMain", "saveSettings",{'statistics_show_pie':1});
         } else {
             $('#pie-chart').hide();
             $('#sc-table').show();
+            ipcRenderer.send("sendRequestToIpcMain", "saveSettings",{'statistics_show_pie':0});
         }
-        jQuery('#switchPie').change(function () {
-            showPie = $(this).is(":checked");
-            if ($(this).is(":checked")) {
-                $('#pie-chart').show();
-                $('#sc-table').hide();
-            } else {
-                $('#pie-chart').hide();
-                $('#sc-table').show();
-
-            }
-        });
-
+    });
+    async function loadSettingsShowPie() {
+        let hmiSettings = await ipcRenderer.invoke('getStoreValue');
+        if(!hmiSettings['statistics_show_pie']){
+            $('#switchPie').trigger('click')
+        }
+    }
+    jQuery(document).ready(function () {
+        loadSettingsShowPie();
         // drop down of period
         jQuery('#update_period').change(function () {
             update_period = jQuery(this).val();

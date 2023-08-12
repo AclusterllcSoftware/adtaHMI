@@ -16,6 +16,7 @@
 <script src="js/jquery.newsTicker.js"></script>
 <script src="js/daterangepicker/moment.min.js"></script>
 <script src="js/nav.js"></script>
+<script src="general_layouts/general_functions.js"></script>
 
 <script>
 let basic_info={}
@@ -23,6 +24,7 @@ let basic_info={}
 
 jQuery(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
+    loadSettingsShowProduction();
     loadAndGetDetailedActiveAlarmSettings();//nav.js
 	
     jQuery("#ip_list_dropdown").change(function() {

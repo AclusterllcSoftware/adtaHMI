@@ -459,7 +459,9 @@ function getHMISettings(){
 		,"cm_ip_address_input" :  store.get(project_prefix+"cm_address", "not_set")
 		,"detailed_active_alarm" : store.get(project_prefix+"detailed_active_alarm", "0")
 		,"motor_speed_unit" : store.get(project_prefix+"motor_speed_unit", "m_s")
-		,"general_layout_no" : store.get(project_prefix+"general_layout_no", "2")
+		,"general_layout_no" : store.get(project_prefix+"general_layout_no", "2"),
+		'general_show_production' : store.get(project_prefix+'general_show_production', '1'),
+		'statistics_show_pie' : store.get(project_prefix+'statistics_show_pie', '1')
 	};
 }
 ipcMain.handle('getStoreValue', (e) => {
@@ -510,6 +512,15 @@ ipcMain.on("sendRequestToIpcMain", function(e, responseName,params={}) {
 			default:
 				console.log(command)
 				logger.error("Invalid terminal command: "+command)
+		}
+	}
+	else if(responseName=='saveSettings'){
+		let project_prefix='adta_';
+		for(let key in params){
+			store.set(project_prefix+key, params[key]);
+		}
+		if(params['general_layout_no']!=undefined){
+			ejse.data('system_general_layout_no',params['general_layout_no'])
 		}
 	}
 })
