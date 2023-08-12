@@ -303,7 +303,7 @@ ipcRenderer.on("getCommonStatus", function(e, data) {
 
     $('#header-alarm-id-1').hide();
     $('#header-alarm-id-40').css('background-color','#00FF00');
-    $('#header-alarm-id-53').css('background-color','#00FF00');
+    $('#header-alarm-id-101').css('background-color','#00FF00');
 
     for(let i in data['activeAlarms']){
         let activeAlarm=data['activeAlarms'][i];
@@ -313,8 +313,8 @@ ipcRenderer.on("getCommonStatus", function(e, data) {
         if((activeAlarm['alarm_id']==40)&&(activeAlarm['alarm_type']==0)){
             $('#header-alarm-id-40').css('background-color','#FF0000');
         }
-        if((activeAlarm['alarm_id']==53)&&(activeAlarm['alarm_type']==0)){
-            $('#header-alarm-id-53').css('background-color','#FF0000');
+        if((activeAlarm['alarm_id']==101)&&(activeAlarm['alarm_type']==0)){
+            $('#header-alarm-id-101').css('background-color','#FF0000');
         }
     }
 });
