@@ -280,6 +280,46 @@
     <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
     <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
   </g>
+  <g class="cursor-pointer bin" gui-bin-id="41" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="42" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="43" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="44" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="45" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="46" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="47" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="48" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="49" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="445" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="470" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
+  <g class="cursor-pointer bin" gui-bin-id="50" bin-key="0_0">
+    <rect class="bin-fill" x="200" y="520" width="65" height="40" rx="4" ry="4"></rect>
+    <text x="213" y="545" font-size="12" font-weight="700" fill="#404041"><tspan class="bin-label"></tspan></text>
+  </g>
   <g class="bin" gui-bin-id="999" bin-key="0_0">
     <rect class="bin-fill" x="1802" y="470" width="40" height="60" rx="4" ry="4"></rect>
     <text font-size="12" font-weight="700" fill="#404041" transform="translate(1825,518) rotate(-90)" ><tspan class="bin-label"></tspan></text>
