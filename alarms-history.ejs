@@ -1,224 +1,170 @@
 <%- include('header', {currentMenu: 'alarms-history', pageTitle: 'Alarms History'}); %>
-<div class="row m-0 mt-2">
-    <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
-        <h2 id="head-loader">Alarms History</h2>
+<div class="row">
+    <div class="col-lg-12" >
+        <span style="font-size: 1.875rem">Token</span>
+        <img id="system_loading" style="display: none;" src="resources/loading.gif" alt="Loading">
     </div>
 </div>
-<div class="row m-0 mt-2">
-    <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
-        <form>
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="form-row" id="alert-div" style="display:none;">
-                        <div class="col-md-12" id="alert-div-area"></div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <h5>From</h5>
-                        </div>
-                        <div class="col-md-4">
-                            <h5>To</h5>
-                        </div>
-                        <div class="col-md-4">
-
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="from_date" placeholder="From date">
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="from_date_hour"></select>
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="from_date_minute"></select>
-                        </div>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="to_date" placeholder="To date">
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="to_date_hour"></select>
-                        </div>
-                        <div class="col-md-1">
-                            <select class="form-control" id="to_date_minute"></select>
-                        </div>
-                        <div class="col-md-2">
-                            <button type="button" class="btn btn-primary" id="filter_submit_btn2">Filter</button>
-                            <input type="hidden" id="start_timestamp2">
-                            <input type="hidden" id="end_timestamp2">
-                        </div>
-                        <div class="col-md-2">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="pl-2 mt-3 mb-3">
-        <label for="no_of_rows" class="mr-1">No of rows</label>
-        <span class="badge badge-pill badge-light">
-            <select id="no_of_rows" class="pt-2 pb-2 pl-2 pr-2"
-                    style="border:0;background-color: #f8f9fa; font-weight: bold; font-size: 12px;">
-                <option value="500">500</option>
-                <option value="1000">1000</option>
-                <option value="1500">1500</option>
-            </select>
-        </span>
-    </div>
-</div>
-<div class="row m-0 mt-2">
-    <div class="col-lg-12 pt-0 pb-0 pl-2 pr-2">
-        <div style="overflow-y: auto; display: block; height: 610px">
-            <table class="table table-sm table-bordered" id="alarm_table">
-                <thead>
-                <tr>
-                    <th width="20%">Timestamp</th>
-                    <th width="10%">Duration</th>
-                    <th width="10%">Class</th>
-                    <th width="10%">Location</th>
-                    <th width="20%">Description</th>
-                    <th width="20%">Variable Name</th>
-                </tr>
-                </thead>
-                <tbody id="active_alarm_tbody">
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Timestamp</th>
-                    <th>Duration</th>
-                    <th>Class</th>
-                    <th>Location</th>
-                    <th>Description</th>
-                    <th>Variable Name</th>
-                </tr>
-                </tfoot>
-            </table>
+<div class="row">
+    <div class="col-md-10">
+        <div class="alert alert-warning alert-dismissible fade show" id="alert_message_container" role="alert" style="display: none;">
+            <p class="mb-0" id="alert_message"></p>
+            <button type="button" class="close alert-close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-        <nav class="pt-1" id="page-nav">
-            <ul class="pagination justify-content-end" id="page-wrapper">
-
-            </ul>
-        </nav>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-3"><h5>From</h5></div>
+    <div class="col-md-3"><h5>To</h5></div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-6 pr-0">
+                <input type="text" class="form-control" id="from_date" placeholder="From date">
+            </div>
+            <div class="col-md-3 pl-1 pr-0">
+                <select class="form-control" id="from_date_hour"></select>
+            </div>
+            <div class="col-md-3 pl-1 pr-0">
+                <select class="form-control" id="from_date_minute"></select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-6 pr-0">
+                <input type="text" class="form-control" id="to_date" placeholder="To date">
+            </div>
+            <div class="col-md-3 pl-1 pr-0">
+                <select class="form-control" id="to_date_hour"></select>
+            </div>
+            <div class="col-md-3 pl-1 pr-0">
+                <select class="form-control" id="to_date_minute"></select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 pr-0">
+        <div class="row">
+            <label class="col-md-2 col-form-label pr-0" for="per_page">No of rows</label>
+            <div class="col-md-2 pl-1 pr-0">
+                <select class="form-control" id="per_page">
+                    <option value="500">500</option>
+                    <option value="1000">1000</option>
+                    <option value="1500">1500</option>
+                    <option value="5000">5000</option>
+                    <option value="50000">50000</option>
+                </select>
+            </div>
+            <div class="col-md-3 pr-0">
+                <input type="text" class="form-control" id="text_search1" placeholder="Search"/>
+            </div>
+            <div class="col-md-3 pr-0">
+                <input type="text" class="form-control" id="text_search2" placeholder="Search"/>
+            </div>
+            <div class="col-md-2 pr-0">
+                <button type="button" class="btn btn-primary" id="button_filter">Filter</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-12">
+        <table class="table table-sm table-bordered" id="table_datatable">
+            <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Duration</th>
+                <th>Class</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Variable Name</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+            <tr>
+                <th>Timestamp</th>
+                <th>Duration</th>
+                <th>Class</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Variable Name</th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-12" id="pagination_container">
+    </div>
+</div>
+
 </div>
 <%- include('footer', {currentMenu: 'alarms_history'}); %>
 <script src="js/jquery-bootstrap.js"></script>
-<script src="js/jquery.newsTicker.js"></script>
-<script src="js/daterangepicker/moment.min.js"></script>
 <script src="js/datatables/datatables.js"></script>
 <script src="js/jszip.min.js"></script>
+<script src="js/daterangepicker/moment.min.js"></script>
 <script src="js/datepicker/bootstrap-datepicker.min.js"></script>
+<script src="js/jquery.newsTicker.js"></script>
 <script src="js/nav.js"></script>
 
 <script>
     let alarm_class_to_names = {"0": "Error", "1": "Warning", "2": "Message"};
     let data_table;
-    let machine_mode = 9,
-        end_time = moment().unix(),
-        start_time = moment().subtract(6, 'days').unix(), alarms_info = {},
-        current_page = 1, total_records = null, per_page = 500;
+    let machine_mode = 9, end_time = null, start_time = null;
+    let total_records = null, per_page = 500;
 
-    function load_hour_minute_dropdowns() {
-        let hours_html, minutes_html;
-        for (var i = 0; i < 24; i++) {
-            let v = i;
-            if (i < 10) {
-                v = "0" + i;
-            }
-            hours_html += '<option value="' + v + '">' + v + '</option>';
-        }
+    let basic_info={}
 
-        for (var i = 0; i < 60; i++) {
-            let v = i;
-            if (i < 10) {
-                v = "0" + i;
-            }
-            minutes_html += '<option value="' + v + '">' + v + '</option>';
-        }
-
-        jQuery("#from_date_hour").html(hours_html);
-        jQuery("#from_date_minute").html(minutes_html);
-        jQuery("#to_date_hour").html(hours_html);
-        jQuery("#to_date_minute").html(minutes_html);
-    }
-
+    let current_page=1;
+    let dataTable= $('#table_datatable').DataTable({
+        //dom: 'Bifrtp',
+        dom: '<Bif>rtp',
+        paging: false,
+        searching: false,
+        buttons: [
+            {
+                extend: 'csv',
+                fieldSeparator: ";",
+                text: 'Export'
+            }],
+        // order:[[3,'asc']],
+        order:[],//no ordering default was first column
+        scrollY: 400,
+        "columns": [
+            {},
+            {className: "text-right"},
+            {},
+            {},
+            {},
+            {},
+        ],
+    });
     jQuery(document).ready(function () {
-
-        load_hour_minute_dropdowns();
-
-        jQuery("#filter_submit_btn2").click(function () {
-            let date_ok = 1;
-            let from_date = jQuery("#from_date").val();
-            let from_date_hour = jQuery("#from_date_hour").val();
-            let from_date_minute = jQuery("#from_date_minute").val();
-
-            let to_date = jQuery("#to_date").val();
-            let to_date_hour = jQuery("#to_date_hour").val();
-            let to_date_minute = jQuery("#to_date_minute").val();
-
-            if (from_date.trim().length === 0) {
-                date_ok = 0;
-            }
-
-            if (to_date.trim().length === 0) {
-                date_ok = 0;
-            }
-
-            if (date_ok === 0) {
-                jQuery("#alert-div-area").empty();
-                let alert_div_html = '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
-                    '<strong id="alert-div-text">Please select dates correctly</strong>' +
-                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                    '<span aria-hidden="true">&times;</span>' +
-                    '</button>' +
-                    '</div>';
-                jQuery("#alert-div-area").html(alert_div_html);
-                jQuery("#alert-div").show();
-            } else {
-                let from_date_time = from_date + " " + from_date_hour + ":" + from_date_minute;
-                let to_date_time = to_date + " " + to_date_hour + ":" + to_date_minute;
-
-                var from_timestamp = moment(from_date_time, "M-D-YYYY HH:mm").unix();
-                var to_timestamp = moment(to_date_time, "M/D/YYYY HH:mm").unix();
-                if (from_timestamp > to_timestamp) {
-                    jQuery("#alert-div-area").empty();
-                    let alert_div_html = '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
-                        '<strong id="alert-div-text">Please select date times correctly</strong>' +
-                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                        '<span aria-hidden="true">&times;</span>' +
-                        '</button>' +
-                        '</div>';
-                    jQuery("#alert-div-area").html(alert_div_html);
-                    jQuery("#alert-div").show();
-
-                } else {
-                    jQuery("#alert-div").hide();
-                    start_time = from_timestamp;
-                    end_time = to_timestamp;
-                    console.log(moment(from_timestamp).format('M-D-YYYY HH:mm'))
-                    ipcRenderer.send("sendRequest", selected_machine, 'getAlarmsHistory', {
-                        'page': 1,
-                        'per_page': per_page,
-                        'from_timestamp': from_timestamp,
-                        'to_timestamp': to_timestamp,
-                    });
-                }
-
-            }
-
-        });
-
-        jQuery("#from_date").datepicker({
+        for (let i = 0; i < 24; i++) {
+            let option= '<option value="' +(i<10?'0':'')+ i + '">' + (i<10?'0':'')+i+ '</option>';
+            $("#from_date_hour").append(option);
+            $("#to_date_hour").append(option);
+        }
+        for (let i = 0; i < 60; i++) {
+            let option= '<option value="' +(i<10?'0':'')+ i + '">' + (i<10?'0':'')+i+ '</option>';
+            $("#from_date_minute").append(option);
+            $("#to_date_minute").append(option);
+        }
+        $("#from_date").datepicker({
             autoclose: true,
-            format: 'mm-dd-yyyy'
+            format: 'mm-dd-yyyy',
+            orientation: "bottom right"
         });
-
-        jQuery("#to_date").datepicker({
+        $("#to_date").datepicker({
             autoclose: true,
-            format: 'mm-dd-yyyy'
+            format: 'mm-dd-yyyy',
+            orientation: "bottom right",
         });
-
         jQuery("#ip_list_dropdown").change(function () {
             selected_machine = jQuery(this).val();
 
@@ -229,224 +175,123 @@
                 jQuery("#display_machine_name").text("Select a machine");
                 selected_machine = 0;
             }
-
             ipcRenderer.send("get:views", selected_machine, "alarms-history-view");
-
-        });
-
-        $('#no_of_rows').change(function () {
-            let selected_option = $(this).val();
-            per_page = Number(selected_option);
-            ipcRenderer.send("sendRequest", selected_machine, 'getAlarmsHistory', {
-                'page': 1,
-                'per_page': per_page,
-                'from_timestamp': start_time,
-                'to_timestamp': end_time,
-            });
-        });
-
-        data_table = jQuery('#alarm_table').DataTable({
-            dom: 'Bfrtip',
-            paging: false,
-            buttons: [
-                {
-                    extend: 'csv',
-                    fieldSeparator: ";",
-                    text: 'Export'
-                }],
-            "columns": [
-                null,
-                {"orderable": false},
-                null,
-                null,
-                {"orderable": false},
-                {"orderable": false},
-            ],
-            "order": [],
-            initComplete: function () {
-                this.api().columns().every(function () {
-                    let column = this;
-                    if (column.index() === 2 || column.index() === 3) {
-                        $('<select class="form-control form-control-sm d-inline-block" id="filter_'+ column.index() +'"><option value="">Select '+ column.footer().textContent +'</option></select>')
-                            .appendTo( $(column.footer()).empty() )
-                            .on('change', function () {
-                                if (column.search() !== this.value) {
-                                    column.search(this.value).draw();
-                                }
-                            });
-                    }
-                });
-            }
         });
     });
-
-    // Date range filter
-    minDateFilter = "";
-    maxDateFilter = "";
-
-    $.fn.dataTableExt.afnFiltering.push(
-        function (oSettings, aData, iDataIndex) {
-            if (typeof aData._date == 'undefined') {
-                aData._date = new Date(aData[0]).getTime();
-            }
-
-            if (minDateFilter && !isNaN(minDateFilter)) {
-                if (aData._date < minDateFilter) {
-                    return false;
-                }
-            }
-
-            if (maxDateFilter && !isNaN(maxDateFilter)) {
-                if (aData._date > maxDateFilter) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-    );
-
-    ipcRenderer.on("render:alarms-history-view", function (e, basic_info) {
-        console.log(basic_info);
-        alarms_info = basic_info['alarmsInfo'];
-        ipcRenderer.send("sendRequest", selected_machine, 'getAlarmsHistory', {
-            'page': 1,
-            'per_page': per_page,
-            'from_timestamp': start_time,
-            'to_timestamp': end_time,
-        });
+    $(document).on('click','.alert-close',function (event){
+        $(this).parent().hide()
+    })
+    ipcRenderer.on("render:alarms-history-view", function (e, data) {
+        basic_info=data;
+        let requestData=[
+            {'name':'statistics_counter','params':{'per_page':1}},
+        ];
+        ipcRenderer.send("sendRequestToServer", "getStatisticsCounterLast",{},requestData);//send request now
     });
-
-    ipcRenderer.on("getAlarmsHistory", function (e, data_result) {
-        let total_pages = 0, page_html = '';
-        console.log(data_result);
-        current_page = data_result['page'], total_records = data_result['totalRecords'];
-        total_pages = Math.ceil(Number(total_records / data_result['per_page']));
-        let alarms_history_result = data_result['alarms'];
-        //jQuery("#active_alarm_tbody").empty();
-        data_table.clear().search('').columns().search('').draw();
-
-        alarms_history_result.forEach(function (history_row) {
-
-            let related_alarm_type = history_row['alarm_type'],
-                related_alarm_id = history_row['alarm_id'],
-                related_machine_id = history_row['machine_id'],
-                related_active_timestamp = history_row['date_active_timestamp'],
-                related_inactive_timestamp = history_row['date_inactive_timestamp'],
-                related_duration = related_inactive_timestamp - related_active_timestamp;
-
-            related_active_timestamp = timeConverter(related_active_timestamp);
-
-            let combo_id = related_machine_id + "_" + related_alarm_id + "_" + related_alarm_type;
-            let related_alarm_data = alarms_info[combo_id];
-            if (related_alarm_data) {
-                data_table.row.add([
-                    related_active_timestamp,
-                    secondsToDhms(related_duration),
-                    alarm_class_to_names[related_alarm_data['alarm_class']],
-                    related_alarm_data['location'],
-                    related_alarm_data['description'],
-                    related_alarm_data['variable_name']
-                ]);
-            }
-
-
-        });
-        if (current_page == 1) {
-            page_html += '<li class="page-item disabled"><button class="page-link page-prev" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button></li>';
-        } else {
-            page_html += '<li class="page-item"><button class="page-link page-prev" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></button></li>';
+    ipcRenderer.on("getStatisticsCounterLast", function(e, jsonObject) {
+        if(jsonObject['data']['statistics_counter']['records'].length>0){
+            let startDate=moment(jsonObject['data']['statistics_counter']['records'][0]['created_at_timestamp']*1000);
+            $('#from_date_hour').val((startDate.hour()<10?"0":"")+startDate.hour())
+            $('#from_date_minute').val((startDate.minute()<10?"0":"")+startDate.minute())
+            $('#from_date').datepicker('update', startDate.format('MM-DD-YYYY'));
+            current_page=1;
+            $('#button_filter').trigger('click')
         }
-        data_table.columns().every(function () {
-            let column = this;
-            if (column.index() === 2 || column.index() === 3) {
-                let select = $('#filter_'+column.index());
-                select.children().not(':first').remove();
-                select.find('option').not(':first').remove()
-                column.data().unique().sort().each(function (d, j) {
-                    select.append('<option value="' + d + '">' + d + '</option>')
-                });
-            }
-        });
-        data_table.draw();
-        if (total_pages > 6) {
-            if (current_page >= 5 && current_page + 4 < total_pages) {
-                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${1} href="#">1</button></li>`;
-                page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
-                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${current_page - 1} href="#">${current_page - 1}</button></li>`;
-                page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${current_page} href="#">${current_page}</button></li>`;
-                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${current_page + 1} href="#">${current_page + 1}</button></li>`;
-                page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
-                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${total_pages} href="#">${total_pages}</button></li>`;
-            } else if (current_page >= 5 && current_page + 4 >= total_pages) {
-                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${1} href="#">1</button></li>`;
-                page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
-                for (let p = total_pages - 4; p <= total_pages; p++) {
-                    if (p == current_page) {
-                        page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                    } else {
-                        page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                    }
-                }
+        else{
+            let error_message = "<b>Please Contact with admin. No Schedule found</b>";
+            $("#alert_message").html(error_message);
+            $("#alert_message_container").show();
+        }
+    })
+    ipcRenderer.on("getAlarmsHistory", function(e, jsonObject) {
+        //console.log(jsonObject)
+        //console.log(basic_info)
+        $('#system_loading').hide()
+        for(let key in jsonObject['data']['alarms_history']['records']){
+            let record=jsonObject['data']['alarms_history']['records'][key]
+            // let alarm_key=record['machine_id']+'_'+record['alarm_id']+'_'+record['alarm_type'];
+            // let alarmInfo=basic_info['alarmsInfo'][alarm_key];
+            dataTable.row.add([
+                moment.unix(record['date_active_timestamp']).format("MMM D Y, H:mm:ss"),
+                secondsToDhms(record['date_inactive_timestamp']-record['date_active_timestamp']),
+                alarm_class_to_names[record['alarm_class']],
+                record['location'],
+                record['description'],
+                record['variable_name']
+            ]);
+        }
+        dataTable.draw();
+        let params=jsonObject['data']['alarms_history']['params'];
+        let totalRecords=jsonObject['data']['alarms_history']['totalRecords'];
+        $('#pagination_container').html(getPaginationHtml(totalRecords,params['per_page'],params['page']))
 
-            } else {
-                for (let p = 1; p <= 5; p++) {
-                    if (p == current_page) {
-                        page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                    } else {
-                        page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                    }
+        $('#table_datatable_info').html('Showing '+((params['page']-1) * params['per_page']+1)+' to '+((params['page']* params['per_page'])>totalRecords?totalRecords:(params['page']* params['per_page']))+' of '+totalRecords+' entries');
+
+    })
+    $(document).on('change','#per_page',function (event){
+        current_page=1;
+        filterProduct();
+    })
+    $(document).on('click','#button_filter',function (event){
+        current_page=1;
+        filterProduct();
+    })
+    $(document).on('click','#pagination_container .page-item:not(".disabled")',function (event){
+        let page=$(this).attr('data-page')
+        if(page=='-' && current_page>1){
+            current_page--;
+        }
+        else if(page=='+'){
+            current_page++;
+        }
+        else
+        {
+            current_page=page;
+        }
+        filterProduct();
+    })
+    function filterProduct(){
+        $("#alert_message_container").hide();
+        let from_timestamp = moment($('#from_date').val()+" "+$("#from_date_hour").val()+":"+$("#from_date_minute").val(), "MM-DD-YYYY HH:mm").unix();
+        let to_timestamp = moment($('#to_date').val()+" "+$("#to_date_hour").val()+":"+$("#to_date_minute").val(), "MM-DD-YYYY HH:mm").unix();
+        let requestData = [
+            {
+                'name': 'alarms_history',
+                'params': {
+                    'per_page': $('#per_page').val(),
+                    'search1': $('#text_search1').val(),
+                    'search2': $('#text_search2').val(),
+                    "page": current_page
                 }
-                page_html += `<li class="page-item disabled"><button class="page-link" href="#">...</button></li>`;
-                page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${total_pages} href="#">${total_pages}</button></li>`;
-            }
-        } else {
-            for (let p = 1; p <= total_pages; p++) {
-                if (p == current_page) {
-                    page_html += `<li class="page-item active"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                } else {
-                    page_html += `<li class="page-item"><button class="page-link page-btn" data-page-no=${p} href="#">${p}</button></li>`;
-                }
+            },
+        ];
+        let error_message='';
+        if(Number.isInteger(from_timestamp)){
+            requestData[0]['params']['from_timestamp']=from_timestamp;
+            if($('#from_date').val()==''){
+                error_message+="No From Date Selected.";
             }
         }
-        if (current_page == total_pages) {
-            page_html += '<li class="page-item disabled"><button class="page-link page-next" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></button></li>';
-        } else {
-            page_html += '<li class="page-item"><button class="page-link page-next" href="#" aria-label="Previous"><span aria-hidden="true">&raquo;</span></button></li>';
+        else{
+            error_message+="Invalid From Date";
         }
-        $('#page-wrapper').empty();
-        $('#page-wrapper').append(page_html);
-
-        $('.page-btn').click(function (e) {
-            if (current_page !== Number($(this).data('pageNo'))) {
-                ipcRenderer.send("sendRequest", selected_machine, 'getAlarmsHistory', {
-                    'page': Number($(this).data('pageNo')),
-                    'per_page': per_page,
-                    'from_timestamp': start_time,
-                    'to_timestamp': end_time,
-                });
+        if(Number.isInteger(to_timestamp)){
+            requestData[0]['params']['to_timestamp']=to_timestamp;
+            if($('#to_date').val()==''){
+                error_message+="No To Date Selected.";
             }
-        });
-        $('.page-prev').click(function (e) {
-            ipcRenderer.send("sendRequest", selected_machine, 'getAlarmsHistory', {
-                'page': current_page - 1,
-                'per_page': per_page,
-                'from_timestamp': start_time,
-                'to_timestamp': end_time,
-            });
-        });
-        $('.page-next').click(function (e) {
-            ipcRenderer.send("sendRequest", selected_machine, 'getAlarmsHistory', {
-                'page': current_page + 1,
-                'per_page': per_page,
-                'from_timestamp': start_time,
-                'to_timestamp': end_time,
-            });
-        });
-        $('#alarm_table_info').html(`Showing ${(current_page * per_page) - (per_page - 1)} to ${current_page * per_page > total_records ? total_records : current_page * per_page} of ${total_records} entries`);
-
-
-    });
+        }
+        if(error_message==''){
+            $('#system_loading').show()
+            dataTable.clear().search('').draw();
+            console.log(requestData)
+            ipcRenderer.send("sendRequestToServer", "getAlarmsHistory", {}, requestData);
+        }
+        else{
+            $("#alert_message").html(error_message);
+            $("#alert_message_container").show();
+        }
+    }
 </script>
 </body>
 </html>
