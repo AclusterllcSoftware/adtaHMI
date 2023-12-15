@@ -55,7 +55,8 @@
                     <option value="1000">1000</option>
                     <option value="1500">1500</option>
                     <option value="5000">5000</option>
-                    <option value="50000">50000</option>
+                    <option value="-1">All</option>
+
                 </select>
             </div>
             <div class="col-md-3 pr-0">
@@ -126,12 +127,20 @@
         dom: '<Bif>rtp',
         paging: false,
         searching: false,
+
         buttons: [
+            // {
+            //     extend: 'csv',
+            //     fieldSeparator: ";",
+            //     text: 'Export'
+            // },
             {
-                extend: 'csv',
-                fieldSeparator: ";",
-                text: 'Export'
-            }],
+                text: 'Export',
+                action: function ( e, dt, node, config ) {
+                    filterProduct(true);
+                }
+            }
+        ],
         // order:[[3,'asc']],
         order:[],//no ordering default was first column
         scrollY: 400,
@@ -203,6 +212,27 @@
             $("#alert_message_container").show();
         }
     })
+    ipcRenderer.on("exportAlarmsHistory", function(e, jsonObject) {
+        $('#system_loading').hide()
+        let csvStr='"Timestamp";"Duration";"Class";"Location";"Description";"Variable Name"\n';
+
+        for(let key in jsonObject['data']['alarms_history']['records']){
+            let record=jsonObject['data']['alarms_history']['records'][key]
+
+            csvStr=csvStr+'"'+moment.unix(record['date_active_timestamp']).format("MMM D Y, H:mm:ss")+'";';
+            csvStr=csvStr+'"'+secondsToDhms(record['date_inactive_timestamp']-record['date_active_timestamp'])+'";';
+            csvStr=csvStr+'"'+alarm_class_to_names[record['alarm_class']]+'";';
+            csvStr=csvStr+'"'+record['location']+'";';
+            csvStr=csvStr+'"'+record['description']+'";';
+            csvStr=csvStr+'"'+record['variable_name']+'"\n';
+        }
+
+        let hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvStr);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'alarms_history.csv';
+        hiddenElement.click();
+    })
     ipcRenderer.on("getAlarmsHistory", function(e, jsonObject) {
         //console.log(jsonObject)
         //console.log(basic_info)
@@ -224,8 +254,15 @@
         let params=jsonObject['data']['alarms_history']['params'];
         let totalRecords=jsonObject['data']['alarms_history']['totalRecords'];
         $('#pagination_container').html(getPaginationHtml(totalRecords,params['per_page'],params['page']))
+        if(params['per_page']<1){
+            $('#table_datatable_info').html('Showing ALL ('+totalRecords+') entries');
+        }
+        else
+        {
+            $('#table_datatable_info').html('Showing '+((params['page']-1) * params['per_page']+1)+' to '+((params['page']* params['per_page'])>totalRecords?totalRecords:(params['page']* params['per_page']))+' of '+totalRecords+' entries');
+        }
 
-        $('#table_datatable_info').html('Showing '+((params['page']-1) * params['per_page']+1)+' to '+((params['page']* params['per_page'])>totalRecords?totalRecords:(params['page']* params['per_page']))+' of '+totalRecords+' entries');
+
 
     })
     $(document).on('change','#per_page',function (event){
@@ -250,7 +287,8 @@
         }
         filterProduct();
     })
-    function filterProduct(){
+    function filterProduct(export_all=false){
+        //console.log(export_all);
         $("#alert_message_container").hide();
         let from_timestamp = moment($('#from_date').val()+" "+$("#from_date_hour").val()+":"+$("#from_date_minute").val(), "MM-DD-YYYY HH:mm").unix();
         let to_timestamp = moment($('#to_date').val()+" "+$("#to_date_hour").val()+":"+$("#to_date_minute").val(), "MM-DD-YYYY HH:mm").unix();
@@ -258,7 +296,7 @@
             {
                 'name': 'alarms_history',
                 'params': {
-                    'per_page': $('#per_page').val(),
+                    'per_page': export_all?-1:$('#per_page').val(),
                     'search1': $('#text_search1').val(),
                     'search2': $('#text_search2').val(),
                     "page": current_page
@@ -282,10 +320,16 @@
             }
         }
         if(error_message==''){
-            $('#system_loading').show()
-            dataTable.clear().search('').draw();
-            console.log(requestData)
-            ipcRenderer.send("sendRequestToServer", "getAlarmsHistory", {}, requestData);
+            $('#system_loading').show();
+            //console.log(requestData)
+            if(export_all){
+                ipcRenderer.send("sendRequestToServer", "exportAlarmsHistory", {}, requestData);
+            }
+            else{
+                dataTable.clear().search('').draw();
+                ipcRenderer.send("sendRequestToServer", "getAlarmsHistory", {}, requestData);
+            }
+
         }
         else{
             $("#alert_message").html(error_message);
