@@ -373,6 +373,7 @@
         ipcRenderer.send("sendRequestToServer", "getParamsValue",{},requestData);
     })
     ipcRenderer.on("getParamsValue", function(e, jsonObject) {
+        console.log(jsonObject['data']['parameters_value'])
         let machine_id=jsonObject['params']['machine_id'];
         let csvStr='';
         let parameters = Object.values(basic_info['parametersInfo']).sort((a, b) => a['param_id'] - b['param_id']);
@@ -381,7 +382,7 @@
             csvStr=csvStr+'"'+record['machine_id']+'";';
             csvStr=csvStr+'"'+record['param_id']+'";';
             csvStr=csvStr+'"'+record['description']+'";';
-            csvStr=csvStr+'"'+record['value']+'";';
+            csvStr=csvStr+'"'+jsonObject['data']['parameters_value'][record['machine_id']+'_'+record['param_id']]['value']+'";';
             csvStr=csvStr+'"'+record['unit']+'";';
             csvStr=csvStr+'"'+record['value_min']+'";';
             csvStr=csvStr+'"'+record['value_max']+'"\n';
