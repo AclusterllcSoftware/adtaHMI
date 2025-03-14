@@ -220,7 +220,7 @@
         }
     })
     ipcRenderer.on("getProductsHistory", function(e, jsonObject) {
-        console.log(jsonObject)
+
         $('#system_loading').hide()
         for(let key in jsonObject['data']['products_history']['records']){
             let record=jsonObject['data']['products_history']['records'][key]
@@ -230,8 +230,8 @@
                 record['length'],
                 record['barcode1_string'],
                 basic_info['scsInfo'][record['reason']]?basic_info['scsInfo'][record['reason']]['label']:'-',
-                binsBySortManger[record['destination']]?binsBySortManger[record['destination']]['bin_label']:'-',
-                binsBySortManger[record['final_destination']]?binsBySortManger[record['final_destination']]['bin_label']:'-',
+                binsBySortManger[record['destination']]?binsBySortManger[record['destination']]['bin_label']+(record['destination_zone']==0?'':record['destination_zone']):'-',
+                binsBySortManger[record['final_destination']]?binsBySortManger[record['final_destination']]['bin_label']+(record['final_destination_zone']==0?'':record['final_destination_zone']):'-',
             ]);
         }
         dataTable.draw();
@@ -298,7 +298,6 @@
         if(error_message==''){
             $('#system_loading').show()
             dataTable.clear().search('').draw();
-            console.log(requestData)
             ipcRenderer.send("sendRequestToServer", "getProductsHistory", {}, requestData);
         }
         else{
