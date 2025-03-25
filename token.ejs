@@ -230,8 +230,8 @@
                 record['length'],
                 record['barcode1_string'],
                 basic_info['scsInfo'][record['reason']]?basic_info['scsInfo'][record['reason']]['label']:'-',
-                binsBySortManger[record['destination']]?binsBySortManger[record['destination']]['bin_label']+(record['destination_zone']==0?'':(record['destination_zone']>9?record['destination_zone']:'0'+record['destination_zone'])):'-',
-                binsBySortManger[record['final_destination']]?binsBySortManger[record['final_destination']]['bin_label']+(record['final_destination_zone']==0?'':(record['final_destination_zone']>9?record['final_destination_zone']:'0'+record['final_destination_zone'])):'-',
+                binsBySortManger[record['destination']]?binsBySortManger[record['destination']]['bin_label']+(record['destination_zone']==0?'':('#'+record['destination_zone'])):'-',
+                binsBySortManger[record['final_destination']]?binsBySortManger[record['final_destination']]['bin_label']+(record['final_destination_zone']==0?'':('#'+record['final_destination_zone'])):'-',
             ]);
         }
         dataTable.draw();
